@@ -1,7 +1,7 @@
 // Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2018.3 (lin64) Build 2405991 Thu Dec  6 23:36:41 MST 2018
-// Date        : Wed Jun 19 22:16:19 2019
+// Date        : Wed Jun 19 23:13:38 2019
 // Host        : oslab-Ubuntu16 running 64-bit Ubuntu 18.04.2 LTS
 // Command     : write_verilog -force -mode funcsim
 //               /home/oslab/router_ksz8795/router_ksz8795.srcs/sources_1/bd/design_1/ip/design_1_microblaze_0_1/design_1_microblaze_0_1_sim_netlist.v
@@ -20,25 +20,25 @@ module design_1_microblaze_0_1
     Interrupt,
     Interrupt_Address,
     Interrupt_Ack,
-    M_AXI_IP_AWADDR,
-    M_AXI_IP_AWPROT,
-    M_AXI_IP_AWVALID,
-    M_AXI_IP_AWREADY,
-    M_AXI_IP_WDATA,
-    M_AXI_IP_WSTRB,
-    M_AXI_IP_WVALID,
-    M_AXI_IP_WREADY,
-    M_AXI_IP_BRESP,
-    M_AXI_IP_BVALID,
-    M_AXI_IP_BREADY,
-    M_AXI_IP_ARADDR,
-    M_AXI_IP_ARPROT,
-    M_AXI_IP_ARVALID,
-    M_AXI_IP_ARREADY,
-    M_AXI_IP_RDATA,
-    M_AXI_IP_RRESP,
-    M_AXI_IP_RVALID,
-    M_AXI_IP_RREADY,
+    Instr_Addr,
+    Instr,
+    IFetch,
+    I_AS,
+    IReady,
+    IWAIT,
+    ICE,
+    IUE,
+    Data_Addr,
+    Data_Read,
+    Data_Write,
+    D_AS,
+    Read_Strobe,
+    Write_Strobe,
+    DReady,
+    DWait,
+    DCE,
+    DUE,
+    Byte_Enable,
     M_AXI_DP_AWADDR,
     M_AXI_DP_AWPROT,
     M_AXI_DP_AWVALID,
@@ -72,25 +72,25 @@ module design_1_microblaze_0_1
   (* x_interface_info = "xilinx.com:interface:mbinterrupt:1.0 INTERRUPT INTERRUPT" *) (* x_interface_parameter = "XIL_INTERFACENAME INTERRUPT, SENSITIVITY LEVEL_HIGH, LOW_LATENCY 1" *) input Interrupt;
   (* x_interface_info = "xilinx.com:interface:mbinterrupt:1.0 INTERRUPT ADDRESS" *) input [0:31]Interrupt_Address;
   (* x_interface_info = "xilinx.com:interface:mbinterrupt:1.0 INTERRUPT ACK" *) output [0:1]Interrupt_Ack;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 M_AXI_IP AWADDR" *) (* x_interface_parameter = "XIL_INTERFACENAME M_AXI_IP, ID_WIDTH 0, READ_WRITE_MODE READ_ONLY, SUPPORTS_NARROW_BURST 0, HAS_BURST 0, HAS_LOCK 0, DATA_WIDTH 32, ADDR_WIDTH 32, PROTOCOL AXI4LITE, NUM_READ_OUTSTANDING 1, NUM_READ_THREADS 1, MAX_BURST_LENGTH 1, HAS_WSTRB 0, HAS_BRESP 0, FREQ_HZ 50000000, AWUSER_WIDTH 0, ARUSER_WIDTH 0, WUSER_WIDTH 0, RUSER_WIDTH 0, BUSER_WIDTH 0, HAS_PROT 1, HAS_CACHE 0, HAS_QOS 0, HAS_REGION 0, HAS_RRESP 1, NUM_WRITE_OUTSTANDING 1, PHASE 0.000, CLK_DOMAIN design_1_processing_system7_0_0_FCLK_CLK0, NUM_WRITE_THREADS 1, RUSER_BITS_PER_BYTE 0, WUSER_BITS_PER_BYTE 0, INSERT_VIP 0" *) output [31:0]M_AXI_IP_AWADDR;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 M_AXI_IP AWPROT" *) output [2:0]M_AXI_IP_AWPROT;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 M_AXI_IP AWVALID" *) output M_AXI_IP_AWVALID;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 M_AXI_IP AWREADY" *) input M_AXI_IP_AWREADY;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 M_AXI_IP WDATA" *) output [31:0]M_AXI_IP_WDATA;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 M_AXI_IP WSTRB" *) output [3:0]M_AXI_IP_WSTRB;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 M_AXI_IP WVALID" *) output M_AXI_IP_WVALID;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 M_AXI_IP WREADY" *) input M_AXI_IP_WREADY;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 M_AXI_IP BRESP" *) input [1:0]M_AXI_IP_BRESP;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 M_AXI_IP BVALID" *) input M_AXI_IP_BVALID;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 M_AXI_IP BREADY" *) output M_AXI_IP_BREADY;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 M_AXI_IP ARADDR" *) output [31:0]M_AXI_IP_ARADDR;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 M_AXI_IP ARPROT" *) output [2:0]M_AXI_IP_ARPROT;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 M_AXI_IP ARVALID" *) output M_AXI_IP_ARVALID;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 M_AXI_IP ARREADY" *) input M_AXI_IP_ARREADY;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 M_AXI_IP RDATA" *) input [31:0]M_AXI_IP_RDATA;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 M_AXI_IP RRESP" *) input [1:0]M_AXI_IP_RRESP;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 M_AXI_IP RVALID" *) input M_AXI_IP_RVALID;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 M_AXI_IP RREADY" *) output M_AXI_IP_RREADY;
+  (* x_interface_info = "xilinx.com:interface:lmb:1.0 ILMB ABUS" *) (* x_interface_parameter = "XIL_INTERFACENAME ILMB, ADDR_WIDTH 32, DATA_WIDTH 32, READ_WRITE_MODE READ_ONLY" *) output [0:31]Instr_Addr;
+  (* x_interface_info = "xilinx.com:interface:lmb:1.0 ILMB READDBUS" *) input [0:31]Instr;
+  (* x_interface_info = "xilinx.com:interface:lmb:1.0 ILMB READSTROBE" *) output IFetch;
+  (* x_interface_info = "xilinx.com:interface:lmb:1.0 ILMB ADDRSTROBE" *) output I_AS;
+  (* x_interface_info = "xilinx.com:interface:lmb:1.0 ILMB READY" *) input IReady;
+  (* x_interface_info = "xilinx.com:interface:lmb:1.0 ILMB WAIT" *) input IWAIT;
+  (* x_interface_info = "xilinx.com:interface:lmb:1.0 ILMB CE" *) input ICE;
+  (* x_interface_info = "xilinx.com:interface:lmb:1.0 ILMB UE" *) input IUE;
+  (* x_interface_info = "xilinx.com:interface:lmb:1.0 DLMB ABUS" *) (* x_interface_parameter = "XIL_INTERFACENAME DLMB, ADDR_WIDTH 32, DATA_WIDTH 32, READ_WRITE_MODE READ_WRITE" *) output [0:31]Data_Addr;
+  (* x_interface_info = "xilinx.com:interface:lmb:1.0 DLMB READDBUS" *) input [0:31]Data_Read;
+  (* x_interface_info = "xilinx.com:interface:lmb:1.0 DLMB WRITEDBUS" *) output [0:31]Data_Write;
+  (* x_interface_info = "xilinx.com:interface:lmb:1.0 DLMB ADDRSTROBE" *) output D_AS;
+  (* x_interface_info = "xilinx.com:interface:lmb:1.0 DLMB READSTROBE" *) output Read_Strobe;
+  (* x_interface_info = "xilinx.com:interface:lmb:1.0 DLMB WRITESTROBE" *) output Write_Strobe;
+  (* x_interface_info = "xilinx.com:interface:lmb:1.0 DLMB READY" *) input DReady;
+  (* x_interface_info = "xilinx.com:interface:lmb:1.0 DLMB WAIT" *) input DWait;
+  (* x_interface_info = "xilinx.com:interface:lmb:1.0 DLMB CE" *) input DCE;
+  (* x_interface_info = "xilinx.com:interface:lmb:1.0 DLMB UE" *) input DUE;
+  (* x_interface_info = "xilinx.com:interface:lmb:1.0 DLMB BE" *) output [0:3]Byte_Enable;
   (* x_interface_info = "xilinx.com:interface:aximm:1.0 M_AXI_DP AWADDR" *) (* x_interface_parameter = "XIL_INTERFACENAME M_AXI_DP, ID_WIDTH 0, READ_WRITE_MODE READ_WRITE, SUPPORTS_NARROW_BURST 0, HAS_BURST 0, HAS_LOCK 0, DATA_WIDTH 32, ADDR_WIDTH 32, NUM_READ_OUTSTANDING 1, NUM_WRITE_OUTSTANDING 1, NUM_READ_THREADS 1, NUM_WRITE_THREADS 1, MAX_BURST_LENGTH 1, PROTOCOL AXI4LITE, FREQ_HZ 50000000, AWUSER_WIDTH 0, ARUSER_WIDTH 0, WUSER_WIDTH 0, RUSER_WIDTH 0, BUSER_WIDTH 0, HAS_PROT 1, HAS_CACHE 0, HAS_QOS 0, HAS_REGION 0, HAS_WSTRB 1, HAS_BRESP 1, HAS_RRESP 1, PHASE 0.000, CLK_DOMAIN design_1_processing_system7_0_0_FCLK_CLK0, RUSER_BITS_PER_BYTE 0, WUSER_BITS_PER_BYTE 0, INSERT_VIP 0" *) output [31:0]M_AXI_DP_AWADDR;
   (* x_interface_info = "xilinx.com:interface:aximm:1.0 M_AXI_DP AWPROT" *) output [2:0]M_AXI_DP_AWPROT;
   (* x_interface_info = "xilinx.com:interface:aximm:1.0 M_AXI_DP AWVALID" *) output M_AXI_DP_AWVALID;
@@ -120,7 +120,16 @@ module design_1_microblaze_0_1
   (* x_interface_info = "xilinx.com:interface:mbdebug:3.0 DEBUG RST" *) input Debug_Rst;
   (* x_interface_info = "xilinx.com:interface:mbdebug:3.0 DEBUG DISABLE" *) input Dbg_Disable;
 
+  wire [0:3]Byte_Enable;
   wire Clk;
+  wire DCE;
+  wire DReady;
+  wire DUE;
+  wire DWait;
+  wire D_AS;
+  wire [0:31]Data_Addr;
+  wire [0:31]Data_Read;
+  wire [0:31]Data_Write;
   wire Dbg_Capture;
   wire Dbg_Clk;
   wire Dbg_Disable;
@@ -130,6 +139,14 @@ module design_1_microblaze_0_1
   wire Dbg_TDO;
   wire Dbg_Update;
   wire Debug_Rst;
+  wire ICE;
+  wire IFetch;
+  wire IReady;
+  wire IUE;
+  wire IWAIT;
+  wire I_AS;
+  wire [0:31]Instr;
+  wire [0:31]Instr_Addr;
   wire Interrupt;
   wire [0:1]Interrupt_Ack;
   wire [0:31]Interrupt_Address;
@@ -152,27 +169,9 @@ module design_1_microblaze_0_1
   wire M_AXI_DP_WREADY;
   wire [3:0]M_AXI_DP_WSTRB;
   wire M_AXI_DP_WVALID;
-  wire [31:0]M_AXI_IP_ARADDR;
-  wire [2:0]M_AXI_IP_ARPROT;
-  wire M_AXI_IP_ARREADY;
-  wire M_AXI_IP_ARVALID;
-  wire [31:0]M_AXI_IP_AWADDR;
-  wire [2:0]M_AXI_IP_AWPROT;
-  wire M_AXI_IP_AWREADY;
-  wire M_AXI_IP_AWVALID;
-  wire M_AXI_IP_BREADY;
-  wire [1:0]M_AXI_IP_BRESP;
-  wire M_AXI_IP_BVALID;
-  wire [31:0]M_AXI_IP_RDATA;
-  wire M_AXI_IP_RREADY;
-  wire [1:0]M_AXI_IP_RRESP;
-  wire M_AXI_IP_RVALID;
-  wire [31:0]M_AXI_IP_WDATA;
-  wire M_AXI_IP_WREADY;
-  wire [3:0]M_AXI_IP_WSTRB;
-  wire M_AXI_IP_WVALID;
+  wire Read_Strobe;
   wire Reset;
-  wire NLW_U0_D_AS_UNCONNECTED;
+  wire Write_Strobe;
   wire NLW_U0_Dbg_ARREADY_UNCONNECTED;
   wire NLW_U0_Dbg_AWREADY_UNCONNECTED;
   wire NLW_U0_Dbg_BVALID_UNCONNECTED;
@@ -183,8 +182,6 @@ module design_1_microblaze_0_1
   wire NLW_U0_Dbg_WREADY_UNCONNECTED;
   wire NLW_U0_Dbg_Wakeup_UNCONNECTED;
   wire NLW_U0_Hibernate_UNCONNECTED;
-  wire NLW_U0_IFetch_UNCONNECTED;
-  wire NLW_U0_I_AS_UNCONNECTED;
   wire NLW_U0_M0_AXIS_TLAST_UNCONNECTED;
   wire NLW_U0_M0_AXIS_TVALID_UNCONNECTED;
   wire NLW_U0_M10_AXIS_TLAST_UNCONNECTED;
@@ -251,10 +248,14 @@ module design_1_microblaze_0_1
   wire NLW_U0_M_AXI_IC_WLAST_UNCONNECTED;
   wire NLW_U0_M_AXI_IC_WVALID_UNCONNECTED;
   wire NLW_U0_M_AXI_IP_ARLOCK_UNCONNECTED;
+  wire NLW_U0_M_AXI_IP_ARVALID_UNCONNECTED;
   wire NLW_U0_M_AXI_IP_AWLOCK_UNCONNECTED;
+  wire NLW_U0_M_AXI_IP_AWVALID_UNCONNECTED;
+  wire NLW_U0_M_AXI_IP_BREADY_UNCONNECTED;
+  wire NLW_U0_M_AXI_IP_RREADY_UNCONNECTED;
   wire NLW_U0_M_AXI_IP_WLAST_UNCONNECTED;
+  wire NLW_U0_M_AXI_IP_WVALID_UNCONNECTED;
   wire NLW_U0_Pause_Ack_UNCONNECTED;
-  wire NLW_U0_Read_Strobe_UNCONNECTED;
   wire NLW_U0_S0_AXIS_TREADY_UNCONNECTED;
   wire NLW_U0_S10_AXIS_TREADY_UNCONNECTED;
   wire NLW_U0_S11_AXIS_TREADY_UNCONNECTED;
@@ -293,17 +294,12 @@ module design_1_microblaze_0_1
   wire NLW_U0_Trace_OF_PipeRun_UNCONNECTED;
   wire NLW_U0_Trace_Reg_Write_UNCONNECTED;
   wire NLW_U0_Trace_Valid_Instr_UNCONNECTED;
-  wire NLW_U0_Write_Strobe_UNCONNECTED;
-  wire [0:3]NLW_U0_Byte_Enable_UNCONNECTED;
-  wire [0:31]NLW_U0_Data_Addr_UNCONNECTED;
-  wire [0:31]NLW_U0_Data_Write_UNCONNECTED;
   wire [1:0]NLW_U0_Dbg_BRESP_UNCONNECTED;
   wire [31:0]NLW_U0_Dbg_RDATA_UNCONNECTED;
   wire [1:0]NLW_U0_Dbg_RRESP_UNCONNECTED;
   wire [0:35]NLW_U0_Dbg_Trace_Data_UNCONNECTED;
   wire [0:7]NLW_U0_Dbg_Trig_Ack_Out_UNCONNECTED;
   wire [0:7]NLW_U0_Dbg_Trig_In_UNCONNECTED;
-  wire [0:31]NLW_U0_Instr_Addr_UNCONNECTED;
   wire [0:4095]NLW_U0_LOCKSTEP_Master_Out_UNCONNECTED;
   wire [0:4095]NLW_U0_LOCKSTEP_Out_UNCONNECTED;
   wire [31:0]NLW_U0_M0_AXIS_TDATA_UNCONNECTED;
@@ -392,18 +388,24 @@ module design_1_microblaze_0_1
   wire [31:0]NLW_U0_M_AXI_IC_WDATA_UNCONNECTED;
   wire [3:0]NLW_U0_M_AXI_IC_WSTRB_UNCONNECTED;
   wire [0:0]NLW_U0_M_AXI_IC_WUSER_UNCONNECTED;
+  wire [31:0]NLW_U0_M_AXI_IP_ARADDR_UNCONNECTED;
   wire [1:0]NLW_U0_M_AXI_IP_ARBURST_UNCONNECTED;
   wire [3:0]NLW_U0_M_AXI_IP_ARCACHE_UNCONNECTED;
   wire [0:0]NLW_U0_M_AXI_IP_ARID_UNCONNECTED;
   wire [7:0]NLW_U0_M_AXI_IP_ARLEN_UNCONNECTED;
+  wire [2:0]NLW_U0_M_AXI_IP_ARPROT_UNCONNECTED;
   wire [3:0]NLW_U0_M_AXI_IP_ARQOS_UNCONNECTED;
   wire [2:0]NLW_U0_M_AXI_IP_ARSIZE_UNCONNECTED;
+  wire [31:0]NLW_U0_M_AXI_IP_AWADDR_UNCONNECTED;
   wire [1:0]NLW_U0_M_AXI_IP_AWBURST_UNCONNECTED;
   wire [3:0]NLW_U0_M_AXI_IP_AWCACHE_UNCONNECTED;
   wire [0:0]NLW_U0_M_AXI_IP_AWID_UNCONNECTED;
   wire [7:0]NLW_U0_M_AXI_IP_AWLEN_UNCONNECTED;
+  wire [2:0]NLW_U0_M_AXI_IP_AWPROT_UNCONNECTED;
   wire [3:0]NLW_U0_M_AXI_IP_AWQOS_UNCONNECTED;
   wire [2:0]NLW_U0_M_AXI_IP_AWSIZE_UNCONNECTED;
+  wire [31:0]NLW_U0_M_AXI_IP_WDATA_UNCONNECTED;
+  wire [3:0]NLW_U0_M_AXI_IP_WSTRB_UNCONNECTED;
   wire [255:0]NLW_U0_RAM_From_UNCONNECTED;
   wire [0:31]NLW_U0_Trace_Data_Address_UNCONNECTED;
   wire [0:3]NLW_U0_Trace_Data_Byte_Enable_UNCONNECTED;
@@ -450,7 +452,7 @@ module design_1_microblaze_0_1
   (* C_DIV_ZERO_EXCEPTION = "0" *) 
   (* C_DYNAMIC_BUS_SIZING = "0" *) 
   (* C_D_AXI = "1" *) 
-  (* C_D_LMB = "0" *) 
+  (* C_D_LMB = "1" *) 
   (* C_ECC_USE_CE_EXCEPTION = "0" *) 
   (* C_EDGE_IS_POSITIVE = "1" *) 
   (* C_ENDIANNESS = "1" *) 
@@ -475,8 +477,8 @@ module design_1_microblaze_0_1
   (* C_INSTR_SIZE = "32" *) 
   (* C_INTERCONNECT = "2" *) 
   (* C_INTERRUPT_IS_EDGE = "0" *) 
-  (* C_I_AXI = "1" *) 
-  (* C_I_LMB = "0" *) 
+  (* C_I_AXI = "0" *) 
+  (* C_I_LMB = "1" *) 
   (* C_LMB_DATA_SIZE = "32" *) 
   (* C_LOCKSTEP_MASTER = "0" *) 
   (* C_LOCKSTEP_SLAVE = "0" *) 
@@ -583,19 +585,19 @@ module design_1_microblaze_0_1
   (* C_USE_STACK_PROTECTION = "0" *) 
   (* downgradeipidentifiedwarnings = "yes" *) 
   design_1_microblaze_0_1_MicroBlaze U0
-       (.Byte_Enable(NLW_U0_Byte_Enable_UNCONNECTED[0:3]),
+       (.Byte_Enable(Byte_Enable),
         .Clk(Clk),
         .Config_Reset(1'b0),
-        .DCE(1'b0),
+        .DCE(DCE),
         .DEBUG_ACLK(1'b0),
         .DEBUG_ARESETN(1'b0),
-        .DReady(1'b0),
-        .DUE(1'b0),
-        .DWait(1'b0),
-        .D_AS(NLW_U0_D_AS_UNCONNECTED),
-        .Data_Addr(NLW_U0_Data_Addr_UNCONNECTED[0:31]),
-        .Data_Read({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
-        .Data_Write(NLW_U0_Data_Write_UNCONNECTED[0:31]),
+        .DReady(DReady),
+        .DUE(DUE),
+        .DWait(DWait),
+        .D_AS(D_AS),
+        .Data_Addr(Data_Addr),
+        .Data_Read(Data_Read),
+        .Data_Write(Data_Write),
         .Dbg_ARADDR({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
         .Dbg_ARREADY(NLW_U0_Dbg_ARREADY_UNCONNECTED),
         .Dbg_ARVALID(1'b0),
@@ -636,14 +638,14 @@ module design_1_microblaze_0_1
         .Ext_BRK(1'b0),
         .Ext_NM_BRK(1'b0),
         .Hibernate(NLW_U0_Hibernate_UNCONNECTED),
-        .ICE(1'b0),
-        .IFetch(NLW_U0_IFetch_UNCONNECTED),
-        .IReady(1'b0),
-        .IUE(1'b0),
-        .IWAIT(1'b0),
-        .I_AS(NLW_U0_I_AS_UNCONNECTED),
-        .Instr({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
-        .Instr_Addr(NLW_U0_Instr_Addr_UNCONNECTED[0:31]),
+        .ICE(ICE),
+        .IFetch(IFetch),
+        .IReady(IReady),
+        .IUE(IUE),
+        .IWAIT(IWAIT),
+        .I_AS(I_AS),
+        .Instr(Instr),
+        .Instr_Addr(Instr_Addr),
         .Interrupt(Interrupt),
         .Interrupt_Ack(Interrupt_Ack),
         .Interrupt_Address(Interrupt_Address),
@@ -877,50 +879,50 @@ module design_1_microblaze_0_1
         .M_AXI_IC_WSTRB(NLW_U0_M_AXI_IC_WSTRB_UNCONNECTED[3:0]),
         .M_AXI_IC_WUSER(NLW_U0_M_AXI_IC_WUSER_UNCONNECTED[0]),
         .M_AXI_IC_WVALID(NLW_U0_M_AXI_IC_WVALID_UNCONNECTED),
-        .M_AXI_IP_ARADDR(M_AXI_IP_ARADDR),
+        .M_AXI_IP_ARADDR(NLW_U0_M_AXI_IP_ARADDR_UNCONNECTED[31:0]),
         .M_AXI_IP_ARBURST(NLW_U0_M_AXI_IP_ARBURST_UNCONNECTED[1:0]),
         .M_AXI_IP_ARCACHE(NLW_U0_M_AXI_IP_ARCACHE_UNCONNECTED[3:0]),
         .M_AXI_IP_ARID(NLW_U0_M_AXI_IP_ARID_UNCONNECTED[0]),
         .M_AXI_IP_ARLEN(NLW_U0_M_AXI_IP_ARLEN_UNCONNECTED[7:0]),
         .M_AXI_IP_ARLOCK(NLW_U0_M_AXI_IP_ARLOCK_UNCONNECTED),
-        .M_AXI_IP_ARPROT(M_AXI_IP_ARPROT),
+        .M_AXI_IP_ARPROT(NLW_U0_M_AXI_IP_ARPROT_UNCONNECTED[2:0]),
         .M_AXI_IP_ARQOS(NLW_U0_M_AXI_IP_ARQOS_UNCONNECTED[3:0]),
-        .M_AXI_IP_ARREADY(M_AXI_IP_ARREADY),
+        .M_AXI_IP_ARREADY(1'b0),
         .M_AXI_IP_ARSIZE(NLW_U0_M_AXI_IP_ARSIZE_UNCONNECTED[2:0]),
-        .M_AXI_IP_ARVALID(M_AXI_IP_ARVALID),
-        .M_AXI_IP_AWADDR(M_AXI_IP_AWADDR),
+        .M_AXI_IP_ARVALID(NLW_U0_M_AXI_IP_ARVALID_UNCONNECTED),
+        .M_AXI_IP_AWADDR(NLW_U0_M_AXI_IP_AWADDR_UNCONNECTED[31:0]),
         .M_AXI_IP_AWBURST(NLW_U0_M_AXI_IP_AWBURST_UNCONNECTED[1:0]),
         .M_AXI_IP_AWCACHE(NLW_U0_M_AXI_IP_AWCACHE_UNCONNECTED[3:0]),
         .M_AXI_IP_AWID(NLW_U0_M_AXI_IP_AWID_UNCONNECTED[0]),
         .M_AXI_IP_AWLEN(NLW_U0_M_AXI_IP_AWLEN_UNCONNECTED[7:0]),
         .M_AXI_IP_AWLOCK(NLW_U0_M_AXI_IP_AWLOCK_UNCONNECTED),
-        .M_AXI_IP_AWPROT(M_AXI_IP_AWPROT),
+        .M_AXI_IP_AWPROT(NLW_U0_M_AXI_IP_AWPROT_UNCONNECTED[2:0]),
         .M_AXI_IP_AWQOS(NLW_U0_M_AXI_IP_AWQOS_UNCONNECTED[3:0]),
-        .M_AXI_IP_AWREADY(M_AXI_IP_AWREADY),
+        .M_AXI_IP_AWREADY(1'b0),
         .M_AXI_IP_AWSIZE(NLW_U0_M_AXI_IP_AWSIZE_UNCONNECTED[2:0]),
-        .M_AXI_IP_AWVALID(M_AXI_IP_AWVALID),
+        .M_AXI_IP_AWVALID(NLW_U0_M_AXI_IP_AWVALID_UNCONNECTED),
         .M_AXI_IP_BID(1'b0),
-        .M_AXI_IP_BREADY(M_AXI_IP_BREADY),
-        .M_AXI_IP_BRESP(M_AXI_IP_BRESP),
-        .M_AXI_IP_BVALID(M_AXI_IP_BVALID),
-        .M_AXI_IP_RDATA(M_AXI_IP_RDATA),
+        .M_AXI_IP_BREADY(NLW_U0_M_AXI_IP_BREADY_UNCONNECTED),
+        .M_AXI_IP_BRESP({1'b0,1'b0}),
+        .M_AXI_IP_BVALID(1'b0),
+        .M_AXI_IP_RDATA({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
         .M_AXI_IP_RID(1'b0),
         .M_AXI_IP_RLAST(1'b0),
-        .M_AXI_IP_RREADY(M_AXI_IP_RREADY),
-        .M_AXI_IP_RRESP(M_AXI_IP_RRESP),
-        .M_AXI_IP_RVALID(M_AXI_IP_RVALID),
-        .M_AXI_IP_WDATA(M_AXI_IP_WDATA),
+        .M_AXI_IP_RREADY(NLW_U0_M_AXI_IP_RREADY_UNCONNECTED),
+        .M_AXI_IP_RRESP({1'b0,1'b0}),
+        .M_AXI_IP_RVALID(1'b0),
+        .M_AXI_IP_WDATA(NLW_U0_M_AXI_IP_WDATA_UNCONNECTED[31:0]),
         .M_AXI_IP_WLAST(NLW_U0_M_AXI_IP_WLAST_UNCONNECTED),
-        .M_AXI_IP_WREADY(M_AXI_IP_WREADY),
-        .M_AXI_IP_WSTRB(M_AXI_IP_WSTRB),
-        .M_AXI_IP_WVALID(M_AXI_IP_WVALID),
+        .M_AXI_IP_WREADY(1'b0),
+        .M_AXI_IP_WSTRB(NLW_U0_M_AXI_IP_WSTRB_UNCONNECTED[3:0]),
+        .M_AXI_IP_WVALID(NLW_U0_M_AXI_IP_WVALID_UNCONNECTED),
         .Mb_Reset(1'b0),
         .Non_Secure({1'b0,1'b0,1'b0,1'b0}),
         .Pause(1'b0),
         .Pause_Ack(NLW_U0_Pause_Ack_UNCONNECTED),
         .RAM_From(NLW_U0_RAM_From_UNCONNECTED[255:0]),
         .RAM_To({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
-        .Read_Strobe(NLW_U0_Read_Strobe_UNCONNECTED),
+        .Read_Strobe(Read_Strobe),
         .Reset(Reset),
         .Reset_Mode({1'b0,1'b0}),
         .S0_AXIS_TDATA({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
@@ -1023,12 +1025,13 @@ module design_1_microblaze_0_1
         .Trace_Reg_Write(NLW_U0_Trace_Reg_Write_UNCONNECTED),
         .Trace_Valid_Instr(NLW_U0_Trace_Valid_Instr_UNCONNECTED),
         .Wakeup({1'b0,1'b0}),
-        .Write_Strobe(NLW_U0_Write_Strobe_UNCONNECTED));
+        .Write_Strobe(Write_Strobe));
 endmodule
 
 (* ORIG_REF_NAME = "ALU" *) 
 module design_1_microblaze_0_1_ALU
    (LO,
+    \EX_Op2_reg[0] ,
     ex_databus_addr,
     ex_use_carry,
     DI_0,
@@ -1048,7 +1051,8 @@ module design_1_microblaze_0_1_ALU
     lopt_3,
     lopt_4);
   output LO;
-  output [0:31]ex_databus_addr;
+  output [29:0]\EX_Op2_reg[0] ;
+  output [1:0]ex_databus_addr;
   input ex_use_carry;
   input DI_0;
   input ex_alu_carryin;
@@ -1070,6 +1074,7 @@ module design_1_microblaze_0_1_ALU
   wire DI_0;
   wire EX_ALU_Sel_Logic;
   wire EX_Enable_ALU;
+  wire [29:0]\EX_Op2_reg[0] ;
   wire I0;
   wire I2;
   wire LO;
@@ -1110,7 +1115,7 @@ module design_1_microblaze_0_1_ALU
   wire alu_carry_9;
   wire alu_carry_in;
   wire ex_alu_carryin;
-  wire [0:31]ex_databus_addr;
+  wire [1:0]ex_databus_addr;
   wire ex_unsigned_op;
   wire ex_use_carry;
   wire lopt;
@@ -1222,6 +1227,7 @@ module design_1_microblaze_0_1_ALU
        (.EX_ALU_Sel_Logic(EX_ALU_Sel_Logic),
         .EX_Enable_ALU(EX_Enable_ALU),
         .\EX_Op2_reg[0] (LO),
+        .\EX_Op2_reg[0]_0 (\EX_Op2_reg[0] [29]),
         .I0(I0),
         .I2(I2),
         .LO(alu_carry_31),
@@ -1229,7 +1235,6 @@ module design_1_microblaze_0_1_ALU
         .Q(Q[31]),
         .S(S),
         .\Using_FPGA.Native (\Using_FPGA.Native [31]),
-        .ex_databus_addr(ex_databus_addr[0]),
         .ex_unsigned_op(ex_unsigned_op),
         .lopt(lopt_92),
         .lopt_1(lopt_93),
@@ -1240,11 +1245,11 @@ module design_1_microblaze_0_1_ALU
        (.EX_ALU_Sel_Logic(EX_ALU_Sel_Logic),
         .EX_CarryOut(alu_carry_22),
         .EX_Enable_ALU(EX_Enable_ALU),
+        .\EX_Op2_reg[10] (\EX_Op2_reg[0] [19]),
         .LO(alu_carry_21),
         .\MEM_DataBus_Addr_reg[10] (\MEM_DataBus_Addr_reg[9] ),
         .\MEM_DataBus_Addr_reg[10]_0 (\Using_FPGA.Native [21]),
         .Q(Q[21]),
-        .ex_databus_addr(ex_databus_addr[10]),
         .lopt(lopt_65),
         .lopt_1(lopt_66),
         .lopt_10(lopt_75),
@@ -1261,11 +1266,11 @@ module design_1_microblaze_0_1_ALU
        (.EX_ALU_Sel_Logic(EX_ALU_Sel_Logic),
         .EX_CarryOut(alu_carry_21),
         .EX_Enable_ALU(EX_Enable_ALU),
+        .\EX_Op2_reg[11] (\EX_Op2_reg[0] [18]),
         .LO(alu_carry_20),
         .\MEM_DataBus_Addr_reg[11] (\MEM_DataBus_Addr_reg[9] ),
         .\MEM_DataBus_Addr_reg[11]_0 (\Using_FPGA.Native [20]),
         .Q(Q[20]),
-        .ex_databus_addr(ex_databus_addr[11]),
         .lopt(lopt_59),
         .lopt_1(lopt_60),
         .lopt_2(lopt_61),
@@ -1274,11 +1279,11 @@ module design_1_microblaze_0_1_ALU
        (.EX_ALU_Sel_Logic(EX_ALU_Sel_Logic),
         .EX_CarryOut(alu_carry_20),
         .EX_Enable_ALU(EX_Enable_ALU),
+        .\EX_Op2_reg[12] (\EX_Op2_reg[0] [17]),
         .LO(alu_carry_19),
         .\MEM_DataBus_Addr_reg[12] (\MEM_DataBus_Addr_reg[9] ),
         .\MEM_DataBus_Addr_reg[12]_0 (\Using_FPGA.Native [19]),
         .Q(Q[19]),
-        .ex_databus_addr(ex_databus_addr[12]),
         .lopt(lopt_56),
         .lopt_1(lopt_57),
         .lopt_2(lopt_58),
@@ -1287,11 +1292,11 @@ module design_1_microblaze_0_1_ALU
        (.EX_ALU_Sel_Logic(EX_ALU_Sel_Logic),
         .EX_CarryOut(alu_carry_19),
         .EX_Enable_ALU(EX_Enable_ALU),
+        .\EX_Op2_reg[13] (\EX_Op2_reg[0] [16]),
         .LO(alu_carry_18),
         .\MEM_DataBus_Addr_reg[13] (\MEM_DataBus_Addr_reg[9] ),
         .\MEM_DataBus_Addr_reg[13]_0 (\Using_FPGA.Native [18]),
         .Q(Q[18]),
-        .ex_databus_addr(ex_databus_addr[13]),
         .lopt(lopt_53),
         .lopt_1(lopt_54),
         .lopt_2(lopt_55),
@@ -1300,11 +1305,11 @@ module design_1_microblaze_0_1_ALU
        (.EX_ALU_Sel_Logic(EX_ALU_Sel_Logic),
         .EX_CarryOut(alu_carry_18),
         .EX_Enable_ALU(EX_Enable_ALU),
+        .\EX_Op2_reg[14] (\EX_Op2_reg[0] [15]),
         .LO(alu_carry_17),
         .\MEM_DataBus_Addr_reg[14] (\MEM_DataBus_Addr_reg[9] ),
         .\MEM_DataBus_Addr_reg[14]_0 (\Using_FPGA.Native [17]),
         .Q(Q[17]),
-        .ex_databus_addr(ex_databus_addr[14]),
         .lopt(lopt_53),
         .lopt_1(lopt_54),
         .lopt_10(lopt_63),
@@ -1321,11 +1326,11 @@ module design_1_microblaze_0_1_ALU
        (.EX_ALU_Sel_Logic(EX_ALU_Sel_Logic),
         .EX_CarryOut(alu_carry_17),
         .EX_Enable_ALU(EX_Enable_ALU),
+        .\EX_Op2_reg[15] (\EX_Op2_reg[0] [14]),
         .LO(alu_carry_16),
         .\MEM_DataBus_Addr_reg[15] (\MEM_DataBus_Addr_reg[9] ),
         .\MEM_DataBus_Addr_reg[15]_0 (\Using_FPGA.Native [16]),
         .Q(Q[16]),
-        .ex_databus_addr(ex_databus_addr[15]),
         .lopt(lopt_47),
         .lopt_1(lopt_48),
         .lopt_2(lopt_49),
@@ -1334,11 +1339,11 @@ module design_1_microblaze_0_1_ALU
        (.EX_ALU_Sel_Logic(EX_ALU_Sel_Logic),
         .EX_CarryOut(alu_carry_16),
         .EX_Enable_ALU(EX_Enable_ALU),
+        .\EX_Op2_reg[16] (\EX_Op2_reg[0] [13]),
         .LO(alu_carry_15),
         .\MEM_DataBus_Addr_reg[16] (\MEM_DataBus_Addr_reg[9] ),
         .\MEM_DataBus_Addr_reg[16]_0 (\Using_FPGA.Native [15]),
         .Q(Q[15]),
-        .ex_databus_addr(ex_databus_addr[16]),
         .lopt(lopt_44),
         .lopt_1(lopt_45),
         .lopt_2(lopt_46),
@@ -1347,11 +1352,11 @@ module design_1_microblaze_0_1_ALU
        (.EX_ALU_Sel_Logic(EX_ALU_Sel_Logic),
         .EX_CarryOut(alu_carry_15),
         .EX_Enable_ALU(EX_Enable_ALU),
+        .\EX_Op2_reg[17] (\EX_Op2_reg[0] [12]),
         .LO(alu_carry_14),
         .\MEM_DataBus_Addr_reg[17] (\MEM_DataBus_Addr_reg[9] ),
         .\MEM_DataBus_Addr_reg[17]_0 (\Using_FPGA.Native [14]),
         .Q(Q[14]),
-        .ex_databus_addr(ex_databus_addr[17]),
         .lopt(lopt_41),
         .lopt_1(lopt_42),
         .lopt_2(lopt_43),
@@ -1360,11 +1365,11 @@ module design_1_microblaze_0_1_ALU
        (.EX_ALU_Sel_Logic(EX_ALU_Sel_Logic),
         .EX_CarryOut(alu_carry_14),
         .EX_Enable_ALU(EX_Enable_ALU),
+        .\EX_Op2_reg[18] (\EX_Op2_reg[0] [11]),
         .LO(alu_carry_13),
         .\MEM_DataBus_Addr_reg[18] (\MEM_DataBus_Addr_reg[9] ),
         .\MEM_DataBus_Addr_reg[18]_0 (\Using_FPGA.Native [13]),
         .Q(Q[13]),
-        .ex_databus_addr(ex_databus_addr[18]),
         .lopt(lopt_41),
         .lopt_1(lopt_42),
         .lopt_10(lopt_51),
@@ -1381,11 +1386,11 @@ module design_1_microblaze_0_1_ALU
        (.EX_ALU_Sel_Logic(EX_ALU_Sel_Logic),
         .EX_CarryOut(alu_carry_13),
         .EX_Enable_ALU(EX_Enable_ALU),
+        .\EX_Op2_reg[19] (\EX_Op2_reg[0] [10]),
         .LO(alu_carry_12),
         .\MEM_DataBus_Addr_reg[19] (\MEM_DataBus_Addr_reg[9] ),
         .\MEM_DataBus_Addr_reg[19]_0 (\Using_FPGA.Native [12]),
         .Q(Q[12]),
-        .ex_databus_addr(ex_databus_addr[19]),
         .lopt(lopt_35),
         .lopt_1(lopt_36),
         .lopt_2(lopt_37),
@@ -1394,11 +1399,11 @@ module design_1_microblaze_0_1_ALU
        (.EX_ALU_Sel_Logic(EX_ALU_Sel_Logic),
         .EX_CarryOut(alu_carry_31),
         .EX_Enable_ALU(EX_Enable_ALU),
+        .\EX_Op2_reg[1] (\EX_Op2_reg[0] [28]),
         .LO(alu_carry_30),
         .\MEM_DataBus_Addr_reg[1] (\MEM_DataBus_Addr_reg[9] ),
         .\MEM_DataBus_Addr_reg[1]_0 (\Using_FPGA.Native [30]),
         .Q(Q[30]),
-        .ex_databus_addr(ex_databus_addr[1]),
         .lopt(lopt_89),
         .lopt_1(lopt_90),
         .lopt_2(lopt_91),
@@ -1407,11 +1412,11 @@ module design_1_microblaze_0_1_ALU
        (.EX_ALU_Sel_Logic(EX_ALU_Sel_Logic),
         .EX_CarryOut(alu_carry_12),
         .EX_Enable_ALU(EX_Enable_ALU),
+        .\EX_Op2_reg[20] (\EX_Op2_reg[0] [9]),
         .LO(alu_carry_11),
         .\MEM_DataBus_Addr_reg[20] (\MEM_DataBus_Addr_reg[9] ),
         .\MEM_DataBus_Addr_reg[20]_0 (\Using_FPGA.Native [11]),
         .Q(Q[11]),
-        .ex_databus_addr(ex_databus_addr[20]),
         .lopt(lopt_32),
         .lopt_1(lopt_33),
         .lopt_2(lopt_34),
@@ -1420,11 +1425,11 @@ module design_1_microblaze_0_1_ALU
        (.EX_ALU_Sel_Logic(EX_ALU_Sel_Logic),
         .EX_CarryOut(alu_carry_11),
         .EX_Enable_ALU(EX_Enable_ALU),
+        .\EX_Op2_reg[21] (\EX_Op2_reg[0] [8]),
         .LO(alu_carry_10),
         .\MEM_DataBus_Addr_reg[21] (\MEM_DataBus_Addr_reg[9] ),
         .\MEM_DataBus_Addr_reg[21]_0 (\Using_FPGA.Native [10]),
         .Q(Q[10]),
-        .ex_databus_addr(ex_databus_addr[21]),
         .lopt(lopt_29),
         .lopt_1(lopt_30),
         .lopt_2(lopt_31),
@@ -1433,11 +1438,11 @@ module design_1_microblaze_0_1_ALU
        (.EX_ALU_Sel_Logic(EX_ALU_Sel_Logic),
         .EX_CarryOut(alu_carry_10),
         .EX_Enable_ALU(EX_Enable_ALU),
+        .\EX_Op2_reg[22] (\EX_Op2_reg[0] [7]),
         .LO(alu_carry_9),
         .\MEM_DataBus_Addr_reg[22] (\MEM_DataBus_Addr_reg[9] ),
         .\MEM_DataBus_Addr_reg[22]_0 (\Using_FPGA.Native [9]),
         .Q(Q[9]),
-        .ex_databus_addr(ex_databus_addr[22]),
         .lopt(lopt_29),
         .lopt_1(lopt_30),
         .lopt_10(lopt_39),
@@ -1454,11 +1459,11 @@ module design_1_microblaze_0_1_ALU
        (.EX_ALU_Sel_Logic(EX_ALU_Sel_Logic),
         .EX_CarryOut(alu_carry_9),
         .EX_Enable_ALU(EX_Enable_ALU),
+        .\EX_Op2_reg[23] (\EX_Op2_reg[0] [6]),
         .LO(alu_carry_8),
         .\MEM_DataBus_Addr_reg[23] (\MEM_DataBus_Addr_reg[9] ),
         .\MEM_DataBus_Addr_reg[23]_0 (\Using_FPGA.Native [8]),
         .Q(Q[8]),
-        .ex_databus_addr(ex_databus_addr[23]),
         .lopt(lopt_23),
         .lopt_1(lopt_24),
         .lopt_2(lopt_25),
@@ -1467,11 +1472,11 @@ module design_1_microblaze_0_1_ALU
        (.EX_ALU_Sel_Logic(EX_ALU_Sel_Logic),
         .EX_CarryOut(alu_carry_8),
         .EX_Enable_ALU(EX_Enable_ALU),
+        .\EX_Op2_reg[24] (\EX_Op2_reg[0] [5]),
         .LO(alu_carry_7),
         .\MEM_DataBus_Addr_reg[24] (\MEM_DataBus_Addr_reg[9] ),
         .\MEM_DataBus_Addr_reg[24]_0 (\Using_FPGA.Native [7]),
         .Q(Q[7]),
-        .ex_databus_addr(ex_databus_addr[24]),
         .lopt(lopt_20),
         .lopt_1(lopt_21),
         .lopt_2(lopt_22),
@@ -1480,11 +1485,11 @@ module design_1_microblaze_0_1_ALU
        (.EX_ALU_Sel_Logic(EX_ALU_Sel_Logic),
         .EX_CarryOut(alu_carry_7),
         .EX_Enable_ALU(EX_Enable_ALU),
+        .\EX_Op2_reg[25] (\EX_Op2_reg[0] [4]),
         .LO(alu_carry_6),
         .\MEM_DataBus_Addr_reg[25] (\MEM_DataBus_Addr_reg[9] ),
         .\MEM_DataBus_Addr_reg[25]_0 (\Using_FPGA.Native [6]),
         .Q(Q[6]),
-        .ex_databus_addr(ex_databus_addr[25]),
         .lopt(lopt_17),
         .lopt_1(lopt_18),
         .lopt_2(lopt_19),
@@ -1493,11 +1498,11 @@ module design_1_microblaze_0_1_ALU
        (.EX_ALU_Sel_Logic(EX_ALU_Sel_Logic),
         .EX_CarryOut(alu_carry_6),
         .EX_Enable_ALU(EX_Enable_ALU),
+        .\EX_Op2_reg[26] (\EX_Op2_reg[0] [3]),
         .LO(alu_carry_5),
         .\MEM_DataBus_Addr_reg[26] (\MEM_DataBus_Addr_reg[9] ),
         .\MEM_DataBus_Addr_reg[26]_0 (\Using_FPGA.Native [5]),
         .Q(Q[5]),
-        .ex_databus_addr(ex_databus_addr[26]),
         .lopt(lopt_17),
         .lopt_1(lopt_18),
         .lopt_10(lopt_27),
@@ -1514,11 +1519,11 @@ module design_1_microblaze_0_1_ALU
        (.EX_ALU_Sel_Logic(EX_ALU_Sel_Logic),
         .EX_CarryOut(alu_carry_5),
         .EX_Enable_ALU(EX_Enable_ALU),
+        .\EX_Op2_reg[27] (\EX_Op2_reg[0] [2]),
         .LO(alu_carry_4),
         .\MEM_DataBus_Addr_reg[27] (\MEM_DataBus_Addr_reg[9] ),
         .\MEM_DataBus_Addr_reg[27]_0 (\Using_FPGA.Native [4]),
         .Q(Q[4]),
-        .ex_databus_addr(ex_databus_addr[27]),
         .lopt(lopt_11),
         .lopt_1(lopt_12),
         .lopt_2(lopt_13),
@@ -1527,11 +1532,11 @@ module design_1_microblaze_0_1_ALU
        (.EX_ALU_Sel_Logic(EX_ALU_Sel_Logic),
         .EX_CarryOut(alu_carry_4),
         .EX_Enable_ALU(EX_Enable_ALU),
+        .\EX_Op2_reg[28] (\EX_Op2_reg[0] [1]),
         .LO(alu_carry_3),
         .\MEM_DataBus_Addr_reg[28] (\MEM_DataBus_Addr_reg[9] ),
         .\MEM_DataBus_Addr_reg[28]_0 (\Using_FPGA.Native [3]),
         .Q(Q[3]),
-        .ex_databus_addr(ex_databus_addr[28]),
         .lopt(lopt_8),
         .lopt_1(lopt_9),
         .lopt_2(lopt_10),
@@ -1540,11 +1545,11 @@ module design_1_microblaze_0_1_ALU
        (.EX_ALU_Sel_Logic(EX_ALU_Sel_Logic),
         .EX_CarryOut(alu_carry_3),
         .EX_Enable_ALU(EX_Enable_ALU),
+        .\EX_Op2_reg[29] (\EX_Op2_reg[0] [0]),
         .LO(alu_carry_2),
         .\MEM_DataBus_Addr_reg[29] (\MEM_DataBus_Addr_reg[9] ),
         .\MEM_DataBus_Addr_reg[29]_0 (\Using_FPGA.Native [2]),
         .Q(Q[2]),
-        .ex_databus_addr(ex_databus_addr[29]),
         .lopt(lopt_5),
         .lopt_1(lopt_6),
         .lopt_2(lopt_7),
@@ -1553,11 +1558,11 @@ module design_1_microblaze_0_1_ALU
        (.EX_ALU_Sel_Logic(EX_ALU_Sel_Logic),
         .EX_CarryOut(alu_carry_30),
         .EX_Enable_ALU(EX_Enable_ALU),
+        .\EX_Op2_reg[2] (\EX_Op2_reg[0] [27]),
         .LO(alu_carry_29),
         .\MEM_DataBus_Addr_reg[2] (\MEM_DataBus_Addr_reg[9] ),
         .\MEM_DataBus_Addr_reg[2]_0 (\Using_FPGA.Native [29]),
         .Q(Q[29]),
-        .ex_databus_addr(ex_databus_addr[2]),
         .lopt(lopt_89),
         .lopt_1(lopt_90),
         .lopt_10(lopt_97),
@@ -1577,7 +1582,7 @@ module design_1_microblaze_0_1_ALU
         .\MEM_DataBus_Addr_reg[30] (\MEM_DataBus_Addr_reg[9] ),
         .\MEM_DataBus_Addr_reg[30]_0 (\Using_FPGA.Native [1]),
         .Q(Q[1]),
-        .ex_databus_addr(ex_databus_addr[30]),
+        .ex_databus_addr(ex_databus_addr[1]),
         .lopt(lopt_5),
         .lopt_1(lopt_6),
         .lopt_10(lopt_15),
@@ -1598,7 +1603,7 @@ module design_1_microblaze_0_1_ALU
         .\MEM_DataBus_Addr_reg[31] (\MEM_DataBus_Addr_reg[9] ),
         .\MEM_DataBus_Addr_reg[31]_0 (\Using_FPGA.Native [0]),
         .Q(Q[0]),
-        .ex_databus_addr(ex_databus_addr[31]),
+        .ex_databus_addr(ex_databus_addr[0]),
         .lopt(lopt_1),
         .lopt_1(lopt_2),
         .lopt_2(lopt_3),
@@ -1607,11 +1612,11 @@ module design_1_microblaze_0_1_ALU
        (.EX_ALU_Sel_Logic(EX_ALU_Sel_Logic),
         .EX_CarryOut(alu_carry_29),
         .EX_Enable_ALU(EX_Enable_ALU),
+        .\EX_Op2_reg[3] (\EX_Op2_reg[0] [26]),
         .LO(alu_carry_28),
         .\MEM_DataBus_Addr_reg[3] (\MEM_DataBus_Addr_reg[9] ),
         .\MEM_DataBus_Addr_reg[3]_0 (\Using_FPGA.Native [28]),
         .Q(Q[28]),
-        .ex_databus_addr(ex_databus_addr[3]),
         .lopt(lopt_83),
         .lopt_1(lopt_84),
         .lopt_2(lopt_85),
@@ -1620,11 +1625,11 @@ module design_1_microblaze_0_1_ALU
        (.EX_ALU_Sel_Logic(EX_ALU_Sel_Logic),
         .EX_CarryOut(alu_carry_28),
         .EX_Enable_ALU(EX_Enable_ALU),
+        .\EX_Op2_reg[4] (\EX_Op2_reg[0] [25]),
         .LO(alu_carry_27),
         .\MEM_DataBus_Addr_reg[4] (\MEM_DataBus_Addr_reg[9] ),
         .\MEM_DataBus_Addr_reg[4]_0 (\Using_FPGA.Native [27]),
         .Q(Q[27]),
-        .ex_databus_addr(ex_databus_addr[4]),
         .lopt(lopt_80),
         .lopt_1(lopt_81),
         .lopt_2(lopt_82),
@@ -1633,11 +1638,11 @@ module design_1_microblaze_0_1_ALU
        (.EX_ALU_Sel_Logic(EX_ALU_Sel_Logic),
         .EX_CarryOut(alu_carry_27),
         .EX_Enable_ALU(EX_Enable_ALU),
+        .\EX_Op2_reg[5] (\EX_Op2_reg[0] [24]),
         .LO(alu_carry_26),
         .\MEM_DataBus_Addr_reg[5] (\MEM_DataBus_Addr_reg[9] ),
         .\MEM_DataBus_Addr_reg[5]_0 (\Using_FPGA.Native [26]),
         .Q(Q[26]),
-        .ex_databus_addr(ex_databus_addr[5]),
         .lopt(lopt_77),
         .lopt_1(lopt_78),
         .lopt_2(lopt_79),
@@ -1646,11 +1651,11 @@ module design_1_microblaze_0_1_ALU
        (.EX_ALU_Sel_Logic(EX_ALU_Sel_Logic),
         .EX_CarryOut(alu_carry_26),
         .EX_Enable_ALU(EX_Enable_ALU),
+        .\EX_Op2_reg[6] (\EX_Op2_reg[0] [23]),
         .LO(alu_carry_25),
         .\MEM_DataBus_Addr_reg[6] (\MEM_DataBus_Addr_reg[9] ),
         .\MEM_DataBus_Addr_reg[6]_0 (\Using_FPGA.Native [25]),
         .Q(Q[25]),
-        .ex_databus_addr(ex_databus_addr[6]),
         .lopt(lopt_77),
         .lopt_1(lopt_78),
         .lopt_10(lopt_87),
@@ -1667,11 +1672,11 @@ module design_1_microblaze_0_1_ALU
        (.EX_ALU_Sel_Logic(EX_ALU_Sel_Logic),
         .EX_CarryOut(alu_carry_25),
         .EX_Enable_ALU(EX_Enable_ALU),
+        .\EX_Op2_reg[7] (\EX_Op2_reg[0] [22]),
         .LO(alu_carry_24),
         .\MEM_DataBus_Addr_reg[7] (\MEM_DataBus_Addr_reg[9] ),
         .\MEM_DataBus_Addr_reg[7]_0 (\Using_FPGA.Native [24]),
         .Q(Q[24]),
-        .ex_databus_addr(ex_databus_addr[7]),
         .lopt(lopt_71),
         .lopt_1(lopt_72),
         .lopt_2(lopt_73),
@@ -1680,11 +1685,11 @@ module design_1_microblaze_0_1_ALU
        (.EX_ALU_Sel_Logic(EX_ALU_Sel_Logic),
         .EX_CarryOut(alu_carry_24),
         .EX_Enable_ALU(EX_Enable_ALU),
+        .\EX_Op2_reg[8] (\EX_Op2_reg[0] [21]),
         .LO(alu_carry_23),
         .\MEM_DataBus_Addr_reg[8] (\MEM_DataBus_Addr_reg[9] ),
         .\MEM_DataBus_Addr_reg[8]_0 (\Using_FPGA.Native [23]),
         .Q(Q[23]),
-        .ex_databus_addr(ex_databus_addr[8]),
         .lopt(lopt_68),
         .lopt_1(lopt_69),
         .lopt_2(lopt_70),
@@ -1694,10 +1699,10 @@ module design_1_microblaze_0_1_ALU
         .EX_CarryIn(alu_carry_22),
         .EX_CarryOut(alu_carry_23),
         .EX_Enable_ALU(EX_Enable_ALU),
+        .\EX_Op2_reg[9] (\EX_Op2_reg[0] [20]),
         .\MEM_DataBus_Addr_reg[9] (\MEM_DataBus_Addr_reg[9] ),
         .\MEM_DataBus_Addr_reg[9]_0 (\Using_FPGA.Native [22]),
         .Q(Q[22]),
-        .ex_databus_addr(ex_databus_addr[9]),
         .lopt(lopt_65),
         .lopt_1(lopt_66),
         .lopt_2(lopt_67),
@@ -1707,7 +1712,7 @@ endmodule
 (* ORIG_REF_NAME = "ALU_Bit" *) 
 module design_1_microblaze_0_1_ALU_Bit
    (EX_CarryOut,
-    ex_databus_addr,
+    \EX_Op2_reg[10] ,
     Q,
     \MEM_DataBus_Addr_reg[10] ,
     \MEM_DataBus_Addr_reg[10]_0 ,
@@ -1727,7 +1732,7 @@ module design_1_microblaze_0_1_ALU_Bit
     lopt_10,
     lopt_11);
   output EX_CarryOut;
-  output [0:0]ex_databus_addr;
+  output [0:0]\EX_Op2_reg[10] ;
   input [0:0]Q;
   input [1:0]\MEM_DataBus_Addr_reg[10] ;
   input [0:0]\MEM_DataBus_Addr_reg[10]_0 ;
@@ -1750,12 +1755,12 @@ module design_1_microblaze_0_1_ALU_Bit
   wire EX_ALU_Sel_Logic;
   wire EX_CarryOut;
   wire EX_Enable_ALU;
+  wire [0:0]\EX_Op2_reg[10] ;
   wire LO;
   wire [1:0]\MEM_DataBus_Addr_reg[10] ;
   wire [0:0]\MEM_DataBus_Addr_reg[10]_0 ;
   wire [0:0]Q;
   wire alu_AddSub;
-  wire [0:0]ex_databus_addr;
   wire lopt;
   wire lopt_1;
   wire lopt_10;
@@ -1781,9 +1786,9 @@ module design_1_microblaze_0_1_ALU_Bit
   design_1_microblaze_0_1_MB_MUXCY_XORCY_678 \Not_Last_Bit.MUXCY_XOR_I 
        (.DI(op2_is_1),
         .EX_CarryOut(EX_CarryOut),
+        .\EX_Op2_reg[10] (\EX_Op2_reg[10] ),
         .LO(LO),
         .S(alu_AddSub),
-        .ex_databus_addr(ex_databus_addr),
         .lopt(lopt),
         .lopt_1(lopt_1),
         .lopt_10(lopt_10),
@@ -1801,7 +1806,7 @@ endmodule
 (* ORIG_REF_NAME = "ALU_Bit" *) 
 module design_1_microblaze_0_1_ALU_Bit_588
    (EX_CarryOut,
-    ex_databus_addr,
+    \EX_Op2_reg[11] ,
     Q,
     \MEM_DataBus_Addr_reg[11] ,
     \MEM_DataBus_Addr_reg[11]_0 ,
@@ -1813,7 +1818,7 @@ module design_1_microblaze_0_1_ALU_Bit_588
     lopt_2,
     lopt_3);
   output EX_CarryOut;
-  output [0:0]ex_databus_addr;
+  output [0:0]\EX_Op2_reg[11] ;
   input [0:0]Q;
   input [1:0]\MEM_DataBus_Addr_reg[11] ;
   input [0:0]\MEM_DataBus_Addr_reg[11]_0 ;
@@ -1828,12 +1833,12 @@ module design_1_microblaze_0_1_ALU_Bit_588
   wire EX_ALU_Sel_Logic;
   wire EX_CarryOut;
   wire EX_Enable_ALU;
+  wire [0:0]\EX_Op2_reg[11] ;
   wire LO;
   wire [1:0]\MEM_DataBus_Addr_reg[11] ;
   wire [0:0]\MEM_DataBus_Addr_reg[11]_0 ;
   wire [0:0]Q;
   wire alu_AddSub;
-  wire [0:0]ex_databus_addr;
   wire lopt;
   wire \^lopt_1 ;
   wire op2_is_1;
@@ -1852,9 +1857,9 @@ module design_1_microblaze_0_1_ALU_Bit_588
   design_1_microblaze_0_1_MB_MUXCY_XORCY_676 \Not_Last_Bit.MUXCY_XOR_I 
        (.DI(op2_is_1),
         .EX_CarryOut(EX_CarryOut),
+        .\EX_Op2_reg[11] (\EX_Op2_reg[11] ),
         .LO(LO),
         .S(alu_AddSub),
-        .ex_databus_addr(ex_databus_addr),
         .lopt(lopt),
         .lopt_1(\^lopt_1 ));
 endmodule
@@ -1862,7 +1867,7 @@ endmodule
 (* ORIG_REF_NAME = "ALU_Bit" *) 
 module design_1_microblaze_0_1_ALU_Bit_589
    (EX_CarryOut,
-    ex_databus_addr,
+    \EX_Op2_reg[12] ,
     Q,
     \MEM_DataBus_Addr_reg[12] ,
     \MEM_DataBus_Addr_reg[12]_0 ,
@@ -1874,7 +1879,7 @@ module design_1_microblaze_0_1_ALU_Bit_589
     lopt_2,
     lopt_3);
   output EX_CarryOut;
-  output [0:0]ex_databus_addr;
+  output [0:0]\EX_Op2_reg[12] ;
   input [0:0]Q;
   input [1:0]\MEM_DataBus_Addr_reg[12] ;
   input [0:0]\MEM_DataBus_Addr_reg[12]_0 ;
@@ -1889,12 +1894,12 @@ module design_1_microblaze_0_1_ALU_Bit_589
   wire EX_ALU_Sel_Logic;
   wire EX_CarryOut;
   wire EX_Enable_ALU;
+  wire [0:0]\EX_Op2_reg[12] ;
   wire LO;
   wire [1:0]\MEM_DataBus_Addr_reg[12] ;
   wire [0:0]\MEM_DataBus_Addr_reg[12]_0 ;
   wire [0:0]Q;
   wire alu_AddSub;
-  wire [0:0]ex_databus_addr;
   wire lopt;
   wire \^lopt_1 ;
   wire op2_is_1;
@@ -1913,9 +1918,9 @@ module design_1_microblaze_0_1_ALU_Bit_589
   design_1_microblaze_0_1_MB_MUXCY_XORCY_674 \Not_Last_Bit.MUXCY_XOR_I 
        (.DI(op2_is_1),
         .EX_CarryOut(EX_CarryOut),
+        .\EX_Op2_reg[12] (\EX_Op2_reg[12] ),
         .LO(LO),
         .S(alu_AddSub),
-        .ex_databus_addr(ex_databus_addr),
         .lopt(lopt),
         .lopt_1(\^lopt_1 ));
 endmodule
@@ -1923,7 +1928,7 @@ endmodule
 (* ORIG_REF_NAME = "ALU_Bit" *) 
 module design_1_microblaze_0_1_ALU_Bit_590
    (EX_CarryOut,
-    ex_databus_addr,
+    \EX_Op2_reg[13] ,
     Q,
     \MEM_DataBus_Addr_reg[13] ,
     \MEM_DataBus_Addr_reg[13]_0 ,
@@ -1935,7 +1940,7 @@ module design_1_microblaze_0_1_ALU_Bit_590
     lopt_2,
     lopt_3);
   output EX_CarryOut;
-  output [0:0]ex_databus_addr;
+  output [0:0]\EX_Op2_reg[13] ;
   input [0:0]Q;
   input [1:0]\MEM_DataBus_Addr_reg[13] ;
   input [0:0]\MEM_DataBus_Addr_reg[13]_0 ;
@@ -1950,12 +1955,12 @@ module design_1_microblaze_0_1_ALU_Bit_590
   wire EX_ALU_Sel_Logic;
   wire EX_CarryOut;
   wire EX_Enable_ALU;
+  wire [0:0]\EX_Op2_reg[13] ;
   wire LO;
   wire [1:0]\MEM_DataBus_Addr_reg[13] ;
   wire [0:0]\MEM_DataBus_Addr_reg[13]_0 ;
   wire [0:0]Q;
   wire alu_AddSub;
-  wire [0:0]ex_databus_addr;
   wire lopt;
   wire \^lopt_1 ;
   wire op2_is_1;
@@ -1974,9 +1979,9 @@ module design_1_microblaze_0_1_ALU_Bit_590
   design_1_microblaze_0_1_MB_MUXCY_XORCY_672 \Not_Last_Bit.MUXCY_XOR_I 
        (.DI(op2_is_1),
         .EX_CarryOut(EX_CarryOut),
+        .\EX_Op2_reg[13] (\EX_Op2_reg[13] ),
         .LO(LO),
         .S(alu_AddSub),
-        .ex_databus_addr(ex_databus_addr),
         .lopt(lopt),
         .lopt_1(\^lopt_1 ));
 endmodule
@@ -1984,7 +1989,7 @@ endmodule
 (* ORIG_REF_NAME = "ALU_Bit" *) 
 module design_1_microblaze_0_1_ALU_Bit_591
    (EX_CarryOut,
-    ex_databus_addr,
+    \EX_Op2_reg[14] ,
     Q,
     \MEM_DataBus_Addr_reg[14] ,
     \MEM_DataBus_Addr_reg[14]_0 ,
@@ -2004,7 +2009,7 @@ module design_1_microblaze_0_1_ALU_Bit_591
     lopt_10,
     lopt_11);
   output EX_CarryOut;
-  output [0:0]ex_databus_addr;
+  output [0:0]\EX_Op2_reg[14] ;
   input [0:0]Q;
   input [1:0]\MEM_DataBus_Addr_reg[14] ;
   input [0:0]\MEM_DataBus_Addr_reg[14]_0 ;
@@ -2027,12 +2032,12 @@ module design_1_microblaze_0_1_ALU_Bit_591
   wire EX_ALU_Sel_Logic;
   wire EX_CarryOut;
   wire EX_Enable_ALU;
+  wire [0:0]\EX_Op2_reg[14] ;
   wire LO;
   wire [1:0]\MEM_DataBus_Addr_reg[14] ;
   wire [0:0]\MEM_DataBus_Addr_reg[14]_0 ;
   wire [0:0]Q;
   wire alu_AddSub;
-  wire [0:0]ex_databus_addr;
   wire lopt;
   wire lopt_1;
   wire lopt_10;
@@ -2058,9 +2063,9 @@ module design_1_microblaze_0_1_ALU_Bit_591
   design_1_microblaze_0_1_MB_MUXCY_XORCY_670 \Not_Last_Bit.MUXCY_XOR_I 
        (.DI(op2_is_1),
         .EX_CarryOut(EX_CarryOut),
+        .\EX_Op2_reg[14] (\EX_Op2_reg[14] ),
         .LO(LO),
         .S(alu_AddSub),
-        .ex_databus_addr(ex_databus_addr),
         .lopt(lopt),
         .lopt_1(lopt_1),
         .lopt_10(lopt_10),
@@ -2078,7 +2083,7 @@ endmodule
 (* ORIG_REF_NAME = "ALU_Bit" *) 
 module design_1_microblaze_0_1_ALU_Bit_592
    (EX_CarryOut,
-    ex_databus_addr,
+    \EX_Op2_reg[15] ,
     Q,
     \MEM_DataBus_Addr_reg[15] ,
     \MEM_DataBus_Addr_reg[15]_0 ,
@@ -2090,7 +2095,7 @@ module design_1_microblaze_0_1_ALU_Bit_592
     lopt_2,
     lopt_3);
   output EX_CarryOut;
-  output [0:0]ex_databus_addr;
+  output [0:0]\EX_Op2_reg[15] ;
   input [0:0]Q;
   input [1:0]\MEM_DataBus_Addr_reg[15] ;
   input [0:0]\MEM_DataBus_Addr_reg[15]_0 ;
@@ -2105,12 +2110,12 @@ module design_1_microblaze_0_1_ALU_Bit_592
   wire EX_ALU_Sel_Logic;
   wire EX_CarryOut;
   wire EX_Enable_ALU;
+  wire [0:0]\EX_Op2_reg[15] ;
   wire LO;
   wire [1:0]\MEM_DataBus_Addr_reg[15] ;
   wire [0:0]\MEM_DataBus_Addr_reg[15]_0 ;
   wire [0:0]Q;
   wire alu_AddSub;
-  wire [0:0]ex_databus_addr;
   wire lopt;
   wire \^lopt_1 ;
   wire op2_is_1;
@@ -2129,9 +2134,9 @@ module design_1_microblaze_0_1_ALU_Bit_592
   design_1_microblaze_0_1_MB_MUXCY_XORCY_668 \Not_Last_Bit.MUXCY_XOR_I 
        (.DI(op2_is_1),
         .EX_CarryOut(EX_CarryOut),
+        .\EX_Op2_reg[15] (\EX_Op2_reg[15] ),
         .LO(LO),
         .S(alu_AddSub),
-        .ex_databus_addr(ex_databus_addr),
         .lopt(lopt),
         .lopt_1(\^lopt_1 ));
 endmodule
@@ -2139,7 +2144,7 @@ endmodule
 (* ORIG_REF_NAME = "ALU_Bit" *) 
 module design_1_microblaze_0_1_ALU_Bit_593
    (EX_CarryOut,
-    ex_databus_addr,
+    \EX_Op2_reg[16] ,
     Q,
     \MEM_DataBus_Addr_reg[16] ,
     \MEM_DataBus_Addr_reg[16]_0 ,
@@ -2151,7 +2156,7 @@ module design_1_microblaze_0_1_ALU_Bit_593
     lopt_2,
     lopt_3);
   output EX_CarryOut;
-  output [0:0]ex_databus_addr;
+  output [0:0]\EX_Op2_reg[16] ;
   input [0:0]Q;
   input [1:0]\MEM_DataBus_Addr_reg[16] ;
   input [0:0]\MEM_DataBus_Addr_reg[16]_0 ;
@@ -2166,12 +2171,12 @@ module design_1_microblaze_0_1_ALU_Bit_593
   wire EX_ALU_Sel_Logic;
   wire EX_CarryOut;
   wire EX_Enable_ALU;
+  wire [0:0]\EX_Op2_reg[16] ;
   wire LO;
   wire [1:0]\MEM_DataBus_Addr_reg[16] ;
   wire [0:0]\MEM_DataBus_Addr_reg[16]_0 ;
   wire [0:0]Q;
   wire alu_AddSub;
-  wire [0:0]ex_databus_addr;
   wire lopt;
   wire \^lopt_1 ;
   wire op2_is_1;
@@ -2190,9 +2195,9 @@ module design_1_microblaze_0_1_ALU_Bit_593
   design_1_microblaze_0_1_MB_MUXCY_XORCY_666 \Not_Last_Bit.MUXCY_XOR_I 
        (.DI(op2_is_1),
         .EX_CarryOut(EX_CarryOut),
+        .\EX_Op2_reg[16] (\EX_Op2_reg[16] ),
         .LO(LO),
         .S(alu_AddSub),
-        .ex_databus_addr(ex_databus_addr),
         .lopt(lopt),
         .lopt_1(\^lopt_1 ));
 endmodule
@@ -2200,7 +2205,7 @@ endmodule
 (* ORIG_REF_NAME = "ALU_Bit" *) 
 module design_1_microblaze_0_1_ALU_Bit_594
    (EX_CarryOut,
-    ex_databus_addr,
+    \EX_Op2_reg[17] ,
     Q,
     \MEM_DataBus_Addr_reg[17] ,
     \MEM_DataBus_Addr_reg[17]_0 ,
@@ -2212,7 +2217,7 @@ module design_1_microblaze_0_1_ALU_Bit_594
     lopt_2,
     lopt_3);
   output EX_CarryOut;
-  output [0:0]ex_databus_addr;
+  output [0:0]\EX_Op2_reg[17] ;
   input [0:0]Q;
   input [1:0]\MEM_DataBus_Addr_reg[17] ;
   input [0:0]\MEM_DataBus_Addr_reg[17]_0 ;
@@ -2227,12 +2232,12 @@ module design_1_microblaze_0_1_ALU_Bit_594
   wire EX_ALU_Sel_Logic;
   wire EX_CarryOut;
   wire EX_Enable_ALU;
+  wire [0:0]\EX_Op2_reg[17] ;
   wire LO;
   wire [1:0]\MEM_DataBus_Addr_reg[17] ;
   wire [0:0]\MEM_DataBus_Addr_reg[17]_0 ;
   wire [0:0]Q;
   wire alu_AddSub;
-  wire [0:0]ex_databus_addr;
   wire lopt;
   wire \^lopt_1 ;
   wire op2_is_1;
@@ -2251,9 +2256,9 @@ module design_1_microblaze_0_1_ALU_Bit_594
   design_1_microblaze_0_1_MB_MUXCY_XORCY_664 \Not_Last_Bit.MUXCY_XOR_I 
        (.DI(op2_is_1),
         .EX_CarryOut(EX_CarryOut),
+        .\EX_Op2_reg[17] (\EX_Op2_reg[17] ),
         .LO(LO),
         .S(alu_AddSub),
-        .ex_databus_addr(ex_databus_addr),
         .lopt(lopt),
         .lopt_1(\^lopt_1 ));
 endmodule
@@ -2261,7 +2266,7 @@ endmodule
 (* ORIG_REF_NAME = "ALU_Bit" *) 
 module design_1_microblaze_0_1_ALU_Bit_595
    (EX_CarryOut,
-    ex_databus_addr,
+    \EX_Op2_reg[18] ,
     Q,
     \MEM_DataBus_Addr_reg[18] ,
     \MEM_DataBus_Addr_reg[18]_0 ,
@@ -2281,7 +2286,7 @@ module design_1_microblaze_0_1_ALU_Bit_595
     lopt_10,
     lopt_11);
   output EX_CarryOut;
-  output [0:0]ex_databus_addr;
+  output [0:0]\EX_Op2_reg[18] ;
   input [0:0]Q;
   input [1:0]\MEM_DataBus_Addr_reg[18] ;
   input [0:0]\MEM_DataBus_Addr_reg[18]_0 ;
@@ -2304,12 +2309,12 @@ module design_1_microblaze_0_1_ALU_Bit_595
   wire EX_ALU_Sel_Logic;
   wire EX_CarryOut;
   wire EX_Enable_ALU;
+  wire [0:0]\EX_Op2_reg[18] ;
   wire LO;
   wire [1:0]\MEM_DataBus_Addr_reg[18] ;
   wire [0:0]\MEM_DataBus_Addr_reg[18]_0 ;
   wire [0:0]Q;
   wire alu_AddSub;
-  wire [0:0]ex_databus_addr;
   wire lopt;
   wire lopt_1;
   wire lopt_10;
@@ -2335,9 +2340,9 @@ module design_1_microblaze_0_1_ALU_Bit_595
   design_1_microblaze_0_1_MB_MUXCY_XORCY_662 \Not_Last_Bit.MUXCY_XOR_I 
        (.DI(op2_is_1),
         .EX_CarryOut(EX_CarryOut),
+        .\EX_Op2_reg[18] (\EX_Op2_reg[18] ),
         .LO(LO),
         .S(alu_AddSub),
-        .ex_databus_addr(ex_databus_addr),
         .lopt(lopt),
         .lopt_1(lopt_1),
         .lopt_10(lopt_10),
@@ -2355,7 +2360,7 @@ endmodule
 (* ORIG_REF_NAME = "ALU_Bit" *) 
 module design_1_microblaze_0_1_ALU_Bit_596
    (EX_CarryOut,
-    ex_databus_addr,
+    \EX_Op2_reg[19] ,
     Q,
     \MEM_DataBus_Addr_reg[19] ,
     \MEM_DataBus_Addr_reg[19]_0 ,
@@ -2367,7 +2372,7 @@ module design_1_microblaze_0_1_ALU_Bit_596
     lopt_2,
     lopt_3);
   output EX_CarryOut;
-  output [0:0]ex_databus_addr;
+  output [0:0]\EX_Op2_reg[19] ;
   input [0:0]Q;
   input [1:0]\MEM_DataBus_Addr_reg[19] ;
   input [0:0]\MEM_DataBus_Addr_reg[19]_0 ;
@@ -2382,12 +2387,12 @@ module design_1_microblaze_0_1_ALU_Bit_596
   wire EX_ALU_Sel_Logic;
   wire EX_CarryOut;
   wire EX_Enable_ALU;
+  wire [0:0]\EX_Op2_reg[19] ;
   wire LO;
   wire [1:0]\MEM_DataBus_Addr_reg[19] ;
   wire [0:0]\MEM_DataBus_Addr_reg[19]_0 ;
   wire [0:0]Q;
   wire alu_AddSub;
-  wire [0:0]ex_databus_addr;
   wire lopt;
   wire \^lopt_1 ;
   wire op2_is_1;
@@ -2406,9 +2411,9 @@ module design_1_microblaze_0_1_ALU_Bit_596
   design_1_microblaze_0_1_MB_MUXCY_XORCY_660 \Not_Last_Bit.MUXCY_XOR_I 
        (.DI(op2_is_1),
         .EX_CarryOut(EX_CarryOut),
+        .\EX_Op2_reg[19] (\EX_Op2_reg[19] ),
         .LO(LO),
         .S(alu_AddSub),
-        .ex_databus_addr(ex_databus_addr),
         .lopt(lopt),
         .lopt_1(\^lopt_1 ));
 endmodule
@@ -2416,7 +2421,7 @@ endmodule
 (* ORIG_REF_NAME = "ALU_Bit" *) 
 module design_1_microblaze_0_1_ALU_Bit_597
    (EX_CarryOut,
-    ex_databus_addr,
+    \EX_Op2_reg[1] ,
     Q,
     \MEM_DataBus_Addr_reg[1] ,
     \MEM_DataBus_Addr_reg[1]_0 ,
@@ -2428,7 +2433,7 @@ module design_1_microblaze_0_1_ALU_Bit_597
     lopt_2,
     lopt_3);
   output EX_CarryOut;
-  output [0:0]ex_databus_addr;
+  output [0:0]\EX_Op2_reg[1] ;
   input [0:0]Q;
   input [1:0]\MEM_DataBus_Addr_reg[1] ;
   input [0:0]\MEM_DataBus_Addr_reg[1]_0 ;
@@ -2443,12 +2448,12 @@ module design_1_microblaze_0_1_ALU_Bit_597
   wire EX_ALU_Sel_Logic;
   wire EX_CarryOut;
   wire EX_Enable_ALU;
+  wire [0:0]\EX_Op2_reg[1] ;
   wire LO;
   wire [1:0]\MEM_DataBus_Addr_reg[1] ;
   wire [0:0]\MEM_DataBus_Addr_reg[1]_0 ;
   wire [0:0]Q;
   wire alu_AddSub;
-  wire [0:0]ex_databus_addr;
   wire lopt;
   wire \^lopt_1 ;
   wire op2_is_1;
@@ -2467,9 +2472,9 @@ module design_1_microblaze_0_1_ALU_Bit_597
   design_1_microblaze_0_1_MB_MUXCY_XORCY_658 \Not_Last_Bit.MUXCY_XOR_I 
        (.DI(op2_is_1),
         .EX_CarryOut(EX_CarryOut),
+        .\EX_Op2_reg[1] (\EX_Op2_reg[1] ),
         .LO(LO),
         .S(alu_AddSub),
-        .ex_databus_addr(ex_databus_addr),
         .lopt(lopt),
         .lopt_1(\^lopt_1 ));
 endmodule
@@ -2477,7 +2482,7 @@ endmodule
 (* ORIG_REF_NAME = "ALU_Bit" *) 
 module design_1_microblaze_0_1_ALU_Bit_598
    (EX_CarryOut,
-    ex_databus_addr,
+    \EX_Op2_reg[20] ,
     Q,
     \MEM_DataBus_Addr_reg[20] ,
     \MEM_DataBus_Addr_reg[20]_0 ,
@@ -2489,7 +2494,7 @@ module design_1_microblaze_0_1_ALU_Bit_598
     lopt_2,
     lopt_3);
   output EX_CarryOut;
-  output [0:0]ex_databus_addr;
+  output [0:0]\EX_Op2_reg[20] ;
   input [0:0]Q;
   input [1:0]\MEM_DataBus_Addr_reg[20] ;
   input [0:0]\MEM_DataBus_Addr_reg[20]_0 ;
@@ -2504,12 +2509,12 @@ module design_1_microblaze_0_1_ALU_Bit_598
   wire EX_ALU_Sel_Logic;
   wire EX_CarryOut;
   wire EX_Enable_ALU;
+  wire [0:0]\EX_Op2_reg[20] ;
   wire LO;
   wire [1:0]\MEM_DataBus_Addr_reg[20] ;
   wire [0:0]\MEM_DataBus_Addr_reg[20]_0 ;
   wire [0:0]Q;
   wire alu_AddSub;
-  wire [0:0]ex_databus_addr;
   wire lopt;
   wire \^lopt_1 ;
   wire op2_is_1;
@@ -2528,9 +2533,9 @@ module design_1_microblaze_0_1_ALU_Bit_598
   design_1_microblaze_0_1_MB_MUXCY_XORCY_656 \Not_Last_Bit.MUXCY_XOR_I 
        (.DI(op2_is_1),
         .EX_CarryOut(EX_CarryOut),
+        .\EX_Op2_reg[20] (\EX_Op2_reg[20] ),
         .LO(LO),
         .S(alu_AddSub),
-        .ex_databus_addr(ex_databus_addr),
         .lopt(lopt),
         .lopt_1(\^lopt_1 ));
 endmodule
@@ -2538,7 +2543,7 @@ endmodule
 (* ORIG_REF_NAME = "ALU_Bit" *) 
 module design_1_microblaze_0_1_ALU_Bit_599
    (EX_CarryOut,
-    ex_databus_addr,
+    \EX_Op2_reg[21] ,
     Q,
     \MEM_DataBus_Addr_reg[21] ,
     \MEM_DataBus_Addr_reg[21]_0 ,
@@ -2550,7 +2555,7 @@ module design_1_microblaze_0_1_ALU_Bit_599
     lopt_2,
     lopt_3);
   output EX_CarryOut;
-  output [0:0]ex_databus_addr;
+  output [0:0]\EX_Op2_reg[21] ;
   input [0:0]Q;
   input [1:0]\MEM_DataBus_Addr_reg[21] ;
   input [0:0]\MEM_DataBus_Addr_reg[21]_0 ;
@@ -2565,12 +2570,12 @@ module design_1_microblaze_0_1_ALU_Bit_599
   wire EX_ALU_Sel_Logic;
   wire EX_CarryOut;
   wire EX_Enable_ALU;
+  wire [0:0]\EX_Op2_reg[21] ;
   wire LO;
   wire [1:0]\MEM_DataBus_Addr_reg[21] ;
   wire [0:0]\MEM_DataBus_Addr_reg[21]_0 ;
   wire [0:0]Q;
   wire alu_AddSub;
-  wire [0:0]ex_databus_addr;
   wire lopt;
   wire \^lopt_1 ;
   wire op2_is_1;
@@ -2589,9 +2594,9 @@ module design_1_microblaze_0_1_ALU_Bit_599
   design_1_microblaze_0_1_MB_MUXCY_XORCY_654 \Not_Last_Bit.MUXCY_XOR_I 
        (.DI(op2_is_1),
         .EX_CarryOut(EX_CarryOut),
+        .\EX_Op2_reg[21] (\EX_Op2_reg[21] ),
         .LO(LO),
         .S(alu_AddSub),
-        .ex_databus_addr(ex_databus_addr),
         .lopt(lopt),
         .lopt_1(\^lopt_1 ));
 endmodule
@@ -2599,7 +2604,7 @@ endmodule
 (* ORIG_REF_NAME = "ALU_Bit" *) 
 module design_1_microblaze_0_1_ALU_Bit_600
    (EX_CarryOut,
-    ex_databus_addr,
+    \EX_Op2_reg[22] ,
     Q,
     \MEM_DataBus_Addr_reg[22] ,
     \MEM_DataBus_Addr_reg[22]_0 ,
@@ -2619,7 +2624,7 @@ module design_1_microblaze_0_1_ALU_Bit_600
     lopt_10,
     lopt_11);
   output EX_CarryOut;
-  output [0:0]ex_databus_addr;
+  output [0:0]\EX_Op2_reg[22] ;
   input [0:0]Q;
   input [1:0]\MEM_DataBus_Addr_reg[22] ;
   input [0:0]\MEM_DataBus_Addr_reg[22]_0 ;
@@ -2642,12 +2647,12 @@ module design_1_microblaze_0_1_ALU_Bit_600
   wire EX_ALU_Sel_Logic;
   wire EX_CarryOut;
   wire EX_Enable_ALU;
+  wire [0:0]\EX_Op2_reg[22] ;
   wire LO;
   wire [1:0]\MEM_DataBus_Addr_reg[22] ;
   wire [0:0]\MEM_DataBus_Addr_reg[22]_0 ;
   wire [0:0]Q;
   wire alu_AddSub;
-  wire [0:0]ex_databus_addr;
   wire lopt;
   wire lopt_1;
   wire lopt_10;
@@ -2673,9 +2678,9 @@ module design_1_microblaze_0_1_ALU_Bit_600
   design_1_microblaze_0_1_MB_MUXCY_XORCY_652 \Not_Last_Bit.MUXCY_XOR_I 
        (.DI(op2_is_1),
         .EX_CarryOut(EX_CarryOut),
+        .\EX_Op2_reg[22] (\EX_Op2_reg[22] ),
         .LO(LO),
         .S(alu_AddSub),
-        .ex_databus_addr(ex_databus_addr),
         .lopt(lopt),
         .lopt_1(lopt_1),
         .lopt_10(lopt_10),
@@ -2693,7 +2698,7 @@ endmodule
 (* ORIG_REF_NAME = "ALU_Bit" *) 
 module design_1_microblaze_0_1_ALU_Bit_601
    (EX_CarryOut,
-    ex_databus_addr,
+    \EX_Op2_reg[23] ,
     Q,
     \MEM_DataBus_Addr_reg[23] ,
     \MEM_DataBus_Addr_reg[23]_0 ,
@@ -2705,7 +2710,7 @@ module design_1_microblaze_0_1_ALU_Bit_601
     lopt_2,
     lopt_3);
   output EX_CarryOut;
-  output [0:0]ex_databus_addr;
+  output [0:0]\EX_Op2_reg[23] ;
   input [0:0]Q;
   input [1:0]\MEM_DataBus_Addr_reg[23] ;
   input [0:0]\MEM_DataBus_Addr_reg[23]_0 ;
@@ -2720,12 +2725,12 @@ module design_1_microblaze_0_1_ALU_Bit_601
   wire EX_ALU_Sel_Logic;
   wire EX_CarryOut;
   wire EX_Enable_ALU;
+  wire [0:0]\EX_Op2_reg[23] ;
   wire LO;
   wire [1:0]\MEM_DataBus_Addr_reg[23] ;
   wire [0:0]\MEM_DataBus_Addr_reg[23]_0 ;
   wire [0:0]Q;
   wire alu_AddSub;
-  wire [0:0]ex_databus_addr;
   wire lopt;
   wire \^lopt_1 ;
   wire op2_is_1;
@@ -2744,9 +2749,9 @@ module design_1_microblaze_0_1_ALU_Bit_601
   design_1_microblaze_0_1_MB_MUXCY_XORCY_650 \Not_Last_Bit.MUXCY_XOR_I 
        (.DI(op2_is_1),
         .EX_CarryOut(EX_CarryOut),
+        .\EX_Op2_reg[23] (\EX_Op2_reg[23] ),
         .LO(LO),
         .S(alu_AddSub),
-        .ex_databus_addr(ex_databus_addr),
         .lopt(lopt),
         .lopt_1(\^lopt_1 ));
 endmodule
@@ -2754,7 +2759,7 @@ endmodule
 (* ORIG_REF_NAME = "ALU_Bit" *) 
 module design_1_microblaze_0_1_ALU_Bit_602
    (EX_CarryOut,
-    ex_databus_addr,
+    \EX_Op2_reg[24] ,
     Q,
     \MEM_DataBus_Addr_reg[24] ,
     \MEM_DataBus_Addr_reg[24]_0 ,
@@ -2766,7 +2771,7 @@ module design_1_microblaze_0_1_ALU_Bit_602
     lopt_2,
     lopt_3);
   output EX_CarryOut;
-  output [0:0]ex_databus_addr;
+  output [0:0]\EX_Op2_reg[24] ;
   input [0:0]Q;
   input [1:0]\MEM_DataBus_Addr_reg[24] ;
   input [0:0]\MEM_DataBus_Addr_reg[24]_0 ;
@@ -2781,12 +2786,12 @@ module design_1_microblaze_0_1_ALU_Bit_602
   wire EX_ALU_Sel_Logic;
   wire EX_CarryOut;
   wire EX_Enable_ALU;
+  wire [0:0]\EX_Op2_reg[24] ;
   wire LO;
   wire [1:0]\MEM_DataBus_Addr_reg[24] ;
   wire [0:0]\MEM_DataBus_Addr_reg[24]_0 ;
   wire [0:0]Q;
   wire alu_AddSub;
-  wire [0:0]ex_databus_addr;
   wire lopt;
   wire \^lopt_1 ;
   wire op2_is_1;
@@ -2805,9 +2810,9 @@ module design_1_microblaze_0_1_ALU_Bit_602
   design_1_microblaze_0_1_MB_MUXCY_XORCY_648 \Not_Last_Bit.MUXCY_XOR_I 
        (.DI(op2_is_1),
         .EX_CarryOut(EX_CarryOut),
+        .\EX_Op2_reg[24] (\EX_Op2_reg[24] ),
         .LO(LO),
         .S(alu_AddSub),
-        .ex_databus_addr(ex_databus_addr),
         .lopt(lopt),
         .lopt_1(\^lopt_1 ));
 endmodule
@@ -2815,7 +2820,7 @@ endmodule
 (* ORIG_REF_NAME = "ALU_Bit" *) 
 module design_1_microblaze_0_1_ALU_Bit_603
    (EX_CarryOut,
-    ex_databus_addr,
+    \EX_Op2_reg[25] ,
     Q,
     \MEM_DataBus_Addr_reg[25] ,
     \MEM_DataBus_Addr_reg[25]_0 ,
@@ -2827,7 +2832,7 @@ module design_1_microblaze_0_1_ALU_Bit_603
     lopt_2,
     lopt_3);
   output EX_CarryOut;
-  output [0:0]ex_databus_addr;
+  output [0:0]\EX_Op2_reg[25] ;
   input [0:0]Q;
   input [1:0]\MEM_DataBus_Addr_reg[25] ;
   input [0:0]\MEM_DataBus_Addr_reg[25]_0 ;
@@ -2842,12 +2847,12 @@ module design_1_microblaze_0_1_ALU_Bit_603
   wire EX_ALU_Sel_Logic;
   wire EX_CarryOut;
   wire EX_Enable_ALU;
+  wire [0:0]\EX_Op2_reg[25] ;
   wire LO;
   wire [1:0]\MEM_DataBus_Addr_reg[25] ;
   wire [0:0]\MEM_DataBus_Addr_reg[25]_0 ;
   wire [0:0]Q;
   wire alu_AddSub;
-  wire [0:0]ex_databus_addr;
   wire lopt;
   wire \^lopt_1 ;
   wire op2_is_1;
@@ -2866,9 +2871,9 @@ module design_1_microblaze_0_1_ALU_Bit_603
   design_1_microblaze_0_1_MB_MUXCY_XORCY_646 \Not_Last_Bit.MUXCY_XOR_I 
        (.DI(op2_is_1),
         .EX_CarryOut(EX_CarryOut),
+        .\EX_Op2_reg[25] (\EX_Op2_reg[25] ),
         .LO(LO),
         .S(alu_AddSub),
-        .ex_databus_addr(ex_databus_addr),
         .lopt(lopt),
         .lopt_1(\^lopt_1 ));
 endmodule
@@ -2876,7 +2881,7 @@ endmodule
 (* ORIG_REF_NAME = "ALU_Bit" *) 
 module design_1_microblaze_0_1_ALU_Bit_604
    (EX_CarryOut,
-    ex_databus_addr,
+    \EX_Op2_reg[26] ,
     Q,
     \MEM_DataBus_Addr_reg[26] ,
     \MEM_DataBus_Addr_reg[26]_0 ,
@@ -2896,7 +2901,7 @@ module design_1_microblaze_0_1_ALU_Bit_604
     lopt_10,
     lopt_11);
   output EX_CarryOut;
-  output [0:0]ex_databus_addr;
+  output [0:0]\EX_Op2_reg[26] ;
   input [0:0]Q;
   input [1:0]\MEM_DataBus_Addr_reg[26] ;
   input [0:0]\MEM_DataBus_Addr_reg[26]_0 ;
@@ -2919,12 +2924,12 @@ module design_1_microblaze_0_1_ALU_Bit_604
   wire EX_ALU_Sel_Logic;
   wire EX_CarryOut;
   wire EX_Enable_ALU;
+  wire [0:0]\EX_Op2_reg[26] ;
   wire LO;
   wire [1:0]\MEM_DataBus_Addr_reg[26] ;
   wire [0:0]\MEM_DataBus_Addr_reg[26]_0 ;
   wire [0:0]Q;
   wire alu_AddSub;
-  wire [0:0]ex_databus_addr;
   wire lopt;
   wire lopt_1;
   wire lopt_10;
@@ -2950,9 +2955,9 @@ module design_1_microblaze_0_1_ALU_Bit_604
   design_1_microblaze_0_1_MB_MUXCY_XORCY_644 \Not_Last_Bit.MUXCY_XOR_I 
        (.DI(op2_is_1),
         .EX_CarryOut(EX_CarryOut),
+        .\EX_Op2_reg[26] (\EX_Op2_reg[26] ),
         .LO(LO),
         .S(alu_AddSub),
-        .ex_databus_addr(ex_databus_addr),
         .lopt(lopt),
         .lopt_1(lopt_1),
         .lopt_10(lopt_10),
@@ -2970,7 +2975,7 @@ endmodule
 (* ORIG_REF_NAME = "ALU_Bit" *) 
 module design_1_microblaze_0_1_ALU_Bit_605
    (EX_CarryOut,
-    ex_databus_addr,
+    \EX_Op2_reg[27] ,
     Q,
     \MEM_DataBus_Addr_reg[27] ,
     \MEM_DataBus_Addr_reg[27]_0 ,
@@ -2982,7 +2987,7 @@ module design_1_microblaze_0_1_ALU_Bit_605
     lopt_2,
     lopt_3);
   output EX_CarryOut;
-  output [0:0]ex_databus_addr;
+  output [0:0]\EX_Op2_reg[27] ;
   input [0:0]Q;
   input [1:0]\MEM_DataBus_Addr_reg[27] ;
   input [0:0]\MEM_DataBus_Addr_reg[27]_0 ;
@@ -2997,12 +3002,12 @@ module design_1_microblaze_0_1_ALU_Bit_605
   wire EX_ALU_Sel_Logic;
   wire EX_CarryOut;
   wire EX_Enable_ALU;
+  wire [0:0]\EX_Op2_reg[27] ;
   wire LO;
   wire [1:0]\MEM_DataBus_Addr_reg[27] ;
   wire [0:0]\MEM_DataBus_Addr_reg[27]_0 ;
   wire [0:0]Q;
   wire alu_AddSub;
-  wire [0:0]ex_databus_addr;
   wire lopt;
   wire \^lopt_1 ;
   wire op2_is_1;
@@ -3021,9 +3026,9 @@ module design_1_microblaze_0_1_ALU_Bit_605
   design_1_microblaze_0_1_MB_MUXCY_XORCY_642 \Not_Last_Bit.MUXCY_XOR_I 
        (.DI(op2_is_1),
         .EX_CarryOut(EX_CarryOut),
+        .\EX_Op2_reg[27] (\EX_Op2_reg[27] ),
         .LO(LO),
         .S(alu_AddSub),
-        .ex_databus_addr(ex_databus_addr),
         .lopt(lopt),
         .lopt_1(\^lopt_1 ));
 endmodule
@@ -3031,7 +3036,7 @@ endmodule
 (* ORIG_REF_NAME = "ALU_Bit" *) 
 module design_1_microblaze_0_1_ALU_Bit_606
    (EX_CarryOut,
-    ex_databus_addr,
+    \EX_Op2_reg[28] ,
     Q,
     \MEM_DataBus_Addr_reg[28] ,
     \MEM_DataBus_Addr_reg[28]_0 ,
@@ -3043,7 +3048,7 @@ module design_1_microblaze_0_1_ALU_Bit_606
     lopt_2,
     lopt_3);
   output EX_CarryOut;
-  output [0:0]ex_databus_addr;
+  output [0:0]\EX_Op2_reg[28] ;
   input [0:0]Q;
   input [1:0]\MEM_DataBus_Addr_reg[28] ;
   input [0:0]\MEM_DataBus_Addr_reg[28]_0 ;
@@ -3058,12 +3063,12 @@ module design_1_microblaze_0_1_ALU_Bit_606
   wire EX_ALU_Sel_Logic;
   wire EX_CarryOut;
   wire EX_Enable_ALU;
+  wire [0:0]\EX_Op2_reg[28] ;
   wire LO;
   wire [1:0]\MEM_DataBus_Addr_reg[28] ;
   wire [0:0]\MEM_DataBus_Addr_reg[28]_0 ;
   wire [0:0]Q;
   wire alu_AddSub;
-  wire [0:0]ex_databus_addr;
   wire lopt;
   wire \^lopt_1 ;
   wire op2_is_1;
@@ -3082,9 +3087,9 @@ module design_1_microblaze_0_1_ALU_Bit_606
   design_1_microblaze_0_1_MB_MUXCY_XORCY_640 \Not_Last_Bit.MUXCY_XOR_I 
        (.DI(op2_is_1),
         .EX_CarryOut(EX_CarryOut),
+        .\EX_Op2_reg[28] (\EX_Op2_reg[28] ),
         .LO(LO),
         .S(alu_AddSub),
-        .ex_databus_addr(ex_databus_addr),
         .lopt(lopt),
         .lopt_1(\^lopt_1 ));
 endmodule
@@ -3092,7 +3097,7 @@ endmodule
 (* ORIG_REF_NAME = "ALU_Bit" *) 
 module design_1_microblaze_0_1_ALU_Bit_607
    (EX_CarryOut,
-    ex_databus_addr,
+    \EX_Op2_reg[29] ,
     Q,
     \MEM_DataBus_Addr_reg[29] ,
     \MEM_DataBus_Addr_reg[29]_0 ,
@@ -3104,7 +3109,7 @@ module design_1_microblaze_0_1_ALU_Bit_607
     lopt_2,
     lopt_3);
   output EX_CarryOut;
-  output [0:0]ex_databus_addr;
+  output [0:0]\EX_Op2_reg[29] ;
   input [0:0]Q;
   input [1:0]\MEM_DataBus_Addr_reg[29] ;
   input [0:0]\MEM_DataBus_Addr_reg[29]_0 ;
@@ -3119,12 +3124,12 @@ module design_1_microblaze_0_1_ALU_Bit_607
   wire EX_ALU_Sel_Logic;
   wire EX_CarryOut;
   wire EX_Enable_ALU;
+  wire [0:0]\EX_Op2_reg[29] ;
   wire LO;
   wire [1:0]\MEM_DataBus_Addr_reg[29] ;
   wire [0:0]\MEM_DataBus_Addr_reg[29]_0 ;
   wire [0:0]Q;
   wire alu_AddSub;
-  wire [0:0]ex_databus_addr;
   wire lopt;
   wire \^lopt_1 ;
   wire op2_is_1;
@@ -3143,9 +3148,9 @@ module design_1_microblaze_0_1_ALU_Bit_607
   design_1_microblaze_0_1_MB_MUXCY_XORCY_638 \Not_Last_Bit.MUXCY_XOR_I 
        (.DI(op2_is_1),
         .EX_CarryOut(EX_CarryOut),
+        .\EX_Op2_reg[29] (\EX_Op2_reg[29] ),
         .LO(LO),
         .S(alu_AddSub),
-        .ex_databus_addr(ex_databus_addr),
         .lopt(lopt),
         .lopt_1(\^lopt_1 ));
 endmodule
@@ -3153,7 +3158,7 @@ endmodule
 (* ORIG_REF_NAME = "ALU_Bit" *) 
 module design_1_microblaze_0_1_ALU_Bit_608
    (EX_CarryOut,
-    ex_databus_addr,
+    \EX_Op2_reg[2] ,
     Q,
     \MEM_DataBus_Addr_reg[2] ,
     \MEM_DataBus_Addr_reg[2]_0 ,
@@ -3172,7 +3177,7 @@ module design_1_microblaze_0_1_ALU_Bit_608
     lopt_9,
     lopt_10);
   output EX_CarryOut;
-  output [0:0]ex_databus_addr;
+  output [0:0]\EX_Op2_reg[2] ;
   input [0:0]Q;
   input [1:0]\MEM_DataBus_Addr_reg[2] ;
   input [0:0]\MEM_DataBus_Addr_reg[2]_0 ;
@@ -3194,12 +3199,12 @@ module design_1_microblaze_0_1_ALU_Bit_608
   wire EX_ALU_Sel_Logic;
   wire EX_CarryOut;
   wire EX_Enable_ALU;
+  wire [0:0]\EX_Op2_reg[2] ;
   wire LO;
   wire [1:0]\MEM_DataBus_Addr_reg[2] ;
   wire [0:0]\MEM_DataBus_Addr_reg[2]_0 ;
   wire [0:0]Q;
   wire alu_AddSub;
-  wire [0:0]ex_databus_addr;
   wire lopt;
   wire lopt_1;
   wire lopt_10;
@@ -3224,9 +3229,9 @@ module design_1_microblaze_0_1_ALU_Bit_608
   design_1_microblaze_0_1_MB_MUXCY_XORCY_636 \Not_Last_Bit.MUXCY_XOR_I 
        (.DI(op2_is_1),
         .EX_CarryOut(EX_CarryOut),
+        .\EX_Op2_reg[2] (\EX_Op2_reg[2] ),
         .LO(LO),
         .S(alu_AddSub),
-        .ex_databus_addr(ex_databus_addr),
         .lopt(lopt),
         .lopt_1(lopt_1),
         .lopt_10(lopt_10),
@@ -3398,7 +3403,7 @@ endmodule
 (* ORIG_REF_NAME = "ALU_Bit" *) 
 module design_1_microblaze_0_1_ALU_Bit_611
    (EX_CarryOut,
-    ex_databus_addr,
+    \EX_Op2_reg[3] ,
     Q,
     \MEM_DataBus_Addr_reg[3] ,
     \MEM_DataBus_Addr_reg[3]_0 ,
@@ -3410,7 +3415,7 @@ module design_1_microblaze_0_1_ALU_Bit_611
     lopt_2,
     lopt_3);
   output EX_CarryOut;
-  output [0:0]ex_databus_addr;
+  output [0:0]\EX_Op2_reg[3] ;
   input [0:0]Q;
   input [1:0]\MEM_DataBus_Addr_reg[3] ;
   input [0:0]\MEM_DataBus_Addr_reg[3]_0 ;
@@ -3425,12 +3430,12 @@ module design_1_microblaze_0_1_ALU_Bit_611
   wire EX_ALU_Sel_Logic;
   wire EX_CarryOut;
   wire EX_Enable_ALU;
+  wire [0:0]\EX_Op2_reg[3] ;
   wire LO;
   wire [1:0]\MEM_DataBus_Addr_reg[3] ;
   wire [0:0]\MEM_DataBus_Addr_reg[3]_0 ;
   wire [0:0]Q;
   wire alu_AddSub;
-  wire [0:0]ex_databus_addr;
   wire lopt;
   wire \^lopt_1 ;
   wire op2_is_1;
@@ -3449,9 +3454,9 @@ module design_1_microblaze_0_1_ALU_Bit_611
   design_1_microblaze_0_1_MB_MUXCY_XORCY_630 \Not_Last_Bit.MUXCY_XOR_I 
        (.DI(op2_is_1),
         .EX_CarryOut(EX_CarryOut),
+        .\EX_Op2_reg[3] (\EX_Op2_reg[3] ),
         .LO(LO),
         .S(alu_AddSub),
-        .ex_databus_addr(ex_databus_addr),
         .lopt(lopt),
         .lopt_1(\^lopt_1 ));
 endmodule
@@ -3459,7 +3464,7 @@ endmodule
 (* ORIG_REF_NAME = "ALU_Bit" *) 
 module design_1_microblaze_0_1_ALU_Bit_612
    (EX_CarryOut,
-    ex_databus_addr,
+    \EX_Op2_reg[4] ,
     Q,
     \MEM_DataBus_Addr_reg[4] ,
     \MEM_DataBus_Addr_reg[4]_0 ,
@@ -3471,7 +3476,7 @@ module design_1_microblaze_0_1_ALU_Bit_612
     lopt_2,
     lopt_3);
   output EX_CarryOut;
-  output [0:0]ex_databus_addr;
+  output [0:0]\EX_Op2_reg[4] ;
   input [0:0]Q;
   input [1:0]\MEM_DataBus_Addr_reg[4] ;
   input [0:0]\MEM_DataBus_Addr_reg[4]_0 ;
@@ -3486,12 +3491,12 @@ module design_1_microblaze_0_1_ALU_Bit_612
   wire EX_ALU_Sel_Logic;
   wire EX_CarryOut;
   wire EX_Enable_ALU;
+  wire [0:0]\EX_Op2_reg[4] ;
   wire LO;
   wire [1:0]\MEM_DataBus_Addr_reg[4] ;
   wire [0:0]\MEM_DataBus_Addr_reg[4]_0 ;
   wire [0:0]Q;
   wire alu_AddSub;
-  wire [0:0]ex_databus_addr;
   wire lopt;
   wire \^lopt_1 ;
   wire op2_is_1;
@@ -3510,9 +3515,9 @@ module design_1_microblaze_0_1_ALU_Bit_612
   design_1_microblaze_0_1_MB_MUXCY_XORCY_628 \Not_Last_Bit.MUXCY_XOR_I 
        (.DI(op2_is_1),
         .EX_CarryOut(EX_CarryOut),
+        .\EX_Op2_reg[4] (\EX_Op2_reg[4] ),
         .LO(LO),
         .S(alu_AddSub),
-        .ex_databus_addr(ex_databus_addr),
         .lopt(lopt),
         .lopt_1(\^lopt_1 ));
 endmodule
@@ -3520,7 +3525,7 @@ endmodule
 (* ORIG_REF_NAME = "ALU_Bit" *) 
 module design_1_microblaze_0_1_ALU_Bit_613
    (EX_CarryOut,
-    ex_databus_addr,
+    \EX_Op2_reg[5] ,
     Q,
     \MEM_DataBus_Addr_reg[5] ,
     \MEM_DataBus_Addr_reg[5]_0 ,
@@ -3532,7 +3537,7 @@ module design_1_microblaze_0_1_ALU_Bit_613
     lopt_2,
     lopt_3);
   output EX_CarryOut;
-  output [0:0]ex_databus_addr;
+  output [0:0]\EX_Op2_reg[5] ;
   input [0:0]Q;
   input [1:0]\MEM_DataBus_Addr_reg[5] ;
   input [0:0]\MEM_DataBus_Addr_reg[5]_0 ;
@@ -3547,12 +3552,12 @@ module design_1_microblaze_0_1_ALU_Bit_613
   wire EX_ALU_Sel_Logic;
   wire EX_CarryOut;
   wire EX_Enable_ALU;
+  wire [0:0]\EX_Op2_reg[5] ;
   wire LO;
   wire [1:0]\MEM_DataBus_Addr_reg[5] ;
   wire [0:0]\MEM_DataBus_Addr_reg[5]_0 ;
   wire [0:0]Q;
   wire alu_AddSub;
-  wire [0:0]ex_databus_addr;
   wire lopt;
   wire \^lopt_1 ;
   wire op2_is_1;
@@ -3571,9 +3576,9 @@ module design_1_microblaze_0_1_ALU_Bit_613
   design_1_microblaze_0_1_MB_MUXCY_XORCY_626 \Not_Last_Bit.MUXCY_XOR_I 
        (.DI(op2_is_1),
         .EX_CarryOut(EX_CarryOut),
+        .\EX_Op2_reg[5] (\EX_Op2_reg[5] ),
         .LO(LO),
         .S(alu_AddSub),
-        .ex_databus_addr(ex_databus_addr),
         .lopt(lopt),
         .lopt_1(\^lopt_1 ));
 endmodule
@@ -3581,7 +3586,7 @@ endmodule
 (* ORIG_REF_NAME = "ALU_Bit" *) 
 module design_1_microblaze_0_1_ALU_Bit_614
    (EX_CarryOut,
-    ex_databus_addr,
+    \EX_Op2_reg[6] ,
     Q,
     \MEM_DataBus_Addr_reg[6] ,
     \MEM_DataBus_Addr_reg[6]_0 ,
@@ -3601,7 +3606,7 @@ module design_1_microblaze_0_1_ALU_Bit_614
     lopt_10,
     lopt_11);
   output EX_CarryOut;
-  output [0:0]ex_databus_addr;
+  output [0:0]\EX_Op2_reg[6] ;
   input [0:0]Q;
   input [1:0]\MEM_DataBus_Addr_reg[6] ;
   input [0:0]\MEM_DataBus_Addr_reg[6]_0 ;
@@ -3624,12 +3629,12 @@ module design_1_microblaze_0_1_ALU_Bit_614
   wire EX_ALU_Sel_Logic;
   wire EX_CarryOut;
   wire EX_Enable_ALU;
+  wire [0:0]\EX_Op2_reg[6] ;
   wire LO;
   wire [1:0]\MEM_DataBus_Addr_reg[6] ;
   wire [0:0]\MEM_DataBus_Addr_reg[6]_0 ;
   wire [0:0]Q;
   wire alu_AddSub;
-  wire [0:0]ex_databus_addr;
   wire lopt;
   wire lopt_1;
   wire lopt_10;
@@ -3655,9 +3660,9 @@ module design_1_microblaze_0_1_ALU_Bit_614
   design_1_microblaze_0_1_MB_MUXCY_XORCY_624 \Not_Last_Bit.MUXCY_XOR_I 
        (.DI(op2_is_1),
         .EX_CarryOut(EX_CarryOut),
+        .\EX_Op2_reg[6] (\EX_Op2_reg[6] ),
         .LO(LO),
         .S(alu_AddSub),
-        .ex_databus_addr(ex_databus_addr),
         .lopt(lopt),
         .lopt_1(lopt_1),
         .lopt_10(lopt_10),
@@ -3675,7 +3680,7 @@ endmodule
 (* ORIG_REF_NAME = "ALU_Bit" *) 
 module design_1_microblaze_0_1_ALU_Bit_615
    (EX_CarryOut,
-    ex_databus_addr,
+    \EX_Op2_reg[7] ,
     Q,
     \MEM_DataBus_Addr_reg[7] ,
     \MEM_DataBus_Addr_reg[7]_0 ,
@@ -3687,7 +3692,7 @@ module design_1_microblaze_0_1_ALU_Bit_615
     lopt_2,
     lopt_3);
   output EX_CarryOut;
-  output [0:0]ex_databus_addr;
+  output [0:0]\EX_Op2_reg[7] ;
   input [0:0]Q;
   input [1:0]\MEM_DataBus_Addr_reg[7] ;
   input [0:0]\MEM_DataBus_Addr_reg[7]_0 ;
@@ -3702,12 +3707,12 @@ module design_1_microblaze_0_1_ALU_Bit_615
   wire EX_ALU_Sel_Logic;
   wire EX_CarryOut;
   wire EX_Enable_ALU;
+  wire [0:0]\EX_Op2_reg[7] ;
   wire LO;
   wire [1:0]\MEM_DataBus_Addr_reg[7] ;
   wire [0:0]\MEM_DataBus_Addr_reg[7]_0 ;
   wire [0:0]Q;
   wire alu_AddSub;
-  wire [0:0]ex_databus_addr;
   wire lopt;
   wire \^lopt_1 ;
   wire op2_is_1;
@@ -3726,9 +3731,9 @@ module design_1_microblaze_0_1_ALU_Bit_615
   design_1_microblaze_0_1_MB_MUXCY_XORCY_622 \Not_Last_Bit.MUXCY_XOR_I 
        (.DI(op2_is_1),
         .EX_CarryOut(EX_CarryOut),
+        .\EX_Op2_reg[7] (\EX_Op2_reg[7] ),
         .LO(LO),
         .S(alu_AddSub),
-        .ex_databus_addr(ex_databus_addr),
         .lopt(lopt),
         .lopt_1(\^lopt_1 ));
 endmodule
@@ -3736,7 +3741,7 @@ endmodule
 (* ORIG_REF_NAME = "ALU_Bit" *) 
 module design_1_microblaze_0_1_ALU_Bit_616
    (EX_CarryOut,
-    ex_databus_addr,
+    \EX_Op2_reg[8] ,
     Q,
     \MEM_DataBus_Addr_reg[8] ,
     \MEM_DataBus_Addr_reg[8]_0 ,
@@ -3748,7 +3753,7 @@ module design_1_microblaze_0_1_ALU_Bit_616
     lopt_2,
     lopt_3);
   output EX_CarryOut;
-  output [0:0]ex_databus_addr;
+  output [0:0]\EX_Op2_reg[8] ;
   input [0:0]Q;
   input [1:0]\MEM_DataBus_Addr_reg[8] ;
   input [0:0]\MEM_DataBus_Addr_reg[8]_0 ;
@@ -3763,12 +3768,12 @@ module design_1_microblaze_0_1_ALU_Bit_616
   wire EX_ALU_Sel_Logic;
   wire EX_CarryOut;
   wire EX_Enable_ALU;
+  wire [0:0]\EX_Op2_reg[8] ;
   wire LO;
   wire [1:0]\MEM_DataBus_Addr_reg[8] ;
   wire [0:0]\MEM_DataBus_Addr_reg[8]_0 ;
   wire [0:0]Q;
   wire alu_AddSub;
-  wire [0:0]ex_databus_addr;
   wire lopt;
   wire \^lopt_1 ;
   wire op2_is_1;
@@ -3787,9 +3792,9 @@ module design_1_microblaze_0_1_ALU_Bit_616
   design_1_microblaze_0_1_MB_MUXCY_XORCY_620 \Not_Last_Bit.MUXCY_XOR_I 
        (.DI(op2_is_1),
         .EX_CarryOut(EX_CarryOut),
+        .\EX_Op2_reg[8] (\EX_Op2_reg[8] ),
         .LO(LO),
         .S(alu_AddSub),
-        .ex_databus_addr(ex_databus_addr),
         .lopt(lopt),
         .lopt_1(\^lopt_1 ));
 endmodule
@@ -3797,7 +3802,7 @@ endmodule
 (* ORIG_REF_NAME = "ALU_Bit" *) 
 module design_1_microblaze_0_1_ALU_Bit_617
    (EX_CarryOut,
-    ex_databus_addr,
+    \EX_Op2_reg[9] ,
     Q,
     \MEM_DataBus_Addr_reg[9] ,
     \MEM_DataBus_Addr_reg[9]_0 ,
@@ -3809,7 +3814,7 @@ module design_1_microblaze_0_1_ALU_Bit_617
     lopt_2,
     lopt_3);
   output EX_CarryOut;
-  output [0:0]ex_databus_addr;
+  output [0:0]\EX_Op2_reg[9] ;
   input [0:0]Q;
   input [1:0]\MEM_DataBus_Addr_reg[9] ;
   input [0:0]\MEM_DataBus_Addr_reg[9]_0 ;
@@ -3825,11 +3830,11 @@ module design_1_microblaze_0_1_ALU_Bit_617
   wire EX_CarryIn;
   wire EX_CarryOut;
   wire EX_Enable_ALU;
+  wire [0:0]\EX_Op2_reg[9] ;
   wire [1:0]\MEM_DataBus_Addr_reg[9] ;
   wire [0:0]\MEM_DataBus_Addr_reg[9]_0 ;
   wire [0:0]Q;
   wire alu_AddSub;
-  wire [0:0]ex_databus_addr;
   wire lopt;
   wire \^lopt_1 ;
   wire op2_is_1;
@@ -3849,8 +3854,8 @@ module design_1_microblaze_0_1_ALU_Bit_617
        (.DI(op2_is_1),
         .EX_CarryIn(EX_CarryIn),
         .EX_CarryOut(EX_CarryOut),
+        .\EX_Op2_reg[9] (\EX_Op2_reg[9] ),
         .S(alu_AddSub),
-        .ex_databus_addr(ex_databus_addr),
         .lopt(lopt),
         .lopt_1(\^lopt_1 ));
 endmodule
@@ -3858,7 +3863,7 @@ endmodule
 (* ORIG_REF_NAME = "ALU_Bit" *) 
 module design_1_microblaze_0_1_ALU_Bit__parameterized2
    (\EX_Op2_reg[0] ,
-    ex_databus_addr,
+    \EX_Op2_reg[0]_0 ,
     S,
     ex_unsigned_op,
     LO,
@@ -3875,7 +3880,7 @@ module design_1_microblaze_0_1_ALU_Bit__parameterized2
     lopt_3,
     lopt_4);
   output \EX_Op2_reg[0] ;
-  output [0:0]ex_databus_addr;
+  output [0:0]\EX_Op2_reg[0]_0 ;
   input S;
   input ex_unsigned_op;
   input LO;
@@ -3895,6 +3900,7 @@ module design_1_microblaze_0_1_ALU_Bit__parameterized2
   wire EX_ALU_Sel_Logic;
   wire EX_Enable_ALU;
   wire \EX_Op2_reg[0] ;
+  wire [0:0]\EX_Op2_reg[0]_0 ;
   wire I0;
   wire I2;
   wire LO;
@@ -3904,7 +3910,6 @@ module design_1_microblaze_0_1_ALU_Bit__parameterized2
   wire [0:0]\Using_FPGA.Native ;
   wire alu_AddSub;
   wire alu_AddSub_1;
-  wire [0:0]ex_databus_addr;
   wire ex_unsigned_op;
   wire invert_result;
   wire lopt;
@@ -3936,8 +3941,8 @@ module design_1_microblaze_0_1_ALU_Bit__parameterized2
        (.CI(invert_result),
         .DI(op2_is_1),
         .\EX_Op2_reg[0] (\EX_Op2_reg[0] ),
+        .\EX_Op2_reg[0]_0 (\EX_Op2_reg[0]_0 ),
         .S(alu_AddSub),
-        .ex_databus_addr(ex_databus_addr),
         .lopt(lopt_1),
         .lopt_1(\^lopt_2 ));
   design_1_microblaze_0_1_MB_MUXCY_680 \Last_Bit.Pre_MUXCY_I 
@@ -4291,669 +4296,750 @@ endmodule
 module design_1_microblaze_0_1_DAXI_interface
    (active_access_d1,
     active_access,
-    mem_databus_Data_Strobe,
     D,
+    MEM_DataBus_Ready,
     wb_databus_steered_read_data,
-    \WB_DAXI_Read_Data_reg[0]_0 ,
-    \WB_DAXI_Read_Data_reg[1]_0 ,
-    \WB_DAXI_Read_Data_reg[2]_0 ,
-    \WB_DAXI_Read_Data_reg[3]_0 ,
-    \WB_DAXI_Read_Data_reg[4]_0 ,
-    \WB_DAXI_Read_Data_reg[5]_0 ,
-    \WB_DAXI_Read_Data_reg[6]_0 ,
-    \WB_DAXI_Read_Data_reg[16]_0 ,
-    \WB_DAXI_Read_Data_reg[17]_0 ,
-    \WB_DAXI_Read_Data_reg[18]_0 ,
-    \WB_DAXI_Read_Data_reg[19]_0 ,
-    \WB_DAXI_Read_Data_reg[20]_0 ,
-    \WB_DAXI_Read_Data_reg[21]_0 ,
-    \WB_DAXI_Read_Data_reg[22]_0 ,
-    \WB_DAXI_Read_Data_reg[23]_0 ,
-    \WB_DAXI_Read_Data_reg[7]_0 ,
-    WB_DAXI_Data_Strobe_reg_0,
-    WB_DAXI_Data_Strobe_reg_1,
-    WB_DAXI_Data_Strobe_reg_2,
-    WB_DAXI_Data_Strobe_reg_3,
-    WB_DAXI_Data_Strobe_reg_4,
-    WB_DAXI_Data_Strobe_reg_5,
-    WB_DAXI_Data_Strobe_reg_6,
-    WB_DAXI_Data_Strobe_reg_7,
+    \No_Long.Reverse_Mem_Accesses.wb_read_msb_doublet_sel_reg ,
+    \No_Long.Reverse_Mem_Accesses.wb_read_msb_doublet_sel_reg_0 ,
+    \No_Long.Reverse_Mem_Accesses.wb_read_msb_doublet_sel_reg_1 ,
+    \No_Long.Reverse_Mem_Accesses.wb_read_msb_doublet_sel_reg_2 ,
+    \No_Long.Reverse_Mem_Accesses.wb_read_msb_doublet_sel_reg_3 ,
+    \No_Long.Reverse_Mem_Accesses.wb_read_msb_doublet_sel_reg_4 ,
+    \No_Long.Reverse_Mem_Accesses.wb_read_msb_doublet_sel_reg_5 ,
+    \No_Long.Reverse_Mem_Accesses.wb_read_msb_doublet_sel_reg_6 ,
+    \Use_DLMB.wb_dlmb_valid_read_data_reg[23] ,
+    \Use_DLMB.wb_dlmb_valid_read_data_reg[22] ,
+    \Use_DLMB.wb_dlmb_valid_read_data_reg[21] ,
+    \Use_DLMB.wb_dlmb_valid_read_data_reg[20] ,
+    \Use_DLMB.wb_dlmb_valid_read_data_reg[19] ,
+    \Use_DLMB.wb_dlmb_valid_read_data_reg[18] ,
+    \Use_DLMB.wb_dlmb_valid_read_data_reg[17] ,
+    \Use_DLMB.wb_dlmb_valid_read_data_reg[16] ,
+    \Use_DLMB.wb_dlmb_valid_read_data_reg[31] ,
+    \Use_DLMB.wb_dlmb_valid_read_data_reg[30] ,
+    \Use_DLMB.wb_dlmb_valid_read_data_reg[29] ,
+    \Use_DLMB.wb_dlmb_valid_read_data_reg[28] ,
+    \Use_DLMB.wb_dlmb_valid_read_data_reg[27] ,
+    \Use_DLMB.wb_dlmb_valid_read_data_reg[26] ,
+    \Use_DLMB.wb_dlmb_valid_read_data_reg[25] ,
+    \Use_DLMB.wb_dlmb_valid_read_data_reg[24] ,
     sync_reset,
     Clk,
     active_access_reg_0,
-    wb_read_msb_doublet_sel,
-    wb_byte_access,
-    wb_doublet_access,
-    mem_databus_access,
-    mem_databus_write,
-    M_AXI_DP_WREADY,
-    M_AXI_DP_AWREADY,
-    M_AXI_DP_ARREADY,
+    M_AXI_DP_AWVALID_i_reg_0,
+    M_AXI_DP_WVALID_i_reg_0,
+    M_AXI_DP_ARVALID_i_reg_0,
+    DReady,
     \LOCKSTEP_Out_reg[3031] ,
+    wb_read_msb_doublet_sel,
     wb_read_lsb_1_sel,
+    Q,
     M_AXI_DP_RVALID,
     M_AXI_DP_BVALID,
     M_AXI_DP_RDATA);
   output active_access_d1;
   output active_access;
-  output mem_databus_Data_Strobe;
   output [2:0]D;
-  output [15:0]wb_databus_steered_read_data;
-  output \WB_DAXI_Read_Data_reg[0]_0 ;
-  output \WB_DAXI_Read_Data_reg[1]_0 ;
-  output \WB_DAXI_Read_Data_reg[2]_0 ;
-  output \WB_DAXI_Read_Data_reg[3]_0 ;
-  output \WB_DAXI_Read_Data_reg[4]_0 ;
-  output \WB_DAXI_Read_Data_reg[5]_0 ;
-  output \WB_DAXI_Read_Data_reg[6]_0 ;
-  output \WB_DAXI_Read_Data_reg[16]_0 ;
-  output \WB_DAXI_Read_Data_reg[17]_0 ;
-  output \WB_DAXI_Read_Data_reg[18]_0 ;
-  output \WB_DAXI_Read_Data_reg[19]_0 ;
-  output \WB_DAXI_Read_Data_reg[20]_0 ;
-  output \WB_DAXI_Read_Data_reg[21]_0 ;
-  output \WB_DAXI_Read_Data_reg[22]_0 ;
-  output \WB_DAXI_Read_Data_reg[23]_0 ;
-  output \WB_DAXI_Read_Data_reg[7]_0 ;
-  output WB_DAXI_Data_Strobe_reg_0;
-  output WB_DAXI_Data_Strobe_reg_1;
-  output WB_DAXI_Data_Strobe_reg_2;
-  output WB_DAXI_Data_Strobe_reg_3;
-  output WB_DAXI_Data_Strobe_reg_4;
-  output WB_DAXI_Data_Strobe_reg_5;
-  output WB_DAXI_Data_Strobe_reg_6;
-  output WB_DAXI_Data_Strobe_reg_7;
+  output MEM_DataBus_Ready;
+  output [7:0]wb_databus_steered_read_data;
+  output \No_Long.Reverse_Mem_Accesses.wb_read_msb_doublet_sel_reg ;
+  output \No_Long.Reverse_Mem_Accesses.wb_read_msb_doublet_sel_reg_0 ;
+  output \No_Long.Reverse_Mem_Accesses.wb_read_msb_doublet_sel_reg_1 ;
+  output \No_Long.Reverse_Mem_Accesses.wb_read_msb_doublet_sel_reg_2 ;
+  output \No_Long.Reverse_Mem_Accesses.wb_read_msb_doublet_sel_reg_3 ;
+  output \No_Long.Reverse_Mem_Accesses.wb_read_msb_doublet_sel_reg_4 ;
+  output \No_Long.Reverse_Mem_Accesses.wb_read_msb_doublet_sel_reg_5 ;
+  output \No_Long.Reverse_Mem_Accesses.wb_read_msb_doublet_sel_reg_6 ;
+  output \Use_DLMB.wb_dlmb_valid_read_data_reg[23] ;
+  output \Use_DLMB.wb_dlmb_valid_read_data_reg[22] ;
+  output \Use_DLMB.wb_dlmb_valid_read_data_reg[21] ;
+  output \Use_DLMB.wb_dlmb_valid_read_data_reg[20] ;
+  output \Use_DLMB.wb_dlmb_valid_read_data_reg[19] ;
+  output \Use_DLMB.wb_dlmb_valid_read_data_reg[18] ;
+  output \Use_DLMB.wb_dlmb_valid_read_data_reg[17] ;
+  output \Use_DLMB.wb_dlmb_valid_read_data_reg[16] ;
+  output \Use_DLMB.wb_dlmb_valid_read_data_reg[31] ;
+  output \Use_DLMB.wb_dlmb_valid_read_data_reg[30] ;
+  output \Use_DLMB.wb_dlmb_valid_read_data_reg[29] ;
+  output \Use_DLMB.wb_dlmb_valid_read_data_reg[28] ;
+  output \Use_DLMB.wb_dlmb_valid_read_data_reg[27] ;
+  output \Use_DLMB.wb_dlmb_valid_read_data_reg[26] ;
+  output \Use_DLMB.wb_dlmb_valid_read_data_reg[25] ;
+  output \Use_DLMB.wb_dlmb_valid_read_data_reg[24] ;
   input sync_reset;
   input Clk;
   input active_access_reg_0;
-  input wb_read_msb_doublet_sel;
-  input wb_byte_access;
-  input wb_doublet_access;
-  input mem_databus_access;
-  input mem_databus_write;
-  input M_AXI_DP_WREADY;
-  input M_AXI_DP_AWREADY;
-  input M_AXI_DP_ARREADY;
+  input M_AXI_DP_AWVALID_i_reg_0;
+  input M_AXI_DP_WVALID_i_reg_0;
+  input M_AXI_DP_ARVALID_i_reg_0;
+  input DReady;
   input [1:0]\LOCKSTEP_Out_reg[3031] ;
+  input wb_read_msb_doublet_sel;
   input [0:0]wb_read_lsb_1_sel;
+  input [31:0]Q;
   input M_AXI_DP_RVALID;
   input M_AXI_DP_BVALID;
   input [31:0]M_AXI_DP_RDATA;
 
   wire Clk;
   wire [2:0]D;
+  wire DReady;
   wire [1:0]\LOCKSTEP_Out_reg[3031] ;
-  wire M_AXI_DP_ARREADY;
-  wire M_AXI_DP_ARVALID_i_i_1_n_0;
-  wire M_AXI_DP_AWREADY;
-  wire M_AXI_DP_AWVALID_i_i_1_n_0;
+  wire MEM_DAXI_Data_Strobe;
+  wire MEM_DataBus_Ready;
+  wire M_AXI_DP_ARVALID_i_reg_0;
+  wire M_AXI_DP_AWVALID_i_reg_0;
   wire M_AXI_DP_BVALID;
   wire [31:0]M_AXI_DP_RDATA;
   wire M_AXI_DP_RVALID;
-  wire M_AXI_DP_WREADY;
-  wire M_AXI_DP_WVALID_i_i_1_n_0;
-  wire \Trace_New_Reg_Value[16]_INST_0_i_2_n_0 ;
-  wire \Trace_New_Reg_Value[17]_INST_0_i_2_n_0 ;
-  wire \Trace_New_Reg_Value[18]_INST_0_i_2_n_0 ;
-  wire \Trace_New_Reg_Value[19]_INST_0_i_2_n_0 ;
-  wire \Trace_New_Reg_Value[20]_INST_0_i_2_n_0 ;
-  wire \Trace_New_Reg_Value[21]_INST_0_i_2_n_0 ;
-  wire \Trace_New_Reg_Value[22]_INST_0_i_2_n_0 ;
-  wire \Trace_New_Reg_Value[23]_INST_0_i_2_n_0 ;
-  wire WB_DAXI_Data_Strobe_reg_0;
-  wire WB_DAXI_Data_Strobe_reg_1;
-  wire WB_DAXI_Data_Strobe_reg_2;
-  wire WB_DAXI_Data_Strobe_reg_3;
-  wire WB_DAXI_Data_Strobe_reg_4;
-  wire WB_DAXI_Data_Strobe_reg_5;
-  wire WB_DAXI_Data_Strobe_reg_6;
-  wire WB_DAXI_Data_Strobe_reg_7;
-  wire \WB_DAXI_Read_Data_reg[0]_0 ;
-  wire \WB_DAXI_Read_Data_reg[16]_0 ;
-  wire \WB_DAXI_Read_Data_reg[17]_0 ;
-  wire \WB_DAXI_Read_Data_reg[18]_0 ;
-  wire \WB_DAXI_Read_Data_reg[19]_0 ;
-  wire \WB_DAXI_Read_Data_reg[1]_0 ;
-  wire \WB_DAXI_Read_Data_reg[20]_0 ;
-  wire \WB_DAXI_Read_Data_reg[21]_0 ;
-  wire \WB_DAXI_Read_Data_reg[22]_0 ;
-  wire \WB_DAXI_Read_Data_reg[23]_0 ;
-  wire \WB_DAXI_Read_Data_reg[2]_0 ;
-  wire \WB_DAXI_Read_Data_reg[3]_0 ;
-  wire \WB_DAXI_Read_Data_reg[4]_0 ;
-  wire \WB_DAXI_Read_Data_reg[5]_0 ;
-  wire \WB_DAXI_Read_Data_reg[6]_0 ;
-  wire \WB_DAXI_Read_Data_reg[7]_0 ;
+  wire M_AXI_DP_WVALID_i_reg_0;
+  wire \No_Long.Reverse_Mem_Accesses.wb_read_msb_doublet_sel_reg ;
+  wire \No_Long.Reverse_Mem_Accesses.wb_read_msb_doublet_sel_reg_0 ;
+  wire \No_Long.Reverse_Mem_Accesses.wb_read_msb_doublet_sel_reg_1 ;
+  wire \No_Long.Reverse_Mem_Accesses.wb_read_msb_doublet_sel_reg_2 ;
+  wire \No_Long.Reverse_Mem_Accesses.wb_read_msb_doublet_sel_reg_3 ;
+  wire \No_Long.Reverse_Mem_Accesses.wb_read_msb_doublet_sel_reg_4 ;
+  wire \No_Long.Reverse_Mem_Accesses.wb_read_msb_doublet_sel_reg_5 ;
+  wire \No_Long.Reverse_Mem_Accesses.wb_read_msb_doublet_sel_reg_6 ;
+  wire [31:0]Q;
+  wire \Use_DLMB.wb_dlmb_valid_read_data_reg[16] ;
+  wire \Use_DLMB.wb_dlmb_valid_read_data_reg[17] ;
+  wire \Use_DLMB.wb_dlmb_valid_read_data_reg[18] ;
+  wire \Use_DLMB.wb_dlmb_valid_read_data_reg[19] ;
+  wire \Use_DLMB.wb_dlmb_valid_read_data_reg[20] ;
+  wire \Use_DLMB.wb_dlmb_valid_read_data_reg[21] ;
+  wire \Use_DLMB.wb_dlmb_valid_read_data_reg[22] ;
+  wire \Use_DLMB.wb_dlmb_valid_read_data_reg[23] ;
+  wire \Use_DLMB.wb_dlmb_valid_read_data_reg[24] ;
+  wire \Use_DLMB.wb_dlmb_valid_read_data_reg[25] ;
+  wire \Use_DLMB.wb_dlmb_valid_read_data_reg[26] ;
+  wire \Use_DLMB.wb_dlmb_valid_read_data_reg[27] ;
+  wire \Use_DLMB.wb_dlmb_valid_read_data_reg[28] ;
+  wire \Use_DLMB.wb_dlmb_valid_read_data_reg[29] ;
+  wire \Use_DLMB.wb_dlmb_valid_read_data_reg[30] ;
+  wire \Use_DLMB.wb_dlmb_valid_read_data_reg[31] ;
   wire active_access;
   wire active_access_d1;
   wire active_access_reg_0;
   wire mem_access_completed0;
-  wire mem_databus_Data_Strobe;
-  wire mem_databus_access;
-  wire mem_databus_write;
   wire sync_reset;
-  wire wb_byte_access;
-  wire [15:0]wb_databus_steered_read_data;
+  wire [0:31]wb_databus_read_data;
+  wire [7:0]wb_databus_steered_read_data;
   wire wb_dext_Data_Strobe;
   wire [0:31]wb_dext_read_data;
-  wire wb_doublet_access;
   wire [0:0]wb_read_lsb_1_sel;
   wire wb_read_msb_doublet_sel;
 
-  LUT6 #(
-    .INIT(64'h0000000000FF0404)) 
-    M_AXI_DP_ARVALID_i_i_1
-       (.I0(active_access_d1),
-        .I1(mem_databus_access),
-        .I2(mem_databus_write),
-        .I3(M_AXI_DP_ARREADY),
-        .I4(D[0]),
-        .I5(sync_reset),
-        .O(M_AXI_DP_ARVALID_i_i_1_n_0));
   FDRE #(
     .INIT(1'b0)) 
     M_AXI_DP_ARVALID_i_reg
        (.C(Clk),
         .CE(1'b1),
-        .D(M_AXI_DP_ARVALID_i_i_1_n_0),
+        .D(M_AXI_DP_ARVALID_i_reg_0),
         .Q(D[0]),
         .R(1'b0));
-  LUT6 #(
-    .INIT(64'h0000000000FF4040)) 
-    M_AXI_DP_AWVALID_i_i_1
-       (.I0(active_access_d1),
-        .I1(mem_databus_access),
-        .I2(mem_databus_write),
-        .I3(M_AXI_DP_AWREADY),
-        .I4(D[2]),
-        .I5(sync_reset),
-        .O(M_AXI_DP_AWVALID_i_i_1_n_0));
   FDRE #(
     .INIT(1'b0)) 
     M_AXI_DP_AWVALID_i_reg
        (.C(Clk),
         .CE(1'b1),
-        .D(M_AXI_DP_AWVALID_i_i_1_n_0),
+        .D(M_AXI_DP_AWVALID_i_reg_0),
         .Q(D[2]),
         .R(1'b0));
-  LUT6 #(
-    .INIT(64'h0000000000FF4040)) 
-    M_AXI_DP_WVALID_i_i_1
-       (.I0(active_access_d1),
-        .I1(mem_databus_access),
-        .I2(mem_databus_write),
-        .I3(M_AXI_DP_WREADY),
-        .I4(D[1]),
-        .I5(sync_reset),
-        .O(M_AXI_DP_WVALID_i_i_1_n_0));
   FDRE #(
     .INIT(1'b0)) 
     M_AXI_DP_WVALID_i_reg
        (.C(Clk),
         .CE(1'b1),
-        .D(M_AXI_DP_WVALID_i_i_1_n_0),
+        .D(M_AXI_DP_WVALID_i_reg_0),
         .Q(D[1]),
         .R(1'b0));
   LUT6 #(
-    .INIT(64'h000000000000A808)) 
-    \Trace_New_Reg_Value[0]_INST_0_i_1 
-       (.I0(wb_dext_Data_Strobe),
-        .I1(wb_dext_read_data[0]),
+    .INIT(64'hEFEFAFA0EFE0AFA0)) 
+    \Trace_New_Reg_Value[0]_INST_0_i_2 
+       (.I0(Q[7]),
+        .I1(wb_dext_read_data[24]),
         .I2(wb_read_msb_doublet_sel),
-        .I3(wb_dext_read_data[24]),
-        .I4(wb_byte_access),
-        .I5(wb_doublet_access),
-        .O(wb_databus_steered_read_data[15]));
+        .I3(Q[31]),
+        .I4(wb_dext_Data_Strobe),
+        .I5(wb_dext_read_data[0]),
+        .O(\Use_DLMB.wb_dlmb_valid_read_data_reg[24] ));
   LUT6 #(
-    .INIT(64'h000000000000A808)) 
+    .INIT(64'hEFEFAFA0EFE0AFA0)) 
     \Trace_New_Reg_Value[10]_INST_0_i_1 
-       (.I0(wb_dext_Data_Strobe),
-        .I1(wb_dext_read_data[10]),
+       (.I0(Q[13]),
+        .I1(wb_dext_read_data[18]),
         .I2(wb_read_msb_doublet_sel),
-        .I3(wb_dext_read_data[18]),
-        .I4(wb_byte_access),
-        .I5(wb_doublet_access),
-        .O(wb_databus_steered_read_data[5]));
+        .I3(Q[21]),
+        .I4(wb_dext_Data_Strobe),
+        .I5(wb_dext_read_data[10]),
+        .O(\Use_DLMB.wb_dlmb_valid_read_data_reg[18] ));
   LUT6 #(
-    .INIT(64'h000000000000A808)) 
+    .INIT(64'hEFEFAFA0EFE0AFA0)) 
     \Trace_New_Reg_Value[11]_INST_0_i_1 
-       (.I0(wb_dext_Data_Strobe),
-        .I1(wb_dext_read_data[11]),
+       (.I0(Q[12]),
+        .I1(wb_dext_read_data[19]),
         .I2(wb_read_msb_doublet_sel),
-        .I3(wb_dext_read_data[19]),
-        .I4(wb_byte_access),
-        .I5(wb_doublet_access),
-        .O(wb_databus_steered_read_data[4]));
+        .I3(Q[20]),
+        .I4(wb_dext_Data_Strobe),
+        .I5(wb_dext_read_data[11]),
+        .O(\Use_DLMB.wb_dlmb_valid_read_data_reg[19] ));
   LUT6 #(
-    .INIT(64'h000000000000A808)) 
+    .INIT(64'hEFEFAFA0EFE0AFA0)) 
     \Trace_New_Reg_Value[12]_INST_0_i_1 
-       (.I0(wb_dext_Data_Strobe),
-        .I1(wb_dext_read_data[12]),
+       (.I0(Q[11]),
+        .I1(wb_dext_read_data[20]),
         .I2(wb_read_msb_doublet_sel),
-        .I3(wb_dext_read_data[20]),
-        .I4(wb_byte_access),
-        .I5(wb_doublet_access),
-        .O(wb_databus_steered_read_data[3]));
+        .I3(Q[19]),
+        .I4(wb_dext_Data_Strobe),
+        .I5(wb_dext_read_data[12]),
+        .O(\Use_DLMB.wb_dlmb_valid_read_data_reg[20] ));
   LUT6 #(
-    .INIT(64'h000000000000A808)) 
+    .INIT(64'hEFEFAFA0EFE0AFA0)) 
     \Trace_New_Reg_Value[13]_INST_0_i_1 
-       (.I0(wb_dext_Data_Strobe),
-        .I1(wb_dext_read_data[13]),
+       (.I0(Q[10]),
+        .I1(wb_dext_read_data[21]),
         .I2(wb_read_msb_doublet_sel),
-        .I3(wb_dext_read_data[21]),
-        .I4(wb_byte_access),
-        .I5(wb_doublet_access),
-        .O(wb_databus_steered_read_data[2]));
+        .I3(Q[18]),
+        .I4(wb_dext_Data_Strobe),
+        .I5(wb_dext_read_data[13]),
+        .O(\Use_DLMB.wb_dlmb_valid_read_data_reg[21] ));
   LUT6 #(
-    .INIT(64'h000000000000A808)) 
+    .INIT(64'hEFEFAFA0EFE0AFA0)) 
     \Trace_New_Reg_Value[14]_INST_0_i_1 
-       (.I0(wb_dext_Data_Strobe),
-        .I1(wb_dext_read_data[14]),
+       (.I0(Q[9]),
+        .I1(wb_dext_read_data[22]),
         .I2(wb_read_msb_doublet_sel),
-        .I3(wb_dext_read_data[22]),
-        .I4(wb_byte_access),
-        .I5(wb_doublet_access),
-        .O(wb_databus_steered_read_data[1]));
+        .I3(Q[17]),
+        .I4(wb_dext_Data_Strobe),
+        .I5(wb_dext_read_data[14]),
+        .O(\Use_DLMB.wb_dlmb_valid_read_data_reg[22] ));
   LUT6 #(
-    .INIT(64'h000000000000A808)) 
+    .INIT(64'hEFEFAFA0EFE0AFA0)) 
     \Trace_New_Reg_Value[15]_INST_0_i_1 
-       (.I0(wb_dext_Data_Strobe),
-        .I1(wb_dext_read_data[15]),
+       (.I0(Q[8]),
+        .I1(wb_dext_read_data[23]),
         .I2(wb_read_msb_doublet_sel),
-        .I3(wb_dext_read_data[23]),
-        .I4(wb_byte_access),
-        .I5(wb_doublet_access),
-        .O(wb_databus_steered_read_data[0]));
+        .I3(Q[16]),
+        .I4(wb_dext_Data_Strobe),
+        .I5(wb_dext_read_data[15]),
+        .O(\Use_DLMB.wb_dlmb_valid_read_data_reg[23] ));
   LUT6 #(
-    .INIT(64'hFFFFFFFF080A0800)) 
+    .INIT(64'hF0FFAACCF000AACC)) 
     \Trace_New_Reg_Value[16]_INST_0_i_1 
-       (.I0(wb_dext_Data_Strobe),
-        .I1(wb_dext_read_data[8]),
-        .I2(wb_read_lsb_1_sel),
+       (.I0(wb_databus_read_data[8]),
+        .I1(wb_databus_read_data[0]),
+        .I2(wb_databus_read_data[24]),
         .I3(wb_read_msb_doublet_sel),
-        .I4(wb_dext_read_data[0]),
-        .I5(\Trace_New_Reg_Value[16]_INST_0_i_2_n_0 ),
-        .O(WB_DAXI_Data_Strobe_reg_0));
-  LUT5 #(
-    .INIT(32'hC8080000)) 
+        .I4(wb_read_lsb_1_sel),
+        .I5(wb_databus_read_data[16]),
+        .O(\No_Long.Reverse_Mem_Accesses.wb_read_msb_doublet_sel_reg ));
+  (* SOFT_HLUTNM = "soft_lutpair71" *) 
+  LUT3 #(
+    .INIT(8'hEA)) 
     \Trace_New_Reg_Value[16]_INST_0_i_2 
-       (.I0(wb_dext_read_data[16]),
-        .I1(wb_read_lsb_1_sel),
-        .I2(wb_read_msb_doublet_sel),
-        .I3(wb_dext_read_data[24]),
-        .I4(wb_dext_Data_Strobe),
-        .O(\Trace_New_Reg_Value[16]_INST_0_i_2_n_0 ));
+       (.I0(Q[23]),
+        .I1(wb_dext_Data_Strobe),
+        .I2(wb_dext_read_data[8]),
+        .O(wb_databus_read_data[8]));
+  (* SOFT_HLUTNM = "soft_lutpair78" *) 
+  LUT3 #(
+    .INIT(8'hEA)) 
+    \Trace_New_Reg_Value[16]_INST_0_i_3 
+       (.I0(Q[31]),
+        .I1(wb_dext_Data_Strobe),
+        .I2(wb_dext_read_data[0]),
+        .O(wb_databus_read_data[0]));
+  (* SOFT_HLUTNM = "soft_lutpair69" *) 
+  LUT3 #(
+    .INIT(8'hEA)) 
+    \Trace_New_Reg_Value[16]_INST_0_i_4 
+       (.I0(Q[7]),
+        .I1(wb_dext_Data_Strobe),
+        .I2(wb_dext_read_data[24]),
+        .O(wb_databus_read_data[24]));
+  (* SOFT_HLUTNM = "soft_lutpair70" *) 
+  LUT3 #(
+    .INIT(8'hEA)) 
+    \Trace_New_Reg_Value[16]_INST_0_i_5 
+       (.I0(Q[15]),
+        .I1(wb_dext_Data_Strobe),
+        .I2(wb_dext_read_data[16]),
+        .O(wb_databus_read_data[16]));
   LUT6 #(
-    .INIT(64'hFFFFFFFF080A0800)) 
+    .INIT(64'hF0FFAACCF000AACC)) 
     \Trace_New_Reg_Value[17]_INST_0_i_1 
-       (.I0(wb_dext_Data_Strobe),
-        .I1(wb_dext_read_data[9]),
-        .I2(wb_read_lsb_1_sel),
+       (.I0(wb_databus_read_data[9]),
+        .I1(wb_databus_read_data[1]),
+        .I2(wb_databus_read_data[25]),
         .I3(wb_read_msb_doublet_sel),
-        .I4(wb_dext_read_data[1]),
-        .I5(\Trace_New_Reg_Value[17]_INST_0_i_2_n_0 ),
-        .O(WB_DAXI_Data_Strobe_reg_1));
-  LUT5 #(
-    .INIT(32'hC8080000)) 
+        .I4(wb_read_lsb_1_sel),
+        .I5(wb_databus_read_data[17]),
+        .O(\No_Long.Reverse_Mem_Accesses.wb_read_msb_doublet_sel_reg_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair69" *) 
+  LUT3 #(
+    .INIT(8'hEA)) 
     \Trace_New_Reg_Value[17]_INST_0_i_2 
-       (.I0(wb_dext_read_data[17]),
-        .I1(wb_read_lsb_1_sel),
-        .I2(wb_read_msb_doublet_sel),
-        .I3(wb_dext_read_data[25]),
-        .I4(wb_dext_Data_Strobe),
-        .O(\Trace_New_Reg_Value[17]_INST_0_i_2_n_0 ));
+       (.I0(Q[22]),
+        .I1(wb_dext_Data_Strobe),
+        .I2(wb_dext_read_data[9]),
+        .O(wb_databus_read_data[9]));
+  (* SOFT_HLUTNM = "soft_lutpair77" *) 
+  LUT3 #(
+    .INIT(8'hEA)) 
+    \Trace_New_Reg_Value[17]_INST_0_i_3 
+       (.I0(Q[30]),
+        .I1(wb_dext_Data_Strobe),
+        .I2(wb_dext_read_data[1]),
+        .O(wb_databus_read_data[1]));
+  (* SOFT_HLUTNM = "soft_lutpair68" *) 
+  LUT3 #(
+    .INIT(8'hEA)) 
+    \Trace_New_Reg_Value[17]_INST_0_i_4 
+       (.I0(Q[6]),
+        .I1(wb_dext_Data_Strobe),
+        .I2(wb_dext_read_data[25]),
+        .O(wb_databus_read_data[25]));
+  (* SOFT_HLUTNM = "soft_lutpair76" *) 
+  LUT3 #(
+    .INIT(8'hEA)) 
+    \Trace_New_Reg_Value[17]_INST_0_i_5 
+       (.I0(Q[14]),
+        .I1(wb_dext_Data_Strobe),
+        .I2(wb_dext_read_data[17]),
+        .O(wb_databus_read_data[17]));
   LUT6 #(
-    .INIT(64'hFFFFFFFF080A0800)) 
+    .INIT(64'hF0FFAACCF000AACC)) 
     \Trace_New_Reg_Value[18]_INST_0_i_1 
-       (.I0(wb_dext_Data_Strobe),
-        .I1(wb_dext_read_data[10]),
-        .I2(wb_read_lsb_1_sel),
+       (.I0(wb_databus_read_data[10]),
+        .I1(wb_databus_read_data[2]),
+        .I2(wb_databus_read_data[26]),
         .I3(wb_read_msb_doublet_sel),
-        .I4(wb_dext_read_data[2]),
-        .I5(\Trace_New_Reg_Value[18]_INST_0_i_2_n_0 ),
-        .O(WB_DAXI_Data_Strobe_reg_2));
-  LUT5 #(
-    .INIT(32'hC8080000)) 
+        .I4(wb_read_lsb_1_sel),
+        .I5(wb_databus_read_data[18]),
+        .O(\No_Long.Reverse_Mem_Accesses.wb_read_msb_doublet_sel_reg_1 ));
+  (* SOFT_HLUTNM = "soft_lutpair68" *) 
+  LUT3 #(
+    .INIT(8'hEA)) 
     \Trace_New_Reg_Value[18]_INST_0_i_2 
-       (.I0(wb_dext_read_data[18]),
-        .I1(wb_read_lsb_1_sel),
-        .I2(wb_read_msb_doublet_sel),
-        .I3(wb_dext_read_data[26]),
-        .I4(wb_dext_Data_Strobe),
-        .O(\Trace_New_Reg_Value[18]_INST_0_i_2_n_0 ));
+       (.I0(Q[21]),
+        .I1(wb_dext_Data_Strobe),
+        .I2(wb_dext_read_data[10]),
+        .O(wb_databus_read_data[10]));
+  (* SOFT_HLUTNM = "soft_lutpair76" *) 
+  LUT3 #(
+    .INIT(8'hEA)) 
+    \Trace_New_Reg_Value[18]_INST_0_i_3 
+       (.I0(Q[29]),
+        .I1(wb_dext_Data_Strobe),
+        .I2(wb_dext_read_data[2]),
+        .O(wb_databus_read_data[2]));
+  (* SOFT_HLUTNM = "soft_lutpair67" *) 
+  LUT3 #(
+    .INIT(8'hEA)) 
+    \Trace_New_Reg_Value[18]_INST_0_i_4 
+       (.I0(Q[5]),
+        .I1(wb_dext_Data_Strobe),
+        .I2(wb_dext_read_data[26]),
+        .O(wb_databus_read_data[26]));
+  (* SOFT_HLUTNM = "soft_lutpair75" *) 
+  LUT3 #(
+    .INIT(8'hEA)) 
+    \Trace_New_Reg_Value[18]_INST_0_i_5 
+       (.I0(Q[13]),
+        .I1(wb_dext_Data_Strobe),
+        .I2(wb_dext_read_data[18]),
+        .O(wb_databus_read_data[18]));
   LUT6 #(
-    .INIT(64'hFFFFFFFF080A0800)) 
+    .INIT(64'hF0FFAACCF000AACC)) 
     \Trace_New_Reg_Value[19]_INST_0_i_1 
-       (.I0(wb_dext_Data_Strobe),
-        .I1(wb_dext_read_data[11]),
-        .I2(wb_read_lsb_1_sel),
+       (.I0(wb_databus_read_data[11]),
+        .I1(wb_databus_read_data[3]),
+        .I2(wb_databus_read_data[27]),
         .I3(wb_read_msb_doublet_sel),
-        .I4(wb_dext_read_data[3]),
-        .I5(\Trace_New_Reg_Value[19]_INST_0_i_2_n_0 ),
-        .O(WB_DAXI_Data_Strobe_reg_3));
-  LUT5 #(
-    .INIT(32'hC8080000)) 
+        .I4(wb_read_lsb_1_sel),
+        .I5(wb_databus_read_data[19]),
+        .O(\No_Long.Reverse_Mem_Accesses.wb_read_msb_doublet_sel_reg_2 ));
+  (* SOFT_HLUTNM = "soft_lutpair67" *) 
+  LUT3 #(
+    .INIT(8'hEA)) 
     \Trace_New_Reg_Value[19]_INST_0_i_2 
-       (.I0(wb_dext_read_data[19]),
-        .I1(wb_read_lsb_1_sel),
-        .I2(wb_read_msb_doublet_sel),
-        .I3(wb_dext_read_data[27]),
-        .I4(wb_dext_Data_Strobe),
-        .O(\Trace_New_Reg_Value[19]_INST_0_i_2_n_0 ));
+       (.I0(Q[20]),
+        .I1(wb_dext_Data_Strobe),
+        .I2(wb_dext_read_data[11]),
+        .O(wb_databus_read_data[11]));
+  (* SOFT_HLUTNM = "soft_lutpair75" *) 
+  LUT3 #(
+    .INIT(8'hEA)) 
+    \Trace_New_Reg_Value[19]_INST_0_i_3 
+       (.I0(Q[28]),
+        .I1(wb_dext_Data_Strobe),
+        .I2(wb_dext_read_data[3]),
+        .O(wb_databus_read_data[3]));
+  (* SOFT_HLUTNM = "soft_lutpair66" *) 
+  LUT3 #(
+    .INIT(8'hEA)) 
+    \Trace_New_Reg_Value[19]_INST_0_i_4 
+       (.I0(Q[4]),
+        .I1(wb_dext_Data_Strobe),
+        .I2(wb_dext_read_data[27]),
+        .O(wb_databus_read_data[27]));
+  (* SOFT_HLUTNM = "soft_lutpair74" *) 
+  LUT3 #(
+    .INIT(8'hEA)) 
+    \Trace_New_Reg_Value[19]_INST_0_i_5 
+       (.I0(Q[12]),
+        .I1(wb_dext_Data_Strobe),
+        .I2(wb_dext_read_data[19]),
+        .O(wb_databus_read_data[19]));
   LUT6 #(
-    .INIT(64'h000000000000A808)) 
+    .INIT(64'hEFEFAFA0EFE0AFA0)) 
     \Trace_New_Reg_Value[1]_INST_0_i_1 
-       (.I0(wb_dext_Data_Strobe),
-        .I1(wb_dext_read_data[1]),
+       (.I0(Q[6]),
+        .I1(wb_dext_read_data[25]),
         .I2(wb_read_msb_doublet_sel),
-        .I3(wb_dext_read_data[25]),
-        .I4(wb_byte_access),
-        .I5(wb_doublet_access),
-        .O(wb_databus_steered_read_data[14]));
+        .I3(Q[30]),
+        .I4(wb_dext_Data_Strobe),
+        .I5(wb_dext_read_data[1]),
+        .O(\Use_DLMB.wb_dlmb_valid_read_data_reg[25] ));
   LUT6 #(
-    .INIT(64'hFFFFFFFF080A0800)) 
+    .INIT(64'hF0FFAACCF000AACC)) 
     \Trace_New_Reg_Value[20]_INST_0_i_1 
-       (.I0(wb_dext_Data_Strobe),
-        .I1(wb_dext_read_data[12]),
-        .I2(wb_read_lsb_1_sel),
+       (.I0(wb_databus_read_data[12]),
+        .I1(wb_databus_read_data[4]),
+        .I2(wb_databus_read_data[28]),
         .I3(wb_read_msb_doublet_sel),
-        .I4(wb_dext_read_data[4]),
-        .I5(\Trace_New_Reg_Value[20]_INST_0_i_2_n_0 ),
-        .O(WB_DAXI_Data_Strobe_reg_4));
-  LUT5 #(
-    .INIT(32'hC8080000)) 
+        .I4(wb_read_lsb_1_sel),
+        .I5(wb_databus_read_data[20]),
+        .O(\No_Long.Reverse_Mem_Accesses.wb_read_msb_doublet_sel_reg_3 ));
+  (* SOFT_HLUTNM = "soft_lutpair66" *) 
+  LUT3 #(
+    .INIT(8'hEA)) 
     \Trace_New_Reg_Value[20]_INST_0_i_2 
-       (.I0(wb_dext_read_data[20]),
-        .I1(wb_read_lsb_1_sel),
-        .I2(wb_read_msb_doublet_sel),
-        .I3(wb_dext_read_data[28]),
-        .I4(wb_dext_Data_Strobe),
-        .O(\Trace_New_Reg_Value[20]_INST_0_i_2_n_0 ));
+       (.I0(Q[19]),
+        .I1(wb_dext_Data_Strobe),
+        .I2(wb_dext_read_data[12]),
+        .O(wb_databus_read_data[12]));
+  (* SOFT_HLUTNM = "soft_lutpair74" *) 
+  LUT3 #(
+    .INIT(8'hEA)) 
+    \Trace_New_Reg_Value[20]_INST_0_i_3 
+       (.I0(Q[27]),
+        .I1(wb_dext_Data_Strobe),
+        .I2(wb_dext_read_data[4]),
+        .O(wb_databus_read_data[4]));
+  (* SOFT_HLUTNM = "soft_lutpair65" *) 
+  LUT3 #(
+    .INIT(8'hEA)) 
+    \Trace_New_Reg_Value[20]_INST_0_i_4 
+       (.I0(Q[3]),
+        .I1(wb_dext_Data_Strobe),
+        .I2(wb_dext_read_data[28]),
+        .O(wb_databus_read_data[28]));
+  (* SOFT_HLUTNM = "soft_lutpair73" *) 
+  LUT3 #(
+    .INIT(8'hEA)) 
+    \Trace_New_Reg_Value[20]_INST_0_i_5 
+       (.I0(Q[11]),
+        .I1(wb_dext_Data_Strobe),
+        .I2(wb_dext_read_data[20]),
+        .O(wb_databus_read_data[20]));
   LUT6 #(
-    .INIT(64'hFFFFFFFF080A0800)) 
+    .INIT(64'hF0FFAACCF000AACC)) 
     \Trace_New_Reg_Value[21]_INST_0_i_1 
-       (.I0(wb_dext_Data_Strobe),
-        .I1(wb_dext_read_data[13]),
-        .I2(wb_read_lsb_1_sel),
+       (.I0(wb_databus_read_data[13]),
+        .I1(wb_databus_read_data[5]),
+        .I2(wb_databus_read_data[29]),
         .I3(wb_read_msb_doublet_sel),
-        .I4(wb_dext_read_data[5]),
-        .I5(\Trace_New_Reg_Value[21]_INST_0_i_2_n_0 ),
-        .O(WB_DAXI_Data_Strobe_reg_5));
-  LUT5 #(
-    .INIT(32'hC8080000)) 
+        .I4(wb_read_lsb_1_sel),
+        .I5(wb_databus_read_data[21]),
+        .O(\No_Long.Reverse_Mem_Accesses.wb_read_msb_doublet_sel_reg_4 ));
+  (* SOFT_HLUTNM = "soft_lutpair65" *) 
+  LUT3 #(
+    .INIT(8'hEA)) 
     \Trace_New_Reg_Value[21]_INST_0_i_2 
-       (.I0(wb_dext_read_data[21]),
-        .I1(wb_read_lsb_1_sel),
-        .I2(wb_read_msb_doublet_sel),
-        .I3(wb_dext_read_data[29]),
-        .I4(wb_dext_Data_Strobe),
-        .O(\Trace_New_Reg_Value[21]_INST_0_i_2_n_0 ));
+       (.I0(Q[18]),
+        .I1(wb_dext_Data_Strobe),
+        .I2(wb_dext_read_data[13]),
+        .O(wb_databus_read_data[13]));
+  (* SOFT_HLUTNM = "soft_lutpair73" *) 
+  LUT3 #(
+    .INIT(8'hEA)) 
+    \Trace_New_Reg_Value[21]_INST_0_i_3 
+       (.I0(Q[26]),
+        .I1(wb_dext_Data_Strobe),
+        .I2(wb_dext_read_data[5]),
+        .O(wb_databus_read_data[5]));
+  (* SOFT_HLUTNM = "soft_lutpair64" *) 
+  LUT3 #(
+    .INIT(8'hEA)) 
+    \Trace_New_Reg_Value[21]_INST_0_i_4 
+       (.I0(Q[2]),
+        .I1(wb_dext_Data_Strobe),
+        .I2(wb_dext_read_data[29]),
+        .O(wb_databus_read_data[29]));
+  (* SOFT_HLUTNM = "soft_lutpair72" *) 
+  LUT3 #(
+    .INIT(8'hEA)) 
+    \Trace_New_Reg_Value[21]_INST_0_i_5 
+       (.I0(Q[10]),
+        .I1(wb_dext_Data_Strobe),
+        .I2(wb_dext_read_data[21]),
+        .O(wb_databus_read_data[21]));
   LUT6 #(
-    .INIT(64'hFFFFFFFF080A0800)) 
+    .INIT(64'hF0FFAACCF000AACC)) 
     \Trace_New_Reg_Value[22]_INST_0_i_1 
-       (.I0(wb_dext_Data_Strobe),
-        .I1(wb_dext_read_data[14]),
-        .I2(wb_read_lsb_1_sel),
+       (.I0(wb_databus_read_data[14]),
+        .I1(wb_databus_read_data[6]),
+        .I2(wb_databus_read_data[30]),
         .I3(wb_read_msb_doublet_sel),
-        .I4(wb_dext_read_data[6]),
-        .I5(\Trace_New_Reg_Value[22]_INST_0_i_2_n_0 ),
-        .O(WB_DAXI_Data_Strobe_reg_6));
-  LUT5 #(
-    .INIT(32'hC8080000)) 
+        .I4(wb_read_lsb_1_sel),
+        .I5(wb_databus_read_data[22]),
+        .O(\No_Long.Reverse_Mem_Accesses.wb_read_msb_doublet_sel_reg_5 ));
+  (* SOFT_HLUTNM = "soft_lutpair64" *) 
+  LUT3 #(
+    .INIT(8'hEA)) 
     \Trace_New_Reg_Value[22]_INST_0_i_2 
-       (.I0(wb_dext_read_data[22]),
-        .I1(wb_read_lsb_1_sel),
-        .I2(wb_read_msb_doublet_sel),
-        .I3(wb_dext_read_data[30]),
-        .I4(wb_dext_Data_Strobe),
-        .O(\Trace_New_Reg_Value[22]_INST_0_i_2_n_0 ));
+       (.I0(Q[17]),
+        .I1(wb_dext_Data_Strobe),
+        .I2(wb_dext_read_data[14]),
+        .O(wb_databus_read_data[14]));
+  (* SOFT_HLUTNM = "soft_lutpair72" *) 
+  LUT3 #(
+    .INIT(8'hEA)) 
+    \Trace_New_Reg_Value[22]_INST_0_i_3 
+       (.I0(Q[25]),
+        .I1(wb_dext_Data_Strobe),
+        .I2(wb_dext_read_data[6]),
+        .O(wb_databus_read_data[6]));
+  (* SOFT_HLUTNM = "soft_lutpair63" *) 
+  LUT3 #(
+    .INIT(8'hEA)) 
+    \Trace_New_Reg_Value[22]_INST_0_i_4 
+       (.I0(Q[1]),
+        .I1(wb_dext_Data_Strobe),
+        .I2(wb_dext_read_data[30]),
+        .O(wb_databus_read_data[30]));
+  (* SOFT_HLUTNM = "soft_lutpair71" *) 
+  LUT3 #(
+    .INIT(8'hEA)) 
+    \Trace_New_Reg_Value[22]_INST_0_i_5 
+       (.I0(Q[9]),
+        .I1(wb_dext_Data_Strobe),
+        .I2(wb_dext_read_data[22]),
+        .O(wb_databus_read_data[22]));
   LUT6 #(
-    .INIT(64'hFFFFFFFF080A0800)) 
+    .INIT(64'hF0FFAACCF000AACC)) 
     \Trace_New_Reg_Value[23]_INST_0_i_1 
-       (.I0(wb_dext_Data_Strobe),
-        .I1(wb_dext_read_data[15]),
-        .I2(wb_read_lsb_1_sel),
+       (.I0(wb_databus_read_data[15]),
+        .I1(wb_databus_read_data[7]),
+        .I2(wb_databus_read_data[31]),
         .I3(wb_read_msb_doublet_sel),
-        .I4(wb_dext_read_data[7]),
-        .I5(\Trace_New_Reg_Value[23]_INST_0_i_2_n_0 ),
-        .O(WB_DAXI_Data_Strobe_reg_7));
-  LUT5 #(
-    .INIT(32'hC8080000)) 
+        .I4(wb_read_lsb_1_sel),
+        .I5(wb_databus_read_data[23]),
+        .O(\No_Long.Reverse_Mem_Accesses.wb_read_msb_doublet_sel_reg_6 ));
+  (* SOFT_HLUTNM = "soft_lutpair77" *) 
+  LUT3 #(
+    .INIT(8'hEA)) 
     \Trace_New_Reg_Value[23]_INST_0_i_2 
-       (.I0(wb_dext_read_data[23]),
-        .I1(wb_read_lsb_1_sel),
-        .I2(wb_read_msb_doublet_sel),
-        .I3(wb_dext_read_data[31]),
-        .I4(wb_dext_Data_Strobe),
-        .O(\Trace_New_Reg_Value[23]_INST_0_i_2_n_0 ));
-  LUT5 #(
-    .INIT(32'hC8080000)) 
+       (.I0(Q[16]),
+        .I1(wb_dext_Data_Strobe),
+        .I2(wb_dext_read_data[15]),
+        .O(wb_databus_read_data[15]));
+  (* SOFT_HLUTNM = "soft_lutpair78" *) 
+  LUT3 #(
+    .INIT(8'hEA)) 
+    \Trace_New_Reg_Value[23]_INST_0_i_3 
+       (.I0(Q[24]),
+        .I1(wb_dext_Data_Strobe),
+        .I2(wb_dext_read_data[7]),
+        .O(wb_databus_read_data[7]));
+  (* SOFT_HLUTNM = "soft_lutpair63" *) 
+  LUT3 #(
+    .INIT(8'hEA)) 
+    \Trace_New_Reg_Value[23]_INST_0_i_4 
+       (.I0(Q[0]),
+        .I1(wb_dext_Data_Strobe),
+        .I2(wb_dext_read_data[31]),
+        .O(wb_databus_read_data[31]));
+  (* SOFT_HLUTNM = "soft_lutpair70" *) 
+  LUT3 #(
+    .INIT(8'hEA)) 
+    \Trace_New_Reg_Value[23]_INST_0_i_5 
+       (.I0(Q[8]),
+        .I1(wb_dext_Data_Strobe),
+        .I2(wb_dext_read_data[23]),
+        .O(wb_databus_read_data[23]));
+  LUT6 #(
+    .INIT(64'hF0FFAACCF000AACC)) 
     \Trace_New_Reg_Value[24]_INST_0_i_1 
-       (.I0(wb_dext_read_data[16]),
-        .I1(\LOCKSTEP_Out_reg[3031] [1]),
-        .I2(\LOCKSTEP_Out_reg[3031] [0]),
-        .I3(wb_dext_read_data[24]),
-        .I4(wb_dext_Data_Strobe),
-        .O(\WB_DAXI_Read_Data_reg[16]_0 ));
-  LUT5 #(
-    .INIT(32'h0E020000)) 
-    \Trace_New_Reg_Value[24]_INST_0_i_2 
-       (.I0(wb_dext_read_data[0]),
-        .I1(\LOCKSTEP_Out_reg[3031] [0]),
-        .I2(\LOCKSTEP_Out_reg[3031] [1]),
-        .I3(wb_dext_read_data[8]),
-        .I4(wb_dext_Data_Strobe),
-        .O(\WB_DAXI_Read_Data_reg[0]_0 ));
-  LUT5 #(
-    .INIT(32'hC8080000)) 
-    \Trace_New_Reg_Value[25]_INST_0_i_1 
-       (.I0(wb_dext_read_data[17]),
-        .I1(\LOCKSTEP_Out_reg[3031] [1]),
-        .I2(\LOCKSTEP_Out_reg[3031] [0]),
-        .I3(wb_dext_read_data[25]),
-        .I4(wb_dext_Data_Strobe),
-        .O(\WB_DAXI_Read_Data_reg[17]_0 ));
-  LUT5 #(
-    .INIT(32'h0E020000)) 
-    \Trace_New_Reg_Value[25]_INST_0_i_2 
-       (.I0(wb_dext_read_data[1]),
-        .I1(\LOCKSTEP_Out_reg[3031] [0]),
-        .I2(\LOCKSTEP_Out_reg[3031] [1]),
-        .I3(wb_dext_read_data[9]),
-        .I4(wb_dext_Data_Strobe),
-        .O(\WB_DAXI_Read_Data_reg[1]_0 ));
-  LUT5 #(
-    .INIT(32'hC8080000)) 
-    \Trace_New_Reg_Value[26]_INST_0_i_1 
-       (.I0(wb_dext_read_data[18]),
-        .I1(\LOCKSTEP_Out_reg[3031] [1]),
-        .I2(\LOCKSTEP_Out_reg[3031] [0]),
-        .I3(wb_dext_read_data[26]),
-        .I4(wb_dext_Data_Strobe),
-        .O(\WB_DAXI_Read_Data_reg[18]_0 ));
-  LUT5 #(
-    .INIT(32'h0E020000)) 
-    \Trace_New_Reg_Value[26]_INST_0_i_2 
-       (.I0(wb_dext_read_data[2]),
-        .I1(\LOCKSTEP_Out_reg[3031] [0]),
-        .I2(\LOCKSTEP_Out_reg[3031] [1]),
-        .I3(wb_dext_read_data[10]),
-        .I4(wb_dext_Data_Strobe),
-        .O(\WB_DAXI_Read_Data_reg[2]_0 ));
-  LUT5 #(
-    .INIT(32'hC8080000)) 
-    \Trace_New_Reg_Value[27]_INST_0_i_1 
-       (.I0(wb_dext_read_data[19]),
-        .I1(\LOCKSTEP_Out_reg[3031] [1]),
-        .I2(\LOCKSTEP_Out_reg[3031] [0]),
-        .I3(wb_dext_read_data[27]),
-        .I4(wb_dext_Data_Strobe),
-        .O(\WB_DAXI_Read_Data_reg[19]_0 ));
-  LUT5 #(
-    .INIT(32'h0E020000)) 
-    \Trace_New_Reg_Value[27]_INST_0_i_2 
-       (.I0(wb_dext_read_data[3]),
-        .I1(\LOCKSTEP_Out_reg[3031] [0]),
-        .I2(\LOCKSTEP_Out_reg[3031] [1]),
-        .I3(wb_dext_read_data[11]),
-        .I4(wb_dext_Data_Strobe),
-        .O(\WB_DAXI_Read_Data_reg[3]_0 ));
-  LUT5 #(
-    .INIT(32'hC8080000)) 
-    \Trace_New_Reg_Value[28]_INST_0_i_1 
-       (.I0(wb_dext_read_data[20]),
-        .I1(\LOCKSTEP_Out_reg[3031] [1]),
-        .I2(\LOCKSTEP_Out_reg[3031] [0]),
-        .I3(wb_dext_read_data[28]),
-        .I4(wb_dext_Data_Strobe),
-        .O(\WB_DAXI_Read_Data_reg[20]_0 ));
-  LUT5 #(
-    .INIT(32'h0E020000)) 
-    \Trace_New_Reg_Value[28]_INST_0_i_2 
-       (.I0(wb_dext_read_data[4]),
-        .I1(\LOCKSTEP_Out_reg[3031] [0]),
-        .I2(\LOCKSTEP_Out_reg[3031] [1]),
-        .I3(wb_dext_read_data[12]),
-        .I4(wb_dext_Data_Strobe),
-        .O(\WB_DAXI_Read_Data_reg[4]_0 ));
-  LUT5 #(
-    .INIT(32'hC8080000)) 
-    \Trace_New_Reg_Value[29]_INST_0_i_1 
-       (.I0(wb_dext_read_data[21]),
-        .I1(\LOCKSTEP_Out_reg[3031] [1]),
-        .I2(\LOCKSTEP_Out_reg[3031] [0]),
-        .I3(wb_dext_read_data[29]),
-        .I4(wb_dext_Data_Strobe),
-        .O(\WB_DAXI_Read_Data_reg[21]_0 ));
-  LUT5 #(
-    .INIT(32'h0E020000)) 
-    \Trace_New_Reg_Value[29]_INST_0_i_2 
-       (.I0(wb_dext_read_data[5]),
-        .I1(\LOCKSTEP_Out_reg[3031] [0]),
-        .I2(\LOCKSTEP_Out_reg[3031] [1]),
-        .I3(wb_dext_read_data[13]),
-        .I4(wb_dext_Data_Strobe),
-        .O(\WB_DAXI_Read_Data_reg[5]_0 ));
-  LUT6 #(
-    .INIT(64'h000000000000A808)) 
-    \Trace_New_Reg_Value[2]_INST_0_i_1 
-       (.I0(wb_dext_Data_Strobe),
-        .I1(wb_dext_read_data[2]),
-        .I2(wb_read_msb_doublet_sel),
-        .I3(wb_dext_read_data[26]),
-        .I4(wb_byte_access),
-        .I5(wb_doublet_access),
-        .O(wb_databus_steered_read_data[13]));
-  LUT5 #(
-    .INIT(32'hC8080000)) 
-    \Trace_New_Reg_Value[30]_INST_0_i_1 
-       (.I0(wb_dext_read_data[22]),
-        .I1(\LOCKSTEP_Out_reg[3031] [1]),
-        .I2(\LOCKSTEP_Out_reg[3031] [0]),
-        .I3(wb_dext_read_data[30]),
-        .I4(wb_dext_Data_Strobe),
-        .O(\WB_DAXI_Read_Data_reg[22]_0 ));
-  LUT5 #(
-    .INIT(32'h0E020000)) 
-    \Trace_New_Reg_Value[30]_INST_0_i_2 
-       (.I0(wb_dext_read_data[6]),
-        .I1(\LOCKSTEP_Out_reg[3031] [0]),
-        .I2(\LOCKSTEP_Out_reg[3031] [1]),
-        .I3(wb_dext_read_data[14]),
-        .I4(wb_dext_Data_Strobe),
-        .O(\WB_DAXI_Read_Data_reg[6]_0 ));
-  LUT5 #(
-    .INIT(32'hC8080000)) 
-    \Trace_New_Reg_Value[31]_INST_0_i_1 
-       (.I0(wb_dext_read_data[23]),
-        .I1(\LOCKSTEP_Out_reg[3031] [1]),
-        .I2(\LOCKSTEP_Out_reg[3031] [0]),
-        .I3(wb_dext_read_data[31]),
-        .I4(wb_dext_Data_Strobe),
-        .O(\WB_DAXI_Read_Data_reg[23]_0 ));
-  LUT5 #(
-    .INIT(32'h0E020000)) 
-    \Trace_New_Reg_Value[31]_INST_0_i_2 
-       (.I0(wb_dext_read_data[7]),
-        .I1(\LOCKSTEP_Out_reg[3031] [0]),
-        .I2(\LOCKSTEP_Out_reg[3031] [1]),
-        .I3(wb_dext_read_data[15]),
-        .I4(wb_dext_Data_Strobe),
-        .O(\WB_DAXI_Read_Data_reg[7]_0 ));
-  LUT6 #(
-    .INIT(64'h000000000000A808)) 
-    \Trace_New_Reg_Value[3]_INST_0_i_1 
-       (.I0(wb_dext_Data_Strobe),
-        .I1(wb_dext_read_data[3]),
-        .I2(wb_read_msb_doublet_sel),
-        .I3(wb_dext_read_data[27]),
-        .I4(wb_byte_access),
-        .I5(wb_doublet_access),
-        .O(wb_databus_steered_read_data[12]));
-  LUT6 #(
-    .INIT(64'h000000000000A808)) 
-    \Trace_New_Reg_Value[4]_INST_0_i_1 
-       (.I0(wb_dext_Data_Strobe),
-        .I1(wb_dext_read_data[4]),
-        .I2(wb_read_msb_doublet_sel),
-        .I3(wb_dext_read_data[28]),
-        .I4(wb_byte_access),
-        .I5(wb_doublet_access),
-        .O(wb_databus_steered_read_data[11]));
-  LUT6 #(
-    .INIT(64'h000000000000A808)) 
-    \Trace_New_Reg_Value[5]_INST_0_i_1 
-       (.I0(wb_dext_Data_Strobe),
-        .I1(wb_dext_read_data[5]),
-        .I2(wb_read_msb_doublet_sel),
-        .I3(wb_dext_read_data[29]),
-        .I4(wb_byte_access),
-        .I5(wb_doublet_access),
-        .O(wb_databus_steered_read_data[10]));
-  LUT6 #(
-    .INIT(64'h000000000000A808)) 
-    \Trace_New_Reg_Value[6]_INST_0_i_1 
-       (.I0(wb_dext_Data_Strobe),
-        .I1(wb_dext_read_data[6]),
-        .I2(wb_read_msb_doublet_sel),
-        .I3(wb_dext_read_data[30]),
-        .I4(wb_byte_access),
-        .I5(wb_doublet_access),
-        .O(wb_databus_steered_read_data[9]));
-  LUT6 #(
-    .INIT(64'h000000000000A808)) 
-    \Trace_New_Reg_Value[7]_INST_0_i_1 
-       (.I0(wb_dext_Data_Strobe),
-        .I1(wb_dext_read_data[7]),
-        .I2(wb_read_msb_doublet_sel),
-        .I3(wb_dext_read_data[31]),
-        .I4(wb_byte_access),
-        .I5(wb_doublet_access),
-        .O(wb_databus_steered_read_data[8]));
-  LUT6 #(
-    .INIT(64'h000000000000A808)) 
-    \Trace_New_Reg_Value[8]_INST_0_i_1 
-       (.I0(wb_dext_Data_Strobe),
-        .I1(wb_dext_read_data[8]),
-        .I2(wb_read_msb_doublet_sel),
-        .I3(wb_dext_read_data[16]),
-        .I4(wb_byte_access),
-        .I5(wb_doublet_access),
+       (.I0(wb_databus_read_data[8]),
+        .I1(wb_databus_read_data[0]),
+        .I2(wb_databus_read_data[24]),
+        .I3(\LOCKSTEP_Out_reg[3031] [0]),
+        .I4(\LOCKSTEP_Out_reg[3031] [1]),
+        .I5(wb_databus_read_data[16]),
         .O(wb_databus_steered_read_data[7]));
   LUT6 #(
-    .INIT(64'h000000000000A808)) 
-    \Trace_New_Reg_Value[9]_INST_0_i_1 
-       (.I0(wb_dext_Data_Strobe),
-        .I1(wb_dext_read_data[9]),
-        .I2(wb_read_msb_doublet_sel),
-        .I3(wb_dext_read_data[17]),
-        .I4(wb_byte_access),
-        .I5(wb_doublet_access),
+    .INIT(64'hF0FFAACCF000AACC)) 
+    \Trace_New_Reg_Value[25]_INST_0_i_1 
+       (.I0(wb_databus_read_data[9]),
+        .I1(wb_databus_read_data[1]),
+        .I2(wb_databus_read_data[25]),
+        .I3(\LOCKSTEP_Out_reg[3031] [0]),
+        .I4(\LOCKSTEP_Out_reg[3031] [1]),
+        .I5(wb_databus_read_data[17]),
         .O(wb_databus_steered_read_data[6]));
+  LUT6 #(
+    .INIT(64'hF0FFAACCF000AACC)) 
+    \Trace_New_Reg_Value[26]_INST_0_i_1 
+       (.I0(wb_databus_read_data[10]),
+        .I1(wb_databus_read_data[2]),
+        .I2(wb_databus_read_data[26]),
+        .I3(\LOCKSTEP_Out_reg[3031] [0]),
+        .I4(\LOCKSTEP_Out_reg[3031] [1]),
+        .I5(wb_databus_read_data[18]),
+        .O(wb_databus_steered_read_data[5]));
+  LUT6 #(
+    .INIT(64'hF0FFAACCF000AACC)) 
+    \Trace_New_Reg_Value[27]_INST_0_i_1 
+       (.I0(wb_databus_read_data[11]),
+        .I1(wb_databus_read_data[3]),
+        .I2(wb_databus_read_data[27]),
+        .I3(\LOCKSTEP_Out_reg[3031] [0]),
+        .I4(\LOCKSTEP_Out_reg[3031] [1]),
+        .I5(wb_databus_read_data[19]),
+        .O(wb_databus_steered_read_data[4]));
+  LUT6 #(
+    .INIT(64'hF0FFAACCF000AACC)) 
+    \Trace_New_Reg_Value[28]_INST_0_i_1 
+       (.I0(wb_databus_read_data[12]),
+        .I1(wb_databus_read_data[4]),
+        .I2(wb_databus_read_data[28]),
+        .I3(\LOCKSTEP_Out_reg[3031] [0]),
+        .I4(\LOCKSTEP_Out_reg[3031] [1]),
+        .I5(wb_databus_read_data[20]),
+        .O(wb_databus_steered_read_data[3]));
+  LUT6 #(
+    .INIT(64'hF0FFAACCF000AACC)) 
+    \Trace_New_Reg_Value[29]_INST_0_i_1 
+       (.I0(wb_databus_read_data[13]),
+        .I1(wb_databus_read_data[5]),
+        .I2(wb_databus_read_data[29]),
+        .I3(\LOCKSTEP_Out_reg[3031] [0]),
+        .I4(\LOCKSTEP_Out_reg[3031] [1]),
+        .I5(wb_databus_read_data[21]),
+        .O(wb_databus_steered_read_data[2]));
+  LUT6 #(
+    .INIT(64'hEFEFAFA0EFE0AFA0)) 
+    \Trace_New_Reg_Value[2]_INST_0_i_1 
+       (.I0(Q[5]),
+        .I1(wb_dext_read_data[26]),
+        .I2(wb_read_msb_doublet_sel),
+        .I3(Q[29]),
+        .I4(wb_dext_Data_Strobe),
+        .I5(wb_dext_read_data[2]),
+        .O(\Use_DLMB.wb_dlmb_valid_read_data_reg[26] ));
+  LUT6 #(
+    .INIT(64'hF0FFAACCF000AACC)) 
+    \Trace_New_Reg_Value[30]_INST_0_i_1 
+       (.I0(wb_databus_read_data[14]),
+        .I1(wb_databus_read_data[6]),
+        .I2(wb_databus_read_data[30]),
+        .I3(\LOCKSTEP_Out_reg[3031] [0]),
+        .I4(\LOCKSTEP_Out_reg[3031] [1]),
+        .I5(wb_databus_read_data[22]),
+        .O(wb_databus_steered_read_data[1]));
+  LUT6 #(
+    .INIT(64'hF0FFAACCF000AACC)) 
+    \Trace_New_Reg_Value[31]_INST_0_i_1 
+       (.I0(wb_databus_read_data[15]),
+        .I1(wb_databus_read_data[7]),
+        .I2(wb_databus_read_data[31]),
+        .I3(\LOCKSTEP_Out_reg[3031] [0]),
+        .I4(\LOCKSTEP_Out_reg[3031] [1]),
+        .I5(wb_databus_read_data[23]),
+        .O(wb_databus_steered_read_data[0]));
+  LUT6 #(
+    .INIT(64'hEFEFAFA0EFE0AFA0)) 
+    \Trace_New_Reg_Value[3]_INST_0_i_1 
+       (.I0(Q[4]),
+        .I1(wb_dext_read_data[27]),
+        .I2(wb_read_msb_doublet_sel),
+        .I3(Q[28]),
+        .I4(wb_dext_Data_Strobe),
+        .I5(wb_dext_read_data[3]),
+        .O(\Use_DLMB.wb_dlmb_valid_read_data_reg[27] ));
+  LUT6 #(
+    .INIT(64'hEFEFAFA0EFE0AFA0)) 
+    \Trace_New_Reg_Value[4]_INST_0_i_1 
+       (.I0(Q[3]),
+        .I1(wb_dext_read_data[28]),
+        .I2(wb_read_msb_doublet_sel),
+        .I3(Q[27]),
+        .I4(wb_dext_Data_Strobe),
+        .I5(wb_dext_read_data[4]),
+        .O(\Use_DLMB.wb_dlmb_valid_read_data_reg[28] ));
+  LUT6 #(
+    .INIT(64'hEFEFAFA0EFE0AFA0)) 
+    \Trace_New_Reg_Value[5]_INST_0_i_1 
+       (.I0(Q[2]),
+        .I1(wb_dext_read_data[29]),
+        .I2(wb_read_msb_doublet_sel),
+        .I3(Q[26]),
+        .I4(wb_dext_Data_Strobe),
+        .I5(wb_dext_read_data[5]),
+        .O(\Use_DLMB.wb_dlmb_valid_read_data_reg[29] ));
+  LUT6 #(
+    .INIT(64'hEFEFAFA0EFE0AFA0)) 
+    \Trace_New_Reg_Value[6]_INST_0_i_1 
+       (.I0(Q[1]),
+        .I1(wb_dext_read_data[30]),
+        .I2(wb_read_msb_doublet_sel),
+        .I3(Q[25]),
+        .I4(wb_dext_Data_Strobe),
+        .I5(wb_dext_read_data[6]),
+        .O(\Use_DLMB.wb_dlmb_valid_read_data_reg[30] ));
+  LUT6 #(
+    .INIT(64'hEFEFAFA0EFE0AFA0)) 
+    \Trace_New_Reg_Value[7]_INST_0_i_1 
+       (.I0(Q[0]),
+        .I1(wb_dext_read_data[31]),
+        .I2(wb_read_msb_doublet_sel),
+        .I3(Q[24]),
+        .I4(wb_dext_Data_Strobe),
+        .I5(wb_dext_read_data[7]),
+        .O(\Use_DLMB.wb_dlmb_valid_read_data_reg[31] ));
+  LUT6 #(
+    .INIT(64'hEFEFAFA0EFE0AFA0)) 
+    \Trace_New_Reg_Value[8]_INST_0_i_1 
+       (.I0(Q[15]),
+        .I1(wb_dext_read_data[16]),
+        .I2(wb_read_msb_doublet_sel),
+        .I3(Q[23]),
+        .I4(wb_dext_Data_Strobe),
+        .I5(wb_dext_read_data[8]),
+        .O(\Use_DLMB.wb_dlmb_valid_read_data_reg[16] ));
+  LUT6 #(
+    .INIT(64'hEFEFAFA0EFE0AFA0)) 
+    \Trace_New_Reg_Value[9]_INST_0_i_1 
+       (.I0(Q[14]),
+        .I1(wb_dext_read_data[17]),
+        .I2(wb_read_msb_doublet_sel),
+        .I3(Q[22]),
+        .I4(wb_dext_Data_Strobe),
+        .I5(wb_dext_read_data[9]),
+        .O(\Use_DLMB.wb_dlmb_valid_read_data_reg[17] ));
+  LUT2 #(
+    .INIT(4'hE)) 
+    \Using_FPGA.Native_i_2__36 
+       (.I0(DReady),
+        .I1(MEM_DAXI_Data_Strobe),
+        .O(MEM_DataBus_Ready));
   FDRE WB_DAXI_Data_Strobe_reg
        (.C(Clk),
         .CE(1'b1),
-        .D(mem_databus_Data_Strobe),
+        .D(MEM_DAXI_Data_Strobe),
         .Q(wb_dext_Data_Strobe),
         .R(sync_reset));
   FDRE \WB_DAXI_Read_Data_reg[0] 
@@ -5162,7 +5248,7 @@ module design_1_microblaze_0_1_DAXI_interface
         .R(1'b0));
   LUT3 #(
     .INIT(8'hE0)) 
-    mem_access_completed_i_1__0
+    mem_access_completed_i_1
        (.I0(M_AXI_DP_RVALID),
         .I1(M_AXI_DP_BVALID),
         .I2(active_access),
@@ -5171,7 +5257,7 @@ module design_1_microblaze_0_1_DAXI_interface
        (.C(Clk),
         .CE(1'b1),
         .D(mem_access_completed0),
-        .Q(mem_databus_Data_Strobe),
+        .Q(MEM_DAXI_Data_Strobe),
         .R(sync_reset));
 endmodule
 
@@ -5712,7 +5798,7 @@ module design_1_microblaze_0_1_Data_Flow_gti
     \Using_FPGA.Native_27 ,
     \Using_FPGA.Native_28 ,
     \Using_FPGA.Native_29 ,
-    \MEM_DataBus_Write_Data_reg[0] ,
+    \EX_Op2_reg[0] ,
     div_busy_reg,
     mem_last_cycle_reg,
     \EX_Branch_CMP_Op1_reg[0] ,
@@ -5729,8 +5815,8 @@ module design_1_microblaze_0_1_Data_Flow_gti
     GPR_Op3,
     \imm_reg_reg[0] ,
     LO,
-    ex_databus_addr,
     \No_Long.Reverse_Mem_Accesses.wb_read_lsb_sel_reg[0] ,
+    ex_databus_addr,
     of_op1_sel_spr,
     D,
     I1,
@@ -5807,28 +5893,29 @@ module design_1_microblaze_0_1_Data_Flow_gti
     \data_rd_reg_reg[9] ,
     \data_rd_reg_reg[9]_0 ,
     \LOCKSTEP_Out_reg[3016] ,
-    wb_databus_steered_read_data,
+    WB_Steered_Read_Data1__0,
+    \LOCKSTEP_Out_reg[3007] ,
+    \LOCKSTEP_Out_reg[3008] ,
+    \LOCKSTEP_Out_reg[3009] ,
+    \LOCKSTEP_Out_reg[3010] ,
+    \LOCKSTEP_Out_reg[3011] ,
+    \LOCKSTEP_Out_reg[3012] ,
+    \LOCKSTEP_Out_reg[3013] ,
+    \LOCKSTEP_Out_reg[3014] ,
+    \LOCKSTEP_Out_reg[3015] ,
+    \LOCKSTEP_Out_reg[3016]_0 ,
+    \LOCKSTEP_Out_reg[3017] ,
+    \LOCKSTEP_Out_reg[3018] ,
+    \LOCKSTEP_Out_reg[3019] ,
+    \LOCKSTEP_Out_reg[3020] ,
+    \LOCKSTEP_Out_reg[3021] ,
+    \LOCKSTEP_Out_reg[3022] ,
     wb_byte_access,
     \LOCKSTEP_Out_reg[3023] ,
     \LOCKSTEP_Out_reg[3025] ,
     \LOCKSTEP_Out_reg[3027] ,
     \LOCKSTEP_Out_reg[3029] ,
-    \LOCKSTEP_Out_reg[3031] ,
-    \LOCKSTEP_Out_reg[3031]_0 ,
-    \LOCKSTEP_Out_reg[3033] ,
-    \LOCKSTEP_Out_reg[3033]_0 ,
-    \LOCKSTEP_Out_reg[3035] ,
-    \LOCKSTEP_Out_reg[3035]_0 ,
-    \LOCKSTEP_Out_reg[3037] ,
-    \LOCKSTEP_Out_reg[3037]_0 ,
-    \LOCKSTEP_Out_reg[3038] ,
-    \LOCKSTEP_Out_reg[3038]_0 ,
-    \LOCKSTEP_Out_reg[3036] ,
-    \LOCKSTEP_Out_reg[3036]_0 ,
-    \LOCKSTEP_Out_reg[3034] ,
-    \LOCKSTEP_Out_reg[3034]_0 ,
-    \LOCKSTEP_Out_reg[3032] ,
-    \LOCKSTEP_Out_reg[3032]_0 ,
+    wb_databus_steered_read_data,
     \LOCKSTEP_Out_reg[3030] ,
     \LOCKSTEP_Out_reg[3028] ,
     \LOCKSTEP_Out_reg[3026] ,
@@ -5843,9 +5930,9 @@ module design_1_microblaze_0_1_Data_Flow_gti
     ADDRD,
     E,
     \EX_Branch_CMP_Op1_reg[31] ,
-    \EX_Op2_reg[0] ,
+    \EX_Op2_reg[0]_0 ,
     \EX_Op3_reg[0]_0 ,
-    \MEM_DataBus_Write_Data_reg[0]_0 ,
+    \MEM_DataBus_Write_Data_reg[0] ,
     \wb_MSR_i_reg[30] ,
     \wb_MSR_i_reg[30]_0 ,
     SR,
@@ -5896,7 +5983,7 @@ module design_1_microblaze_0_1_Data_Flow_gti
   output \Using_FPGA.Native_27 ;
   output \Using_FPGA.Native_28 ;
   output \Using_FPGA.Native_29 ;
-  output [72:0]\MEM_DataBus_Write_Data_reg[0] ;
+  output [116:0]\EX_Op2_reg[0] ;
   output div_busy_reg;
   output mem_last_cycle_reg;
   output [0:0]\EX_Branch_CMP_Op1_reg[0] ;
@@ -5913,8 +6000,8 @@ module design_1_microblaze_0_1_Data_Flow_gti
   output [0:31]GPR_Op3;
   output [15:0]\imm_reg_reg[0] ;
   output LO;
-  output [0:31]ex_databus_addr;
   output [1:0]\No_Long.Reverse_Mem_Accesses.wb_read_lsb_sel_reg[0] ;
+  output [1:0]ex_databus_addr;
   input of_op1_sel_spr;
   input [31:0]D;
   input I1;
@@ -5991,28 +6078,29 @@ module design_1_microblaze_0_1_Data_Flow_gti
   input \data_rd_reg_reg[9] ;
   input \data_rd_reg_reg[9]_0 ;
   input \LOCKSTEP_Out_reg[3016] ;
-  input [15:0]wb_databus_steered_read_data;
+  input WB_Steered_Read_Data1__0;
+  input \LOCKSTEP_Out_reg[3007] ;
+  input \LOCKSTEP_Out_reg[3008] ;
+  input \LOCKSTEP_Out_reg[3009] ;
+  input \LOCKSTEP_Out_reg[3010] ;
+  input \LOCKSTEP_Out_reg[3011] ;
+  input \LOCKSTEP_Out_reg[3012] ;
+  input \LOCKSTEP_Out_reg[3013] ;
+  input \LOCKSTEP_Out_reg[3014] ;
+  input \LOCKSTEP_Out_reg[3015] ;
+  input \LOCKSTEP_Out_reg[3016]_0 ;
+  input \LOCKSTEP_Out_reg[3017] ;
+  input \LOCKSTEP_Out_reg[3018] ;
+  input \LOCKSTEP_Out_reg[3019] ;
+  input \LOCKSTEP_Out_reg[3020] ;
+  input \LOCKSTEP_Out_reg[3021] ;
+  input \LOCKSTEP_Out_reg[3022] ;
   input wb_byte_access;
   input \LOCKSTEP_Out_reg[3023] ;
   input \LOCKSTEP_Out_reg[3025] ;
   input \LOCKSTEP_Out_reg[3027] ;
   input \LOCKSTEP_Out_reg[3029] ;
-  input \LOCKSTEP_Out_reg[3031] ;
-  input \LOCKSTEP_Out_reg[3031]_0 ;
-  input \LOCKSTEP_Out_reg[3033] ;
-  input \LOCKSTEP_Out_reg[3033]_0 ;
-  input \LOCKSTEP_Out_reg[3035] ;
-  input \LOCKSTEP_Out_reg[3035]_0 ;
-  input \LOCKSTEP_Out_reg[3037] ;
-  input \LOCKSTEP_Out_reg[3037]_0 ;
-  input \LOCKSTEP_Out_reg[3038] ;
-  input \LOCKSTEP_Out_reg[3038]_0 ;
-  input \LOCKSTEP_Out_reg[3036] ;
-  input \LOCKSTEP_Out_reg[3036]_0 ;
-  input \LOCKSTEP_Out_reg[3034] ;
-  input \LOCKSTEP_Out_reg[3034]_0 ;
-  input \LOCKSTEP_Out_reg[3032] ;
-  input \LOCKSTEP_Out_reg[3032]_0 ;
+  input [7:0]wb_databus_steered_read_data;
   input \LOCKSTEP_Out_reg[3030] ;
   input \LOCKSTEP_Out_reg[3028] ;
   input \LOCKSTEP_Out_reg[3026] ;
@@ -6027,9 +6115,9 @@ module design_1_microblaze_0_1_Data_Flow_gti
   input [4:0]ADDRD;
   input [0:0]E;
   input \EX_Branch_CMP_Op1_reg[31] ;
-  input [31:0]\EX_Op2_reg[0] ;
+  input [31:0]\EX_Op2_reg[0]_0 ;
   input [31:0]\EX_Op3_reg[0]_0 ;
-  input [23:0]\MEM_DataBus_Write_Data_reg[0]_0 ;
+  input [23:0]\MEM_DataBus_Write_Data_reg[0] ;
   input [0:0]\wb_MSR_i_reg[30] ;
   input [0:0]\wb_MSR_i_reg[30]_0 ;
   input [0:0]SR;
@@ -6086,7 +6174,8 @@ module design_1_microblaze_0_1_Data_Flow_gti
   wire \EX_Op1_reg[7] ;
   wire \EX_Op1_reg[8] ;
   wire \EX_Op1_reg[9] ;
-  wire [31:0]\EX_Op2_reg[0] ;
+  wire [116:0]\EX_Op2_reg[0] ;
+  wire [31:0]\EX_Op2_reg[0]_0 ;
   wire [31:0]\EX_Op3_reg[0] ;
   wire [31:0]\EX_Op3_reg[0]_0 ;
   wire \FPGA_Impl1.D_Handle[0].D_Sel_reg ;
@@ -6126,7 +6215,23 @@ module design_1_microblaze_0_1_Data_Flow_gti
   wire I1;
   wire I1_1;
   wire LO;
+  wire \LOCKSTEP_Out_reg[3007] ;
+  wire \LOCKSTEP_Out_reg[3008] ;
+  wire \LOCKSTEP_Out_reg[3009] ;
+  wire \LOCKSTEP_Out_reg[3010] ;
+  wire \LOCKSTEP_Out_reg[3011] ;
+  wire \LOCKSTEP_Out_reg[3012] ;
+  wire \LOCKSTEP_Out_reg[3013] ;
+  wire \LOCKSTEP_Out_reg[3014] ;
+  wire \LOCKSTEP_Out_reg[3015] ;
   wire \LOCKSTEP_Out_reg[3016] ;
+  wire \LOCKSTEP_Out_reg[3016]_0 ;
+  wire \LOCKSTEP_Out_reg[3017] ;
+  wire \LOCKSTEP_Out_reg[3018] ;
+  wire \LOCKSTEP_Out_reg[3019] ;
+  wire \LOCKSTEP_Out_reg[3020] ;
+  wire \LOCKSTEP_Out_reg[3021] ;
+  wire \LOCKSTEP_Out_reg[3022] ;
   wire \LOCKSTEP_Out_reg[3023] ;
   wire \LOCKSTEP_Out_reg[3024] ;
   wire \LOCKSTEP_Out_reg[3025] ;
@@ -6135,52 +6240,23 @@ module design_1_microblaze_0_1_Data_Flow_gti
   wire \LOCKSTEP_Out_reg[3028] ;
   wire \LOCKSTEP_Out_reg[3029] ;
   wire \LOCKSTEP_Out_reg[3030] ;
-  wire \LOCKSTEP_Out_reg[3031] ;
-  wire \LOCKSTEP_Out_reg[3031]_0 ;
-  wire \LOCKSTEP_Out_reg[3032] ;
-  wire \LOCKSTEP_Out_reg[3032]_0 ;
-  wire \LOCKSTEP_Out_reg[3033] ;
-  wire \LOCKSTEP_Out_reg[3033]_0 ;
-  wire \LOCKSTEP_Out_reg[3034] ;
-  wire \LOCKSTEP_Out_reg[3034]_0 ;
-  wire \LOCKSTEP_Out_reg[3035] ;
-  wire \LOCKSTEP_Out_reg[3035]_0 ;
-  wire \LOCKSTEP_Out_reg[3036] ;
-  wire \LOCKSTEP_Out_reg[3036]_0 ;
-  wire \LOCKSTEP_Out_reg[3037] ;
-  wire \LOCKSTEP_Out_reg[3037]_0 ;
-  wire \LOCKSTEP_Out_reg[3038] ;
-  wire \LOCKSTEP_Out_reg[3038]_0 ;
-  wire [72:0]\MEM_DataBus_Write_Data_reg[0] ;
-  wire [23:0]\MEM_DataBus_Write_Data_reg[0]_0 ;
+  wire [23:0]\MEM_DataBus_Write_Data_reg[0] ;
   wire MEM_Div_By_Zero_reg;
   wire [0:31]MEM_Div_Result;
   wire [0:30]MEM_EX_Result;
   wire [0:31]MEM_Fwd;
   wire [1:0]\No_Long.Reverse_Mem_Accesses.wb_read_lsb_sel_reg[0] ;
-  wire Operand_Select_I_n_104;
-  wire Operand_Select_I_n_137;
-  wire Operand_Select_I_n_138;
-  wire Operand_Select_I_n_139;
-  wire Operand_Select_I_n_140;
-  wire Operand_Select_I_n_141;
-  wire Operand_Select_I_n_142;
-  wire Operand_Select_I_n_143;
-  wire Operand_Select_I_n_144;
-  wire Operand_Select_I_n_177;
-  wire Operand_Select_I_n_208;
-  wire Operand_Select_I_n_209;
+  wire Operand_Select_I_n_114;
+  wire Operand_Select_I_n_179;
   wire Operand_Select_I_n_210;
   wire Operand_Select_I_n_211;
+  wire Operand_Select_I_n_212;
+  wire Operand_Select_I_n_213;
   wire Operand_Select_I_n_62;
   wire Operand_Select_I_n_63;
   wire Operand_Select_I_n_64;
   wire Operand_Select_I_n_65;
-  wire Operand_Select_I_n_67;
-  wire Operand_Select_I_n_68;
-  wire Operand_Select_I_n_69;
-  wire Operand_Select_I_n_70;
-  wire Operand_Select_I_n_71;
+  wire Operand_Select_I_n_81;
   wire [1:0]Q;
   wire R;
   wire \R_reg[32] ;
@@ -6240,6 +6316,7 @@ module design_1_microblaze_0_1_Data_Flow_gti
   wire [1:0]\Using_FPGA.Native_i_3__34 ;
   wire WB_GPR_Wr;
   wire [0:0]\WB_MEM_Result_reg[31] ;
+  wire WB_Steered_Read_Data1__0;
   wire Zero_Detect_I_n_1;
   wire Zero_Detect_I_n_3;
   wire \data_rd_reg_reg[9] ;
@@ -6251,7 +6328,7 @@ module design_1_microblaze_0_1_Data_Flow_gti
   wire [1:29]ex_branch_cmp_op1;
   wire ex_byte_access;
   wire ex_cmp_op;
-  wire [0:31]ex_databus_addr;
+  wire [1:0]ex_databus_addr;
   wire ex_div_unsigned;
   wire ex_doublet_access;
   wire ex_move_to_MSR_instr;
@@ -6304,7 +6381,7 @@ module design_1_microblaze_0_1_Data_Flow_gti
   wire [0:0]\wb_MSR_i_reg[30] ;
   wire [0:0]\wb_MSR_i_reg[30]_0 ;
   wire wb_byte_access;
-  wire [15:0]wb_databus_steered_read_data;
+  wire [7:0]wb_databus_steered_read_data;
   wire wb_gpr_wr_dbg;
   wire [31:0]wb_gpr_write_dbg_reg;
   wire [0:31]wb_mem_result;
@@ -6319,6 +6396,7 @@ module design_1_microblaze_0_1_Data_Flow_gti
        (.DI_0(DI_0),
         .EX_ALU_Sel_Logic(EX_ALU_Sel_Logic),
         .EX_Enable_ALU(EX_Enable_ALU),
+        .\EX_Op2_reg[0] (\EX_Op2_reg[0] [116:87]),
         .I0(\Using_FPGA.ALL_Bits[0].ALU_Bit_I1/I0 ),
         .I2(\Using_FPGA.ALL_Bits[0].ALU_Bit_I1/I2 ),
         .LO(LO),
@@ -6337,16 +6415,16 @@ module design_1_microblaze_0_1_Data_Flow_gti
         .lopt_4(lopt_7));
   design_1_microblaze_0_1_Byte_Doublet_Handle_gti Byte_Doublet_Handle_gti_I
        (.Clk(Clk),
-        .D({\MEM_DataBus_Write_Data_reg[0]_0 [23:8],Operand_Select_I_n_137,Operand_Select_I_n_138,Operand_Select_I_n_139,Operand_Select_I_n_140,Operand_Select_I_n_141,Operand_Select_I_n_142,Operand_Select_I_n_143,Operand_Select_I_n_144,\MEM_DataBus_Write_Data_reg[0]_0 [7:0]}),
-        .\MEM_DataBus_Byte_Enable_reg[0]_0 ({Operand_Select_I_n_67,Operand_Select_I_n_68,Operand_Select_I_n_69,Operand_Select_I_n_70}),
-        .\MEM_DataBus_Write_Data_reg[0]_0 (\MEM_DataBus_Write_Data_reg[0] [72:37]),
+        .D({\MEM_DataBus_Write_Data_reg[0] [23:8],\EX_Op2_reg[0] [84:77],\MEM_DataBus_Write_Data_reg[0] [7:0]}),
+        .\MEM_DataBus_Byte_Enable_reg[0]_0 (\EX_Op2_reg[0] [76:73]),
+        .\MEM_DataBus_Write_Data_reg[0]_0 (\EX_Op2_reg[0] [72:37]),
         .\No_Long.Reverse_Mem_Accesses.wb_read_lsb_sel_reg[0]_0 (\No_Long.Reverse_Mem_Accesses.wb_read_lsb_sel_reg[0] ),
         .\No_Long.Reverse_Mem_Accesses.wb_read_msb_doublet_sel_reg_0 (\Using_FPGA.Native_30 ),
         .ex_reverse_mem_access(ex_reverse_mem_access),
         .mem_byte_access(mem_byte_access),
-        .\mem_byte_selects_reg[0]_0 (Operand_Select_I_n_71),
+        .\mem_byte_selects_reg[0]_0 (Operand_Select_I_n_81),
         .\mem_byte_selects_reg[1]_0 (MEM_Div_By_Zero_reg),
-        .\mem_byte_selects_reg[1]_1 (Operand_Select_I_n_210),
+        .\mem_byte_selects_reg[1]_1 (Operand_Select_I_n_212),
         .mem_doublet_access(mem_doublet_access),
         .sync_reset(sync_reset),
         .wb_read_lsb_1_sel(wb_read_lsb_1_sel),
@@ -6376,13 +6454,13 @@ module design_1_microblaze_0_1_Data_Flow_gti
         .\Using_FPGA.DSP48E1_I1_1 (\Using_FPGA.Native_30 ),
         .wb_mul_result(wb_mul_result));
   design_1_microblaze_0_1_Operand_Select_gti Operand_Select_I
-       (.CI(Operand_Select_I_n_211),
+       (.CI(Operand_Select_I_n_213),
         .Clk(Clk),
         .D(D),
         .E(E),
         .EX_ALU_Sel_Logic(EX_ALU_Sel_Logic),
         .\EX_Branch_CMP_Op1_reg[0]_0 ({\EX_Branch_CMP_Op1_reg[0] ,ex_branch_cmp_op1[1],ex_branch_cmp_op1[2],ex_branch_cmp_op1[3],ex_branch_cmp_op1[4],ex_branch_cmp_op1[5],ex_branch_cmp_op1[6],ex_branch_cmp_op1[7],ex_branch_cmp_op1[8],ex_branch_cmp_op1[9],ex_branch_cmp_op1[10],ex_branch_cmp_op1[11],ex_branch_cmp_op1[12],ex_branch_cmp_op1[13],ex_branch_cmp_op1[14],ex_branch_cmp_op1[15],ex_branch_cmp_op1[16],ex_branch_cmp_op1[17],ex_branch_cmp_op1[18],ex_branch_cmp_op1[19],ex_branch_cmp_op1[20],ex_branch_cmp_op1[21],ex_branch_cmp_op1[22],ex_branch_cmp_op1[23],ex_branch_cmp_op1[24],ex_branch_cmp_op1[25],ex_branch_cmp_op1[26],ex_branch_cmp_op1[27],ex_branch_cmp_op1[28],ex_branch_cmp_op1[29]}),
-        .\EX_Branch_CMP_Op1_reg[30]_0 (Operand_Select_I_n_177),
+        .\EX_Branch_CMP_Op1_reg[30]_0 (Operand_Select_I_n_179),
         .\EX_Branch_CMP_Op1_reg[31]_0 (\EX_Branch_CMP_Op1_reg[31] ),
         .EX_Div_Unsigned_reg(S),
         .EX_Div_Unsigned_reg_0(\FPGA_Impl1.D_Handle[29].D_Sel_reg ),
@@ -6407,7 +6485,7 @@ module design_1_microblaze_0_1_Data_Flow_gti
         .EX_Div_Unsigned_reg_26(\FPGA_Impl1.D_Handle[3].D_Sel_reg ),
         .EX_Div_Unsigned_reg_27(\FPGA_Impl1.D_Handle[2].D_Sel_reg ),
         .EX_Div_Unsigned_reg_28(\FPGA_Impl1.D_Handle[1].D_Sel_reg ),
-        .EX_Div_Unsigned_reg_29(Operand_Select_I_n_209),
+        .EX_Div_Unsigned_reg_29(Operand_Select_I_n_211),
         .EX_Div_Unsigned_reg_3(\FPGA_Impl1.D_Handle[26].D_Sel_reg ),
         .EX_Div_Unsigned_reg_4(\FPGA_Impl1.D_Handle[25].D_Sel_reg ),
         .EX_Div_Unsigned_reg_5(\FPGA_Impl1.D_Handle[24].D_Sel_reg ),
@@ -6448,20 +6526,19 @@ module design_1_microblaze_0_1_Data_Flow_gti
         .\EX_Op1_reg[8]_0 (\EX_Op1_reg[8] ),
         .\EX_Op1_reg[9]_0 (\EX_Op1_reg[9] ),
         .\EX_Op2_reg[0]_0 ({ex_op2[0],ex_op2[1],ex_op2[2],ex_op2[3],ex_op2[4],ex_op2[5],ex_op2[6],ex_op2[7],ex_op2[8],ex_op2[9],ex_op2[10],ex_op2[11],ex_op2[12],ex_op2[13],ex_op2[14],ex_op2[15],ex_op2[16],ex_op2[17],ex_op2[18],ex_op2[19],ex_op2[20],ex_op2[21],ex_op2[22],ex_op2[23],ex_op2[24],ex_op2[25],ex_op2[26],ex_op2[27],Operand_Select_I_n_62,Operand_Select_I_n_63,Operand_Select_I_n_64,Operand_Select_I_n_65}),
-        .\EX_Op2_reg[0]_1 (Operand_Select_I_n_208),
-        .\EX_Op2_reg[0]_2 (\EX_Op2_reg[0] ),
-        .\EX_Op2_reg[31]_0 ({Operand_Select_I_n_67,Operand_Select_I_n_68,Operand_Select_I_n_69,Operand_Select_I_n_70}),
+        .\EX_Op2_reg[0]_1 (Operand_Select_I_n_210),
+        .\EX_Op2_reg[0]_2 (\EX_Op2_reg[0]_0 ),
         .\EX_Op3_reg[0]_0 (\EX_Op3_reg[0] ),
         .\EX_Op3_reg[0]_1 (\EX_Op3_reg[0]_0 ),
-        .\EX_Op3_reg[24]_0 ({Operand_Select_I_n_137,Operand_Select_I_n_138,Operand_Select_I_n_139,Operand_Select_I_n_140,Operand_Select_I_n_141,Operand_Select_I_n_142,Operand_Select_I_n_143,Operand_Select_I_n_144}),
         .I0(\Using_FPGA.ALL_Bits[0].ALU_Bit_I1/I0 ),
         .I1(I1),
         .I2(\Using_FPGA.ALL_Bits[0].ALU_Bit_I1/I2 ),
         .Q(\EX_Op1_reg[0] ),
         .S(\FPGA_Impl1.D_Handle[31].D_Sel_reg ),
         .S_0(\Using_FPGA.ALL_Bits[0].ALU_Bit_I1/S ),
-        .\Using_FPGA.Native (Operand_Select_I_n_71),
-        .\Using_FPGA.Native_0 (Operand_Select_I_n_210),
+        .\Using_FPGA.Native (\EX_Op2_reg[0] [86:73]),
+        .\Using_FPGA.Native_0 (Operand_Select_I_n_81),
+        .\Using_FPGA.Native_1 (Operand_Select_I_n_212),
         .\Using_FPGA.Native_i_2__21 (\Using_FPGA.Native_42 ),
         .\Using_FPGA.Native_i_3__34 (\Using_FPGA.Native_i_3__34 ),
         .ex_MSR(ex_MSR[1]),
@@ -6474,7 +6551,7 @@ module design_1_microblaze_0_1_Data_Flow_gti
         .ex_start_div(ex_start_div),
         .ex_swap_byte_instr(ex_swap_byte_instr),
         .\imm_reg_reg[0]_0 (\imm_reg_reg[0] ),
-        .in0(Operand_Select_I_n_104),
+        .in0(Operand_Select_I_n_114),
         .make_result_neg(make_result_neg),
         .negative_operands(negative_operands),
         .of_imm_data(of_imm_data),
@@ -6488,14 +6565,14 @@ module design_1_microblaze_0_1_Data_Flow_gti
         .GPR_Op1(GPR_Op1),
         .GPR_Op2(GPR_Op2),
         .GPR_Op3(GPR_Op3),
-        .WB_Fwd({\MEM_DataBus_Write_Data_reg[0] [31],\MEM_DataBus_Write_Data_reg[0] [30],\MEM_DataBus_Write_Data_reg[0] [29],\MEM_DataBus_Write_Data_reg[0] [28],\MEM_DataBus_Write_Data_reg[0] [27],\MEM_DataBus_Write_Data_reg[0] [26],\MEM_DataBus_Write_Data_reg[0] [25],\MEM_DataBus_Write_Data_reg[0] [24],\MEM_DataBus_Write_Data_reg[0] [23],\MEM_DataBus_Write_Data_reg[0] [22],\MEM_DataBus_Write_Data_reg[0] [21],\MEM_DataBus_Write_Data_reg[0] [20],\MEM_DataBus_Write_Data_reg[0] [19],\MEM_DataBus_Write_Data_reg[0] [18],\MEM_DataBus_Write_Data_reg[0] [17],\MEM_DataBus_Write_Data_reg[0] [16],\MEM_DataBus_Write_Data_reg[0] [15],\MEM_DataBus_Write_Data_reg[0] [14],\MEM_DataBus_Write_Data_reg[0] [13],\MEM_DataBus_Write_Data_reg[0] [12],\MEM_DataBus_Write_Data_reg[0] [11],\MEM_DataBus_Write_Data_reg[0] [10],\MEM_DataBus_Write_Data_reg[0] [9],\MEM_DataBus_Write_Data_reg[0] [8],\MEM_DataBus_Write_Data_reg[0] [7],\MEM_DataBus_Write_Data_reg[0] [6],\MEM_DataBus_Write_Data_reg[0] [5],\MEM_DataBus_Write_Data_reg[0] [4],\MEM_DataBus_Write_Data_reg[0] [3],\MEM_DataBus_Write_Data_reg[0] [2],\MEM_DataBus_Write_Data_reg[0] [1],\MEM_DataBus_Write_Data_reg[0] [0]}),
+        .WB_Fwd({\EX_Op2_reg[0] [31],\EX_Op2_reg[0] [30],\EX_Op2_reg[0] [29],\EX_Op2_reg[0] [28],\EX_Op2_reg[0] [27],\EX_Op2_reg[0] [26],\EX_Op2_reg[0] [25],\EX_Op2_reg[0] [24],\EX_Op2_reg[0] [23],\EX_Op2_reg[0] [22],\EX_Op2_reg[0] [21],\EX_Op2_reg[0] [20],\EX_Op2_reg[0] [19],\EX_Op2_reg[0] [18],\EX_Op2_reg[0] [17],\EX_Op2_reg[0] [16],\EX_Op2_reg[0] [15],\EX_Op2_reg[0] [14],\EX_Op2_reg[0] [13],\EX_Op2_reg[0] [12],\EX_Op2_reg[0] [11],\EX_Op2_reg[0] [10],\EX_Op2_reg[0] [9],\EX_Op2_reg[0] [8],\EX_Op2_reg[0] [7],\EX_Op2_reg[0] [6],\EX_Op2_reg[0] [5],\EX_Op2_reg[0] [4],\EX_Op2_reg[0] [3],\EX_Op2_reg[0] [2],\EX_Op2_reg[0] [1],\EX_Op2_reg[0] [0]}),
         .WB_GPR_Wr(WB_GPR_Wr),
         .of_gpr_op1_rd_addr(of_gpr_op1_rd_addr),
         .of_gpr_op3_rd_addr(of_gpr_op3_rd_addr),
         .of_imm_data({of_imm_data[0],of_imm_data[1],of_imm_data[2],of_imm_data[3],of_imm_data[4]}));
   design_1_microblaze_0_1_Shift_Logic_Module_gti Shift_Logic_Module_I
        (.\EX_Op1_reg[24] (\EX_Op1_reg[24] ),
-        .\Using_FPGA.Native (Operand_Select_I_n_104),
+        .\Using_FPGA.Native (Operand_Select_I_n_114),
         .in0(in0),
         .out(out));
   design_1_microblaze_0_1_MB_MUXCY_299 \Using_DAXI_ALU_Carry.Direct_MUXCY_I 
@@ -6523,7 +6600,7 @@ module design_1_microblaze_0_1_Data_Flow_gti
        (.muxcy_di(muxcy_di),
         .muxcy_sel(muxcy_sel));
   design_1_microblaze_0_1_Div_unit_gti \Using_Div_Unit.Div_unit_I1 
-       (.CI(Operand_Select_I_n_211),
+       (.CI(Operand_Select_I_n_213),
         .Clk(Clk),
         .\D_reg[10]_0 (\FPGA_Impl1.D_Handle[10].D_Sel_reg ),
         .\D_reg[11]_0 (\FPGA_Impl1.D_Handle[11].D_Sel_reg ),
@@ -6579,16 +6656,16 @@ module design_1_microblaze_0_1_Data_Flow_gti
         .ex_move_to_MSR_instr(ex_move_to_MSR_instr),
         .ex_start_div(ex_start_div),
         .make_result_neg(make_result_neg),
-        .make_result_neg_reg_0(Operand_Select_I_n_208),
+        .make_result_neg_reg_0(Operand_Select_I_n_210),
         .mem_MSR(mem_MSR),
         .mem_div_stall_i_reg_0(mem_div_stall_i_reg),
         .mem_last_cycle_reg_0(mem_last_cycle_reg),
         .negative_operands(negative_operands),
-        .negative_operands_reg_0(Operand_Select_I_n_209),
+        .negative_operands_reg_0(Operand_Select_I_n_211),
         .sync_reset(sync_reset),
         .wb_MSR_Clear_IE(wb_MSR_Clear_IE));
   design_1_microblaze_0_1_Zero_Detect_gti Zero_Detect_I
-       (.\FPGA_Shift.cnt_shifts_reg[31] (Operand_Select_I_n_177),
+       (.\FPGA_Shift.cnt_shifts_reg[31] (Operand_Select_I_n_179),
         .MEM_Div_By_Zero_reg(\Using_Div_Unit.Div_unit_I1_n_35 ),
         .\Using_FPGA.Native ({\EX_Branch_CMP_Op1_reg[0] ,ex_branch_cmp_op1[1],ex_branch_cmp_op1[2],ex_branch_cmp_op1[3],ex_branch_cmp_op1[4],ex_branch_cmp_op1[5],ex_branch_cmp_op1[6],ex_branch_cmp_op1[7],ex_branch_cmp_op1[8],ex_branch_cmp_op1[9],ex_branch_cmp_op1[10],ex_branch_cmp_op1[11],ex_branch_cmp_op1[12],ex_branch_cmp_op1[13],ex_branch_cmp_op1[14],ex_branch_cmp_op1[15],ex_branch_cmp_op1[16],ex_branch_cmp_op1[17],ex_branch_cmp_op1[18],ex_branch_cmp_op1[19],ex_branch_cmp_op1[20],ex_branch_cmp_op1[21],ex_branch_cmp_op1[22],ex_branch_cmp_op1[23],ex_branch_cmp_op1[24],ex_branch_cmp_op1[25],ex_branch_cmp_op1[26],ex_branch_cmp_op1[27],ex_branch_cmp_op1[28],ex_branch_cmp_op1[29]}),
         .div_busy(div_busy),
@@ -6606,8 +6683,24 @@ module design_1_microblaze_0_1_Data_Flow_gti
        (.Clk(Clk),
         .DI(DI),
         .I1_1(I1_1),
-        .\LOCKSTEP_Out_reg[3007] ({wb_mem_result[0],wb_mem_result[1],wb_mem_result[2],wb_mem_result[3],wb_mem_result[4],wb_mem_result[5],wb_mem_result[6],wb_mem_result[7],wb_mem_result[8],wb_mem_result[9],wb_mem_result[10],wb_mem_result[11],wb_mem_result[12],wb_mem_result[13],wb_mem_result[14],wb_mem_result[15],wb_mem_result[16],wb_mem_result[17],wb_mem_result[18],wb_mem_result[19],wb_mem_result[20],wb_mem_result[21],wb_mem_result[22],wb_mem_result[23],wb_mem_result[24],wb_mem_result[25],wb_mem_result[26],wb_mem_result[27],wb_mem_result[28],wb_mem_result[29],wb_mem_result[30],wb_mem_result[31]}),
+        .\LOCKSTEP_Out_reg[3007] (\LOCKSTEP_Out_reg[3007] ),
+        .\LOCKSTEP_Out_reg[3007]_0 ({wb_mem_result[0],wb_mem_result[1],wb_mem_result[2],wb_mem_result[3],wb_mem_result[4],wb_mem_result[5],wb_mem_result[6],wb_mem_result[7],wb_mem_result[8],wb_mem_result[9],wb_mem_result[10],wb_mem_result[11],wb_mem_result[12],wb_mem_result[13],wb_mem_result[14],wb_mem_result[15],wb_mem_result[16],wb_mem_result[17],wb_mem_result[18],wb_mem_result[19],wb_mem_result[20],wb_mem_result[21],wb_mem_result[22],wb_mem_result[23],wb_mem_result[24],wb_mem_result[25],wb_mem_result[26],wb_mem_result[27],wb_mem_result[28],wb_mem_result[29],wb_mem_result[30],wb_mem_result[31]}),
+        .\LOCKSTEP_Out_reg[3008] (\LOCKSTEP_Out_reg[3008] ),
+        .\LOCKSTEP_Out_reg[3009] (\LOCKSTEP_Out_reg[3009] ),
+        .\LOCKSTEP_Out_reg[3010] (\LOCKSTEP_Out_reg[3010] ),
+        .\LOCKSTEP_Out_reg[3011] (\LOCKSTEP_Out_reg[3011] ),
+        .\LOCKSTEP_Out_reg[3012] (\LOCKSTEP_Out_reg[3012] ),
+        .\LOCKSTEP_Out_reg[3013] (\LOCKSTEP_Out_reg[3013] ),
+        .\LOCKSTEP_Out_reg[3014] (\LOCKSTEP_Out_reg[3014] ),
+        .\LOCKSTEP_Out_reg[3015] (\LOCKSTEP_Out_reg[3015] ),
         .\LOCKSTEP_Out_reg[3016] (\LOCKSTEP_Out_reg[3016] ),
+        .\LOCKSTEP_Out_reg[3016]_0 (\LOCKSTEP_Out_reg[3016]_0 ),
+        .\LOCKSTEP_Out_reg[3017] (\LOCKSTEP_Out_reg[3017] ),
+        .\LOCKSTEP_Out_reg[3018] (\LOCKSTEP_Out_reg[3018] ),
+        .\LOCKSTEP_Out_reg[3019] (\LOCKSTEP_Out_reg[3019] ),
+        .\LOCKSTEP_Out_reg[3020] (\LOCKSTEP_Out_reg[3020] ),
+        .\LOCKSTEP_Out_reg[3021] (\LOCKSTEP_Out_reg[3021] ),
+        .\LOCKSTEP_Out_reg[3022] (\LOCKSTEP_Out_reg[3022] ),
         .\LOCKSTEP_Out_reg[3023] (\LOCKSTEP_Out_reg[3023] ),
         .\LOCKSTEP_Out_reg[3024] (\LOCKSTEP_Out_reg[3024] ),
         .\LOCKSTEP_Out_reg[3025] (\LOCKSTEP_Out_reg[3025] ),
@@ -6616,22 +6709,6 @@ module design_1_microblaze_0_1_Data_Flow_gti
         .\LOCKSTEP_Out_reg[3028] (\LOCKSTEP_Out_reg[3028] ),
         .\LOCKSTEP_Out_reg[3029] (\LOCKSTEP_Out_reg[3029] ),
         .\LOCKSTEP_Out_reg[3030] (\LOCKSTEP_Out_reg[3030] ),
-        .\LOCKSTEP_Out_reg[3031] (\LOCKSTEP_Out_reg[3031] ),
-        .\LOCKSTEP_Out_reg[3031]_0 (\LOCKSTEP_Out_reg[3031]_0 ),
-        .\LOCKSTEP_Out_reg[3032] (\LOCKSTEP_Out_reg[3032] ),
-        .\LOCKSTEP_Out_reg[3032]_0 (\LOCKSTEP_Out_reg[3032]_0 ),
-        .\LOCKSTEP_Out_reg[3033] (\LOCKSTEP_Out_reg[3033] ),
-        .\LOCKSTEP_Out_reg[3033]_0 (\LOCKSTEP_Out_reg[3033]_0 ),
-        .\LOCKSTEP_Out_reg[3034] (\LOCKSTEP_Out_reg[3034] ),
-        .\LOCKSTEP_Out_reg[3034]_0 (\LOCKSTEP_Out_reg[3034]_0 ),
-        .\LOCKSTEP_Out_reg[3035] (\LOCKSTEP_Out_reg[3035] ),
-        .\LOCKSTEP_Out_reg[3035]_0 (\LOCKSTEP_Out_reg[3035]_0 ),
-        .\LOCKSTEP_Out_reg[3036] (\LOCKSTEP_Out_reg[3036] ),
-        .\LOCKSTEP_Out_reg[3036]_0 (\LOCKSTEP_Out_reg[3036]_0 ),
-        .\LOCKSTEP_Out_reg[3037] (\LOCKSTEP_Out_reg[3037] ),
-        .\LOCKSTEP_Out_reg[3037]_0 (\LOCKSTEP_Out_reg[3037]_0 ),
-        .\LOCKSTEP_Out_reg[3038] (\LOCKSTEP_Out_reg[3038] ),
-        .\LOCKSTEP_Out_reg[3038]_0 (\LOCKSTEP_Out_reg[3038]_0 ),
         .\Using_FPGA.Native (\Using_FPGA.Native_0 ),
         .\Using_FPGA.Native_0 (\Using_FPGA.Native_1 ),
         .\Using_FPGA.Native_1 (\Using_FPGA.Native_2 ),
@@ -6655,7 +6732,7 @@ module design_1_microblaze_0_1_Data_Flow_gti
         .\Using_FPGA.Native_26 (\Using_FPGA.Native_27 ),
         .\Using_FPGA.Native_27 (\Using_FPGA.Native_28 ),
         .\Using_FPGA.Native_28 (\Using_FPGA.Native_29 ),
-        .\Using_FPGA.Native_29 ({\MEM_DataBus_Write_Data_reg[0] [36],\MEM_DataBus_Write_Data_reg[0] [31:0]}),
+        .\Using_FPGA.Native_29 ({\EX_Op2_reg[0] [36],\EX_Op2_reg[0] [31:0]}),
         .\Using_FPGA.Native_3 (\Using_FPGA.Native_4 ),
         .\Using_FPGA.Native_30 (\Using_FPGA.Native_39 ),
         .\Using_FPGA.Native_31 (\Using_FPGA.Native_40 ),
@@ -6667,7 +6744,8 @@ module design_1_microblaze_0_1_Data_Flow_gti
         .\Using_FPGA.Native_7 (\Using_FPGA.Native_8 ),
         .\Using_FPGA.Native_8 (\Using_FPGA.Native_9 ),
         .\Using_FPGA.Native_9 (\Using_FPGA.Native_10 ),
-        .\data_rd_reg_reg[25] (\MEM_DataBus_Write_Data_reg[0] [35:32]),
+        .WB_Steered_Read_Data1__0(WB_Steered_Read_Data1__0),
+        .\data_rd_reg_reg[25] (\EX_Op2_reg[0] [35:32]),
         .\data_rd_reg_reg[9] (\data_rd_reg_reg[9] ),
         .\data_rd_reg_reg[9]_0 (\data_rd_reg_reg[9]_0 ),
         .wb_byte_access(wb_byte_access),
@@ -6699,7 +6777,7 @@ module design_1_microblaze_0_1_Data_Flow_gti
         .p_127_out(p_127_out),
         .sync_reset(sync_reset),
         .wb_MSR_Clear_IE(wb_MSR_Clear_IE),
-        .\wb_MSR_i_reg[25]_0 (\MEM_DataBus_Write_Data_reg[0] [35:32]),
+        .\wb_MSR_i_reg[25]_0 (\EX_Op2_reg[0] [35:32]),
         .\wb_MSR_i_reg[30]_0 (\wb_MSR_i_reg[30] ),
         .\wb_MSR_i_reg[30]_1 (\wb_MSR_i_reg[30]_0 ));
 endmodule
@@ -6728,7 +6806,7 @@ module design_1_microblaze_0_1_Debug
     Dbg_TDO,
     Dbg_Clk,
     sync_reset,
-    E,
+    \Performance_Debug_Control.wb_dbg_hit_reg[0]_0 ,
     \Performance_Debug_Control.m0_dbg_hit_reg[0]_0 ,
     single_Step_N_reg_0,
     Dbg_Trig_Ack_In,
@@ -6755,7 +6833,7 @@ module design_1_microblaze_0_1_Debug
     Data_Read_Reg_En,
     Config_Reg_En,
     \Performance_Debug_Control.ex_dbg_pc_hit_single_step_reg_1 ,
-    iext_data_strobe,
+    IReady,
     Dbg_Shift,
     Dbg_Reg_En,
     wb_gpr_wr_dbg,
@@ -6772,8 +6850,7 @@ module design_1_microblaze_0_1_Debug
     Dbg_TDI,
     Address,
     \data_rd_reg_reg[0]_0 ,
-    mem_databus_access,
-    \Serial_Dbg_Intf.status_reg_reg[25]_0 ,
+    \Serial_Dbg_Intf.status_reg_reg[22]_0 ,
     dbg_stop_i);
   output [37:0]LOCKSTEP_Master_Out;
   output \Serial_Dbg_Intf.force_stop_cmd_i_reg_0 ;
@@ -6797,7 +6874,7 @@ module design_1_microblaze_0_1_Debug
   output Dbg_TDO;
   input Dbg_Clk;
   input sync_reset;
-  input [0:0]E;
+  input \Performance_Debug_Control.wb_dbg_hit_reg[0]_0 ;
   input \Performance_Debug_Control.m0_dbg_hit_reg[0]_0 ;
   input single_Step_N_reg_0;
   input [1:0]Dbg_Trig_Ack_In;
@@ -6809,7 +6886,7 @@ module design_1_microblaze_0_1_Debug
   input wb_Halted;
   input Dbg_Update;
   input wb_read_imm_reg_1;
-  input [2:0]D;
+  input [3:0]D;
   input wb_read_imm_reg;
   input Dbg_Stop;
   input Dbg_Capture;
@@ -6824,7 +6901,7 @@ module design_1_microblaze_0_1_Debug
   input Data_Read_Reg_En;
   input Config_Reg_En;
   input \Performance_Debug_Control.ex_dbg_pc_hit_single_step_reg_1 ;
-  input iext_data_strobe;
+  input IReady;
   input Dbg_Shift;
   input [0:7]Dbg_Reg_En;
   input wb_gpr_wr_dbg;
@@ -6841,8 +6918,7 @@ module design_1_microblaze_0_1_Debug
   input Dbg_TDI;
   input [0:31]Address;
   input [31:0]\data_rd_reg_reg[0]_0 ;
-  input mem_databus_access;
-  input [0:0]\Serial_Dbg_Intf.status_reg_reg[25]_0 ;
+  input [0:0]\Serial_Dbg_Intf.status_reg_reg[22]_0 ;
   input dbg_stop_i;
 
   wire A1;
@@ -6853,7 +6929,7 @@ module design_1_microblaze_0_1_Debug
   wire Command_Reg_En;
   wire Config_Reg_En;
   wire Control_Reg_En;
-  wire [2:0]D;
+  wire [3:0]D;
   wire Data_Read_Reg_En;
   wire Dbg_Capture;
   wire Dbg_Clk;
@@ -6892,6 +6968,7 @@ module design_1_microblaze_0_1_Debug
   wire Full_32_bit;
   wire Full_32_bit_1;
   wire IB_Ready;
+  wire IReady;
   wire Instr_Insert_Reg_En;
   wire Instr_Insert_Reg_En_1;
   wire [37:0]LOCKSTEP_Master_Out;
@@ -6998,7 +7075,7 @@ module design_1_microblaze_0_1_Debug
   wire \Serial_Dbg_Intf.shift_datain_reg_n_0_[8] ;
   wire \Serial_Dbg_Intf.shift_datain_reg_n_0_[9] ;
   wire \Serial_Dbg_Intf.single_Step_TClk_i_1_n_0 ;
-  wire [0:0]\Serial_Dbg_Intf.status_reg_reg[25]_0 ;
+  wire [0:0]\Serial_Dbg_Intf.status_reg_reg[22]_0 ;
   wire \Serial_Dbg_Intf.status_reg_reg_n_0_[0] ;
   wire \Serial_Dbg_Intf.status_reg_reg_n_0_[16] ;
   wire \Serial_Dbg_Intf.status_reg_reg_n_0_[17] ;
@@ -7099,14 +7176,12 @@ module design_1_microblaze_0_1_Debug
   wire force_stop_cmd_1;
   wire force_stop_i;
   wire force_stop_overrun;
-  wire iext_data_strobe;
   wire [0:1]instr_rd_reg;
   wire [0:1]instr_read_reg;
   wire m0_brki_hit;
   (* DIRECT_ENABLE *) wire m3_piperun_for_ce;
   wire mb_halted_1;
   wire mem_Exception_Taken;
-  wire mem_databus_access;
   wire normal_stop_TClk;
   wire normal_stop_cmd_1;
   wire normal_stop_i;
@@ -7179,10 +7254,10 @@ module design_1_microblaze_0_1_Debug
 
   assign Dbg_Reg_En_0_sp_1 = Dbg_Reg_En_0_sn_1;
   assign ex_piperun_for_ce = \Performance_Debug_Control.m0_dbg_hit_reg[0]_0 ;
-  assign m3_piperun_for_ce = E[0];
+  assign m3_piperun_for_ce = \Performance_Debug_Control.wb_dbg_hit_reg[0]_0 ;
   assign of_piperun_for_ce = single_Step_N_reg_0;
   assign reset_bool_for_rst = sync_reset;
-  (* SOFT_HLUTNM = "soft_lutpair64" *) 
+  (* SOFT_HLUTNM = "soft_lutpair80" *) 
   LUT5 #(
     .INIT(32'h20000002)) 
     Dbg_TDO_INST_0_i_10
@@ -7192,7 +7267,7 @@ module design_1_microblaze_0_1_Debug
         .I3(A1),
         .I4(A2),
         .O(Dbg_TDO_INST_0_i_10_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair69" *) 
+  (* SOFT_HLUTNM = "soft_lutpair85" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     Dbg_TDO_INST_0_i_15
@@ -7220,7 +7295,7 @@ module design_1_microblaze_0_1_Debug
         .I4(Dbg_TDO_INST_0_i_31_n_0),
         .I5(Dbg_TDO_INST_0_i_36_n_0),
         .O(Dbg_TDO_INST_0_i_17_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair64" *) 
+  (* SOFT_HLUTNM = "soft_lutpair80" *) 
   LUT4 #(
     .INIT(16'h0001)) 
     Dbg_TDO_INST_0_i_18
@@ -7283,7 +7358,7 @@ module design_1_microblaze_0_1_Debug
         .I4(data_read_reg[7]),
         .I5(data_read_reg[8]),
         .O(Dbg_TDO_INST_0_i_28_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair65" *) 
+  (* SOFT_HLUTNM = "soft_lutpair81" *) 
   LUT4 #(
     .INIT(16'h01FE)) 
     Dbg_TDO_INST_0_i_29
@@ -7312,7 +7387,7 @@ module design_1_microblaze_0_1_Debug
         .I4(data_read_reg[11]),
         .I5(data_read_reg[12]),
         .O(Dbg_TDO_INST_0_i_30_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair71" *) 
+  (* SOFT_HLUTNM = "soft_lutpair87" *) 
   LUT3 #(
     .INIT(8'h1E)) 
     Dbg_TDO_INST_0_i_31
@@ -7413,6 +7488,14 @@ module design_1_microblaze_0_1_Debug
         .D(wb_read_imm_reg),
         .Q(Full_32_bit),
         .R(reset_bool_for_rst));
+  LUT4 #(
+    .INIT(16'hABAA)) 
+    I_AS_INST_0_i_1
+       (.I0(LOCKSTEP_Master_Out[36]),
+        .I1(\Performance_Debug_Control.dbg_freeze_nohalt_reg_0 ),
+        .I2(wb_Halted),
+        .I3(IReady),
+        .O(IB_Ready));
   FDRE \Performance_Debug_Control.dbg_brki_hit_reg 
        (.C(Clk),
         .CE(wb_Halted),
@@ -7730,7 +7813,7 @@ module design_1_microblaze_0_1_Debug
         .CLR(\Serial_Dbg_Intf.New_Instr_Reg_TCK[0]_i_1_n_0 ),
         .D(New_Dbg_Instr_TCK),
         .Q(New_Dbg_Instr2_TCK));
-  (* SOFT_HLUTNM = "soft_lutpair69" *) 
+  (* SOFT_HLUTNM = "soft_lutpair85" *) 
   LUT4 #(
     .INIT(16'h0008)) 
     \Serial_Dbg_Intf.New_Dbg_Instr_TCK_i_1 
@@ -7739,7 +7822,7 @@ module design_1_microblaze_0_1_Debug
         .I2(instr_read_reg[1]),
         .I3(instr_read_reg[0]),
         .O(p_97_out));
-  (* SOFT_HLUTNM = "soft_lutpair66" *) 
+  (* SOFT_HLUTNM = "soft_lutpair82" *) 
   LUT5 #(
     .INIT(32'h40000000)) 
     \Serial_Dbg_Intf.New_Dbg_Instr_TCK_i_2 
@@ -8653,7 +8736,7 @@ module design_1_microblaze_0_1_Debug
        (.I0(Dbg_Shift),
         .I1(\Serial_Dbg_Intf.shift_count_reg_n_0_[0] ),
         .O(\Serial_Dbg_Intf.shift_count[0]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair72" *) 
+  (* SOFT_HLUTNM = "soft_lutpair88" *) 
   LUT3 #(
     .INIT(8'h60)) 
     \Serial_Dbg_Intf.shift_count[1]_i_1 
@@ -8661,7 +8744,7 @@ module design_1_microblaze_0_1_Debug
         .I1(\Serial_Dbg_Intf.shift_count_reg_n_0_[0] ),
         .I2(Dbg_Shift),
         .O(p_0_in[1]));
-  (* SOFT_HLUTNM = "soft_lutpair71" *) 
+  (* SOFT_HLUTNM = "soft_lutpair87" *) 
   LUT4 #(
     .INIT(16'h6A00)) 
     \Serial_Dbg_Intf.shift_count[2]_i_1 
@@ -8670,7 +8753,7 @@ module design_1_microblaze_0_1_Debug
         .I2(\Serial_Dbg_Intf.shift_count_reg_n_0_[0] ),
         .I3(Dbg_Shift),
         .O(p_0_in[2]));
-  (* SOFT_HLUTNM = "soft_lutpair65" *) 
+  (* SOFT_HLUTNM = "soft_lutpair81" *) 
   LUT5 #(
     .INIT(32'h6AAA0000)) 
     \Serial_Dbg_Intf.shift_count[3]_i_1 
@@ -8690,7 +8773,7 @@ module design_1_microblaze_0_1_Debug
         .I4(A2),
         .I5(Dbg_Shift),
         .O(p_0_in[4]));
-  (* SOFT_HLUTNM = "soft_lutpair72" *) 
+  (* SOFT_HLUTNM = "soft_lutpair88" *) 
   LUT3 #(
     .INIT(8'h60)) 
     \Serial_Dbg_Intf.shift_count[5]_i_1 
@@ -8698,7 +8781,7 @@ module design_1_microblaze_0_1_Debug
         .I1(\Serial_Dbg_Intf.shift_count[5]_i_2_n_0 ),
         .I2(Dbg_Shift),
         .O(p_0_in[5]));
-  (* SOFT_HLUTNM = "soft_lutpair66" *) 
+  (* SOFT_HLUTNM = "soft_lutpair82" *) 
   LUT5 #(
     .INIT(32'h80000000)) 
     \Serial_Dbg_Intf.shift_count[5]_i_2 
@@ -8708,7 +8791,7 @@ module design_1_microblaze_0_1_Debug
         .I3(A1),
         .I4(A3),
         .O(\Serial_Dbg_Intf.shift_count[5]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair68" *) 
+  (* SOFT_HLUTNM = "soft_lutpair84" *) 
   LUT3 #(
     .INIT(8'h60)) 
     \Serial_Dbg_Intf.shift_count[6]_i_1 
@@ -8716,7 +8799,7 @@ module design_1_microblaze_0_1_Debug
         .I1(\Serial_Dbg_Intf.shift_count[7]_i_2_n_0 ),
         .I2(Dbg_Shift),
         .O(p_0_in[6]));
-  (* SOFT_HLUTNM = "soft_lutpair68" *) 
+  (* SOFT_HLUTNM = "soft_lutpair84" *) 
   LUT4 #(
     .INIT(16'h6A00)) 
     \Serial_Dbg_Intf.shift_count[7]_i_1 
@@ -9125,7 +9208,7 @@ module design_1_microblaze_0_1_Debug
        (.C(Dbg_Clk),
         .CE(Dbg_Capture),
         .CLR(\Serial_Dbg_Intf.New_Instr_Reg_TCK[0]_i_1_n_0 ),
-        .D(mem_databus_access),
+        .D(\Serial_Dbg_Intf.status_reg_reg[22]_0 ),
         .Q(\Serial_Dbg_Intf.status_reg_reg_n_0_[22] ));
   FDCE #(
     .INIT(1'b0)) 
@@ -9149,7 +9232,7 @@ module design_1_microblaze_0_1_Debug
        (.C(Dbg_Clk),
         .CE(Dbg_Capture),
         .CLR(\Serial_Dbg_Intf.New_Instr_Reg_TCK[0]_i_1_n_0 ),
-        .D(\Serial_Dbg_Intf.status_reg_reg[25]_0 ),
+        .D(D[2]),
         .Q(\Serial_Dbg_Intf.status_reg_reg_n_0_[25] ));
   FDCE #(
     .INIT(1'b0)) 
@@ -9272,9 +9355,16 @@ module design_1_microblaze_0_1_Debug
         .CLR(\Serial_Dbg_Intf.New_Instr_Reg_TCK[0]_i_1_n_0 ),
         .D(\Serial_Dbg_Intf.unchanged_i_1_n_0 ),
         .Q(unchanged));
+  (* SOFT_HLUTNM = "soft_lutpair89" *) 
+  LUT2 #(
+    .INIT(4'h2)) 
+    \Using_FPGA.Native_i_1__10 
+       (.I0(LOCKSTEP_Master_Out[35]),
+        .I1(LOCKSTEP_Master_Out[32]),
+        .O(ex_exception_no_load_store_mask));
   LUT4 #(
     .INIT(16'h00FB)) 
-    \Using_FPGA.Native_i_1__2 
+    \Using_FPGA.Native_i_1__3 
        (.I0(LOCKSTEP_Master_Out[32]),
         .I1(LOCKSTEP_Master_Out[35]),
         .I2(ex_Take_Intr_or_Exc),
@@ -9282,16 +9372,9 @@ module design_1_microblaze_0_1_Debug
         .O(\Performance_Debug_Control.dbg_stop_if_delay_i_reg_0 ));
   LUT1 #(
     .INIT(2'h1)) 
-    \Using_FPGA.Native_i_1__53 
+    \Using_FPGA.Native_i_1__54 
        (.I0(LOCKSTEP_Master_Out[32]),
         .O(\Performance_Debug_Control.dbg_stop_if_delay_i_reg_1 ));
-  (* SOFT_HLUTNM = "soft_lutpair73" *) 
-  LUT2 #(
-    .INIT(4'h2)) 
-    \Using_FPGA.Native_i_1__9 
-       (.I0(LOCKSTEP_Master_Out[35]),
-        .I1(LOCKSTEP_Master_Out[32]),
-        .O(ex_exception_no_load_store_mask));
   design_1_microblaze_0_1_address_hit \Using_PC_Breakpoints.All_PC_Brks[0].Serial_Interface_1.address_hit_I 
        (.Address(Address),
         .Dbg_Clk(Dbg_Clk),
@@ -9342,7 +9425,7 @@ module design_1_microblaze_0_1_Debug
         .I4(\data_rd_reg[32]_i_3_n_0 ),
         .I5(\data_rd_reg_reg_n_0_[32] ),
         .O(\data_rd_reg[32]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair74" *) 
+  (* SOFT_HLUTNM = "soft_lutpair90" *) 
   LUT3 #(
     .INIT(8'hFE)) 
     \data_rd_reg[32]_i_2 
@@ -9350,7 +9433,7 @@ module design_1_microblaze_0_1_Debug
         .I1(\Performance_Debug_Control.dbg_freeze_nohalt_reg_0 ),
         .I2(wb_pc_valid),
         .O(\data_rd_reg[32]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair74" *) 
+  (* SOFT_HLUTNM = "soft_lutpair90" *) 
   LUT2 #(
     .INIT(4'hE)) 
     \data_rd_reg[32]_i_3 
@@ -9555,7 +9638,7 @@ module design_1_microblaze_0_1_Debug
         .D(\data_rd_reg_reg[0]_0 [22]),
         .Q(\data_rd_reg_reg_n_0_[9] ),
         .R(reset_bool_for_rst));
-  (* SOFT_HLUTNM = "soft_lutpair70" *) 
+  (* SOFT_HLUTNM = "soft_lutpair86" *) 
   LUT4 #(
     .INIT(16'hFFFE)) 
     dbg_continue_i_i_2
@@ -9580,7 +9663,7 @@ module design_1_microblaze_0_1_Debug
         .I4(step_continue__0),
         .I5(reset_bool_for_rst),
         .O(dbg_halt_reset_mode_i_1_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair70" *) 
+  (* SOFT_HLUTNM = "soft_lutpair86" *) 
   LUT2 #(
     .INIT(4'hE)) 
     dbg_halt_reset_mode_i_2
@@ -9599,7 +9682,7 @@ module design_1_microblaze_0_1_Debug
         .D(D[0]),
         .Q(delay_slot_instr),
         .R(reset_bool_for_rst));
-  (* SOFT_HLUTNM = "soft_lutpair73" *) 
+  (* SOFT_HLUTNM = "soft_lutpair89" *) 
   LUT3 #(
     .INIT(8'hF4)) 
     ex_Interrupt_Brk_combo_i_3
@@ -9646,18 +9729,10 @@ module design_1_microblaze_0_1_Debug
         .D(executing_i_1_n_0),
         .Q(instr_rd_reg[0]),
         .R(1'b0));
-  LUT4 #(
-    .INIT(16'hABAA)) 
-    \instr_addr[0]_i_3 
-       (.I0(LOCKSTEP_Master_Out[36]),
-        .I1(\Performance_Debug_Control.dbg_freeze_nohalt_reg_0 ),
-        .I2(wb_Halted),
-        .I3(iext_data_strobe),
-        .O(IB_Ready));
   FDRE mb_halted_1_reg
        (.C(Clk),
         .CE(1'b1),
-        .D(D[2]),
+        .D(D[3]),
         .Q(mb_halted_1),
         .R(reset_bool_for_rst));
   FDRE read_register_MSR_1_reg
@@ -9702,7 +9777,7 @@ module design_1_microblaze_0_1_Debug
         .D(saved_reset_mode_dbg_halt_i_1_n_0),
         .Q(saved_reset_mode_dbg_halt),
         .R(1'b0));
-  (* SOFT_HLUTNM = "soft_lutpair67" *) 
+  (* SOFT_HLUTNM = "soft_lutpair83" *) 
   LUT4 #(
     .INIT(16'h22F0)) 
     saved_reset_mode_sleep_i_1
@@ -9769,7 +9844,7 @@ module design_1_microblaze_0_1_Debug
         .I4(reset_bool_for_rst),
         .I5(Sleep_Out),
         .O(sleep_reset_mode_i_1_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair67" *) 
+  (* SOFT_HLUTNM = "soft_lutpair83" *) 
   LUT3 #(
     .INIT(8'h20)) 
     sleep_reset_mode_i_2
@@ -9807,7 +9882,7 @@ module design_1_microblaze_0_1_Debug
         .R(1'b0));
   design_1_microblaze_0_1_mb_sync_bit__parameterized4_28 sync_trig_ack_in_0
        (.Clk(Clk),
-        .D(D[2]),
+        .D(D[3]),
         .Dbg_Trig_Ack_In(Dbg_Trig_Ack_In[1]),
         .Dbg_Trig_In(Dbg_Trig_In[1]),
         .mb_halted_1(mb_halted_1),
@@ -9817,7 +9892,7 @@ module design_1_microblaze_0_1_Debug
         .trig_in_0_reg(sync_trig_ack_in_0_n_1));
   design_1_microblaze_0_1_mb_sync_bit__parameterized4_29 sync_trig_out_0
        (.Clk(Clk),
-        .D(D[2]),
+        .D(D[3]),
         .Dbg_Stop(Dbg_Stop),
         .Dbg_Trig_Ack_Out(Dbg_Trig_Ack_Out[1]),
         .Dbg_Trig_Out(Dbg_Trig_Out[1]),
@@ -9865,11 +9940,11 @@ module design_1_microblaze_0_1_Decode_gti
     wb_PipeRun_i_reg_0,
     Pause_Ack,
     mem_databus_read,
+    \Performance_Debug_Control.dbg_state_nohalt_reg ,
     mem_databus_write,
     mem_byte_access,
     mem_doublet_access,
     wb_byte_access,
-    wb_doublet_access,
     ex_cmp_op,
     ex_unsigned_op,
     ex_use_carry,
@@ -9880,7 +9955,6 @@ module design_1_microblaze_0_1_Decode_gti
     ex_div_unsigned,
     mem_sel_msr,
     wb_gpr_wr_dbg,
-    \Performance_Debug_Control.dbg_state_nohalt_reg ,
     wb_read_imm_reg,
     wb_read_imm_reg_1,
     wb_pc_valid,
@@ -9894,50 +9968,53 @@ module design_1_microblaze_0_1_Decode_gti
     mem_databus_access,
     wb_Halted,
     LOCKSTEP_Master_Out,
-    ib_addr_strobe,
-    \Using_FPGA.Native_1 ,
     ex_sel_alu_i_reg_0,
     EX_Fwd,
     ex_Take_Intr_or_Exc_reg_0,
-    \Using_FPGA.Native_2 ,
+    \Using_FPGA.Native_1 ,
     wb_MSR_Clear_IE,
+    SRI,
     E,
+    \Using_FPGA.Native_2 ,
     \Using_FPGA.Native_3 ,
-    \Using_FPGA.Native_4 ,
     div_busy_reg,
     ex_start_div,
     SR,
     of_op1_sel_spr,
+    \Using_FPGA.Native_4 ,
     \Using_FPGA.Native_5 ,
     \Using_FPGA.Native_6 ,
     \Using_FPGA.Native_7 ,
-    \Using_FPGA.Native_8 ,
     I1,
     ex_sel_alu_i_reg_1,
     ex_sel_alu_i_reg_2,
+    WB_Steered_Read_Data1__0,
     \Use_Async_Reset.sync_reset_reg ,
     R,
+    \Using_FPGA.Native_8 ,
     \Using_FPGA.Native_9 ,
-    \Using_FPGA.Native_10 ,
     \FPGA_Impl1.D_Handle[0].D_Sel_reg ,
     M_AXI_DP_BVALID_0,
+    MEM_DataBus_Write_reg_0,
+    MEM_DataBus_Write_reg_1,
+    MEM_DataBus_Write_reg_2,
     dbg_halt_reset_mode_reg,
     p_4_out__0,
     dbg_stop_i,
     \Serial_Dbg_Intf.control_reg_reg[8] ,
     Sleep,
     I1_0,
+    \Using_FPGA.Native_10 ,
     \Using_FPGA.Native_11 ,
-    \Using_FPGA.Native_12 ,
-    \if_pc_reg[0] ,
     DI,
     \EX_ALU_Op_reg[0]_0 ,
     \EX_Sext_Op_reg[0]_0 ,
     in0,
+    \Using_FPGA.Native_12 ,
     \Using_FPGA.Native_13 ,
+    \Performance_Debug_Control.ex_dbg_pc_hit_single_step_reg ,
     \Using_FPGA.Native_14 ,
     \Using_FPGA.Native_15 ,
-    \Performance_Debug_Control.ex_dbg_pc_hit_single_step_reg ,
     \Using_FPGA.Native_16 ,
     \Using_FPGA.Native_17 ,
     \Using_FPGA.Native_18 ,
@@ -9963,39 +10040,37 @@ module design_1_microblaze_0_1_Decode_gti
     \Using_FPGA.Native_38 ,
     \Using_FPGA.Native_39 ,
     \Using_FPGA.Native_40 ,
+    \Performance_Debug_Control.dbg_freeze_nohalt_reg ,
     \Using_FPGA.Native_41 ,
     \Using_FPGA.Native_42 ,
-    \Performance_Debug_Control.dbg_freeze_nohalt_reg ,
-    \Using_FPGA.Native_43 ,
-    \Using_FPGA.Native_44 ,
     \mem_pc_i_reg[0] ,
     Interrupt_Ack,
     sync_reset,
     Clk,
     I139_out,
     ex_op1_zero,
-    \Using_FPGA.Native_45 ,
-    mem_databus_Data_Strobe,
+    \Using_FPGA.Native_43 ,
+    MEM_DataBus_Ready,
     Trace_WB_Jump_Taken_reg_0,
-    \Using_FPGA.Native_46 ,
+    \Using_FPGA.Native_44 ,
     ex_exception_no_load_store_mask,
     p_127_out,
     Pause,
     ex_databus_addr,
-    \Using_FPGA.Native_47 ,
+    \MEM_DataBus_Addr_reg[0]_0 ,
+    \Using_FPGA.Native_45 ,
     IB_Ready,
     Y,
     ex_Interrupt_Brk_combo_reg_0,
     of_MSR,
     Interrupt,
     ex_exception_no_load_store__0,
-    \EX_Op3_reg[0] ,
     MEM_Fwd,
     Q,
     GPR_Op2,
-    \Using_FPGA.Native_48 ,
+    \Using_FPGA.Native_46 ,
     ex_MSR,
-    \Using_FPGA.Native_49 ,
+    \Using_FPGA.Native_47 ,
     \D_reg[0] ,
     if_fetch_in_progress_reg_0,
     mb_halted_1_reg,
@@ -10009,21 +10084,27 @@ module design_1_microblaze_0_1_Decode_gti
     M_AXI_DP_BVALID,
     active_access,
     M_AXI_DP_RVALID,
+    M_AXI_DP_WREADY,
+    M_AXI_DP_AWVALID_i_reg,
+    M_AXI_DP_AWREADY,
+    M_AXI_DP_ARREADY,
     Reset_Mode,
     \Performance_Debug_Control.dbg_stop_instr_fetch_nohalt_reg ,
     active_access_reg,
     \Performance_Debug_Control.ex_brki_hit_reg ,
+    DReady,
+    DWait,
+    active_access_d1,
     Sleep_Out,
     wakeup_i,
     swap_result,
     out,
-    \Using_FPGA.Native_50 ,
+    \Using_FPGA.Native_48 ,
     swap_result_reg,
     \MEM_DataBus_Write_Data_reg[0] ,
     \Performance_Debug_Control.ex_dbg_pc_hit_i_reg ,
     p_45_out,
-    iext_data_strobe,
-    active_access_d1,
+    IReady,
     in,
     lopt,
     lopt_1,
@@ -10048,11 +10129,11 @@ module design_1_microblaze_0_1_Decode_gti
   output [0:0]wb_PipeRun_i_reg_0;
   output Pause_Ack;
   output mem_databus_read;
+  output [137:0]\Performance_Debug_Control.dbg_state_nohalt_reg ;
   output mem_databus_write;
   output mem_byte_access;
   output mem_doublet_access;
   output wb_byte_access;
-  output wb_doublet_access;
   output ex_cmp_op;
   output ex_unsigned_op;
   output ex_use_carry;
@@ -10063,7 +10144,6 @@ module design_1_microblaze_0_1_Decode_gti
   output ex_div_unsigned;
   output mem_sel_msr;
   output wb_gpr_wr_dbg;
-  output [77:0]\Performance_Debug_Control.dbg_state_nohalt_reg ;
   output wb_read_imm_reg;
   output wb_read_imm_reg_1;
   output wb_pc_valid;
@@ -10077,50 +10157,53 @@ module design_1_microblaze_0_1_Decode_gti
   output mem_databus_access;
   output wb_Halted;
   output [2:0]LOCKSTEP_Master_Out;
-  output ib_addr_strobe;
-  output [0:0]\Using_FPGA.Native_1 ;
   output [31:0]ex_sel_alu_i_reg_0;
   output [0:31]EX_Fwd;
   output ex_Take_Intr_or_Exc_reg_0;
-  output \Using_FPGA.Native_2 ;
+  output \Using_FPGA.Native_1 ;
   output wb_MSR_Clear_IE;
+  output SRI;
   output [0:0]E;
+  output \Using_FPGA.Native_2 ;
   output \Using_FPGA.Native_3 ;
-  output \Using_FPGA.Native_4 ;
   output div_busy_reg;
   output ex_start_div;
   output [0:0]SR;
   output of_op1_sel_spr;
+  output \Using_FPGA.Native_4 ;
   output \Using_FPGA.Native_5 ;
   output \Using_FPGA.Native_6 ;
   output \Using_FPGA.Native_7 ;
-  output \Using_FPGA.Native_8 ;
   output I1;
   output [31:0]ex_sel_alu_i_reg_1;
   output [31:0]ex_sel_alu_i_reg_2;
+  output WB_Steered_Read_Data1__0;
   output [0:0]\Use_Async_Reset.sync_reset_reg ;
   output R;
-  output \Using_FPGA.Native_9 ;
-  output [0:0]\Using_FPGA.Native_10 ;
+  output \Using_FPGA.Native_8 ;
+  output [0:0]\Using_FPGA.Native_9 ;
   output \FPGA_Impl1.D_Handle[0].D_Sel_reg ;
   output M_AXI_DP_BVALID_0;
+  output MEM_DataBus_Write_reg_0;
+  output MEM_DataBus_Write_reg_1;
+  output MEM_DataBus_Write_reg_2;
   output dbg_halt_reset_mode_reg;
   output p_4_out__0;
   output dbg_stop_i;
   output \Serial_Dbg_Intf.control_reg_reg[8] ;
   output Sleep;
   output I1_0;
+  output \Using_FPGA.Native_10 ;
   output \Using_FPGA.Native_11 ;
-  output \Using_FPGA.Native_12 ;
-  output [31:0]\if_pc_reg[0] ;
   output DI;
   output [1:0]\EX_ALU_Op_reg[0]_0 ;
   output [1:0]\EX_Sext_Op_reg[0]_0 ;
   output in0;
-  output [23:0]\Using_FPGA.Native_13 ;
+  output \Using_FPGA.Native_12 ;
+  output \Using_FPGA.Native_13 ;
+  output \Performance_Debug_Control.ex_dbg_pc_hit_single_step_reg ;
   output \Using_FPGA.Native_14 ;
   output \Using_FPGA.Native_15 ;
-  output \Performance_Debug_Control.ex_dbg_pc_hit_single_step_reg ;
   output \Using_FPGA.Native_16 ;
   output \Using_FPGA.Native_17 ;
   output \Using_FPGA.Native_18 ;
@@ -10146,39 +10229,37 @@ module design_1_microblaze_0_1_Decode_gti
   output \Using_FPGA.Native_38 ;
   output \Using_FPGA.Native_39 ;
   output \Using_FPGA.Native_40 ;
-  output \Using_FPGA.Native_41 ;
-  output \Using_FPGA.Native_42 ;
   output \Performance_Debug_Control.dbg_freeze_nohalt_reg ;
-  output \Using_FPGA.Native_43 ;
-  output [0:0]\Using_FPGA.Native_44 ;
+  output \Using_FPGA.Native_41 ;
+  output [0:0]\Using_FPGA.Native_42 ;
   output [31:0]\mem_pc_i_reg[0] ;
   output [0:1]Interrupt_Ack;
   input sync_reset;
   input Clk;
   input I139_out;
   input ex_op1_zero;
-  input \Using_FPGA.Native_45 ;
-  input mem_databus_Data_Strobe;
+  input \Using_FPGA.Native_43 ;
+  input MEM_DataBus_Ready;
   input Trace_WB_Jump_Taken_reg_0;
-  input \Using_FPGA.Native_46 ;
+  input \Using_FPGA.Native_44 ;
   input ex_exception_no_load_store_mask;
   input p_127_out;
   input Pause;
-  input [0:31]ex_databus_addr;
-  input [0:0]\Using_FPGA.Native_47 ;
+  input [1:0]ex_databus_addr;
+  input [61:0]\MEM_DataBus_Addr_reg[0]_0 ;
+  input [0:0]\Using_FPGA.Native_45 ;
   input IB_Ready;
   input [0:31]Y;
   input [3:0]ex_Interrupt_Brk_combo_reg_0;
   input [1:0]of_MSR;
   input Interrupt;
   input ex_exception_no_load_store__0;
-  input [31:0]\EX_Op3_reg[0] ;
   input [0:31]MEM_Fwd;
   input [31:0]Q;
   input [0:31]GPR_Op2;
-  input [2:0]\Using_FPGA.Native_48 ;
+  input [2:0]\Using_FPGA.Native_46 ;
   input [3:0]ex_MSR;
-  input \Using_FPGA.Native_49 ;
+  input \Using_FPGA.Native_47 ;
   input [31:0]\D_reg[0] ;
   input if_fetch_in_progress_reg_0;
   input mb_halted_1_reg;
@@ -10192,21 +10273,27 @@ module design_1_microblaze_0_1_Decode_gti
   input M_AXI_DP_BVALID;
   input active_access;
   input M_AXI_DP_RVALID;
+  input M_AXI_DP_WREADY;
+  input [2:0]M_AXI_DP_AWVALID_i_reg;
+  input M_AXI_DP_AWREADY;
+  input M_AXI_DP_ARREADY;
   input [0:1]Reset_Mode;
   input \Performance_Debug_Control.dbg_stop_instr_fetch_nohalt_reg ;
   input active_access_reg;
   input [0:0]\Performance_Debug_Control.ex_brki_hit_reg ;
+  input DReady;
+  input DWait;
+  input active_access_d1;
   input Sleep_Out;
   input [0:1]wakeup_i;
   input [23:0]swap_result;
   input out;
-  input \Using_FPGA.Native_50 ;
+  input \Using_FPGA.Native_48 ;
   input [0:7]swap_result_reg;
   input [31:0]\MEM_DataBus_Write_Data_reg[0] ;
   input \Performance_Debug_Control.ex_dbg_pc_hit_i_reg ;
   input p_45_out;
-  input iext_data_strobe;
-  input active_access_d1;
+  input IReady;
   input [0:0]in;
   input lopt;
   output lopt_1;
@@ -10217,6 +10304,8 @@ module design_1_microblaze_0_1_Decode_gti
   wire [31:0]D;
   wire D244_out;
   wire DI;
+  wire DReady;
+  wire DWait;
   wire [31:0]\D_reg[0] ;
   wire [0:0]\Data_Flow_I/EX_Shift_Logic_Result ;
   wire \Data_Flow_I/Shift_Logic_Module_I/O ;
@@ -10260,7 +10349,6 @@ module design_1_microblaze_0_1_Decode_gti
   wire EX_Is_Div_Instr;
   wire EX_MBAR_Stall__2;
   wire [15:0]\EX_Op2[0]_i_2 ;
-  wire [31:0]\EX_Op3_reg[0] ;
   wire [1:0]\EX_Sext_Op_reg[0]_0 ;
   wire \FPGA_Impl1.D_Handle[0].D_Sel_reg ;
   wire [0:31]GPR_Op1;
@@ -10276,18 +10364,28 @@ module design_1_microblaze_0_1_Decode_gti
   wire I5;
   wire IB_Ready;
   wire IF_PC_Write;
+  wire IReady;
   wire Interrupt;
   wire [0:1]Interrupt_Ack;
   wire LO;
   wire [2:0]LOCKSTEP_Master_Out;
+  wire [61:0]\MEM_DataBus_Addr_reg[0]_0 ;
+  wire MEM_DataBus_Ready;
   wire [31:0]\MEM_DataBus_Write_Data_reg[0] ;
+  wire MEM_DataBus_Write_reg_0;
+  wire MEM_DataBus_Write_reg_1;
+  wire MEM_DataBus_Write_reg_2;
   wire [0:31]MEM_Fwd;
   wire MEM_Is_Div_Instr;
   wire MEM_Sel_MEM_Res;
   wire MEM_Sel_MEM_Res_I_i_3_n_0;
+  wire M_AXI_DP_ARREADY;
+  wire M_AXI_DP_AWREADY;
+  wire [2:0]M_AXI_DP_AWVALID_i_reg;
   wire M_AXI_DP_BVALID;
   wire M_AXI_DP_BVALID_0;
   wire M_AXI_DP_RVALID;
+  wire M_AXI_DP_WREADY;
   wire O31_out;
   wire O33_out;
   wire O35_out;
@@ -10323,7 +10421,7 @@ module design_1_microblaze_0_1_Decode_gti
   wire Pause_Ack;
   wire Pause_Ack0;
   wire \Performance_Debug_Control.dbg_freeze_nohalt_reg ;
-  wire [77:0]\Performance_Debug_Control.dbg_state_nohalt_reg ;
+  wire [137:0]\Performance_Debug_Control.dbg_state_nohalt_reg ;
   wire \Performance_Debug_Control.dbg_stop_instr_fetch_nohalt_reg ;
   wire [0:0]\Performance_Debug_Control.ex_brki_hit_reg ;
   wire \Performance_Debug_Control.ex_dbg_pc_hit_i_reg ;
@@ -10363,6 +10461,7 @@ module design_1_microblaze_0_1_Decode_gti
   wire \R_reg[32] ;
   wire [0:1]Reset_Mode;
   wire [0:0]SR;
+  wire SRI;
   wire \Serial_Dbg_Intf.control_reg_reg[8] ;
   wire Sleep;
   wire Sleep_Decode;
@@ -10370,6 +10469,7 @@ module design_1_microblaze_0_1_Decode_gti
   wire Suspend;
   wire Trace_WB_Jump_Taken_reg_0;
   wire [0:0]\Use_Async_Reset.sync_reset_reg ;
+  wire \Use_DBUS.DAXI_Interface_I1/M_AXI_DP_AWVALID_i1 ;
   wire \Use_MuxCy[11].OF_Piperun_Stage_n_1 ;
   wire \Use_MuxCy[11].OF_Piperun_Stage_n_2 ;
   wire \Use_MuxCy[3].OF_Piperun_Stage_n_1 ;
@@ -10379,11 +10479,11 @@ module design_1_microblaze_0_1_Decode_gti
   wire \Use_MuxCy[3].OF_Piperun_Stage_n_9 ;
   wire [0:0]\Using_FPGA.Native ;
   wire \Using_FPGA.Native_0 ;
-  wire [0:0]\Using_FPGA.Native_1 ;
-  wire [0:0]\Using_FPGA.Native_10 ;
+  wire \Using_FPGA.Native_1 ;
+  wire \Using_FPGA.Native_10 ;
   wire \Using_FPGA.Native_11 ;
   wire \Using_FPGA.Native_12 ;
-  wire [23:0]\Using_FPGA.Native_13 ;
+  wire \Using_FPGA.Native_13 ;
   wire \Using_FPGA.Native_14 ;
   wire \Using_FPGA.Native_15 ;
   wire \Using_FPGA.Native_16 ;
@@ -10415,23 +10515,20 @@ module design_1_microblaze_0_1_Decode_gti
   wire \Using_FPGA.Native_4 ;
   wire \Using_FPGA.Native_40 ;
   wire \Using_FPGA.Native_41 ;
-  wire \Using_FPGA.Native_42 ;
+  wire [0:0]\Using_FPGA.Native_42 ;
   wire \Using_FPGA.Native_43 ;
-  wire [0:0]\Using_FPGA.Native_44 ;
-  wire \Using_FPGA.Native_45 ;
-  wire \Using_FPGA.Native_46 ;
-  wire [0:0]\Using_FPGA.Native_47 ;
-  wire [2:0]\Using_FPGA.Native_48 ;
-  wire \Using_FPGA.Native_49 ;
+  wire \Using_FPGA.Native_44 ;
+  wire [0:0]\Using_FPGA.Native_45 ;
+  wire [2:0]\Using_FPGA.Native_46 ;
+  wire \Using_FPGA.Native_47 ;
+  wire \Using_FPGA.Native_48 ;
   wire \Using_FPGA.Native_5 ;
-  wire \Using_FPGA.Native_50 ;
   wire \Using_FPGA.Native_6 ;
   wire \Using_FPGA.Native_7 ;
   wire \Using_FPGA.Native_8 ;
-  wire \Using_FPGA.Native_9 ;
+  wire [0:0]\Using_FPGA.Native_9 ;
   wire \Using_FPGA.Native_i_3_n_0 ;
   wire \Using_FPGA.Native_i_5__1_n_0 ;
-  wire \Using_FPGA_2.ex_is_load_instr_Inst_n_1 ;
   wire \Using_FPGA_2.ex_is_load_instr_Inst_n_3 ;
   wire \Using_FPGA_2.ex_is_lwx_instr_Inst_n_1 ;
   wire \Using_FPGA_2.ex_is_swx_instr_Inst_n_1 ;
@@ -10441,10 +10538,10 @@ module design_1_microblaze_0_1_Decode_gti
   wire \Using_FPGA_4.of_read_mem_write_op3_conflict_INST2_n_0 ;
   wire \Using_Fast_Interrupt.Interrupt_Ack[0]_i_1_n_0 ;
   wire \Using_Fast_Interrupt.Interrupt_Ack[1]_i_1_n_0 ;
+  wire WB_Steered_Read_Data1__0;
   wire [0:31]Y;
   wire active_access;
   wire active_access_d1;
-  wire active_access_i_2_n_0;
   wire active_access_reg;
   wire active_wakeup;
   wire active_wakeup0;
@@ -10480,8 +10577,7 @@ module design_1_microblaze_0_1_Decode_gti
   wire ex_branch_with_delayslot;
   wire ex_byte_access;
   wire ex_cmp_op;
-  wire [0:31]ex_databus_addr;
-  wire ex_databus_write;
+  wire [1:0]ex_databus_addr;
   wire ex_delayslot_Instr;
   wire ex_delayslot_Instr0;
   wire ex_div_unsigned;
@@ -10589,8 +10685,6 @@ module design_1_microblaze_0_1_Decode_gti
   wire flush_pipe;
   wire force12_out;
   wire force_Val10_out;
-  wire ib_addr_strobe;
-  wire iext_data_strobe;
   wire if_fetch_for_timing_optimization1;
   wire if_fetch_in_progress;
   wire if_fetch_in_progress_reg_0;
@@ -10599,7 +10693,6 @@ module design_1_microblaze_0_1_Decode_gti
   wire if_pc_incr_carry0;
   wire if_pc_incr_carry1;
   wire if_pc_incr_carry3;
-  wire [31:0]\if_pc_reg[0] ;
   wire [1:1]if_pre_buffer_addr;
   wire [0:4]if_sel_input;
   wire [0:0]in;
@@ -10650,7 +10743,6 @@ module design_1_microblaze_0_1_Decode_gti
   wire mem_Write_DCache;
   wire mem_Write_DCache_i_1_n_0;
   wire mem_byte_access;
-  wire mem_databus_Data_Strobe;
   wire mem_databus_access;
   wire mem_databus_read;
   wire mem_databus_write;
@@ -10847,7 +10939,26 @@ module design_1_microblaze_0_1_Decode_gti
         .D(PreFetch_Buffer_I1_n_192),
         .Q(ex_use_carry),
         .R(reset_bool_for_rst));
-  (* SOFT_HLUTNM = "soft_lutpair61" *) 
+  LUT6 #(
+    .INIT(64'h0000000000000001)) 
+    IFetch_INST_0_i_1
+       (.I0(reset_bool_for_rst),
+        .I1(if_fetch_in_progress_reg_0),
+        .I2(wb_Halted),
+        .I3(mb_halted_1_reg),
+        .I4(ex_mbar_sleep),
+        .I5(ex_mbar_stall_no_sleep__0),
+        .O(if_fetch_without_full_or_jump));
+  LUT5 #(
+    .INIT(32'h54000000)) 
+    IFetch_INST_0_i_2
+       (.I0(ex_jump_hold),
+        .I1(ex_mbar_stall_no_sleep_1),
+        .I2(ex_first_cycle),
+        .I3(ex_mbar_decode),
+        .I4(ex_Take_Intr_or_Exc_reg_0),
+        .O(ex_mbar_stall_no_sleep__0));
+  (* SOFT_HLUTNM = "soft_lutpair60" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \LOCKSTEP_Master_Out[1]_INST_0 
@@ -10864,7 +10975,7 @@ module design_1_microblaze_0_1_Decode_gti
         .I4(\Performance_Debug_Control.dbg_state_nohalt_reg [2]),
         .I5(mb_halted_1_reg),
         .O(LOCKSTEP_Master_Out[1]));
-  (* SOFT_HLUTNM = "soft_lutpair58" *) 
+  (* SOFT_HLUTNM = "soft_lutpair54" *) 
   LUT5 #(
     .INIT(32'hAEAAAAAA)) 
     \LOCKSTEP_Master_Out[7]_INST_0 
@@ -10883,215 +10994,205 @@ module design_1_microblaze_0_1_Decode_gti
   FDRE \MEM_DataBus_Addr_reg[0] 
        (.C(Clk),
         .CE(\Using_FPGA.Native_0 ),
-        .D(ex_databus_addr[0]),
+        .D(\MEM_DataBus_Addr_reg[0]_0 [61]),
         .Q(\Performance_Debug_Control.dbg_state_nohalt_reg [76]),
         .R(reset_bool_for_rst));
   FDRE \MEM_DataBus_Addr_reg[10] 
        (.C(Clk),
         .CE(\Using_FPGA.Native_0 ),
-        .D(ex_databus_addr[10]),
+        .D(\MEM_DataBus_Addr_reg[0]_0 [51]),
         .Q(\Performance_Debug_Control.dbg_state_nohalt_reg [66]),
         .R(reset_bool_for_rst));
   FDRE \MEM_DataBus_Addr_reg[11] 
        (.C(Clk),
         .CE(\Using_FPGA.Native_0 ),
-        .D(ex_databus_addr[11]),
+        .D(\MEM_DataBus_Addr_reg[0]_0 [50]),
         .Q(\Performance_Debug_Control.dbg_state_nohalt_reg [65]),
         .R(reset_bool_for_rst));
   FDRE \MEM_DataBus_Addr_reg[12] 
        (.C(Clk),
         .CE(\Using_FPGA.Native_0 ),
-        .D(ex_databus_addr[12]),
+        .D(\MEM_DataBus_Addr_reg[0]_0 [49]),
         .Q(\Performance_Debug_Control.dbg_state_nohalt_reg [64]),
         .R(reset_bool_for_rst));
   FDRE \MEM_DataBus_Addr_reg[13] 
        (.C(Clk),
         .CE(\Using_FPGA.Native_0 ),
-        .D(ex_databus_addr[13]),
+        .D(\MEM_DataBus_Addr_reg[0]_0 [48]),
         .Q(\Performance_Debug_Control.dbg_state_nohalt_reg [63]),
         .R(reset_bool_for_rst));
   FDRE \MEM_DataBus_Addr_reg[14] 
        (.C(Clk),
         .CE(\Using_FPGA.Native_0 ),
-        .D(ex_databus_addr[14]),
+        .D(\MEM_DataBus_Addr_reg[0]_0 [47]),
         .Q(\Performance_Debug_Control.dbg_state_nohalt_reg [62]),
         .R(reset_bool_for_rst));
   FDRE \MEM_DataBus_Addr_reg[15] 
        (.C(Clk),
         .CE(\Using_FPGA.Native_0 ),
-        .D(ex_databus_addr[15]),
+        .D(\MEM_DataBus_Addr_reg[0]_0 [46]),
         .Q(\Performance_Debug_Control.dbg_state_nohalt_reg [61]),
         .R(reset_bool_for_rst));
   FDRE \MEM_DataBus_Addr_reg[16] 
        (.C(Clk),
         .CE(\Using_FPGA.Native_0 ),
-        .D(ex_databus_addr[16]),
+        .D(\MEM_DataBus_Addr_reg[0]_0 [45]),
         .Q(\Performance_Debug_Control.dbg_state_nohalt_reg [60]),
         .R(reset_bool_for_rst));
   FDRE \MEM_DataBus_Addr_reg[17] 
        (.C(Clk),
         .CE(\Using_FPGA.Native_0 ),
-        .D(ex_databus_addr[17]),
+        .D(\MEM_DataBus_Addr_reg[0]_0 [44]),
         .Q(\Performance_Debug_Control.dbg_state_nohalt_reg [59]),
         .R(reset_bool_for_rst));
   FDRE \MEM_DataBus_Addr_reg[18] 
        (.C(Clk),
         .CE(\Using_FPGA.Native_0 ),
-        .D(ex_databus_addr[18]),
+        .D(\MEM_DataBus_Addr_reg[0]_0 [43]),
         .Q(\Performance_Debug_Control.dbg_state_nohalt_reg [58]),
         .R(reset_bool_for_rst));
   FDRE \MEM_DataBus_Addr_reg[19] 
        (.C(Clk),
         .CE(\Using_FPGA.Native_0 ),
-        .D(ex_databus_addr[19]),
+        .D(\MEM_DataBus_Addr_reg[0]_0 [42]),
         .Q(\Performance_Debug_Control.dbg_state_nohalt_reg [57]),
         .R(reset_bool_for_rst));
   FDRE \MEM_DataBus_Addr_reg[1] 
        (.C(Clk),
         .CE(\Using_FPGA.Native_0 ),
-        .D(ex_databus_addr[1]),
+        .D(\MEM_DataBus_Addr_reg[0]_0 [60]),
         .Q(\Performance_Debug_Control.dbg_state_nohalt_reg [75]),
         .R(reset_bool_for_rst));
   FDRE \MEM_DataBus_Addr_reg[20] 
        (.C(Clk),
         .CE(\Using_FPGA.Native_0 ),
-        .D(ex_databus_addr[20]),
+        .D(\MEM_DataBus_Addr_reg[0]_0 [41]),
         .Q(\Performance_Debug_Control.dbg_state_nohalt_reg [56]),
         .R(reset_bool_for_rst));
   FDRE \MEM_DataBus_Addr_reg[21] 
        (.C(Clk),
         .CE(\Using_FPGA.Native_0 ),
-        .D(ex_databus_addr[21]),
+        .D(\MEM_DataBus_Addr_reg[0]_0 [40]),
         .Q(\Performance_Debug_Control.dbg_state_nohalt_reg [55]),
         .R(reset_bool_for_rst));
   FDRE \MEM_DataBus_Addr_reg[22] 
        (.C(Clk),
         .CE(\Using_FPGA.Native_0 ),
-        .D(ex_databus_addr[22]),
+        .D(\MEM_DataBus_Addr_reg[0]_0 [39]),
         .Q(\Performance_Debug_Control.dbg_state_nohalt_reg [54]),
         .R(reset_bool_for_rst));
   FDRE \MEM_DataBus_Addr_reg[23] 
        (.C(Clk),
         .CE(\Using_FPGA.Native_0 ),
-        .D(ex_databus_addr[23]),
+        .D(\MEM_DataBus_Addr_reg[0]_0 [38]),
         .Q(\Performance_Debug_Control.dbg_state_nohalt_reg [53]),
         .R(reset_bool_for_rst));
   FDRE \MEM_DataBus_Addr_reg[24] 
        (.C(Clk),
         .CE(\Using_FPGA.Native_0 ),
-        .D(ex_databus_addr[24]),
+        .D(\MEM_DataBus_Addr_reg[0]_0 [37]),
         .Q(\Performance_Debug_Control.dbg_state_nohalt_reg [52]),
         .R(reset_bool_for_rst));
   FDRE \MEM_DataBus_Addr_reg[25] 
        (.C(Clk),
         .CE(\Using_FPGA.Native_0 ),
-        .D(ex_databus_addr[25]),
+        .D(\MEM_DataBus_Addr_reg[0]_0 [36]),
         .Q(\Performance_Debug_Control.dbg_state_nohalt_reg [51]),
         .R(reset_bool_for_rst));
   FDRE \MEM_DataBus_Addr_reg[26] 
        (.C(Clk),
         .CE(\Using_FPGA.Native_0 ),
-        .D(ex_databus_addr[26]),
+        .D(\MEM_DataBus_Addr_reg[0]_0 [35]),
         .Q(\Performance_Debug_Control.dbg_state_nohalt_reg [50]),
         .R(reset_bool_for_rst));
   FDRE \MEM_DataBus_Addr_reg[27] 
        (.C(Clk),
         .CE(\Using_FPGA.Native_0 ),
-        .D(ex_databus_addr[27]),
+        .D(\MEM_DataBus_Addr_reg[0]_0 [34]),
         .Q(\Performance_Debug_Control.dbg_state_nohalt_reg [49]),
         .R(reset_bool_for_rst));
   FDRE \MEM_DataBus_Addr_reg[28] 
        (.C(Clk),
         .CE(\Using_FPGA.Native_0 ),
-        .D(ex_databus_addr[28]),
+        .D(\MEM_DataBus_Addr_reg[0]_0 [33]),
         .Q(\Performance_Debug_Control.dbg_state_nohalt_reg [48]),
         .R(reset_bool_for_rst));
   FDRE \MEM_DataBus_Addr_reg[29] 
        (.C(Clk),
         .CE(\Using_FPGA.Native_0 ),
-        .D(ex_databus_addr[29]),
+        .D(\MEM_DataBus_Addr_reg[0]_0 [32]),
         .Q(\Performance_Debug_Control.dbg_state_nohalt_reg [47]),
         .R(reset_bool_for_rst));
   FDRE \MEM_DataBus_Addr_reg[2] 
        (.C(Clk),
         .CE(\Using_FPGA.Native_0 ),
-        .D(ex_databus_addr[2]),
+        .D(\MEM_DataBus_Addr_reg[0]_0 [59]),
         .Q(\Performance_Debug_Control.dbg_state_nohalt_reg [74]),
         .R(reset_bool_for_rst));
   FDRE \MEM_DataBus_Addr_reg[30] 
        (.C(Clk),
         .CE(\Using_FPGA.Native_0 ),
-        .D(ex_databus_addr[30]),
+        .D(ex_databus_addr[1]),
         .Q(\Performance_Debug_Control.dbg_state_nohalt_reg [46]),
         .R(reset_bool_for_rst));
   FDRE \MEM_DataBus_Addr_reg[31] 
        (.C(Clk),
         .CE(\Using_FPGA.Native_0 ),
-        .D(ex_databus_addr[31]),
+        .D(ex_databus_addr[0]),
         .Q(\Performance_Debug_Control.dbg_state_nohalt_reg [45]),
         .R(reset_bool_for_rst));
   FDRE \MEM_DataBus_Addr_reg[3] 
        (.C(Clk),
         .CE(\Using_FPGA.Native_0 ),
-        .D(ex_databus_addr[3]),
+        .D(\MEM_DataBus_Addr_reg[0]_0 [58]),
         .Q(\Performance_Debug_Control.dbg_state_nohalt_reg [73]),
         .R(reset_bool_for_rst));
   FDRE \MEM_DataBus_Addr_reg[4] 
        (.C(Clk),
         .CE(\Using_FPGA.Native_0 ),
-        .D(ex_databus_addr[4]),
+        .D(\MEM_DataBus_Addr_reg[0]_0 [57]),
         .Q(\Performance_Debug_Control.dbg_state_nohalt_reg [72]),
         .R(reset_bool_for_rst));
   FDRE \MEM_DataBus_Addr_reg[5] 
        (.C(Clk),
         .CE(\Using_FPGA.Native_0 ),
-        .D(ex_databus_addr[5]),
+        .D(\MEM_DataBus_Addr_reg[0]_0 [56]),
         .Q(\Performance_Debug_Control.dbg_state_nohalt_reg [71]),
         .R(reset_bool_for_rst));
   FDRE \MEM_DataBus_Addr_reg[6] 
        (.C(Clk),
         .CE(\Using_FPGA.Native_0 ),
-        .D(ex_databus_addr[6]),
+        .D(\MEM_DataBus_Addr_reg[0]_0 [55]),
         .Q(\Performance_Debug_Control.dbg_state_nohalt_reg [70]),
         .R(reset_bool_for_rst));
   FDRE \MEM_DataBus_Addr_reg[7] 
        (.C(Clk),
         .CE(\Using_FPGA.Native_0 ),
-        .D(ex_databus_addr[7]),
+        .D(\MEM_DataBus_Addr_reg[0]_0 [54]),
         .Q(\Performance_Debug_Control.dbg_state_nohalt_reg [69]),
         .R(reset_bool_for_rst));
   FDRE \MEM_DataBus_Addr_reg[8] 
        (.C(Clk),
         .CE(\Using_FPGA.Native_0 ),
-        .D(ex_databus_addr[8]),
+        .D(\MEM_DataBus_Addr_reg[0]_0 [53]),
         .Q(\Performance_Debug_Control.dbg_state_nohalt_reg [68]),
         .R(reset_bool_for_rst));
   FDRE \MEM_DataBus_Addr_reg[9] 
        (.C(Clk),
         .CE(\Using_FPGA.Native_0 ),
-        .D(ex_databus_addr[9]),
+        .D(\MEM_DataBus_Addr_reg[0]_0 [52]),
         .Q(\Performance_Debug_Control.dbg_state_nohalt_reg [67]),
         .R(reset_bool_for_rst));
   FDRE MEM_DataBus_Read_reg
        (.C(Clk),
         .CE(\Using_FPGA.Native_0 ),
-        .D(\Using_FPGA_2.ex_is_load_instr_Inst_n_1 ),
+        .D(\Performance_Debug_Control.dbg_state_nohalt_reg [78]),
         .Q(mem_databus_read),
         .R(reset_bool_for_rst));
-  (* SOFT_HLUTNM = "soft_lutpair53" *) 
-  LUT5 #(
-    .INIT(32'h0000008A)) 
-    MEM_DataBus_Write_i_2
-       (.I0(ex_valid),
-        .I1(ex_Interrupt_Brk_combo_reg_0[0]),
-        .I2(ex_Interrupt_Brk_combo_reg_0[1]),
-        .I3(ex_Take_Intr_or_Exc),
-        .I4(ex_Interrupt_i),
-        .O(p_247_in));
   FDRE MEM_DataBus_Write_reg
        (.C(Clk),
         .CE(\Using_FPGA.Native_0 ),
-        .D(ex_databus_write),
+        .D(\Performance_Debug_Control.dbg_state_nohalt_reg [77]),
         .Q(mem_databus_write),
         .R(reset_bool_for_rst));
   LUT3 #(
@@ -11107,6 +11208,42 @@ module design_1_microblaze_0_1_Decode_gti
         .D(\Using_FPGA_2.ex_is_load_instr_Inst_n_3 ),
         .Q(MEM_Sel_MEM_Res),
         .S(reset_bool_for_rst));
+  LUT5 #(
+    .INIT(32'h00000F22)) 
+    M_AXI_DP_ARVALID_i_i_1
+       (.I0(\Use_DBUS.DAXI_Interface_I1/M_AXI_DP_AWVALID_i1 ),
+        .I1(mem_databus_write),
+        .I2(M_AXI_DP_ARREADY),
+        .I3(M_AXI_DP_AWVALID_i_reg[0]),
+        .I4(reset_bool_for_rst),
+        .O(MEM_DataBus_Write_reg_2));
+  LUT5 #(
+    .INIT(32'h00000F88)) 
+    M_AXI_DP_AWVALID_i_i_1
+       (.I0(\Use_DBUS.DAXI_Interface_I1/M_AXI_DP_AWVALID_i1 ),
+        .I1(mem_databus_write),
+        .I2(M_AXI_DP_AWREADY),
+        .I3(M_AXI_DP_AWVALID_i_reg[2]),
+        .I4(reset_bool_for_rst),
+        .O(MEM_DataBus_Write_reg_1));
+  (* SOFT_HLUTNM = "soft_lutpair60" *) 
+  LUT4 #(
+    .INIT(16'h0002)) 
+    M_AXI_DP_AWVALID_i_i_2
+       (.I0(mem_databus_access),
+        .I1(DReady),
+        .I2(DWait),
+        .I3(active_access_d1),
+        .O(\Use_DBUS.DAXI_Interface_I1/M_AXI_DP_AWVALID_i1 ));
+  LUT5 #(
+    .INIT(32'h00000F88)) 
+    M_AXI_DP_WVALID_i_i_1
+       (.I0(\Use_DBUS.DAXI_Interface_I1/M_AXI_DP_AWVALID_i1 ),
+        .I1(mem_databus_write),
+        .I2(M_AXI_DP_WREADY),
+        .I3(M_AXI_DP_AWVALID_i_reg[1]),
+        .I4(reset_bool_for_rst),
+        .O(MEM_DataBus_Write_reg_0));
   design_1_microblaze_0_1_PC_Module_gti PC_Module_I
        (.CI(if_pc_incr_carry3),
         .Clk(Clk),
@@ -11116,43 +11253,43 @@ module design_1_microblaze_0_1_Decode_gti
         .O(O87_out),
         .O56_out(O56_out),
         .Q({p_1_in3_in,PC_Module_I_n_39}),
-        .\Using_FPGA.Native (\Using_FPGA.Native_5 ),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_6 ),
-        .\Using_FPGA.Native_1 (\Using_FPGA.Native_7 ),
-        .\Using_FPGA.Native_10 (\Using_FPGA.Native_23 ),
-        .\Using_FPGA.Native_11 (\Using_FPGA.Native_24 ),
-        .\Using_FPGA.Native_12 (\Using_FPGA.Native_25 ),
-        .\Using_FPGA.Native_13 (\Using_FPGA.Native_26 ),
-        .\Using_FPGA.Native_14 (\Using_FPGA.Native_27 ),
-        .\Using_FPGA.Native_15 (\Using_FPGA.Native_28 ),
-        .\Using_FPGA.Native_16 (\Using_FPGA.Native_29 ),
-        .\Using_FPGA.Native_17 (\Using_FPGA.Native_30 ),
-        .\Using_FPGA.Native_18 (\Using_FPGA.Native_31 ),
-        .\Using_FPGA.Native_19 (\Using_FPGA.Native_32 ),
-        .\Using_FPGA.Native_2 (\Using_FPGA.Native_8 ),
-        .\Using_FPGA.Native_20 (\Using_FPGA.Native_33 ),
-        .\Using_FPGA.Native_21 (\Using_FPGA.Native_34 ),
-        .\Using_FPGA.Native_22 (\Using_FPGA.Native_35 ),
-        .\Using_FPGA.Native_23 (\Using_FPGA.Native_36 ),
-        .\Using_FPGA.Native_24 (\Using_FPGA.Native_37 ),
-        .\Using_FPGA.Native_25 (\Using_FPGA.Native_38 ),
-        .\Using_FPGA.Native_26 (\Using_FPGA.Native_39 ),
-        .\Using_FPGA.Native_27 (\Using_FPGA.Native_40 ),
-        .\Using_FPGA.Native_28 (\Using_FPGA.Native_41 ),
-        .\Using_FPGA.Native_29 (\Using_FPGA.Native_42 ),
-        .\Using_FPGA.Native_3 (\Using_FPGA.Native_16 ),
+        .\Using_FPGA.Native (\Using_FPGA.Native_4 ),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_5 ),
+        .\Using_FPGA.Native_1 (\Using_FPGA.Native_6 ),
+        .\Using_FPGA.Native_10 (\Using_FPGA.Native_21 ),
+        .\Using_FPGA.Native_11 (\Using_FPGA.Native_22 ),
+        .\Using_FPGA.Native_12 (\Using_FPGA.Native_23 ),
+        .\Using_FPGA.Native_13 (\Using_FPGA.Native_24 ),
+        .\Using_FPGA.Native_14 (\Using_FPGA.Native_25 ),
+        .\Using_FPGA.Native_15 (\Using_FPGA.Native_26 ),
+        .\Using_FPGA.Native_16 (\Using_FPGA.Native_27 ),
+        .\Using_FPGA.Native_17 (\Using_FPGA.Native_28 ),
+        .\Using_FPGA.Native_18 (\Using_FPGA.Native_29 ),
+        .\Using_FPGA.Native_19 (\Using_FPGA.Native_30 ),
+        .\Using_FPGA.Native_2 (\Using_FPGA.Native_7 ),
+        .\Using_FPGA.Native_20 (\Using_FPGA.Native_31 ),
+        .\Using_FPGA.Native_21 (\Using_FPGA.Native_32 ),
+        .\Using_FPGA.Native_22 (\Using_FPGA.Native_33 ),
+        .\Using_FPGA.Native_23 (\Using_FPGA.Native_34 ),
+        .\Using_FPGA.Native_24 (\Using_FPGA.Native_35 ),
+        .\Using_FPGA.Native_25 (\Using_FPGA.Native_36 ),
+        .\Using_FPGA.Native_26 (\Using_FPGA.Native_37 ),
+        .\Using_FPGA.Native_27 (\Using_FPGA.Native_38 ),
+        .\Using_FPGA.Native_28 (\Using_FPGA.Native_39 ),
+        .\Using_FPGA.Native_29 (\Using_FPGA.Native_40 ),
+        .\Using_FPGA.Native_3 (\Using_FPGA.Native_14 ),
         .\Using_FPGA.Native_30 (\Using_FPGA.Native ),
         .\Using_FPGA.Native_31 (PreFetch_Buffer_I1_n_3),
-        .\Using_FPGA.Native_4 (\Using_FPGA.Native_17 ),
-        .\Using_FPGA.Native_5 (\Using_FPGA.Native_18 ),
-        .\Using_FPGA.Native_6 (\Using_FPGA.Native_19 ),
-        .\Using_FPGA.Native_7 (\Using_FPGA.Native_20 ),
-        .\Using_FPGA.Native_8 (\Using_FPGA.Native_21 ),
-        .\Using_FPGA.Native_9 (\Using_FPGA.Native_22 ),
+        .\Using_FPGA.Native_4 (\Using_FPGA.Native_15 ),
+        .\Using_FPGA.Native_5 (\Using_FPGA.Native_16 ),
+        .\Using_FPGA.Native_6 (\Using_FPGA.Native_17 ),
+        .\Using_FPGA.Native_7 (\Using_FPGA.Native_18 ),
+        .\Using_FPGA.Native_8 (\Using_FPGA.Native_19 ),
+        .\Using_FPGA.Native_9 (\Using_FPGA.Native_20 ),
         .ex_MSR(ex_MSR),
         .\ex_pc_i_reg[0]_0 (of_PipeRun_for_ce),
         .\if_pc_reg[0]_0 (IF_PC_Write),
-        .\if_pc_reg[0]_1 (\if_pc_reg[0] ),
+        .\if_pc_reg[0]_1 (\Performance_Debug_Control.dbg_state_nohalt_reg [134:103]),
         .\if_pc_reg[10]_0 (O49_out),
         .\if_pc_reg[11]_0 (O51_out),
         .\if_pc_reg[12]_0 (O53_out),
@@ -11190,7 +11327,7 @@ module design_1_microblaze_0_1_Decode_gti
         .\mem_pc_i_reg[0]_0 (\mem_pc_i_reg[0] ),
         .of_op1_sel_spr_pc(of_op1_sel_spr_pc),
         .sync_reset(reset_bool_for_rst));
-  (* SOFT_HLUTNM = "soft_lutpair60" *) 
+  (* SOFT_HLUTNM = "soft_lutpair61" *) 
   LUT3 #(
     .INIT(8'h02)) 
     Pause_Ack_i_1
@@ -11253,7 +11390,7 @@ module design_1_microblaze_0_1_Decode_gti
         .\EX_Op3[0]_i_5 (wb_valid_reg_0),
         .\EX_Op3[0]_i_6 (\ex_gpr_write_addr_reg_n_0_[4] ),
         .\EX_Op3_reg[0] (EX_Fwd[0]),
-        .\EX_Op3_reg[0]_0 (\EX_Op3_reg[0] ),
+        .\EX_Op3_reg[0]_0 (\MEM_DataBus_Addr_reg[0]_0 [31:0]),
         .\EX_Op3_reg[10] (EX_Fwd[10]),
         .\EX_Op3_reg[11] (EX_Fwd[11]),
         .\EX_Op3_reg[12] (EX_Fwd[12]),
@@ -11293,6 +11430,8 @@ module design_1_microblaze_0_1_Decode_gti
         .I4(I4),
         .I5(I5),
         .IB_Ready(IB_Ready),
+        .IReady(IReady),
+        .IReady_0(PreFetch_Buffer_I1_n_3),
         .LOCKSTEP_Master_Out(LOCKSTEP_Master_Out[0]),
         .MEM_Fwd(MEM_Fwd),
         .MEM_Is_Div_Instr(MEM_Is_Div_Instr),
@@ -11315,18 +11454,17 @@ module design_1_microblaze_0_1_Decode_gti
         .\Using_FPGA.Native_18 (PreFetch_Buffer_I1_n_193),
         .\Using_FPGA.Native_19 (PreFetch_Buffer_I1_n_194),
         .\Using_FPGA.Native_2 (of_gpr_op3_rd_addr[3]),
-        .\Using_FPGA.Native_20 (PreFetch_Buffer_I1_n_195),
-        .\Using_FPGA.Native_21 (\Using_FPGA.Native_43 ),
-        .\Using_FPGA.Native_22 (PreFetch_Buffer_I1_n_197),
-        .\Using_FPGA.Native_23 (PreFetch_Buffer_I1_n_198),
-        .\Using_FPGA.Native_24 (PreFetch_Buffer_I1_n_199),
-        .\Using_FPGA.Native_25 (\Using_FPGA.Native_44 ),
-        .\Using_FPGA.Native_26 (of_PipeRun_for_ce),
-        .\Using_FPGA.Native_27 (\mem_pc_i_reg[0]_0 ),
-        .\Using_FPGA.Native_28 (ex_Interrupt_Brk_combo_reg_0[2]),
+        .\Using_FPGA.Native_20 (\Using_FPGA.Native_41 ),
+        .\Using_FPGA.Native_21 (PreFetch_Buffer_I1_n_197),
+        .\Using_FPGA.Native_22 (PreFetch_Buffer_I1_n_198),
+        .\Using_FPGA.Native_23 (PreFetch_Buffer_I1_n_199),
+        .\Using_FPGA.Native_24 (\Using_FPGA.Native_42 ),
+        .\Using_FPGA.Native_25 (of_PipeRun_for_ce),
+        .\Using_FPGA.Native_26 (\mem_pc_i_reg[0]_0 ),
+        .\Using_FPGA.Native_27 (ex_Interrupt_Brk_combo_reg_0[2]),
         .\Using_FPGA.Native_3 (of_gpr_op3_rd_addr[4]),
         .\Using_FPGA.Native_4 ({of_gpr_op1_rd_addr[0],of_gpr_op1_rd_addr[1],of_gpr_op1_rd_addr[2],of_gpr_op1_rd_addr[3],of_gpr_op1_rd_addr[4],of_imm_data[0],of_imm_data[1],of_imm_data[2],of_imm_data[3],of_imm_data[4],of_imm_data[5],of_imm_data[6],of_imm_data[7],of_imm_data[8],of_imm_data[9],of_imm_data[10],of_imm_data[11],of_imm_data[12],of_imm_data[13],of_imm_data[14],of_imm_data[15]}),
-        .\Using_FPGA.Native_5 (\Using_FPGA.Native_1 ),
+        .\Using_FPGA.Native_5 (\Performance_Debug_Control.dbg_state_nohalt_reg [136]),
         .\Using_FPGA.Native_6 (PreFetch_Buffer_I1_n_57),
         .\Using_FPGA.Native_7 (PreFetch_Buffer_I1_n_60),
         .\Using_FPGA.Native_8 ({PreFetch_Buffer_I1_n_97,PreFetch_Buffer_I1_n_98}),
@@ -11337,6 +11475,7 @@ module design_1_microblaze_0_1_Decode_gti
         .ex_atomic_Instruction_Pair0(ex_atomic_Instruction_Pair0),
         .ex_branch_with_delayslot(ex_branch_with_delayslot),
         .ex_branch_with_delayslot_i_reg_0(wb_Halted),
+        .ex_branch_with_delayslot_reg(PreFetch_Buffer_I1_n_195),
         .ex_enable_sext_shift_i0(ex_enable_sext_shift_i0),
         .ex_gpr_write_dbg__0(ex_gpr_write_dbg__0),
         .ex_gpr_write_reg(PreFetch_Buffer_I1_n_49),
@@ -11365,19 +11504,17 @@ module design_1_microblaze_0_1_Decode_gti
         .ex_valid(ex_valid),
         .force12_out(force12_out),
         .force_Val10_out(force_Val10_out),
-        .iext_data_strobe(iext_data_strobe),
         .if_fetch_for_timing_optimization1(if_fetch_for_timing_optimization1),
         .if_fetch_in_progress(if_fetch_in_progress),
         .if_fetch_in_progress_reg(IF_PC_Write),
-        .if_fetch_in_progress_reg_0(ib_addr_strobe),
+        .if_fetch_in_progress_reg_0(\Performance_Debug_Control.dbg_state_nohalt_reg [135]),
         .if_fetch_in_progress_reg_1(PreFetch_Buffer_I1_n_188),
-        .if_fetch_in_progress_reg_2(\Performance_Debug_Control.dbg_state_nohalt_reg [77]),
+        .if_fetch_in_progress_reg_2(\Performance_Debug_Control.dbg_state_nohalt_reg [137]),
         .if_fetch_in_progress_reg_3(if_fetch_in_progress_reg_0),
         .if_missed_fetch(if_missed_fetch),
         .if_pre_buffer_addr(if_pre_buffer_addr),
         .in({Y[0],Y[1],Y[2],Y[3],Y[4],Y[5],Y[6],Y[7],Y[8],Y[9],Y[10],Y[21],Y[22],Y[23],Y[24],Y[25],Y[26],Y[27],Y[28],Y[29],Y[30],Y[31],in,Y[11],Y[12],Y[13],Y[14],Y[15],Y[16],Y[17],Y[18],Y[19],Y[20]}),
         .in0(if_fetch_without_full_or_jump),
-        .mem_access_completed_reg(PreFetch_Buffer_I1_n_3),
         .mem_gpr_write(mem_gpr_write),
         .mem_is_multi_or_load_instr(mem_is_multi_or_load_instr),
         .mem_is_multi_or_load_instr_reg(PreFetch_Buffer_I1_n_105),
@@ -11433,7 +11570,7 @@ module design_1_microblaze_0_1_Decode_gti
        (.I0(Sleep_Decode),
         .I1(Sleep_Out),
         .O(Sleep));
-  (* SOFT_HLUTNM = "soft_lutpair54" *) 
+  (* SOFT_HLUTNM = "soft_lutpair55" *) 
   LUT4 #(
     .INIT(16'hDF00)) 
     Trace_Exception_Taken_INST_0
@@ -11450,7 +11587,13 @@ module design_1_microblaze_0_1_Decode_gti
         .I2(\Performance_Debug_Control.dbg_state_nohalt_reg [3]),
         .I3(\Performance_Debug_Control.dbg_state_nohalt_reg [4]),
         .I4(wb_exception),
-        .O(\Performance_Debug_Control.dbg_state_nohalt_reg [77]));
+        .O(\Performance_Debug_Control.dbg_state_nohalt_reg [137]));
+  LUT2 #(
+    .INIT(4'hE)) 
+    \Trace_New_Reg_Value[0]_INST_0_i_1 
+       (.I0(wb_doublet_access),
+        .I1(wb_byte_access),
+        .O(WB_Steered_Read_Data1__0));
   LUT5 #(
     .INIT(32'hA2AAAAAA)) 
     \Trace_Reg_Addr[0]_INST_0 
@@ -11505,7 +11648,7 @@ module design_1_microblaze_0_1_Decode_gti
         .I3(wb_reset),
         .I4(wb_MSR_Clear_IE),
         .O(\Performance_Debug_Control.dbg_state_nohalt_reg [11]));
-  (* SOFT_HLUTNM = "soft_lutpair52" *) 
+  (* SOFT_HLUTNM = "soft_lutpair53" *) 
   LUT4 #(
     .INIT(16'h0800)) 
     Trace_Reg_Write_INST_0_i_1
@@ -11514,7 +11657,7 @@ module design_1_microblaze_0_1_Decode_gti
         .I2(\Performance_Debug_Control.dbg_state_nohalt_reg [2]),
         .I3(\Performance_Debug_Control.dbg_state_nohalt_reg [3]),
         .O(wb_MSR_Clear_IE));
-  (* SOFT_HLUTNM = "soft_lutpair54" *) 
+  (* SOFT_HLUTNM = "soft_lutpair55" *) 
   LUT5 #(
     .INIT(32'hA2AAAAAA)) 
     Trace_Valid_Instr_INST_0
@@ -11537,7 +11680,7 @@ module design_1_microblaze_0_1_Decode_gti
         .of_PipeRun_carry_2(of_PipeRun_carry_2),
         .use_Reg_Neg_S_reg(\Using_FPGA_4.of_read_mem_write_op3_conflict_INST2_n_0 ));
   design_1_microblaze_0_1_carry_and_56 \Use_MuxCy[11].OF_Piperun_Stage 
-       (.\Using_FPGA.Native (\Using_FPGA.Native_15 ),
+       (.\Using_FPGA.Native (\Using_FPGA.Native_13 ),
         .\Using_FPGA.Native_0 (wb_MSR_Clear_IE),
         .ex_MSR_cmb2_out(\Data_Flow_I/msr_reg_i/ex_MSR_cmb2_out ),
         .ex_jump(ex_jump),
@@ -11562,7 +11705,7 @@ module design_1_microblaze_0_1_Decode_gti
   design_1_microblaze_0_1_carry_and_58 \Use_MuxCy[2].OF_Piperun_Stage 
        (.EX_MBAR_Stall__2(EX_MBAR_Stall__2),
         .\Using_FPGA.Native (jump_logic_I1_n_46),
-        .\Using_FPGA.Native_i_1__108 (ex_Take_Intr_or_Exc),
+        .\Using_FPGA.Native_i_1__110 (ex_Take_Intr_or_Exc),
         .ex_first_cycle(ex_first_cycle),
         .ex_jump_hold(ex_jump_hold),
         .ex_mbar_decode(ex_mbar_decode),
@@ -11581,7 +11724,7 @@ module design_1_microblaze_0_1_Decode_gti
         .\Performance_Debug_Control.ex_dbg_pc_hit_single_step_reg (\Performance_Debug_Control.ex_dbg_pc_hit_single_step_reg ),
         .Q(\Performance_Debug_Control.dbg_state_nohalt_reg [4:2]),
         .\Using_FPGA.Native (\Using_FPGA.Native_0 ),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_14 ),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_12 ),
         .\Using_FPGA.Native_1 (wb_MSR_Clear_IE),
         .\Using_LWX_SWX_instr.ex_reservation_reg (wb_Halted),
         .ex_MSR(ex_MSR[0]),
@@ -11714,10 +11857,19 @@ module design_1_microblaze_0_1_Decode_gti
        (.I0(ex_gpr_write_reg_n_0),
         .I1(ex_valid),
         .O(p_237_in));
-  (* SOFT_HLUTNM = "soft_lutpair58" *) 
+  LUT5 #(
+    .INIT(32'hAAAACFC0)) 
+    \Using_FPGA.Native_i_1__100 
+       (.I0(\MEM_DataBus_Addr_reg[0]_0 [60]),
+        .I1(swap_result_reg[1]),
+        .I2(ex_swap_instr),
+        .I3(\Data_Flow_I/Shift_Logic_Module_I/O0_out ),
+        .I4(ex_sel_alu),
+        .O(EX_Fwd[1]));
+  (* SOFT_HLUTNM = "soft_lutpair54" *) 
   LUT5 #(
     .INIT(32'h51555555)) 
-    \Using_FPGA.Native_i_1__107 
+    \Using_FPGA.Native_i_1__108 
        (.I0(\mem_pc_i_reg[0]_0 ),
         .I1(\Performance_Debug_Control.dbg_state_nohalt_reg [2]),
         .I2(\Performance_Debug_Control.dbg_state_nohalt_reg [3]),
@@ -11726,19 +11878,19 @@ module design_1_microblaze_0_1_Decode_gti
         .O(\Performance_Debug_Control.dbg_freeze_nohalt_reg ));
   LUT2 #(
     .INIT(4'hE)) 
-    \Using_FPGA.Native_i_1__56 
+    \Using_FPGA.Native_i_1__57 
        (.I0(reset_bool_for_rst),
         .I1(EX_Is_Div_Instr),
         .O(R));
-  (* SOFT_HLUTNM = "soft_lutpair55" *) 
+  (* SOFT_HLUTNM = "soft_lutpair56" *) 
   LUT1 #(
     .INIT(2'h1)) 
-    \Using_FPGA.Native_i_1__60 
+    \Using_FPGA.Native_i_1__61 
        (.I0(\Performance_Debug_Control.dbg_state_nohalt_reg [4]),
         .O(I1_0));
   LUT4 #(
     .INIT(16'h0020)) 
-    \Using_FPGA.Native_i_1__68 
+    \Using_FPGA.Native_i_1__69 
        (.I0(\EX_ALU_Op_reg[0]_0 [0]),
         .I1(EX_ALU_Sel_Logic),
         .I2(\EX_ALU_Op_reg[0]_0 [1]),
@@ -11746,8 +11898,8 @@ module design_1_microblaze_0_1_Decode_gti
         .O(DI));
   LUT5 #(
     .INIT(32'hAAAACFC0)) 
-    \Using_FPGA.Native_i_1__69 
-       (.I0(ex_databus_addr[31]),
+    \Using_FPGA.Native_i_1__70 
+       (.I0(ex_databus_addr[0]),
         .I1(swap_result[0]),
         .I2(ex_swap_instr),
         .I3(\Data_Flow_I/Shift_Logic_Module_I/O ),
@@ -11755,8 +11907,8 @@ module design_1_microblaze_0_1_Decode_gti
         .O(EX_Fwd[31]));
   LUT5 #(
     .INIT(32'hAAAACFC0)) 
-    \Using_FPGA.Native_i_1__70 
-       (.I0(ex_databus_addr[30]),
+    \Using_FPGA.Native_i_1__71 
+       (.I0(ex_databus_addr[1]),
         .I1(swap_result[1]),
         .I2(ex_swap_instr),
         .I3(\Data_Flow_I/Shift_Logic_Module_I/O31_out ),
@@ -11764,8 +11916,8 @@ module design_1_microblaze_0_1_Decode_gti
         .O(EX_Fwd[30]));
   LUT5 #(
     .INIT(32'hAAAACFC0)) 
-    \Using_FPGA.Native_i_1__71 
-       (.I0(ex_databus_addr[29]),
+    \Using_FPGA.Native_i_1__72 
+       (.I0(\MEM_DataBus_Addr_reg[0]_0 [32]),
         .I1(swap_result[2]),
         .I2(ex_swap_instr),
         .I3(\Data_Flow_I/Shift_Logic_Module_I/O30_out ),
@@ -11773,8 +11925,8 @@ module design_1_microblaze_0_1_Decode_gti
         .O(EX_Fwd[29]));
   LUT5 #(
     .INIT(32'hAAAACFC0)) 
-    \Using_FPGA.Native_i_1__72 
-       (.I0(ex_databus_addr[28]),
+    \Using_FPGA.Native_i_1__73 
+       (.I0(\MEM_DataBus_Addr_reg[0]_0 [33]),
         .I1(swap_result[3]),
         .I2(ex_swap_instr),
         .I3(\Data_Flow_I/Shift_Logic_Module_I/O29_out ),
@@ -11782,8 +11934,8 @@ module design_1_microblaze_0_1_Decode_gti
         .O(EX_Fwd[28]));
   LUT5 #(
     .INIT(32'hAAAACFC0)) 
-    \Using_FPGA.Native_i_1__73 
-       (.I0(ex_databus_addr[27]),
+    \Using_FPGA.Native_i_1__74 
+       (.I0(\MEM_DataBus_Addr_reg[0]_0 [34]),
         .I1(swap_result[4]),
         .I2(ex_swap_instr),
         .I3(\Data_Flow_I/Shift_Logic_Module_I/O28_out ),
@@ -11791,8 +11943,8 @@ module design_1_microblaze_0_1_Decode_gti
         .O(EX_Fwd[27]));
   LUT5 #(
     .INIT(32'hAAAACFC0)) 
-    \Using_FPGA.Native_i_1__74 
-       (.I0(ex_databus_addr[26]),
+    \Using_FPGA.Native_i_1__75 
+       (.I0(\MEM_DataBus_Addr_reg[0]_0 [35]),
         .I1(swap_result[5]),
         .I2(ex_swap_instr),
         .I3(\Data_Flow_I/Shift_Logic_Module_I/O27_out ),
@@ -11800,8 +11952,8 @@ module design_1_microblaze_0_1_Decode_gti
         .O(EX_Fwd[26]));
   LUT5 #(
     .INIT(32'hAAAACFC0)) 
-    \Using_FPGA.Native_i_1__75 
-       (.I0(ex_databus_addr[25]),
+    \Using_FPGA.Native_i_1__76 
+       (.I0(\MEM_DataBus_Addr_reg[0]_0 [36]),
         .I1(swap_result[6]),
         .I2(ex_swap_instr),
         .I3(\Data_Flow_I/Shift_Logic_Module_I/O26_out ),
@@ -11809,8 +11961,8 @@ module design_1_microblaze_0_1_Decode_gti
         .O(EX_Fwd[25]));
   LUT5 #(
     .INIT(32'hAAAACFC0)) 
-    \Using_FPGA.Native_i_1__76 
-       (.I0(ex_databus_addr[24]),
+    \Using_FPGA.Native_i_1__77 
+       (.I0(\MEM_DataBus_Addr_reg[0]_0 [37]),
         .I1(swap_result[7]),
         .I2(ex_swap_instr),
         .I3(\Data_Flow_I/Shift_Logic_Module_I/O24_out ),
@@ -11818,8 +11970,8 @@ module design_1_microblaze_0_1_Decode_gti
         .O(EX_Fwd[24]));
   LUT5 #(
     .INIT(32'hAAAACFC0)) 
-    \Using_FPGA.Native_i_1__77 
-       (.I0(ex_databus_addr[23]),
+    \Using_FPGA.Native_i_1__78 
+       (.I0(\MEM_DataBus_Addr_reg[0]_0 [38]),
         .I1(swap_result[8]),
         .I2(ex_swap_instr),
         .I3(\Data_Flow_I/Shift_Logic_Module_I/O23_out ),
@@ -11827,8 +11979,8 @@ module design_1_microblaze_0_1_Decode_gti
         .O(EX_Fwd[23]));
   LUT5 #(
     .INIT(32'hAAAACFC0)) 
-    \Using_FPGA.Native_i_1__78 
-       (.I0(ex_databus_addr[22]),
+    \Using_FPGA.Native_i_1__79 
+       (.I0(\MEM_DataBus_Addr_reg[0]_0 [39]),
         .I1(swap_result[9]),
         .I2(ex_swap_instr),
         .I3(\Data_Flow_I/Shift_Logic_Module_I/O22_out ),
@@ -11836,8 +11988,8 @@ module design_1_microblaze_0_1_Decode_gti
         .O(EX_Fwd[22]));
   LUT5 #(
     .INIT(32'hAAAACFC0)) 
-    \Using_FPGA.Native_i_1__79 
-       (.I0(ex_databus_addr[21]),
+    \Using_FPGA.Native_i_1__80 
+       (.I0(\MEM_DataBus_Addr_reg[0]_0 [40]),
         .I1(swap_result[10]),
         .I2(ex_swap_instr),
         .I3(\Data_Flow_I/Shift_Logic_Module_I/O21_out ),
@@ -11845,8 +11997,8 @@ module design_1_microblaze_0_1_Decode_gti
         .O(EX_Fwd[21]));
   LUT5 #(
     .INIT(32'hAAAACFC0)) 
-    \Using_FPGA.Native_i_1__80 
-       (.I0(ex_databus_addr[20]),
+    \Using_FPGA.Native_i_1__81 
+       (.I0(\MEM_DataBus_Addr_reg[0]_0 [41]),
         .I1(swap_result[11]),
         .I2(ex_swap_instr),
         .I3(\Data_Flow_I/Shift_Logic_Module_I/O20_out ),
@@ -11854,8 +12006,8 @@ module design_1_microblaze_0_1_Decode_gti
         .O(EX_Fwd[20]));
   LUT5 #(
     .INIT(32'hAAAACFC0)) 
-    \Using_FPGA.Native_i_1__81 
-       (.I0(ex_databus_addr[19]),
+    \Using_FPGA.Native_i_1__82 
+       (.I0(\MEM_DataBus_Addr_reg[0]_0 [42]),
         .I1(swap_result[12]),
         .I2(ex_swap_instr),
         .I3(\Data_Flow_I/Shift_Logic_Module_I/O19_out ),
@@ -11863,8 +12015,8 @@ module design_1_microblaze_0_1_Decode_gti
         .O(EX_Fwd[19]));
   LUT5 #(
     .INIT(32'hAAAACFC0)) 
-    \Using_FPGA.Native_i_1__82 
-       (.I0(ex_databus_addr[18]),
+    \Using_FPGA.Native_i_1__83 
+       (.I0(\MEM_DataBus_Addr_reg[0]_0 [43]),
         .I1(swap_result[13]),
         .I2(ex_swap_instr),
         .I3(\Data_Flow_I/Shift_Logic_Module_I/O18_out ),
@@ -11872,8 +12024,8 @@ module design_1_microblaze_0_1_Decode_gti
         .O(EX_Fwd[18]));
   LUT5 #(
     .INIT(32'hAAAACFC0)) 
-    \Using_FPGA.Native_i_1__83 
-       (.I0(ex_databus_addr[17]),
+    \Using_FPGA.Native_i_1__84 
+       (.I0(\MEM_DataBus_Addr_reg[0]_0 [44]),
         .I1(swap_result[14]),
         .I2(ex_swap_instr),
         .I3(\Data_Flow_I/Shift_Logic_Module_I/O17_out ),
@@ -11881,8 +12033,8 @@ module design_1_microblaze_0_1_Decode_gti
         .O(EX_Fwd[17]));
   LUT5 #(
     .INIT(32'hAAAACFC0)) 
-    \Using_FPGA.Native_i_1__84 
-       (.I0(ex_databus_addr[16]),
+    \Using_FPGA.Native_i_1__85 
+       (.I0(\MEM_DataBus_Addr_reg[0]_0 [45]),
         .I1(swap_result[15]),
         .I2(ex_swap_instr),
         .I3(\Data_Flow_I/Shift_Logic_Module_I/O15_out ),
@@ -11890,8 +12042,8 @@ module design_1_microblaze_0_1_Decode_gti
         .O(EX_Fwd[16]));
   LUT5 #(
     .INIT(32'hAAAACFC0)) 
-    \Using_FPGA.Native_i_1__85 
-       (.I0(ex_databus_addr[15]),
+    \Using_FPGA.Native_i_1__86 
+       (.I0(\MEM_DataBus_Addr_reg[0]_0 [46]),
         .I1(swap_result[16]),
         .I2(ex_swap_instr),
         .I3(\Data_Flow_I/Shift_Logic_Module_I/O14_out ),
@@ -11899,8 +12051,8 @@ module design_1_microblaze_0_1_Decode_gti
         .O(EX_Fwd[15]));
   LUT5 #(
     .INIT(32'hAAAACFC0)) 
-    \Using_FPGA.Native_i_1__86 
-       (.I0(ex_databus_addr[14]),
+    \Using_FPGA.Native_i_1__87 
+       (.I0(\MEM_DataBus_Addr_reg[0]_0 [47]),
         .I1(swap_result[17]),
         .I2(ex_swap_instr),
         .I3(\Data_Flow_I/Shift_Logic_Module_I/O13_out ),
@@ -11908,8 +12060,8 @@ module design_1_microblaze_0_1_Decode_gti
         .O(EX_Fwd[14]));
   LUT5 #(
     .INIT(32'hAAAACFC0)) 
-    \Using_FPGA.Native_i_1__87 
-       (.I0(ex_databus_addr[13]),
+    \Using_FPGA.Native_i_1__88 
+       (.I0(\MEM_DataBus_Addr_reg[0]_0 [48]),
         .I1(swap_result[18]),
         .I2(ex_swap_instr),
         .I3(\Data_Flow_I/Shift_Logic_Module_I/O12_out ),
@@ -11917,8 +12069,8 @@ module design_1_microblaze_0_1_Decode_gti
         .O(EX_Fwd[13]));
   LUT5 #(
     .INIT(32'hAAAACFC0)) 
-    \Using_FPGA.Native_i_1__88 
-       (.I0(ex_databus_addr[12]),
+    \Using_FPGA.Native_i_1__89 
+       (.I0(\MEM_DataBus_Addr_reg[0]_0 [49]),
         .I1(swap_result[19]),
         .I2(ex_swap_instr),
         .I3(\Data_Flow_I/Shift_Logic_Module_I/O11_out ),
@@ -11926,8 +12078,8 @@ module design_1_microblaze_0_1_Decode_gti
         .O(EX_Fwd[12]));
   LUT5 #(
     .INIT(32'hAAAACFC0)) 
-    \Using_FPGA.Native_i_1__89 
-       (.I0(ex_databus_addr[11]),
+    \Using_FPGA.Native_i_1__90 
+       (.I0(\MEM_DataBus_Addr_reg[0]_0 [50]),
         .I1(swap_result[20]),
         .I2(ex_swap_instr),
         .I3(\Data_Flow_I/Shift_Logic_Module_I/O10_out ),
@@ -11935,8 +12087,8 @@ module design_1_microblaze_0_1_Decode_gti
         .O(EX_Fwd[11]));
   LUT5 #(
     .INIT(32'hAAAACFC0)) 
-    \Using_FPGA.Native_i_1__90 
-       (.I0(ex_databus_addr[10]),
+    \Using_FPGA.Native_i_1__91 
+       (.I0(\MEM_DataBus_Addr_reg[0]_0 [51]),
         .I1(swap_result[21]),
         .I2(ex_swap_instr),
         .I3(\Data_Flow_I/Shift_Logic_Module_I/O9_out ),
@@ -11944,8 +12096,8 @@ module design_1_microblaze_0_1_Decode_gti
         .O(EX_Fwd[10]));
   LUT5 #(
     .INIT(32'hAAAACFC0)) 
-    \Using_FPGA.Native_i_1__91 
-       (.I0(ex_databus_addr[9]),
+    \Using_FPGA.Native_i_1__92 
+       (.I0(\MEM_DataBus_Addr_reg[0]_0 [52]),
         .I1(swap_result[22]),
         .I2(ex_swap_instr),
         .I3(\Data_Flow_I/Shift_Logic_Module_I/O8_out ),
@@ -11953,8 +12105,8 @@ module design_1_microblaze_0_1_Decode_gti
         .O(EX_Fwd[9]));
   LUT5 #(
     .INIT(32'hAAAACFC0)) 
-    \Using_FPGA.Native_i_1__92 
-       (.I0(ex_databus_addr[8]),
+    \Using_FPGA.Native_i_1__93 
+       (.I0(\MEM_DataBus_Addr_reg[0]_0 [53]),
         .I1(swap_result[23]),
         .I2(ex_swap_instr),
         .I3(\Data_Flow_I/Shift_Logic_Module_I/O7_out ),
@@ -11962,8 +12114,8 @@ module design_1_microblaze_0_1_Decode_gti
         .O(EX_Fwd[8]));
   LUT5 #(
     .INIT(32'hAAAACFC0)) 
-    \Using_FPGA.Native_i_1__93 
-       (.I0(ex_databus_addr[7]),
+    \Using_FPGA.Native_i_1__94 
+       (.I0(\MEM_DataBus_Addr_reg[0]_0 [54]),
         .I1(swap_result_reg[7]),
         .I2(ex_swap_instr),
         .I3(\Data_Flow_I/Shift_Logic_Module_I/O6_out ),
@@ -11971,8 +12123,8 @@ module design_1_microblaze_0_1_Decode_gti
         .O(EX_Fwd[7]));
   LUT5 #(
     .INIT(32'hAAAACFC0)) 
-    \Using_FPGA.Native_i_1__94 
-       (.I0(ex_databus_addr[6]),
+    \Using_FPGA.Native_i_1__95 
+       (.I0(\MEM_DataBus_Addr_reg[0]_0 [55]),
         .I1(swap_result_reg[6]),
         .I2(ex_swap_instr),
         .I3(\Data_Flow_I/Shift_Logic_Module_I/O5_out ),
@@ -11980,8 +12132,8 @@ module design_1_microblaze_0_1_Decode_gti
         .O(EX_Fwd[6]));
   LUT5 #(
     .INIT(32'hAAAACFC0)) 
-    \Using_FPGA.Native_i_1__95 
-       (.I0(ex_databus_addr[5]),
+    \Using_FPGA.Native_i_1__96 
+       (.I0(\MEM_DataBus_Addr_reg[0]_0 [56]),
         .I1(swap_result_reg[5]),
         .I2(ex_swap_instr),
         .I3(\Data_Flow_I/Shift_Logic_Module_I/O4_out ),
@@ -11989,8 +12141,8 @@ module design_1_microblaze_0_1_Decode_gti
         .O(EX_Fwd[5]));
   LUT5 #(
     .INIT(32'hAAAACFC0)) 
-    \Using_FPGA.Native_i_1__96 
-       (.I0(ex_databus_addr[4]),
+    \Using_FPGA.Native_i_1__97 
+       (.I0(\MEM_DataBus_Addr_reg[0]_0 [57]),
         .I1(swap_result_reg[4]),
         .I2(ex_swap_instr),
         .I3(\Data_Flow_I/Shift_Logic_Module_I/O3_out ),
@@ -11998,8 +12150,8 @@ module design_1_microblaze_0_1_Decode_gti
         .O(EX_Fwd[4]));
   LUT5 #(
     .INIT(32'hAAAACFC0)) 
-    \Using_FPGA.Native_i_1__97 
-       (.I0(ex_databus_addr[3]),
+    \Using_FPGA.Native_i_1__98 
+       (.I0(\MEM_DataBus_Addr_reg[0]_0 [58]),
         .I1(swap_result_reg[3]),
         .I2(ex_swap_instr),
         .I3(\Data_Flow_I/Shift_Logic_Module_I/O2_out ),
@@ -12007,25 +12159,16 @@ module design_1_microblaze_0_1_Decode_gti
         .O(EX_Fwd[3]));
   LUT5 #(
     .INIT(32'hAAAACFC0)) 
-    \Using_FPGA.Native_i_1__98 
-       (.I0(ex_databus_addr[2]),
+    \Using_FPGA.Native_i_1__99 
+       (.I0(\MEM_DataBus_Addr_reg[0]_0 [59]),
         .I1(swap_result_reg[2]),
         .I2(ex_swap_instr),
         .I3(\Data_Flow_I/Shift_Logic_Module_I/O1_out ),
         .I4(ex_sel_alu),
         .O(EX_Fwd[2]));
-  LUT5 #(
-    .INIT(32'hAAAACFC0)) 
-    \Using_FPGA.Native_i_1__99 
-       (.I0(ex_databus_addr[1]),
-        .I1(swap_result_reg[1]),
-        .I2(ex_swap_instr),
-        .I3(\Data_Flow_I/Shift_Logic_Module_I/O0_out ),
-        .I4(ex_sel_alu),
-        .O(EX_Fwd[1]));
   LUT6 #(
     .INIT(64'h00000B0000000000)) 
-    \Using_FPGA.Native_i_2__24 
+    \Using_FPGA.Native_i_2__25 
        (.I0(ex_Interrupt_Brk_combo_reg_0[0]),
         .I1(ex_Interrupt_Brk_combo_reg_0[1]),
         .I2(ex_Interrupt_i),
@@ -12035,7 +12178,7 @@ module design_1_microblaze_0_1_Decode_gti
         .O(ex_MSR_Set_SW_BIP));
   LUT5 #(
     .INIT(32'hFECCAECC)) 
-    \Using_FPGA.Native_i_2__25 
+    \Using_FPGA.Native_i_2__26 
        (.I0(ex_set_MSR_IE_instr),
         .I1(ex_MSR[0]),
         .I2(ex_move_to_MSR_instr),
@@ -12044,7 +12187,7 @@ module design_1_microblaze_0_1_Decode_gti
         .O(\Data_Flow_I/msr_reg_i/ex_MSR_cmb2_out ));
   LUT6 #(
     .INIT(64'h00000B0000000000)) 
-    \Using_FPGA.Native_i_2__27 
+    \Using_FPGA.Native_i_2__28 
        (.I0(ex_Interrupt_Brk_combo_reg_0[0]),
         .I1(ex_Interrupt_Brk_combo_reg_0[1]),
         .I2(ex_Interrupt_i),
@@ -12054,8 +12197,8 @@ module design_1_microblaze_0_1_Decode_gti
         .O(ex_start_div));
   LUT3 #(
     .INIT(8'hAC)) 
-    \Using_FPGA.Native_i_2__92 
-       (.I0(ex_databus_addr[0]),
+    \Using_FPGA.Native_i_2__94 
+       (.I0(\MEM_DataBus_Addr_reg[0]_0 [61]),
         .I1(\Data_Flow_I/EX_Shift_Logic_Result ),
         .I2(ex_sel_alu),
         .O(EX_Fwd[0]));
@@ -12066,6 +12209,7 @@ module design_1_microblaze_0_1_Decode_gti
         .I1(ex_load_alu_carry_reg_n_0),
         .I2(ex_Take_Intr_or_Exc_reg_0),
         .O(\Using_FPGA.Native_i_3_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair57" *) 
   LUT5 #(
     .INIT(32'hA8880888)) 
     \Using_FPGA.Native_i_3__10 
@@ -12163,7 +12307,7 @@ module design_1_microblaze_0_1_Decode_gti
         .I2(\EX_Sext_Op_reg[0]_0 [0]),
         .I3(\D_reg[0] [16]),
         .I4(\EX_Sext_Op_reg[0]_0 [1]),
-        .I5(\Using_FPGA.Native_50 ),
+        .I5(\Using_FPGA.Native_48 ),
         .O(\Data_Flow_I/Shift_Logic_Module_I/O14_out ));
   LUT6 #(
     .INIT(64'h8A80AAAA8A800000)) 
@@ -12173,7 +12317,7 @@ module design_1_microblaze_0_1_Decode_gti
         .I2(\EX_Sext_Op_reg[0]_0 [0]),
         .I3(\D_reg[0] [17]),
         .I4(\EX_Sext_Op_reg[0]_0 [1]),
-        .I5(\Using_FPGA.Native_50 ),
+        .I5(\Using_FPGA.Native_48 ),
         .O(\Data_Flow_I/Shift_Logic_Module_I/O13_out ));
   LUT6 #(
     .INIT(64'h8A80AAAA8A800000)) 
@@ -12183,7 +12327,7 @@ module design_1_microblaze_0_1_Decode_gti
         .I2(\EX_Sext_Op_reg[0]_0 [0]),
         .I3(\D_reg[0] [18]),
         .I4(\EX_Sext_Op_reg[0]_0 [1]),
-        .I5(\Using_FPGA.Native_50 ),
+        .I5(\Using_FPGA.Native_48 ),
         .O(\Data_Flow_I/Shift_Logic_Module_I/O12_out ));
   LUT6 #(
     .INIT(64'h8A80AAAA8A800000)) 
@@ -12193,7 +12337,7 @@ module design_1_microblaze_0_1_Decode_gti
         .I2(\EX_Sext_Op_reg[0]_0 [0]),
         .I3(\D_reg[0] [19]),
         .I4(\EX_Sext_Op_reg[0]_0 [1]),
-        .I5(\Using_FPGA.Native_50 ),
+        .I5(\Using_FPGA.Native_48 ),
         .O(\Data_Flow_I/Shift_Logic_Module_I/O11_out ));
   LUT6 #(
     .INIT(64'h8A80AAAA8A800000)) 
@@ -12203,7 +12347,7 @@ module design_1_microblaze_0_1_Decode_gti
         .I2(\EX_Sext_Op_reg[0]_0 [0]),
         .I3(\D_reg[0] [20]),
         .I4(\EX_Sext_Op_reg[0]_0 [1]),
-        .I5(\Using_FPGA.Native_50 ),
+        .I5(\Using_FPGA.Native_48 ),
         .O(\Data_Flow_I/Shift_Logic_Module_I/O10_out ));
   LUT6 #(
     .INIT(64'h8A80AAAA8A800000)) 
@@ -12213,7 +12357,7 @@ module design_1_microblaze_0_1_Decode_gti
         .I2(\EX_Sext_Op_reg[0]_0 [0]),
         .I3(\D_reg[0] [21]),
         .I4(\EX_Sext_Op_reg[0]_0 [1]),
-        .I5(\Using_FPGA.Native_50 ),
+        .I5(\Using_FPGA.Native_48 ),
         .O(\Data_Flow_I/Shift_Logic_Module_I/O9_out ));
   LUT6 #(
     .INIT(64'h8A80AAAA8A800000)) 
@@ -12223,7 +12367,7 @@ module design_1_microblaze_0_1_Decode_gti
         .I2(\EX_Sext_Op_reg[0]_0 [0]),
         .I3(\D_reg[0] [22]),
         .I4(\EX_Sext_Op_reg[0]_0 [1]),
-        .I5(\Using_FPGA.Native_50 ),
+        .I5(\Using_FPGA.Native_48 ),
         .O(\Data_Flow_I/Shift_Logic_Module_I/O8_out ));
   LUT6 #(
     .INIT(64'h8A80AAAA8A800000)) 
@@ -12233,7 +12377,7 @@ module design_1_microblaze_0_1_Decode_gti
         .I2(\EX_Sext_Op_reg[0]_0 [0]),
         .I3(\D_reg[0] [23]),
         .I4(\EX_Sext_Op_reg[0]_0 [1]),
-        .I5(\Using_FPGA.Native_50 ),
+        .I5(\Using_FPGA.Native_48 ),
         .O(\Data_Flow_I/Shift_Logic_Module_I/O7_out ));
   LUT6 #(
     .INIT(64'h8A80AAAA8A800000)) 
@@ -12243,7 +12387,7 @@ module design_1_microblaze_0_1_Decode_gti
         .I2(\EX_Sext_Op_reg[0]_0 [0]),
         .I3(\D_reg[0] [24]),
         .I4(\EX_Sext_Op_reg[0]_0 [1]),
-        .I5(\Using_FPGA.Native_50 ),
+        .I5(\Using_FPGA.Native_48 ),
         .O(\Data_Flow_I/Shift_Logic_Module_I/O6_out ));
   LUT6 #(
     .INIT(64'h8A80AAAA8A800000)) 
@@ -12253,7 +12397,7 @@ module design_1_microblaze_0_1_Decode_gti
         .I2(\EX_Sext_Op_reg[0]_0 [0]),
         .I3(\D_reg[0] [25]),
         .I4(\EX_Sext_Op_reg[0]_0 [1]),
-        .I5(\Using_FPGA.Native_50 ),
+        .I5(\Using_FPGA.Native_48 ),
         .O(\Data_Flow_I/Shift_Logic_Module_I/O5_out ));
   LUT6 #(
     .INIT(64'h8A80AAAA8A800000)) 
@@ -12263,7 +12407,7 @@ module design_1_microblaze_0_1_Decode_gti
         .I2(\EX_Sext_Op_reg[0]_0 [0]),
         .I3(\D_reg[0] [26]),
         .I4(\EX_Sext_Op_reg[0]_0 [1]),
-        .I5(\Using_FPGA.Native_50 ),
+        .I5(\Using_FPGA.Native_48 ),
         .O(\Data_Flow_I/Shift_Logic_Module_I/O4_out ));
   LUT5 #(
     .INIT(32'hA8880888)) 
@@ -12282,7 +12426,7 @@ module design_1_microblaze_0_1_Decode_gti
         .I2(\EX_Sext_Op_reg[0]_0 [0]),
         .I3(\D_reg[0] [27]),
         .I4(\EX_Sext_Op_reg[0]_0 [1]),
-        .I5(\Using_FPGA.Native_50 ),
+        .I5(\Using_FPGA.Native_48 ),
         .O(\Data_Flow_I/Shift_Logic_Module_I/O3_out ));
   LUT6 #(
     .INIT(64'h8A80AAAA8A800000)) 
@@ -12292,7 +12436,7 @@ module design_1_microblaze_0_1_Decode_gti
         .I2(\EX_Sext_Op_reg[0]_0 [0]),
         .I3(\D_reg[0] [28]),
         .I4(\EX_Sext_Op_reg[0]_0 [1]),
-        .I5(\Using_FPGA.Native_50 ),
+        .I5(\Using_FPGA.Native_48 ),
         .O(\Data_Flow_I/Shift_Logic_Module_I/O2_out ));
   LUT6 #(
     .INIT(64'h8A80AAAA8A800000)) 
@@ -12302,7 +12446,7 @@ module design_1_microblaze_0_1_Decode_gti
         .I2(\EX_Sext_Op_reg[0]_0 [0]),
         .I3(\D_reg[0] [29]),
         .I4(\EX_Sext_Op_reg[0]_0 [1]),
-        .I5(\Using_FPGA.Native_50 ),
+        .I5(\Using_FPGA.Native_48 ),
         .O(\Data_Flow_I/Shift_Logic_Module_I/O1_out ));
   LUT6 #(
     .INIT(64'h8A80AAAA8A800000)) 
@@ -12312,7 +12456,7 @@ module design_1_microblaze_0_1_Decode_gti
         .I2(\EX_Sext_Op_reg[0]_0 [0]),
         .I3(\D_reg[0] [30]),
         .I4(\EX_Sext_Op_reg[0]_0 [1]),
-        .I5(\Using_FPGA.Native_50 ),
+        .I5(\Using_FPGA.Native_48 ),
         .O(\Data_Flow_I/Shift_Logic_Module_I/O0_out ));
   LUT6 #(
     .INIT(64'hB888B8B8B8888888)) 
@@ -12322,7 +12466,7 @@ module design_1_microblaze_0_1_Decode_gti
         .I2(ex_Enable_Sext_Shift),
         .I3(\Using_FPGA.Native_i_5__1_n_0 ),
         .I4(\EX_Sext_Op_reg[0]_0 [1]),
-        .I5(\Using_FPGA.Native_50 ),
+        .I5(\Using_FPGA.Native_48 ),
         .O(\Data_Flow_I/EX_Shift_Logic_Result ));
   LUT5 #(
     .INIT(32'hA8880888)) 
@@ -12369,7 +12513,6 @@ module design_1_microblaze_0_1_Decode_gti
         .I3(\EX_Sext_Op_reg[0]_0 [0]),
         .I4(\D_reg[0] [6]),
         .O(\Data_Flow_I/Shift_Logic_Module_I/O27_out ));
-  (* SOFT_HLUTNM = "soft_lutpair56" *) 
   LUT5 #(
     .INIT(32'hA8880888)) 
     \Using_FPGA.Native_i_3__9 
@@ -12414,7 +12557,7 @@ module design_1_microblaze_0_1_Decode_gti
         .\MEM_DataBus_Write_Data_reg[0]_0 (ex_reverse_mem_access),
         .\MEM_DataBus_Write_Data_reg[0]_1 (ex_doublet_access),
         .\Using_FPGA.Native_0 (ex_byte_access),
-        .\Using_FPGA.Native_1 (\Using_FPGA.Native_13 ),
+        .\Using_FPGA.Native_1 (\Performance_Debug_Control.dbg_state_nohalt_reg [102:79]),
         .\Using_FPGA.Native_2 (of_PipeRun_for_ce),
         .\Using_FPGA.Native_3 (PreFetch_Buffer_I1_n_182),
         .sync_reset(reset_bool_for_rst));
@@ -12431,8 +12574,8 @@ module design_1_microblaze_0_1_Decode_gti
         .MEM_DataBus_Read_reg_1(ex_Interrupt_Brk_combo_reg_0[1:0]),
         .MEM_Sel_MEM_Res_I_reg(MEM_Sel_MEM_Res_I_i_3_n_0),
         .\Using_FPGA.Native_0 (of_PipeRun_for_ce),
-        .\Using_FPGA.Native_1 (PreFetch_Buffer_I1_n_198),
-        .ex_Interrupt_Brk_combo_reg(\Using_FPGA_2.ex_is_load_instr_Inst_n_1 ),
+        .\Using_FPGA.Native_1 (PreFetch_Buffer_I1_n_197),
+        .ex_Interrupt_Brk_combo_reg(\Performance_Debug_Control.dbg_state_nohalt_reg [78:77]),
         .ex_Sel_SPR_BTR(ex_Sel_SPR_BTR),
         .ex_Sel_SPR_EAR(ex_Sel_SPR_EAR),
         .ex_Sel_SPR_EDR(ex_Sel_SPR_EDR),
@@ -12440,7 +12583,6 @@ module design_1_microblaze_0_1_Decode_gti
         .ex_Sel_SPR_PVR(ex_Sel_SPR_PVR),
         .ex_Sel_SPR_SLR(ex_Sel_SPR_SLR),
         .ex_Sel_SPR_SLR_reg(\Using_FPGA_2.ex_is_load_instr_Inst_n_3 ),
-        .ex_databus_write(ex_databus_write),
         .ex_is_multi_instr2(ex_is_multi_instr2),
         .ex_is_swx_instr_s(ex_is_swx_instr_s),
         .ex_load_store_instr_s(ex_load_store_instr_s),
@@ -12470,13 +12612,14 @@ module design_1_microblaze_0_1_Decode_gti
         .MEM_DataBus_Access_reg(\Using_FPGA_2.ex_is_swx_instr_Inst_n_1 ),
         .MEM_DataBus_Access_reg_0(mem_databus_access),
         .MEM_DataBus_Access_reg_1(mem_div_stall_i_reg),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_2 ),
+        .SRI(SRI),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_1 ),
         .\Using_FPGA.Native_1 (of_PipeRun_for_ce),
         .\Using_FPGA.Native_2 (\Using_FPGA.Native_0 ),
-        .\Using_FPGA.Native_3 (\Using_FPGA.Native_48 [1]),
+        .\Using_FPGA.Native_3 (\Using_FPGA.Native_46 [1]),
         .\Using_FPGA.Native_4 (wb_MSR_Clear_IE),
         .\Using_FPGA.Native_5 (\Using_FPGA.Native_i_3_n_0 ),
-        .\Using_FPGA.Native_6 (\Using_FPGA.Native_49 ),
+        .\Using_FPGA.Native_6 (\Using_FPGA.Native_47 ),
         .\Using_FPGA.Native_7 (\D_reg[0] [0]),
         .ex_MSR(ex_MSR[1]),
         .ex_MSR_Load_ALU_C(ex_MSR_Load_ALU_C),
@@ -12504,14 +12647,14 @@ module design_1_microblaze_0_1_Decode_gti
   design_1_microblaze_0_1_MB_FDRE_74 \Using_FPGA_2.ex_reverse_mem_access_inst 
        (.Clk(Clk),
         .\Using_FPGA.Native_0 (of_PipeRun_for_ce),
-        .\Using_FPGA.Native_1 (PreFetch_Buffer_I1_n_197),
+        .\Using_FPGA.Native_1 (PreFetch_Buffer_I1_n_198),
         .ex_reverse_mem_access(ex_reverse_mem_access),
         .sync_reset(reset_bool_for_rst));
   design_1_microblaze_0_1_MB_FDRE_75 \Using_FPGA_3.ex_clear_MSR_BIP_instr_Inst 
        (.Clk(Clk),
         .Q({ex_opcode[0],ex_opcode[1],ex_opcode[2],ex_opcode[3],ex_opcode[4],ex_opcode[5]}),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_3 ),
-        .\Using_FPGA.Native_1 (\Using_FPGA.Native_4 ),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_2 ),
+        .\Using_FPGA.Native_1 (\Using_FPGA.Native_3 ),
         .\Using_FPGA.Native_10 (ex_set_bip_reg_n_0),
         .\Using_FPGA.Native_11 (ex_Take_Intr_or_Exc_reg_0),
         .\Using_FPGA.Native_12 (\D_reg[0] [3]),
@@ -12521,7 +12664,7 @@ module design_1_microblaze_0_1_Decode_gti
         .\Using_FPGA.Native_4 (ex_Interrupt_Brk_combo_reg_0[1:0]),
         .\Using_FPGA.Native_5 (ex_Interrupt_i),
         .\Using_FPGA.Native_6 (ex_Take_Intr_or_Exc),
-        .\Using_FPGA.Native_7 (\Using_FPGA.Native_48 [2]),
+        .\Using_FPGA.Native_7 (\Using_FPGA.Native_46 [2]),
         .\Using_FPGA.Native_8 (wb_MSR_Clear_IE),
         .\Using_FPGA.Native_9 (\Using_FPGA.Native_0 ),
         .ex_MSR(ex_MSR[2]),
@@ -12546,8 +12689,8 @@ module design_1_microblaze_0_1_Decode_gti
         .of_read_ex_write_op1_conflict_part2(of_read_ex_write_op1_conflict_part2));
   design_1_microblaze_0_1_MB_LUT6__parameterized10 \Using_FPGA_4.of_read_ex_write_op1_conflict_INST2 
        (.I0(I0),
-        .\Using_FPGA.Native_i_1__67 (\ex_gpr_write_addr_reg_n_0_[4] ),
-        .\Using_FPGA.Native_i_1__67_0 (ex_gpr_write_reg_n_0),
+        .\Using_FPGA.Native_i_1__68 (\ex_gpr_write_addr_reg_n_0_[4] ),
+        .\Using_FPGA.Native_i_1__68_0 (ex_gpr_write_reg_n_0),
         .ex_valid(ex_valid),
         .of_predecode({of_predecode[4],of_predecode[5]}),
         .of_read_ex_write_op1_conflict_part2(of_read_ex_write_op1_conflict_part2));
@@ -12557,22 +12700,22 @@ module design_1_microblaze_0_1_Decode_gti
         .of_read_ex_write_op2_conflict_part1(of_read_ex_write_op2_conflict_part1));
   design_1_microblaze_0_1_MB_LUT6__parameterized10_77 \Using_FPGA_4.of_read_ex_write_op2_conflict_INST2 
        (.I0(I0),
-        .\Using_FPGA.Native_i_1__11 (\ex_gpr_write_addr_reg_n_0_[4] ),
-        .\Using_FPGA.Native_i_1__11_0 (ex_gpr_write_reg_n_0),
+        .\Using_FPGA.Native_i_1__12 (\ex_gpr_write_addr_reg_n_0_[4] ),
+        .\Using_FPGA.Native_i_1__12_0 (ex_gpr_write_reg_n_0),
         .ex_valid(ex_valid),
         .of_predecode({of_predecode[9],of_predecode[10]}),
         .of_read_ex_write_op2_conflict_part2(of_read_ex_write_op2_conflict_part2));
   design_1_microblaze_0_1_MB_LUT6__parameterized8_78 \Using_FPGA_4.of_read_ex_write_op3_conflict_INST1 
        (.D({\ex_gpr_write_addr_reg_n_0_[0] ,I2,I4}),
-        .\Using_FPGA.Native_i_1__65 ({of_gpr_op3_rd_addr[0],of_gpr_op3_rd_addr[1]}),
-        .\Using_FPGA.Native_i_1__65_0 (of_gpr_op3_rd_addr[2]),
+        .\Using_FPGA.Native_i_1__66 ({of_gpr_op3_rd_addr[0],of_gpr_op3_rd_addr[1]}),
+        .\Using_FPGA.Native_i_1__66_0 (of_gpr_op3_rd_addr[2]),
         .of_read_ex_write_op3_conflict_part1(of_read_ex_write_op3_conflict_part1));
   design_1_microblaze_0_1_MB_LUT6__parameterized10_79 \Using_FPGA_4.of_read_ex_write_op3_conflict_INST2 
        (.I0(I0),
-        .\Using_FPGA.Native_i_1__65_0 (of_gpr_op3_rd_addr[3]),
-        .\Using_FPGA.Native_i_1__65_1 (\ex_gpr_write_addr_reg_n_0_[4] ),
-        .\Using_FPGA.Native_i_1__65_2 (of_gpr_op3_rd_addr[4]),
-        .\Using_FPGA.Native_i_1__65_3 (ex_gpr_write_reg_n_0),
+        .\Using_FPGA.Native_i_1__66_0 (of_gpr_op3_rd_addr[3]),
+        .\Using_FPGA.Native_i_1__66_1 (\ex_gpr_write_addr_reg_n_0_[4] ),
+        .\Using_FPGA.Native_i_1__66_2 (of_gpr_op3_rd_addr[4]),
+        .\Using_FPGA.Native_i_1__66_3 (ex_gpr_write_reg_n_0),
         .ex_is_multi_or_load_instr(ex_is_multi_or_load_instr),
         .ex_is_multi_or_load_instr_reg(\Using_FPGA_4.of_read_ex_write_op3_conflict_INST2_n_0 ),
         .ex_valid(ex_valid),
@@ -12603,12 +12746,12 @@ module design_1_microblaze_0_1_Decode_gti
   design_1_microblaze_0_1_MB_LUT6__parameterized8_84 \Using_FPGA_4.of_read_mem_write_op3_conflict_INST1 
        (.D({of_gpr_op3_rd_addr[0],of_gpr_op3_rd_addr[1]}),
         .Q({mem_gpr_write_addr[0],mem_gpr_write_addr[1],mem_gpr_write_addr[2]}),
-        .\Using_FPGA.Native_i_1__64 (of_gpr_op3_rd_addr[2]),
+        .\Using_FPGA.Native_i_1__65 (of_gpr_op3_rd_addr[2]),
         .of_read_mem_write_op3_conflict_part1(of_read_mem_write_op3_conflict_part1));
   design_1_microblaze_0_1_MB_LUT6__parameterized10_85 \Using_FPGA_4.of_read_mem_write_op3_conflict_INST2 
        (.Q({mem_gpr_write_addr[3],mem_gpr_write_addr[4]}),
-        .\Using_FPGA.Native_i_1__64_0 (of_gpr_op3_rd_addr[3]),
-        .\Using_FPGA.Native_i_1__64_1 (of_gpr_op3_rd_addr[4]),
+        .\Using_FPGA.Native_i_1__65_0 (of_gpr_op3_rd_addr[3]),
+        .\Using_FPGA.Native_i_1__65_1 (of_gpr_op3_rd_addr[4]),
         .mem_gpr_write(mem_gpr_write),
         .mem_is_multi_or_load_instr(mem_is_multi_or_load_instr),
         .mem_is_multi_or_load_instr_reg(\Using_FPGA_4.of_read_mem_write_op3_conflict_INST2_n_0 ),
@@ -12682,7 +12825,7 @@ module design_1_microblaze_0_1_Decode_gti
         .Q(ex_not_mul_op),
         .R(reset_bool_for_rst));
   design_1_microblaze_0_1_carry_and_86 \Using_PC_Incr_Dbg_or_Prot.if_pc_incr_carry_and_1 
-       (.\Using_FPGA.Native (\Using_FPGA.Native_46 ),
+       (.\Using_FPGA.Native (\Using_FPGA.Native_44 ),
         .if_pc_incr_carry0(if_pc_incr_carry0),
         .if_pc_incr_carry1(if_pc_incr_carry1),
         .lopt(lopt_3),
@@ -12729,23 +12872,26 @@ module design_1_microblaze_0_1_Decode_gti
         .D(mem_read_imm_reg),
         .Q(wb_read_imm_reg),
         .R(reset_bool_for_rst));
+  (* SOFT_HLUTNM = "soft_lutpair52" *) 
+  LUT5 #(
+    .INIT(32'h0000008A)) 
+    Write_Strobe_INST_0_i_1
+       (.I0(ex_valid),
+        .I1(ex_Interrupt_Brk_combo_reg_0[0]),
+        .I2(ex_Interrupt_Brk_combo_reg_0[1]),
+        .I3(ex_Take_Intr_or_Exc),
+        .I4(ex_Interrupt_i),
+        .O(p_247_in));
   LUT6 #(
     .INIT(64'h0000000000220322)) 
-    active_access_i_1__0
-       (.I0(active_access_i_2_n_0),
+    active_access_i_1
+       (.I0(\Use_DBUS.DAXI_Interface_I1/M_AXI_DP_AWVALID_i1 ),
         .I1(LOCKSTEP_Master_Out[2]),
         .I2(M_AXI_DP_BVALID),
         .I3(active_access),
         .I4(M_AXI_DP_RVALID),
         .I5(reset_bool_for_rst),
         .O(M_AXI_DP_BVALID_0));
-  (* SOFT_HLUTNM = "soft_lutpair61" *) 
-  LUT2 #(
-    .INIT(4'h2)) 
-    active_access_i_2
-       (.I0(mem_databus_access),
-        .I1(active_access_d1),
-        .O(active_access_i_2_n_0));
   LUT5 #(
     .INIT(32'hEEEEEEE0)) 
     active_wakeup_i_1
@@ -12865,7 +13011,7 @@ module design_1_microblaze_0_1_Decode_gti
         .D(ex_atomic_Instruction_Pair0),
         .Q(ex_atomic_Instruction_Pair),
         .R(reset_bool_for_rst));
-  (* SOFT_HLUTNM = "soft_lutpair52" *) 
+  (* SOFT_HLUTNM = "soft_lutpair53" *) 
   LUT5 #(
     .INIT(32'hFFFF2000)) 
     ex_branch_with_delayslot_i_3
@@ -13268,7 +13414,7 @@ module design_1_microblaze_0_1_Decode_gti
     .INIT(32'hAAAA0008)) 
     ex_jump_nodelay_i_2
        (.I0(if_missed_fetch),
-        .I1(iext_data_strobe),
+        .I1(IReady),
         .I2(wb_Halted),
         .I3(\mem_pc_i_reg[0]_0 ),
         .I4(ex_Interrupt_Brk_combo_reg_0[2]),
@@ -13329,7 +13475,7 @@ module design_1_microblaze_0_1_Decode_gti
         .D(ex_mbar_sleep_i_1_n_0),
         .Q(ex_mbar_sleep),
         .R(1'b0));
-  (* SOFT_HLUTNM = "soft_lutpair60" *) 
+  (* SOFT_HLUTNM = "soft_lutpair61" *) 
   LUT4 #(
     .INIT(16'h4F44)) 
     ex_mbar_stall_no_sleep_1_i_1
@@ -13562,25 +13708,6 @@ module design_1_microblaze_0_1_Decode_gti
         .D(PreFetch_Buffer_I1_n_188),
         .Q(if_fetch_in_progress),
         .R(1'b0));
-  LUT6 #(
-    .INIT(64'h0000000000000001)) 
-    if_fetch_without_full_or_jump_inferred_i_1
-       (.I0(reset_bool_for_rst),
-        .I1(if_fetch_in_progress_reg_0),
-        .I2(wb_Halted),
-        .I3(mb_halted_1_reg),
-        .I4(ex_mbar_sleep),
-        .I5(ex_mbar_stall_no_sleep__0),
-        .O(if_fetch_without_full_or_jump));
-  LUT5 #(
-    .INIT(32'h54000000)) 
-    if_fetch_without_full_or_jump_inferred_i_2
-       (.I0(ex_jump_hold),
-        .I1(ex_mbar_stall_no_sleep_1),
-        .I2(ex_first_cycle),
-        .I3(ex_mbar_decode),
-        .I4(ex_Take_Intr_or_Exc_reg_0),
-        .O(ex_mbar_stall_no_sleep__0));
   FDRE if_missed_fetch_reg
        (.C(Clk),
         .CE(1'b1),
@@ -13592,7 +13719,7 @@ module design_1_microblaze_0_1_Decode_gti
         .if_pc_incr_carry0(if_pc_incr_carry0),
         .lopt(lopt_3),
         .lopt_1(lopt_4),
-        .lopt_2(\Using_FPGA.Native_46 ),
+        .lopt_2(\Using_FPGA.Native_44 ),
         .lopt_3(lopt_5),
         .lopt_4(lopt_6),
         .lopt_5(if_fetch_for_timing_optimization1),
@@ -13615,13 +13742,13 @@ module design_1_microblaze_0_1_Decode_gti
         .O(O87_out),
         .O56_out(O56_out),
         .Q(\Performance_Debug_Control.dbg_state_nohalt_reg [4:2]),
-        .\Using_FPGA.Native (\Using_FPGA.Native_45 ),
-        .\Using_FPGA.Native_0 (PreFetch_Buffer_I1_n_195),
-        .\Using_FPGA.Native_1 (\Using_FPGA.Native_47 ),
+        .\Using_FPGA.Native (jump_logic_I1_n_46),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_43 ),
+        .\Using_FPGA.Native_1 (PreFetch_Buffer_I1_n_195),
+        .\Using_FPGA.Native_2 (\Using_FPGA.Native_45 ),
         .ex_Take_Intr_or_Exc_reg(jump_logic_I1_n_4),
         .ex_Take_Intr_or_Exc_reg_0(ex_Take_Intr_or_Exc),
         .ex_branch_with_delayslot(ex_branch_with_delayslot),
-        .ex_branch_with_delayslot_reg(jump_logic_I1_n_46),
         .ex_databus_addr(ex_databus_addr),
         .ex_delayslot_Instr0(ex_delayslot_Instr0),
         .ex_first_cycle(ex_first_cycle),
@@ -13649,10 +13776,11 @@ module design_1_microblaze_0_1_Decode_gti
         .force12_out(force12_out),
         .force_Val10_out(force_Val10_out),
         .force_Val2_N_reg_0(PreFetch_Buffer_I1_n_60),
-        .ib_addr_strobe(ib_addr_strobe),
         .if_missed_fetch(if_missed_fetch),
         .if_missed_fetch_reg(jump_logic_I1_n_42),
-        .\if_pc_reg[0] (\if_pc_reg[0] ),
+        .if_missed_fetch_reg_0(\Performance_Debug_Control.dbg_state_nohalt_reg [135]),
+        .\if_pc_reg[0] (\Performance_Debug_Control.dbg_state_nohalt_reg [134:103]),
+        .\if_pc_reg[0]_0 (\MEM_DataBus_Addr_reg[0]_0 [61:32]),
         .\if_pc_reg[10] (O49_out),
         .\if_pc_reg[11] (O51_out),
         .\if_pc_reg[12] (O53_out),
@@ -13707,11 +13835,11 @@ module design_1_microblaze_0_1_Decode_gti
         .R(1'b0));
   design_1_microblaze_0_1_carry_and_89 mem_PipeRun_carry_and
        (.Trace_WB_Jump_Taken_reg(Trace_WB_Jump_Taken_reg_0),
-        .\Using_FPGA.Native (\Using_FPGA.Native_9 ),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_11 ),
-        .\Using_FPGA.Native_1 (\Using_FPGA.Native_12 ),
+        .\Using_FPGA.Native (\Using_FPGA.Native_8 ),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_10 ),
+        .\Using_FPGA.Native_1 (\Using_FPGA.Native_11 ),
         .\Using_FPGA.Native_2 (wb_MSR_Clear_IE),
-        .\Using_FPGA.Native_3 (\Using_FPGA.Native_48 ),
+        .\Using_FPGA.Native_3 (\Using_FPGA.Native_46 ),
         .ex_MSR(ex_MSR[2:0]),
         .flush_pipe(flush_pipe),
         .lopt(lopt_11),
@@ -13732,7 +13860,7 @@ module design_1_microblaze_0_1_Decode_gti
         .wb_valid_reg(mem_PipeRun_carry_and_n_2),
         .wb_valid_reg_0(wb_valid_reg_0),
         .wb_valid_reg_1(wb_PipeRun_i_reg_0));
-  (* SOFT_HLUTNM = "soft_lutpair57" *) 
+  (* SOFT_HLUTNM = "soft_lutpair58" *) 
   LUT5 #(
     .INIT(32'h00202020)) 
     mem_Write_DCache_i_1
@@ -13775,7 +13903,7 @@ module design_1_microblaze_0_1_Decode_gti
         .D(ex_doublet_access),
         .Q(mem_doublet_access),
         .R(reset_bool_for_rst));
-  (* SOFT_HLUTNM = "soft_lutpair53" *) 
+  (* SOFT_HLUTNM = "soft_lutpair52" *) 
   LUT5 #(
     .INIT(32'hFF040000)) 
     mem_exception_from_ex_i_1
@@ -14145,7 +14273,8 @@ module design_1_microblaze_0_1_Decode_gti
         .Q(mem_valid_instr),
         .R(1'b0));
   design_1_microblaze_0_1_carry_or mem_wait_on_ready_N_carry_or
-       (.lopt(lopt_11),
+       (.MEM_DataBus_Ready(MEM_DataBus_Ready),
+        .lopt(lopt_11),
         .lopt_1(lopt_12),
         .lopt_2(Trace_WB_Jump_Taken_reg_0),
         .lopt_3(lopt_13),
@@ -14155,7 +14284,6 @@ module design_1_microblaze_0_1_Decode_gti
         .lopt_7(lopt_17),
         .lopt_8(jump_logic_I1_n_46),
         .mem_Write_DCache(mem_Write_DCache),
-        .mem_databus_Data_Strobe(mem_databus_Data_Strobe),
         .mem_load_store_access(mem_load_store_access),
         .mem_valid_instr(mem_valid_instr),
         .mem_wait_on_ready_N(mem_wait_on_ready_N));
@@ -14183,7 +14311,7 @@ module design_1_microblaze_0_1_Decode_gti
         .D(\Use_MuxCy[3].OF_Piperun_Stage_n_9 ),
         .Q(of_set_MSR_IE_hold_reg_n_0),
         .R(1'b0));
-  (* SOFT_HLUTNM = "soft_lutpair56" *) 
+  (* SOFT_HLUTNM = "soft_lutpair57" *) 
   LUT3 #(
     .INIT(8'h02)) 
     sign_byte_inferred_i_1
@@ -14191,23 +14319,23 @@ module design_1_microblaze_0_1_Decode_gti
         .I1(\EX_Sext_Op_reg[0]_0 [0]),
         .I2(\EX_Sext_Op_reg[0]_0 [1]),
         .O(in0));
-  (* SOFT_HLUTNM = "soft_lutpair55" *) 
+  (* SOFT_HLUTNM = "soft_lutpair56" *) 
   LUT5 #(
     .INIT(32'hA2AAAAAA)) 
     \wb_MSR_i[30]_i_1 
-       (.I0(\Using_FPGA.Native_48 [0]),
+       (.I0(\Using_FPGA.Native_46 [0]),
         .I1(\Performance_Debug_Control.dbg_state_nohalt_reg [3]),
         .I2(\Performance_Debug_Control.dbg_state_nohalt_reg [2]),
         .I3(\Performance_Debug_Control.dbg_state_nohalt_reg [4]),
         .I4(wb_exception),
-        .O(\Using_FPGA.Native_10 ));
+        .O(\Using_FPGA.Native_9 ));
   FDRE wb_PipeRun_i_reg
        (.C(Clk),
         .CE(1'b1),
         .D(mem_div_stall_i_reg),
         .Q(wb_PipeRun_i_reg_0),
         .R(reset_bool_for_rst));
-  (* SOFT_HLUTNM = "soft_lutpair57" *) 
+  (* SOFT_HLUTNM = "soft_lutpair58" *) 
   LUT2 #(
     .INIT(4'h8)) 
     wb_exception_i_i_1
@@ -17096,12 +17224,12 @@ module design_1_microblaze_0_1_Div_unit_gti
         .R(ex_start_div));
   LUT1 #(
     .INIT(2'h1)) 
-    \Using_FPGA.Native_i_1__44 
+    \Using_FPGA.Native_i_1__45 
        (.I0(mem_div_stall),
         .O(mem_div_stall_i_reg_0));
   LUT6 #(
     .INIT(64'hFFFEFFFF55540000)) 
-    \Using_FPGA.Native_i_1__58 
+    \Using_FPGA.Native_i_1__59 
        (.I0(wb_MSR_Clear_IE),
         .I1(mem_div_overflow),
         .I2(mem_div_by_zero),
@@ -17111,7 +17239,7 @@ module design_1_microblaze_0_1_Div_unit_gti
         .O(MEM_Div_Overflow_reg_0));
   LUT6 #(
     .INIT(64'hBFBFBFBFBFBFBF80)) 
-    \Using_FPGA.Native_i_2__26 
+    \Using_FPGA.Native_i_2__27 
        (.I0(\Using_FPGA.Native ),
         .I1(\Using_FPGA.Native_0 ),
         .I2(ex_move_to_MSR_instr),
@@ -17234,494 +17362,26 @@ module design_1_microblaze_0_1_Div_unit_gti
         .R(1'b0));
 endmodule
 
-(* ORIG_REF_NAME = "IAXI_Interface" *) 
-module design_1_microblaze_0_1_IAXI_Interface
-   (iext_data_strobe,
-    D,
-    Q,
+(* ORIG_REF_NAME = "MB_AND2B1L" *) 
+module design_1_microblaze_0_1_MB_AND2B1L
+   (D,
     E,
-    Clk,
-    sync_reset,
-    IWAIT,
-    LOCKSTEP_Master_Out,
-    M_AXI_IP_RVALID,
-    M_AXI_IP_ARREADY,
-    mem_access_completed_reg_0,
-    mem_databus_access,
-    \instr_addr_reg[0]_0 ,
-    M_AXI_IP_RDATA);
-  output iext_data_strobe;
-  output [32:0]D;
-  output [31:0]Q;
+    SRI);
+  output [0:0]D;
   input [0:0]E;
-  input Clk;
-  input sync_reset;
-  input IWAIT;
-  input [0:0]LOCKSTEP_Master_Out;
-  input M_AXI_IP_RVALID;
-  input M_AXI_IP_ARREADY;
-  input mem_access_completed_reg_0;
-  input mem_databus_access;
-  input [31:0]\instr_addr_reg[0]_0 ;
-  input [31:0]M_AXI_IP_RDATA;
+  input SRI;
 
-  wire Clk;
-  wire [32:0]D;
+  wire [0:0]D;
   wire [0:0]E;
-  wire IWAIT;
-  wire [0:0]LOCKSTEP_Master_Out;
-  wire M_AXI_IP_ARREADY;
-  wire M_AXI_IP_ARVALID_i_i_1_n_0;
-  wire [31:0]M_AXI_IP_RDATA;
-  wire M_AXI_IP_RVALID;
-  wire [31:0]Q;
-  wire active_access;
-  wire active_access_i_1_n_0;
-  wire ib_addr_strobe_d1;
-  wire iext_data_strobe;
-  wire [31:0]\instr_addr_reg[0]_0 ;
-  wire mem_access_completed_i_1_n_0;
-  wire mem_access_completed_reg_0;
-  wire mem_databus_access;
-  wire sync_reset;
+  wire SRI;
 
-  FDRE \IAXI_Data_reg[0] 
-       (.C(Clk),
-        .CE(1'b1),
-        .D(M_AXI_IP_RDATA[31]),
-        .Q(Q[31]),
-        .R(sync_reset));
-  FDRE \IAXI_Data_reg[10] 
-       (.C(Clk),
-        .CE(1'b1),
-        .D(M_AXI_IP_RDATA[21]),
-        .Q(Q[21]),
-        .R(sync_reset));
-  FDRE \IAXI_Data_reg[11] 
-       (.C(Clk),
-        .CE(1'b1),
-        .D(M_AXI_IP_RDATA[20]),
-        .Q(Q[20]),
-        .R(sync_reset));
-  FDRE \IAXI_Data_reg[12] 
-       (.C(Clk),
-        .CE(1'b1),
-        .D(M_AXI_IP_RDATA[19]),
-        .Q(Q[19]),
-        .R(sync_reset));
-  FDRE \IAXI_Data_reg[13] 
-       (.C(Clk),
-        .CE(1'b1),
-        .D(M_AXI_IP_RDATA[18]),
-        .Q(Q[18]),
-        .R(sync_reset));
-  FDRE \IAXI_Data_reg[14] 
-       (.C(Clk),
-        .CE(1'b1),
-        .D(M_AXI_IP_RDATA[17]),
-        .Q(Q[17]),
-        .R(sync_reset));
-  FDRE \IAXI_Data_reg[15] 
-       (.C(Clk),
-        .CE(1'b1),
-        .D(M_AXI_IP_RDATA[16]),
-        .Q(Q[16]),
-        .R(sync_reset));
-  FDRE \IAXI_Data_reg[16] 
-       (.C(Clk),
-        .CE(1'b1),
-        .D(M_AXI_IP_RDATA[15]),
-        .Q(Q[15]),
-        .R(sync_reset));
-  FDRE \IAXI_Data_reg[17] 
-       (.C(Clk),
-        .CE(1'b1),
-        .D(M_AXI_IP_RDATA[14]),
-        .Q(Q[14]),
-        .R(sync_reset));
-  FDRE \IAXI_Data_reg[18] 
-       (.C(Clk),
-        .CE(1'b1),
-        .D(M_AXI_IP_RDATA[13]),
-        .Q(Q[13]),
-        .R(sync_reset));
-  FDRE \IAXI_Data_reg[19] 
-       (.C(Clk),
-        .CE(1'b1),
-        .D(M_AXI_IP_RDATA[12]),
-        .Q(Q[12]),
-        .R(sync_reset));
-  FDRE \IAXI_Data_reg[1] 
-       (.C(Clk),
-        .CE(1'b1),
-        .D(M_AXI_IP_RDATA[30]),
-        .Q(Q[30]),
-        .R(sync_reset));
-  FDRE \IAXI_Data_reg[20] 
-       (.C(Clk),
-        .CE(1'b1),
-        .D(M_AXI_IP_RDATA[11]),
-        .Q(Q[11]),
-        .R(sync_reset));
-  FDRE \IAXI_Data_reg[21] 
-       (.C(Clk),
-        .CE(1'b1),
-        .D(M_AXI_IP_RDATA[10]),
-        .Q(Q[10]),
-        .R(sync_reset));
-  FDRE \IAXI_Data_reg[22] 
-       (.C(Clk),
-        .CE(1'b1),
-        .D(M_AXI_IP_RDATA[9]),
-        .Q(Q[9]),
-        .R(sync_reset));
-  FDRE \IAXI_Data_reg[23] 
-       (.C(Clk),
-        .CE(1'b1),
-        .D(M_AXI_IP_RDATA[8]),
-        .Q(Q[8]),
-        .R(sync_reset));
-  FDRE \IAXI_Data_reg[24] 
-       (.C(Clk),
-        .CE(1'b1),
-        .D(M_AXI_IP_RDATA[7]),
-        .Q(Q[7]),
-        .R(sync_reset));
-  FDRE \IAXI_Data_reg[25] 
-       (.C(Clk),
-        .CE(1'b1),
-        .D(M_AXI_IP_RDATA[6]),
-        .Q(Q[6]),
-        .R(sync_reset));
-  FDRE \IAXI_Data_reg[26] 
-       (.C(Clk),
-        .CE(1'b1),
-        .D(M_AXI_IP_RDATA[5]),
-        .Q(Q[5]),
-        .R(sync_reset));
-  FDRE \IAXI_Data_reg[27] 
-       (.C(Clk),
-        .CE(1'b1),
-        .D(M_AXI_IP_RDATA[4]),
-        .Q(Q[4]),
-        .R(sync_reset));
-  FDRE \IAXI_Data_reg[28] 
-       (.C(Clk),
-        .CE(1'b1),
-        .D(M_AXI_IP_RDATA[3]),
-        .Q(Q[3]),
-        .R(sync_reset));
-  FDRE \IAXI_Data_reg[29] 
-       (.C(Clk),
-        .CE(1'b1),
-        .D(M_AXI_IP_RDATA[2]),
-        .Q(Q[2]),
-        .R(sync_reset));
-  FDRE \IAXI_Data_reg[2] 
-       (.C(Clk),
-        .CE(1'b1),
-        .D(M_AXI_IP_RDATA[29]),
-        .Q(Q[29]),
-        .R(sync_reset));
-  FDRE \IAXI_Data_reg[30] 
-       (.C(Clk),
-        .CE(1'b1),
-        .D(M_AXI_IP_RDATA[1]),
-        .Q(Q[1]),
-        .R(sync_reset));
-  FDRE \IAXI_Data_reg[31] 
-       (.C(Clk),
-        .CE(1'b1),
-        .D(M_AXI_IP_RDATA[0]),
-        .Q(Q[0]),
-        .R(sync_reset));
-  FDRE \IAXI_Data_reg[3] 
-       (.C(Clk),
-        .CE(1'b1),
-        .D(M_AXI_IP_RDATA[28]),
-        .Q(Q[28]),
-        .R(sync_reset));
-  FDRE \IAXI_Data_reg[4] 
-       (.C(Clk),
-        .CE(1'b1),
-        .D(M_AXI_IP_RDATA[27]),
-        .Q(Q[27]),
-        .R(sync_reset));
-  FDRE \IAXI_Data_reg[5] 
-       (.C(Clk),
-        .CE(1'b1),
-        .D(M_AXI_IP_RDATA[26]),
-        .Q(Q[26]),
-        .R(sync_reset));
-  FDRE \IAXI_Data_reg[6] 
-       (.C(Clk),
-        .CE(1'b1),
-        .D(M_AXI_IP_RDATA[25]),
-        .Q(Q[25]),
-        .R(sync_reset));
-  FDRE \IAXI_Data_reg[7] 
-       (.C(Clk),
-        .CE(1'b1),
-        .D(M_AXI_IP_RDATA[24]),
-        .Q(Q[24]),
-        .R(sync_reset));
-  FDRE \IAXI_Data_reg[8] 
-       (.C(Clk),
-        .CE(1'b1),
-        .D(M_AXI_IP_RDATA[23]),
-        .Q(Q[23]),
-        .R(sync_reset));
-  FDRE \IAXI_Data_reg[9] 
-       (.C(Clk),
-        .CE(1'b1),
-        .D(M_AXI_IP_RDATA[22]),
-        .Q(Q[22]),
-        .R(sync_reset));
-  LUT5 #(
-    .INIT(32'h000002F2)) 
-    M_AXI_IP_ARVALID_i_i_1
-       (.I0(ib_addr_strobe_d1),
-        .I1(IWAIT),
-        .I2(D[0]),
-        .I3(M_AXI_IP_ARREADY),
-        .I4(sync_reset),
-        .O(M_AXI_IP_ARVALID_i_i_1_n_0));
-  FDRE #(
-    .INIT(1'b0)) 
-    M_AXI_IP_ARVALID_i_reg
-       (.C(Clk),
-        .CE(1'b1),
-        .D(M_AXI_IP_ARVALID_i_i_1_n_0),
-        .Q(D[0]),
-        .R(1'b0));
-  LUT6 #(
-    .INIT(64'h00000000000F0202)) 
-    active_access_i_1
-       (.I0(ib_addr_strobe_d1),
-        .I1(IWAIT),
-        .I2(LOCKSTEP_Master_Out),
-        .I3(M_AXI_IP_RVALID),
-        .I4(active_access),
-        .I5(sync_reset),
-        .O(active_access_i_1_n_0));
-  FDRE active_access_reg
-       (.C(Clk),
-        .CE(1'b1),
-        .D(active_access_i_1_n_0),
-        .Q(active_access),
-        .R(1'b0));
-  FDRE ib_addr_strobe_d1_reg
-       (.C(Clk),
-        .CE(1'b1),
-        .D(E),
-        .Q(ib_addr_strobe_d1),
-        .R(1'b0));
-  FDRE \instr_addr_reg[0] 
-       (.C(Clk),
-        .CE(E),
-        .D(\instr_addr_reg[0]_0 [31]),
-        .Q(D[32]),
-        .R(1'b0));
-  FDRE \instr_addr_reg[10] 
-       (.C(Clk),
-        .CE(E),
-        .D(\instr_addr_reg[0]_0 [21]),
-        .Q(D[22]),
-        .R(1'b0));
-  FDRE \instr_addr_reg[11] 
-       (.C(Clk),
-        .CE(E),
-        .D(\instr_addr_reg[0]_0 [20]),
-        .Q(D[21]),
-        .R(1'b0));
-  FDRE \instr_addr_reg[12] 
-       (.C(Clk),
-        .CE(E),
-        .D(\instr_addr_reg[0]_0 [19]),
-        .Q(D[20]),
-        .R(1'b0));
-  FDRE \instr_addr_reg[13] 
-       (.C(Clk),
-        .CE(E),
-        .D(\instr_addr_reg[0]_0 [18]),
-        .Q(D[19]),
-        .R(1'b0));
-  FDRE \instr_addr_reg[14] 
-       (.C(Clk),
-        .CE(E),
-        .D(\instr_addr_reg[0]_0 [17]),
-        .Q(D[18]),
-        .R(1'b0));
-  FDRE \instr_addr_reg[15] 
-       (.C(Clk),
-        .CE(E),
-        .D(\instr_addr_reg[0]_0 [16]),
-        .Q(D[17]),
-        .R(1'b0));
-  FDRE \instr_addr_reg[16] 
-       (.C(Clk),
-        .CE(E),
-        .D(\instr_addr_reg[0]_0 [15]),
-        .Q(D[16]),
-        .R(1'b0));
-  FDRE \instr_addr_reg[17] 
-       (.C(Clk),
-        .CE(E),
-        .D(\instr_addr_reg[0]_0 [14]),
-        .Q(D[15]),
-        .R(1'b0));
-  FDRE \instr_addr_reg[18] 
-       (.C(Clk),
-        .CE(E),
-        .D(\instr_addr_reg[0]_0 [13]),
-        .Q(D[14]),
-        .R(1'b0));
-  FDRE \instr_addr_reg[19] 
-       (.C(Clk),
-        .CE(E),
-        .D(\instr_addr_reg[0]_0 [12]),
-        .Q(D[13]),
-        .R(1'b0));
-  FDRE \instr_addr_reg[1] 
-       (.C(Clk),
-        .CE(E),
-        .D(\instr_addr_reg[0]_0 [30]),
-        .Q(D[31]),
-        .R(1'b0));
-  FDRE \instr_addr_reg[20] 
-       (.C(Clk),
-        .CE(E),
-        .D(\instr_addr_reg[0]_0 [11]),
-        .Q(D[12]),
-        .R(1'b0));
-  FDRE \instr_addr_reg[21] 
-       (.C(Clk),
-        .CE(E),
-        .D(\instr_addr_reg[0]_0 [10]),
-        .Q(D[11]),
-        .R(1'b0));
-  FDRE \instr_addr_reg[22] 
-       (.C(Clk),
-        .CE(E),
-        .D(\instr_addr_reg[0]_0 [9]),
-        .Q(D[10]),
-        .R(1'b0));
-  FDRE \instr_addr_reg[23] 
-       (.C(Clk),
-        .CE(E),
-        .D(\instr_addr_reg[0]_0 [8]),
-        .Q(D[9]),
-        .R(1'b0));
-  FDRE \instr_addr_reg[24] 
-       (.C(Clk),
-        .CE(E),
-        .D(\instr_addr_reg[0]_0 [7]),
-        .Q(D[8]),
-        .R(1'b0));
-  FDRE \instr_addr_reg[25] 
-       (.C(Clk),
-        .CE(E),
-        .D(\instr_addr_reg[0]_0 [6]),
-        .Q(D[7]),
-        .R(1'b0));
-  FDRE \instr_addr_reg[26] 
-       (.C(Clk),
-        .CE(E),
-        .D(\instr_addr_reg[0]_0 [5]),
-        .Q(D[6]),
-        .R(1'b0));
-  FDRE \instr_addr_reg[27] 
-       (.C(Clk),
-        .CE(E),
-        .D(\instr_addr_reg[0]_0 [4]),
-        .Q(D[5]),
-        .R(1'b0));
-  FDRE \instr_addr_reg[28] 
-       (.C(Clk),
-        .CE(E),
-        .D(\instr_addr_reg[0]_0 [3]),
-        .Q(D[4]),
-        .R(1'b0));
-  FDRE \instr_addr_reg[29] 
-       (.C(Clk),
-        .CE(E),
-        .D(\instr_addr_reg[0]_0 [2]),
-        .Q(D[3]),
-        .R(1'b0));
-  FDRE \instr_addr_reg[2] 
-       (.C(Clk),
-        .CE(E),
-        .D(\instr_addr_reg[0]_0 [29]),
-        .Q(D[30]),
-        .R(1'b0));
-  FDRE \instr_addr_reg[30] 
-       (.C(Clk),
-        .CE(E),
-        .D(\instr_addr_reg[0]_0 [1]),
-        .Q(D[2]),
-        .R(1'b0));
-  FDRE \instr_addr_reg[31] 
-       (.C(Clk),
-        .CE(E),
-        .D(\instr_addr_reg[0]_0 [0]),
-        .Q(D[1]),
-        .R(1'b0));
-  FDRE \instr_addr_reg[3] 
-       (.C(Clk),
-        .CE(E),
-        .D(\instr_addr_reg[0]_0 [28]),
-        .Q(D[29]),
-        .R(1'b0));
-  FDRE \instr_addr_reg[4] 
-       (.C(Clk),
-        .CE(E),
-        .D(\instr_addr_reg[0]_0 [27]),
-        .Q(D[28]),
-        .R(1'b0));
-  FDRE \instr_addr_reg[5] 
-       (.C(Clk),
-        .CE(E),
-        .D(\instr_addr_reg[0]_0 [26]),
-        .Q(D[27]),
-        .R(1'b0));
-  FDRE \instr_addr_reg[6] 
-       (.C(Clk),
-        .CE(E),
-        .D(\instr_addr_reg[0]_0 [25]),
-        .Q(D[26]),
-        .R(1'b0));
-  FDRE \instr_addr_reg[7] 
-       (.C(Clk),
-        .CE(E),
-        .D(\instr_addr_reg[0]_0 [24]),
-        .Q(D[25]),
-        .R(1'b0));
-  FDRE \instr_addr_reg[8] 
-       (.C(Clk),
-        .CE(E),
-        .D(\instr_addr_reg[0]_0 [23]),
-        .Q(D[24]),
-        .R(1'b0));
-  FDRE \instr_addr_reg[9] 
-       (.C(Clk),
-        .CE(E),
-        .D(\instr_addr_reg[0]_0 [22]),
-        .Q(D[23]),
-        .R(1'b0));
-  LUT4 #(
-    .INIT(16'hF888)) 
-    mem_access_completed_i_1
-       (.I0(M_AXI_IP_RVALID),
-        .I1(active_access),
-        .I2(mem_access_completed_reg_0),
-        .I3(mem_databus_access),
-        .O(mem_access_completed_i_1_n_0));
-  FDRE mem_access_completed_reg
-       (.C(Clk),
-        .CE(1'b1),
-        .D(mem_access_completed_i_1_n_0),
-        .Q(iext_data_strobe),
-        .R(sync_reset));
+  (* box_type = "PRIMITIVE" *) 
+  AND2B1L #(
+    .IS_SRI_INVERTED(1'b0)) 
+    \Using_FPGA.Native 
+       (.DI(E),
+        .O(D),
+        .SRI(SRI));
 endmodule
 
 (* ORIG_REF_NAME = "MB_DSP48E1" *) 
@@ -19227,7 +18887,7 @@ module design_1_microblaze_0_1_MB_FDR
   wire I0;
   wire \Using_FPGA.Native_0 ;
   wire \Using_FPGA.Native_1 ;
-  wire \Using_FPGA.Native_i_1__104_n_0 ;
+  wire \Using_FPGA.Native_i_1__105_n_0 ;
   wire \ex_gpr_write_addr_reg[3] ;
   wire of_clear_MSR_BIP_hold_s;
   wire p_205_in;
@@ -19240,23 +18900,23 @@ module design_1_microblaze_0_1_MB_FDR
     \Using_FPGA.Native 
        (.C(Clk),
         .CE(1'b1),
-        .D(\Using_FPGA.Native_i_1__104_n_0 ),
+        .D(\Using_FPGA.Native_i_1__105_n_0 ),
         .Q(of_clear_MSR_BIP_hold_s),
         .R(sync_reset));
   (* SOFT_HLUTNM = "soft_lutpair32" *) 
   LUT5 #(
     .INIT(32'h0000EAAA)) 
-    \Using_FPGA.Native_i_1__104 
+    \Using_FPGA.Native_i_1__105 
        (.I0(of_clear_MSR_BIP_hold_s),
         .I1(p_205_in),
         .I2(I0),
         .I3(\Using_FPGA.Native_0 ),
         .I4(\Using_FPGA.Native_1 ),
-        .O(\Using_FPGA.Native_i_1__104_n_0 ));
+        .O(\Using_FPGA.Native_i_1__105_n_0 ));
   (* SOFT_HLUTNM = "soft_lutpair32" *) 
   LUT3 #(
     .INIT(8'hF8)) 
-    \Using_FPGA.Native_i_1__4 
+    \Using_FPGA.Native_i_1__5 
        (.I0(p_205_in),
         .I1(I0),
         .I2(of_clear_MSR_BIP_hold_s),
@@ -19288,7 +18948,7 @@ module design_1_microblaze_0_1_MB_FDRE
   wire \Using_FPGA.Native_0 ;
   wire \Using_FPGA.Native_1 ;
   wire [1:0]\Using_FPGA.Native_2 ;
-  wire \Using_FPGA.Native_i_1__3_n_0 ;
+  wire \Using_FPGA.Native_i_1__4_n_0 ;
   wire ex_valid;
   wire mem_exception_from_ex;
   wire sync_reset;
@@ -19302,17 +18962,17 @@ module design_1_microblaze_0_1_MB_FDRE
     \Using_FPGA.Native 
        (.C(Clk),
         .CE(\Using_FPGA.Native_0 ),
-        .D(\Using_FPGA.Native_i_1__3_n_0 ),
+        .D(\Using_FPGA.Native_i_1__4_n_0 ),
         .Q(Q2_out),
         .R(sync_reset));
   LUT4 #(
     .INIT(16'h8F88)) 
-    \Using_FPGA.Native_i_1__3 
+    \Using_FPGA.Native_i_1__4 
        (.I0(ex_valid),
         .I1(\Using_FPGA.Native_1 ),
         .I2(\Using_FPGA.Native_2 [0]),
         .I3(\Using_FPGA.Native_2 [1]),
-        .O(\Using_FPGA.Native_i_1__3_n_0 ));
+        .O(\Using_FPGA.Native_i_1__4_n_0 ));
   LUT2 #(
     .INIT(4'h8)) 
     \wb_exception_kind_i[28]_i_1 
@@ -20780,7 +20440,7 @@ module design_1_microblaze_0_1_MB_FDRE_66
   wire \Using_FPGA.Native_0 ;
   wire \Using_FPGA.Native_1 ;
   wire [1:0]\Using_FPGA.Native_2 ;
-  wire \Using_FPGA.Native_i_1__103_n_0 ;
+  wire \Using_FPGA.Native_i_1__104_n_0 ;
   wire ex_valid;
   wire mem_exception_from_ex;
   wire sync_reset;
@@ -20794,17 +20454,17 @@ module design_1_microblaze_0_1_MB_FDRE_66
     \Using_FPGA.Native 
        (.C(Clk),
         .CE(\Using_FPGA.Native_0 ),
-        .D(\Using_FPGA.Native_i_1__103_n_0 ),
+        .D(\Using_FPGA.Native_i_1__104_n_0 ),
         .Q(Q0_out),
         .R(sync_reset));
   LUT4 #(
     .INIT(16'h8088)) 
-    \Using_FPGA.Native_i_1__103 
+    \Using_FPGA.Native_i_1__104 
        (.I0(ex_valid),
         .I1(\Using_FPGA.Native_1 ),
         .I2(\Using_FPGA.Native_2 [0]),
         .I3(\Using_FPGA.Native_2 [1]),
-        .O(\Using_FPGA.Native_i_1__103_n_0 ));
+        .O(\Using_FPGA.Native_i_1__104_n_0 ));
   LUT2 #(
     .INIT(4'h8)) 
     \wb_exception_kind_i[30]_i_1 
@@ -20889,7 +20549,7 @@ module design_1_microblaze_0_1_MB_FDRE_68
 
   LUT6 #(
     .INIT(64'hFF00EF45FF00EA40)) 
-    \MEM_DataBus_Write_Data[0]_i_1 
+    \Data_Write[0]_INST_0 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\MEM_DataBus_Write_Data_reg[0] [15]),
         .I2(\MEM_DataBus_Write_Data_reg[0]_1 ),
@@ -20899,7 +20559,7 @@ module design_1_microblaze_0_1_MB_FDRE_68
         .O(\Using_FPGA.Native_1 [23]));
   LUT6 #(
     .INIT(64'hDD88CDCDDD88C8C8)) 
-    \MEM_DataBus_Write_Data[10]_i_1 
+    \Data_Write[10]_INST_0 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\MEM_DataBus_Write_Data_reg[0] [5]),
         .I2(\MEM_DataBus_Write_Data_reg[0]_1 ),
@@ -20909,7 +20569,7 @@ module design_1_microblaze_0_1_MB_FDRE_68
         .O(\Using_FPGA.Native_1 [13]));
   LUT6 #(
     .INIT(64'hDD88CDCDDD88C8C8)) 
-    \MEM_DataBus_Write_Data[11]_i_1 
+    \Data_Write[11]_INST_0 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\MEM_DataBus_Write_Data_reg[0] [4]),
         .I2(\MEM_DataBus_Write_Data_reg[0]_1 ),
@@ -20919,7 +20579,7 @@ module design_1_microblaze_0_1_MB_FDRE_68
         .O(\Using_FPGA.Native_1 [12]));
   LUT6 #(
     .INIT(64'hDD88CDCDDD88C8C8)) 
-    \MEM_DataBus_Write_Data[12]_i_1 
+    \Data_Write[12]_INST_0 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\MEM_DataBus_Write_Data_reg[0] [3]),
         .I2(\MEM_DataBus_Write_Data_reg[0]_1 ),
@@ -20929,7 +20589,7 @@ module design_1_microblaze_0_1_MB_FDRE_68
         .O(\Using_FPGA.Native_1 [11]));
   LUT6 #(
     .INIT(64'hDD88CDCDDD88C8C8)) 
-    \MEM_DataBus_Write_Data[13]_i_1 
+    \Data_Write[13]_INST_0 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\MEM_DataBus_Write_Data_reg[0] [2]),
         .I2(\MEM_DataBus_Write_Data_reg[0]_1 ),
@@ -20939,7 +20599,7 @@ module design_1_microblaze_0_1_MB_FDRE_68
         .O(\Using_FPGA.Native_1 [10]));
   LUT6 #(
     .INIT(64'hDD88CDCDDD88C8C8)) 
-    \MEM_DataBus_Write_Data[14]_i_1 
+    \Data_Write[14]_INST_0 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\MEM_DataBus_Write_Data_reg[0] [1]),
         .I2(\MEM_DataBus_Write_Data_reg[0]_1 ),
@@ -20949,7 +20609,7 @@ module design_1_microblaze_0_1_MB_FDRE_68
         .O(\Using_FPGA.Native_1 [9]));
   LUT6 #(
     .INIT(64'hDD88CDCDDD88C8C8)) 
-    \MEM_DataBus_Write_Data[15]_i_1 
+    \Data_Write[15]_INST_0 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\MEM_DataBus_Write_Data_reg[0] [0]),
         .I2(\MEM_DataBus_Write_Data_reg[0]_1 ),
@@ -20959,7 +20619,7 @@ module design_1_microblaze_0_1_MB_FDRE_68
         .O(\Using_FPGA.Native_1 [8]));
   LUT6 #(
     .INIT(64'hFF00EF45FF00EA40)) 
-    \MEM_DataBus_Write_Data[1]_i_1 
+    \Data_Write[1]_INST_0 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\MEM_DataBus_Write_Data_reg[0] [14]),
         .I2(\MEM_DataBus_Write_Data_reg[0]_1 ),
@@ -20969,7 +20629,7 @@ module design_1_microblaze_0_1_MB_FDRE_68
         .O(\Using_FPGA.Native_1 [22]));
   LUT4 #(
     .INIT(16'hEF40)) 
-    \MEM_DataBus_Write_Data[24]_i_1 
+    \Data_Write[24]_INST_0 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\MEM_DataBus_Write_Data_reg[0] [31]),
         .I2(\MEM_DataBus_Write_Data_reg[0]_0 ),
@@ -20977,7 +20637,7 @@ module design_1_microblaze_0_1_MB_FDRE_68
         .O(\Using_FPGA.Native_1 [7]));
   LUT4 #(
     .INIT(16'hEF40)) 
-    \MEM_DataBus_Write_Data[25]_i_1 
+    \Data_Write[25]_INST_0 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\MEM_DataBus_Write_Data_reg[0] [30]),
         .I2(\MEM_DataBus_Write_Data_reg[0]_0 ),
@@ -20985,7 +20645,7 @@ module design_1_microblaze_0_1_MB_FDRE_68
         .O(\Using_FPGA.Native_1 [6]));
   LUT4 #(
     .INIT(16'hEF40)) 
-    \MEM_DataBus_Write_Data[26]_i_1 
+    \Data_Write[26]_INST_0 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\MEM_DataBus_Write_Data_reg[0] [29]),
         .I2(\MEM_DataBus_Write_Data_reg[0]_0 ),
@@ -20993,7 +20653,7 @@ module design_1_microblaze_0_1_MB_FDRE_68
         .O(\Using_FPGA.Native_1 [5]));
   LUT4 #(
     .INIT(16'hEF40)) 
-    \MEM_DataBus_Write_Data[27]_i_1 
+    \Data_Write[27]_INST_0 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\MEM_DataBus_Write_Data_reg[0] [28]),
         .I2(\MEM_DataBus_Write_Data_reg[0]_0 ),
@@ -21001,7 +20661,7 @@ module design_1_microblaze_0_1_MB_FDRE_68
         .O(\Using_FPGA.Native_1 [4]));
   LUT4 #(
     .INIT(16'hEF40)) 
-    \MEM_DataBus_Write_Data[28]_i_1 
+    \Data_Write[28]_INST_0 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\MEM_DataBus_Write_Data_reg[0] [27]),
         .I2(\MEM_DataBus_Write_Data_reg[0]_0 ),
@@ -21009,7 +20669,7 @@ module design_1_microblaze_0_1_MB_FDRE_68
         .O(\Using_FPGA.Native_1 [3]));
   LUT4 #(
     .INIT(16'hEF40)) 
-    \MEM_DataBus_Write_Data[29]_i_1 
+    \Data_Write[29]_INST_0 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\MEM_DataBus_Write_Data_reg[0] [26]),
         .I2(\MEM_DataBus_Write_Data_reg[0]_0 ),
@@ -21017,7 +20677,7 @@ module design_1_microblaze_0_1_MB_FDRE_68
         .O(\Using_FPGA.Native_1 [2]));
   LUT6 #(
     .INIT(64'hFF00EF45FF00EA40)) 
-    \MEM_DataBus_Write_Data[2]_i_1 
+    \Data_Write[2]_INST_0 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\MEM_DataBus_Write_Data_reg[0] [13]),
         .I2(\MEM_DataBus_Write_Data_reg[0]_1 ),
@@ -21027,7 +20687,7 @@ module design_1_microblaze_0_1_MB_FDRE_68
         .O(\Using_FPGA.Native_1 [21]));
   LUT4 #(
     .INIT(16'hEF40)) 
-    \MEM_DataBus_Write_Data[30]_i_1 
+    \Data_Write[30]_INST_0 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\MEM_DataBus_Write_Data_reg[0] [25]),
         .I2(\MEM_DataBus_Write_Data_reg[0]_0 ),
@@ -21035,7 +20695,7 @@ module design_1_microblaze_0_1_MB_FDRE_68
         .O(\Using_FPGA.Native_1 [1]));
   LUT4 #(
     .INIT(16'hEF40)) 
-    \MEM_DataBus_Write_Data[31]_i_1 
+    \Data_Write[31]_INST_0 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\MEM_DataBus_Write_Data_reg[0] [24]),
         .I2(\MEM_DataBus_Write_Data_reg[0]_0 ),
@@ -21043,7 +20703,7 @@ module design_1_microblaze_0_1_MB_FDRE_68
         .O(\Using_FPGA.Native_1 [0]));
   LUT6 #(
     .INIT(64'hFF00EF45FF00EA40)) 
-    \MEM_DataBus_Write_Data[3]_i_1 
+    \Data_Write[3]_INST_0 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\MEM_DataBus_Write_Data_reg[0] [12]),
         .I2(\MEM_DataBus_Write_Data_reg[0]_1 ),
@@ -21053,7 +20713,7 @@ module design_1_microblaze_0_1_MB_FDRE_68
         .O(\Using_FPGA.Native_1 [20]));
   LUT6 #(
     .INIT(64'hFF00EF45FF00EA40)) 
-    \MEM_DataBus_Write_Data[4]_i_1 
+    \Data_Write[4]_INST_0 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\MEM_DataBus_Write_Data_reg[0] [11]),
         .I2(\MEM_DataBus_Write_Data_reg[0]_1 ),
@@ -21063,7 +20723,7 @@ module design_1_microblaze_0_1_MB_FDRE_68
         .O(\Using_FPGA.Native_1 [19]));
   LUT6 #(
     .INIT(64'hFF00EF45FF00EA40)) 
-    \MEM_DataBus_Write_Data[5]_i_1 
+    \Data_Write[5]_INST_0 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\MEM_DataBus_Write_Data_reg[0] [10]),
         .I2(\MEM_DataBus_Write_Data_reg[0]_1 ),
@@ -21073,7 +20733,7 @@ module design_1_microblaze_0_1_MB_FDRE_68
         .O(\Using_FPGA.Native_1 [18]));
   LUT6 #(
     .INIT(64'hFF00EF45FF00EA40)) 
-    \MEM_DataBus_Write_Data[6]_i_1 
+    \Data_Write[6]_INST_0 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\MEM_DataBus_Write_Data_reg[0] [9]),
         .I2(\MEM_DataBus_Write_Data_reg[0]_1 ),
@@ -21083,7 +20743,7 @@ module design_1_microblaze_0_1_MB_FDRE_68
         .O(\Using_FPGA.Native_1 [17]));
   LUT6 #(
     .INIT(64'hFF00EF45FF00EA40)) 
-    \MEM_DataBus_Write_Data[7]_i_1 
+    \Data_Write[7]_INST_0 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\MEM_DataBus_Write_Data_reg[0] [8]),
         .I2(\MEM_DataBus_Write_Data_reg[0]_1 ),
@@ -21093,7 +20753,7 @@ module design_1_microblaze_0_1_MB_FDRE_68
         .O(\Using_FPGA.Native_1 [16]));
   LUT6 #(
     .INIT(64'hDD88CDCDDD88C8C8)) 
-    \MEM_DataBus_Write_Data[8]_i_1 
+    \Data_Write[8]_INST_0 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\MEM_DataBus_Write_Data_reg[0] [7]),
         .I2(\MEM_DataBus_Write_Data_reg[0]_1 ),
@@ -21103,7 +20763,7 @@ module design_1_microblaze_0_1_MB_FDRE_68
         .O(\Using_FPGA.Native_1 [15]));
   LUT6 #(
     .INIT(64'hDD88CDCDDD88C8C8)) 
-    \MEM_DataBus_Write_Data[9]_i_1 
+    \Data_Write[9]_INST_0 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\MEM_DataBus_Write_Data_reg[0] [6]),
         .I2(\MEM_DataBus_Write_Data_reg[0]_1 ),
@@ -21160,8 +20820,7 @@ endmodule
 
 (* ORIG_REF_NAME = "MB_FDRE" *) 
 module design_1_microblaze_0_1_MB_FDRE_70
-   (ex_databus_write,
-    ex_Interrupt_Brk_combo_reg,
+   (ex_Interrupt_Brk_combo_reg,
     mem_is_multi_or_load_instr0,
     ex_Sel_SPR_SLR_reg,
     sync_reset,
@@ -21184,8 +20843,7 @@ module design_1_microblaze_0_1_MB_FDRE_70
     ex_Sel_SPR_PVR,
     ex_Sel_SPR_EAR,
     ex_Sel_SPR_ESR);
-  output ex_databus_write;
-  output ex_Interrupt_Brk_combo_reg;
+  output [1:0]ex_Interrupt_Brk_combo_reg;
   output mem_is_multi_or_load_instr0;
   output ex_Sel_SPR_SLR_reg;
   input sync_reset;
@@ -21217,7 +20875,7 @@ module design_1_microblaze_0_1_MB_FDRE_70
   wire MEM_Sel_MEM_Res_I_reg;
   wire \Using_FPGA.Native_0 ;
   wire \Using_FPGA.Native_1 ;
-  wire ex_Interrupt_Brk_combo_reg;
+  wire [1:0]ex_Interrupt_Brk_combo_reg;
   wire ex_Sel_SPR_BTR;
   wire ex_Sel_SPR_EAR;
   wire ex_Sel_SPR_EDR;
@@ -21225,7 +20883,6 @@ module design_1_microblaze_0_1_MB_FDRE_70
   wire ex_Sel_SPR_PVR;
   wire ex_Sel_SPR_SLR;
   wire ex_Sel_SPR_SLR_reg;
-  wire ex_databus_write;
   wire ex_is_load_instr_s;
   wire ex_is_multi_instr2;
   wire ex_is_swx_instr_s;
@@ -21236,25 +20893,6 @@ module design_1_microblaze_0_1_MB_FDRE_70
   wire p_247_in;
   wire sync_reset;
 
-  LUT6 #(
-    .INIT(64'h1101000000000000)) 
-    MEM_DataBus_Read_i_1
-       (.I0(MEM_DataBus_Read_reg),
-        .I1(MEM_DataBus_Read_reg_0),
-        .I2(MEM_DataBus_Read_reg_1[1]),
-        .I3(MEM_DataBus_Read_reg_1[0]),
-        .I4(ex_valid),
-        .I5(ex_is_load_instr_s),
-        .O(ex_Interrupt_Brk_combo_reg));
-  LUT5 #(
-    .INIT(32'h40440000)) 
-    MEM_DataBus_Write_i_1
-       (.I0(ex_is_load_instr_s),
-        .I1(ex_load_store_instr_s),
-        .I2(ex_reservation),
-        .I3(ex_is_swx_instr_s),
-        .I4(p_247_in),
-        .O(ex_databus_write));
   LUT5 #(
     .INIT(32'h00000001)) 
     MEM_Sel_MEM_Res_I_i_1
@@ -21273,6 +20911,16 @@ module design_1_microblaze_0_1_MB_FDRE_70
         .I2(ex_Sel_SPR_EAR),
         .I3(ex_Sel_SPR_ESR),
         .O(MEM_Sel_MEM_Res_I_i_2_n_0));
+  LUT6 #(
+    .INIT(64'h1101000000000000)) 
+    Read_Strobe_INST_0
+       (.I0(MEM_DataBus_Read_reg),
+        .I1(MEM_DataBus_Read_reg_0),
+        .I2(MEM_DataBus_Read_reg_1[1]),
+        .I3(MEM_DataBus_Read_reg_1[0]),
+        .I4(ex_valid),
+        .I5(ex_is_load_instr_s),
+        .O(ex_Interrupt_Brk_combo_reg[1]));
   (* box_type = "PRIMITIVE" *) 
   FDRE #(
     .INIT(1'b0),
@@ -21285,6 +20933,15 @@ module design_1_microblaze_0_1_MB_FDRE_70
         .D(\Using_FPGA.Native_1 ),
         .Q(ex_is_load_instr_s),
         .R(sync_reset));
+  LUT5 #(
+    .INIT(32'h40440000)) 
+    Write_Strobe_INST_0
+       (.I0(ex_is_load_instr_s),
+        .I1(ex_load_store_instr_s),
+        .I2(ex_reservation),
+        .I3(ex_is_swx_instr_s),
+        .I4(p_247_in),
+        .O(ex_Interrupt_Brk_combo_reg[0]));
   (* SOFT_HLUTNM = "soft_lutpair30" *) 
   LUT2 #(
     .INIT(4'hE)) 
@@ -21379,6 +21036,7 @@ module design_1_microblaze_0_1_MB_FDRE_72
    (ex_is_swx_instr_s,
     MEM_DataBus_Access_reg,
     \Using_FPGA.Native_0 ,
+    SRI,
     mem_load_store_access0,
     sync_reset,
     \Using_FPGA.Native_1 ,
@@ -21404,6 +21062,7 @@ module design_1_microblaze_0_1_MB_FDRE_72
   output ex_is_swx_instr_s;
   output MEM_DataBus_Access_reg;
   output \Using_FPGA.Native_0 ;
+  output SRI;
   output mem_load_store_access0;
   input sync_reset;
   input \Using_FPGA.Native_1 ;
@@ -21432,6 +21091,7 @@ module design_1_microblaze_0_1_MB_FDRE_72
   wire MEM_DataBus_Access_reg;
   wire MEM_DataBus_Access_reg_0;
   wire MEM_DataBus_Access_reg_1;
+  wire SRI;
   wire \Using_FPGA.Native_0 ;
   wire \Using_FPGA.Native_1 ;
   wire \Using_FPGA.Native_2 ;
@@ -21494,6 +21154,13 @@ module design_1_microblaze_0_1_MB_FDRE_72
         .I4(\Using_FPGA.Native_2 ),
         .I5(ex_MSR),
         .O(\Using_FPGA.Native_0 ));
+  LUT3 #(
+    .INIT(8'h4F)) 
+    \Using_FPGA.Native_i_1__2 
+       (.I0(ex_reservation),
+        .I1(ex_is_swx_instr_s),
+        .I2(p_248_in),
+        .O(SRI));
   LUT6 #(
     .INIT(64'h3030003330302222)) 
     \Using_FPGA.Native_i_2__21 
@@ -21564,7 +21231,7 @@ module design_1_microblaze_0_1_MB_FDRE_73
         .R(sync_reset));
   LUT5 #(
     .INIT(32'h002A0000)) 
-    \Using_LWX_SWX_instr.ex_reservation_i_2 
+    \Using_FPGA.Native_i_2__22 
        (.I0(p_247_in),
         .I1(mem_exception_from_ex),
         .I2(mem_valid_instr),
@@ -21693,7 +21360,7 @@ module design_1_microblaze_0_1_MB_FDRE_75
         .R(sync_reset));
   LUT6 #(
     .INIT(64'hB8BBB8BBB8BBB888)) 
-    \Using_FPGA.Native_i_1__5 
+    \Using_FPGA.Native_i_1__6 
        (.I0(\Using_FPGA.Native_7 ),
         .I1(\Using_FPGA.Native_8 ),
         .I2(\Data_Flow_I/msr_reg_i/ex_MSR_cmb2_out ),
@@ -21703,7 +21370,7 @@ module design_1_microblaze_0_1_MB_FDRE_75
         .O(\Using_FPGA.Native_0 ));
   LUT5 #(
     .INIT(32'hB8BBB888)) 
-    \Using_FPGA.Native_i_1__6 
+    \Using_FPGA.Native_i_1__7 
        (.I0(\Using_FPGA.Native_7 ),
         .I1(\Using_FPGA.Native_8 ),
         .I2(\Data_Flow_I/msr_reg_i/ex_MSR_cmb2_out ),
@@ -21712,7 +21379,7 @@ module design_1_microblaze_0_1_MB_FDRE_75
         .O(\Using_FPGA.Native_1 ));
   LUT6 #(
     .INIT(64'h00000000008A0000)) 
-    \Using_FPGA.Native_i_2__22 
+    \Using_FPGA.Native_i_2__23 
        (.I0(of_set_MSR_IE1),
         .I1(\Using_FPGA.Native_4 [0]),
         .I2(\Using_FPGA.Native_4 [1]),
@@ -21722,7 +21389,7 @@ module design_1_microblaze_0_1_MB_FDRE_75
         .O(p_205_in));
   LUT6 #(
     .INIT(64'hBFAFBFBFB0A0A0A0)) 
-    \Using_FPGA.Native_i_2__23 
+    \Using_FPGA.Native_i_2__24 
        (.I0(\Using_FPGA.Native_10 ),
         .I1(ex_clear_MSR_BIP_instr_s),
         .I2(\Using_FPGA.Native_11 ),
@@ -21828,21 +21495,31 @@ module design_1_microblaze_0_1_MB_FDR_113
   wire sel_input_iii_2;
   wire sync_reset;
 
-  LUT2 #(
-    .INIT(4'h2)) 
-    \PC_Buffer_reg[3][31]_srl4_i_2 
-       (.I0(if_sel_input),
-        .I1(\Serial_Dbg_Intf.status_reg_reg[25] ),
-        .O(addr));
   LUT5 #(
     .INIT(32'hFFFFAB00)) 
-    \Serial_Dbg_Intf.status_reg[25]_i_1 
+    IFetch_INST_0
        (.I0(ex_jump),
         .I1(if_sel_input),
         .I2(\Serial_Dbg_Intf.status_reg_reg[25] ),
         .I3(in0),
         .I4(if_fetch_in_progress),
         .O(\Using_FPGA.Native_0 ));
+  LUT6 #(
+    .INIT(64'hA200A200A200A2A2)) 
+    I_AS_INST_0
+       (.I0(out),
+        .I1(if_fetch_in_progress),
+        .I2(IB_Ready),
+        .I3(ex_jump),
+        .I4(if_sel_input),
+        .I5(\Serial_Dbg_Intf.status_reg_reg[25] ),
+        .O(if_fetch_in_progress_reg_0));
+  LUT2 #(
+    .INIT(4'h2)) 
+    \PC_Buffer_reg[3][31]_srl4_i_2 
+       (.I0(if_sel_input),
+        .I1(\Serial_Dbg_Intf.status_reg_reg[25] ),
+        .O(addr));
   (* XILINX_LEGACY_PRIM = "FDR" *) 
   (* box_type = "PRIMITIVE" *) 
   FDRE #(
@@ -21875,16 +21552,6 @@ module design_1_microblaze_0_1_MB_FDR_113
        (.I0(if_fetch_in_progress_reg_0),
         .I1(ex_jump),
         .O(if_fetch_in_progress_reg));
-  LUT6 #(
-    .INIT(64'hA200A200A200A2A2)) 
-    \instr_addr[0]_i_1 
-       (.I0(out),
-        .I1(if_fetch_in_progress),
-        .I2(IB_Ready),
-        .I3(ex_jump),
-        .I4(if_sel_input),
-        .I5(\Serial_Dbg_Intf.status_reg_reg[25] ),
-        .O(if_fetch_in_progress_reg_0));
 endmodule
 
 (* ORIG_REF_NAME = "MB_FDR" *) 
@@ -22194,20 +21861,6 @@ module design_1_microblaze_0_1_MB_FDR_117
         .O(I199_out));
   LUT3 #(
     .INIT(8'hE2)) 
-    \Using_FPGA.Native_i_2__68 
-       (.I0(out[10]),
-        .I1(\Using_FPGA.Native_0 ),
-        .I2(in[10]),
-        .O(I143_out));
-  LUT3 #(
-    .INIT(8'hE2)) 
-    \Using_FPGA.Native_i_2__69 
-       (.I0(out[11]),
-        .I1(\Using_FPGA.Native_0 ),
-        .I2(in[11]),
-        .O(I147_out));
-  LUT3 #(
-    .INIT(8'hE2)) 
     \Using_FPGA.Native_i_2__7 
        (.I0(out[3]),
         .I1(\Using_FPGA.Native_0 ),
@@ -22216,73 +21869,73 @@ module design_1_microblaze_0_1_MB_FDR_117
   LUT3 #(
     .INIT(8'hE2)) 
     \Using_FPGA.Native_i_2__70 
+       (.I0(out[10]),
+        .I1(\Using_FPGA.Native_0 ),
+        .I2(in[10]),
+        .O(I143_out));
+  LUT3 #(
+    .INIT(8'hE2)) 
+    \Using_FPGA.Native_i_2__71 
+       (.I0(out[11]),
+        .I1(\Using_FPGA.Native_0 ),
+        .I2(in[11]),
+        .O(I147_out));
+  LUT3 #(
+    .INIT(8'hE2)) 
+    \Using_FPGA.Native_i_2__72 
        (.I0(out[12]),
         .I1(\Using_FPGA.Native_0 ),
         .I2(in[12]),
         .O(I151_out));
   LUT3 #(
     .INIT(8'hE2)) 
-    \Using_FPGA.Native_i_2__71 
+    \Using_FPGA.Native_i_2__73 
        (.I0(out[13]),
         .I1(\Using_FPGA.Native_0 ),
         .I2(in[13]),
         .O(I155_out));
   LUT3 #(
     .INIT(8'hE2)) 
-    \Using_FPGA.Native_i_2__72 
+    \Using_FPGA.Native_i_2__74 
        (.I0(out[14]),
         .I1(\Using_FPGA.Native_0 ),
         .I2(in[14]),
         .O(I159_out));
   LUT3 #(
     .INIT(8'hE2)) 
-    \Using_FPGA.Native_i_2__73 
+    \Using_FPGA.Native_i_2__75 
        (.I0(out[15]),
         .I1(\Using_FPGA.Native_0 ),
         .I2(in[15]),
         .O(I163_out));
   LUT3 #(
     .INIT(8'hE2)) 
-    \Using_FPGA.Native_i_2__74 
+    \Using_FPGA.Native_i_2__76 
        (.I0(out[16]),
         .I1(\Using_FPGA.Native_0 ),
         .I2(in[16]),
         .O(I167_out));
   LUT3 #(
     .INIT(8'hE2)) 
-    \Using_FPGA.Native_i_2__75 
+    \Using_FPGA.Native_i_2__77 
        (.I0(out[17]),
         .I1(\Using_FPGA.Native_0 ),
         .I2(in[17]),
         .O(I171_out));
   LUT3 #(
     .INIT(8'hE2)) 
-    \Using_FPGA.Native_i_2__76 
+    \Using_FPGA.Native_i_2__78 
        (.I0(out[18]),
         .I1(\Using_FPGA.Native_0 ),
         .I2(in[18]),
         .O(I175_out));
   LUT3 #(
     .INIT(8'hE2)) 
-    \Using_FPGA.Native_i_2__77 
+    \Using_FPGA.Native_i_2__79 
        (.I0(out[19]),
         .I1(\Using_FPGA.Native_0 ),
         .I2(in[19]),
         .O(I179_out));
-  LUT3 #(
-    .INIT(8'hE2)) 
-    \Using_FPGA.Native_i_2__78 
-       (.I0(out[20]),
-        .I1(\Using_FPGA.Native_0 ),
-        .I2(in[20]),
-        .O(I183_out));
-  LUT3 #(
-    .INIT(8'hE2)) 
-    \Using_FPGA.Native_i_2__79 
-       (.I0(out[31]),
-        .I1(\Using_FPGA.Native_0 ),
-        .I2(in[21]),
-        .O(I1127_out));
   LUT3 #(
     .INIT(8'hE2)) 
     \Using_FPGA.Native_i_2__8 
@@ -22293,73 +21946,73 @@ module design_1_microblaze_0_1_MB_FDR_117
   LUT3 #(
     .INIT(8'hE2)) 
     \Using_FPGA.Native_i_2__80 
+       (.I0(out[20]),
+        .I1(\Using_FPGA.Native_0 ),
+        .I2(in[20]),
+        .O(I183_out));
+  LUT3 #(
+    .INIT(8'hE2)) 
+    \Using_FPGA.Native_i_2__81 
+       (.I0(out[31]),
+        .I1(\Using_FPGA.Native_0 ),
+        .I2(in[21]),
+        .O(I1127_out));
+  LUT3 #(
+    .INIT(8'hE2)) 
+    \Using_FPGA.Native_i_2__82 
        (.I0(out[32]),
         .I1(\Using_FPGA.Native_0 ),
         .I2(in[22]),
         .O(I1131_out));
   LUT3 #(
     .INIT(8'hE2)) 
-    \Using_FPGA.Native_i_2__81 
+    \Using_FPGA.Native_i_2__83 
        (.I0(out[33]),
         .I1(\Using_FPGA.Native_0 ),
         .I2(in[23]),
         .O(I1135_out));
   LUT3 #(
     .INIT(8'hE2)) 
-    \Using_FPGA.Native_i_2__82 
+    \Using_FPGA.Native_i_2__84 
        (.I0(out[34]),
         .I1(\Using_FPGA.Native_0 ),
         .I2(in[24]),
         .O(I1139_out));
   LUT3 #(
     .INIT(8'hE2)) 
-    \Using_FPGA.Native_i_2__83 
+    \Using_FPGA.Native_i_2__85 
        (.I0(out[35]),
         .I1(\Using_FPGA.Native_0 ),
         .I2(in[25]),
         .O(I1143_out));
   LUT3 #(
     .INIT(8'hE2)) 
-    \Using_FPGA.Native_i_2__84 
+    \Using_FPGA.Native_i_2__86 
        (.I0(out[36]),
         .I1(\Using_FPGA.Native_0 ),
         .I2(in[26]),
         .O(I1147_out));
   LUT3 #(
     .INIT(8'hE2)) 
-    \Using_FPGA.Native_i_2__85 
+    \Using_FPGA.Native_i_2__87 
        (.I0(out[37]),
         .I1(\Using_FPGA.Native_0 ),
         .I2(in[27]),
         .O(I1151_out));
   LUT3 #(
     .INIT(8'hE2)) 
-    \Using_FPGA.Native_i_2__86 
+    \Using_FPGA.Native_i_2__88 
        (.I0(out[38]),
         .I1(\Using_FPGA.Native_0 ),
         .I2(in[28]),
         .O(I1155_out));
   LUT3 #(
     .INIT(8'hE2)) 
-    \Using_FPGA.Native_i_2__87 
+    \Using_FPGA.Native_i_2__89 
        (.I0(out[39]),
         .I1(\Using_FPGA.Native_0 ),
         .I2(in[29]),
         .O(I1159_out));
-  LUT3 #(
-    .INIT(8'hE2)) 
-    \Using_FPGA.Native_i_2__88 
-       (.I0(out[40]),
-        .I1(\Using_FPGA.Native_0 ),
-        .I2(in[30]),
-        .O(I1163_out));
-  LUT3 #(
-    .INIT(8'hE2)) 
-    \Using_FPGA.Native_i_2__89 
-       (.I0(out[41]),
-        .I1(\Using_FPGA.Native_0 ),
-        .I2(in[31]),
-        .O(I1167_out));
   LUT3 #(
     .INIT(8'hE2)) 
     \Using_FPGA.Native_i_2__9 
@@ -22367,6 +22020,20 @@ module design_1_microblaze_0_1_MB_FDR_117
         .I1(\Using_FPGA.Native_0 ),
         .I2(in[4]),
         .O(I115_out));
+  LUT3 #(
+    .INIT(8'hE2)) 
+    \Using_FPGA.Native_i_2__90 
+       (.I0(out[40]),
+        .I1(\Using_FPGA.Native_0 ),
+        .I2(in[30]),
+        .O(I1163_out));
+  LUT3 #(
+    .INIT(8'hE2)) 
+    \Using_FPGA.Native_i_2__91 
+       (.I0(out[41]),
+        .I1(\Using_FPGA.Native_0 ),
+        .I2(in[31]),
+        .O(I1167_out));
 endmodule
 
 (* ORIG_REF_NAME = "MB_FDR" *) 
@@ -22505,21 +22172,12 @@ module design_1_microblaze_0_1_MB_FDR_119
         .R(sync_reset));
   LUT4 #(
     .INIT(16'h0888)) 
-    \Using_FPGA.Native_i_1__105 
+    \Using_FPGA.Native_i_1__106 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\Using_Mul_Instr.ex_not_mul_op_i_reg_0 ),
         .I2(\Using_FPGA.Native_7 ),
         .I3(ex_jump),
         .O(\Using_FPGA.Native_5 ));
-  LUT5 #(
-    .INIT(32'hFFF7FFFF)) 
-    \Using_FPGA.Native_i_1__11 
-       (.I0(of_read_ex_write_op2_conflict_part1),
-        .I1(of_read_ex_write_op2_conflict_part2),
-        .I2(of_op2_sel_imm),
-        .I3(p_0_in34_in),
-        .I4(ex_is_multi_or_load_instr),
-        .O(ex_is_multi_or_load_instr_reg));
   (* SOFT_HLUTNM = "soft_lutpair7" *) 
   LUT3 #(
     .INIT(8'h08)) 
@@ -22529,8 +22187,17 @@ module design_1_microblaze_0_1_MB_FDR_119
         .I2(\Using_Mul_Instr.ex_not_mul_op_i_reg ),
         .O(\Using_FPGA.Native_6 ));
   LUT5 #(
-    .INIT(32'hFFFFFF7F)) 
+    .INIT(32'hFFF7FFFF)) 
     \Using_FPGA.Native_i_1__12 
+       (.I0(of_read_ex_write_op2_conflict_part1),
+        .I1(of_read_ex_write_op2_conflict_part2),
+        .I2(of_op2_sel_imm),
+        .I3(p_0_in34_in),
+        .I4(ex_is_multi_or_load_instr),
+        .O(ex_is_multi_or_load_instr_reg));
+  LUT5 #(
+    .INIT(32'hFFFFFF7F)) 
+    \Using_FPGA.Native_i_1__13 
        (.I0(of_read_mem_write_op2_conflict_part1),
         .I1(of_read_mem_write_op2_conflict_part2),
         .I2(mem_is_multi_or_load_instr),
@@ -22539,7 +22206,7 @@ module design_1_microblaze_0_1_MB_FDR_119
         .O(mem_is_multi_or_load_instr_reg));
   LUT6 #(
     .INIT(64'hFFFFFFFF00080000)) 
-    \Using_FPGA.Native_i_2__32 
+    \Using_FPGA.Native_i_2__33 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\Using_Mul_Instr.ex_not_mul_op_i_reg ),
         .I2(\Using_Mul_Instr.ex_not_mul_op_i_reg_0 ),
@@ -23332,7 +22999,7 @@ module design_1_microblaze_0_1_MB_FDR_135
         .R(sync_reset));
   LUT5 #(
     .INIT(32'hF0F40000)) 
-    \Using_FPGA.Native_i_1__10 
+    \Using_FPGA.Native_i_1__11 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\EX_Op1_reg[9]_2 ),
         .I2(\EX_Op1_reg[9] ),
@@ -23785,7 +23452,7 @@ module design_1_microblaze_0_1_MB_FDR_147
         .R(sync_reset));
   LUT2 #(
     .INIT(4'h2)) 
-    \Using_FPGA.Native_i_1__110 
+    \Using_FPGA.Native_i_1__112 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\Using_FPGA.Native_2 ),
         .O(\Using_FPGA.Native_1 ));
@@ -24369,7 +24036,7 @@ module design_1_microblaze_0_1_MB_FDR_163
         .R(sync_reset));
   LUT6 #(
     .INIT(64'h0100000000000000)) 
-    \Using_FPGA.Native_i_1__45 
+    \Using_FPGA.Native_i_1__46 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\Using_FPGA.Native_4 ),
         .I2(\Using_FPGA.Native_5 ),
@@ -24797,7 +24464,7 @@ module design_1_microblaze_0_1_MB_FDR_171
         .O(of_read_ex_write_op1_conflict__0));
   LUT6 #(
     .INIT(64'hF0AAFFCCF0AA00CC)) 
-    \Using_FPGA.Native_i_1__13 
+    \Using_FPGA.Native_i_1__14 
        (.I0(\EX_Branch_CMP_Op1_reg[1] ),
         .I1(GPR_Op1[1]),
         .I2(\EX_Branch_CMP_Op1_reg[0]_0 [30]),
@@ -24807,7 +24474,7 @@ module design_1_microblaze_0_1_MB_FDR_171
         .O(ex_sel_alu_i_reg[30]));
   LUT6 #(
     .INIT(64'hF0AAFFCCF0AA00CC)) 
-    \Using_FPGA.Native_i_1__14 
+    \Using_FPGA.Native_i_1__15 
        (.I0(\EX_Branch_CMP_Op1_reg[2] ),
         .I1(GPR_Op1[2]),
         .I2(\EX_Branch_CMP_Op1_reg[0]_0 [29]),
@@ -24817,7 +24484,7 @@ module design_1_microblaze_0_1_MB_FDR_171
         .O(ex_sel_alu_i_reg[29]));
   LUT6 #(
     .INIT(64'hF0AAFFCCF0AA00CC)) 
-    \Using_FPGA.Native_i_1__15 
+    \Using_FPGA.Native_i_1__16 
        (.I0(\EX_Branch_CMP_Op1_reg[3] ),
         .I1(GPR_Op1[3]),
         .I2(\EX_Branch_CMP_Op1_reg[0]_0 [28]),
@@ -24827,7 +24494,7 @@ module design_1_microblaze_0_1_MB_FDR_171
         .O(ex_sel_alu_i_reg[28]));
   LUT6 #(
     .INIT(64'hF0AAFFCCF0AA00CC)) 
-    \Using_FPGA.Native_i_1__16 
+    \Using_FPGA.Native_i_1__17 
        (.I0(\EX_Branch_CMP_Op1_reg[4] ),
         .I1(GPR_Op1[4]),
         .I2(\EX_Branch_CMP_Op1_reg[0]_0 [27]),
@@ -24837,7 +24504,7 @@ module design_1_microblaze_0_1_MB_FDR_171
         .O(ex_sel_alu_i_reg[27]));
   LUT6 #(
     .INIT(64'hF0AAFFCCF0AA00CC)) 
-    \Using_FPGA.Native_i_1__17 
+    \Using_FPGA.Native_i_1__18 
        (.I0(\EX_Branch_CMP_Op1_reg[5] ),
         .I1(GPR_Op1[5]),
         .I2(\EX_Branch_CMP_Op1_reg[0]_0 [26]),
@@ -24847,7 +24514,7 @@ module design_1_microblaze_0_1_MB_FDR_171
         .O(ex_sel_alu_i_reg[26]));
   LUT6 #(
     .INIT(64'hF0AAFFCCF0AA00CC)) 
-    \Using_FPGA.Native_i_1__18 
+    \Using_FPGA.Native_i_1__19 
        (.I0(\EX_Branch_CMP_Op1_reg[6] ),
         .I1(GPR_Op1[6]),
         .I2(\EX_Branch_CMP_Op1_reg[0]_0 [25]),
@@ -24857,7 +24524,7 @@ module design_1_microblaze_0_1_MB_FDR_171
         .O(ex_sel_alu_i_reg[25]));
   LUT6 #(
     .INIT(64'hF0AAFFCCF0AA00CC)) 
-    \Using_FPGA.Native_i_1__19 
+    \Using_FPGA.Native_i_1__20 
        (.I0(\EX_Branch_CMP_Op1_reg[7] ),
         .I1(GPR_Op1[7]),
         .I2(\EX_Branch_CMP_Op1_reg[0]_0 [24]),
@@ -24867,7 +24534,7 @@ module design_1_microblaze_0_1_MB_FDR_171
         .O(ex_sel_alu_i_reg[24]));
   LUT6 #(
     .INIT(64'hF0AAFFCCF0AA00CC)) 
-    \Using_FPGA.Native_i_1__20 
+    \Using_FPGA.Native_i_1__21 
        (.I0(\EX_Branch_CMP_Op1_reg[8] ),
         .I1(GPR_Op1[8]),
         .I2(\EX_Branch_CMP_Op1_reg[0]_0 [23]),
@@ -24877,7 +24544,7 @@ module design_1_microblaze_0_1_MB_FDR_171
         .O(ex_sel_alu_i_reg[23]));
   LUT6 #(
     .INIT(64'hF0AAFFCCF0AA00CC)) 
-    \Using_FPGA.Native_i_1__21 
+    \Using_FPGA.Native_i_1__22 
        (.I0(\EX_Branch_CMP_Op1_reg[9] ),
         .I1(GPR_Op1[9]),
         .I2(\EX_Branch_CMP_Op1_reg[0]_0 [22]),
@@ -24887,7 +24554,7 @@ module design_1_microblaze_0_1_MB_FDR_171
         .O(ex_sel_alu_i_reg[22]));
   LUT6 #(
     .INIT(64'hF0AAFFCCF0AA00CC)) 
-    \Using_FPGA.Native_i_1__22 
+    \Using_FPGA.Native_i_1__23 
        (.I0(\EX_Branch_CMP_Op1_reg[10] ),
         .I1(GPR_Op1[10]),
         .I2(\EX_Branch_CMP_Op1_reg[0]_0 [21]),
@@ -24897,7 +24564,7 @@ module design_1_microblaze_0_1_MB_FDR_171
         .O(ex_sel_alu_i_reg[21]));
   LUT6 #(
     .INIT(64'hF0AAFFCCF0AA00CC)) 
-    \Using_FPGA.Native_i_1__23 
+    \Using_FPGA.Native_i_1__24 
        (.I0(\EX_Branch_CMP_Op1_reg[11] ),
         .I1(GPR_Op1[11]),
         .I2(\EX_Branch_CMP_Op1_reg[0]_0 [20]),
@@ -24907,7 +24574,7 @@ module design_1_microblaze_0_1_MB_FDR_171
         .O(ex_sel_alu_i_reg[20]));
   LUT6 #(
     .INIT(64'hF0AAFFCCF0AA00CC)) 
-    \Using_FPGA.Native_i_1__24 
+    \Using_FPGA.Native_i_1__25 
        (.I0(\EX_Branch_CMP_Op1_reg[12] ),
         .I1(GPR_Op1[12]),
         .I2(\EX_Branch_CMP_Op1_reg[0]_0 [19]),
@@ -24917,7 +24584,7 @@ module design_1_microblaze_0_1_MB_FDR_171
         .O(ex_sel_alu_i_reg[19]));
   LUT6 #(
     .INIT(64'hF0AAFFCCF0AA00CC)) 
-    \Using_FPGA.Native_i_1__25 
+    \Using_FPGA.Native_i_1__26 
        (.I0(\EX_Branch_CMP_Op1_reg[13] ),
         .I1(GPR_Op1[13]),
         .I2(\EX_Branch_CMP_Op1_reg[0]_0 [18]),
@@ -24927,7 +24594,7 @@ module design_1_microblaze_0_1_MB_FDR_171
         .O(ex_sel_alu_i_reg[18]));
   LUT6 #(
     .INIT(64'hF0AAFFCCF0AA00CC)) 
-    \Using_FPGA.Native_i_1__26 
+    \Using_FPGA.Native_i_1__27 
        (.I0(\EX_Branch_CMP_Op1_reg[14] ),
         .I1(GPR_Op1[14]),
         .I2(\EX_Branch_CMP_Op1_reg[0]_0 [17]),
@@ -24937,7 +24604,7 @@ module design_1_microblaze_0_1_MB_FDR_171
         .O(ex_sel_alu_i_reg[17]));
   LUT6 #(
     .INIT(64'hF0AAFFCCF0AA00CC)) 
-    \Using_FPGA.Native_i_1__27 
+    \Using_FPGA.Native_i_1__28 
        (.I0(\EX_Branch_CMP_Op1_reg[15] ),
         .I1(GPR_Op1[15]),
         .I2(\EX_Branch_CMP_Op1_reg[0]_0 [16]),
@@ -24947,7 +24614,7 @@ module design_1_microblaze_0_1_MB_FDR_171
         .O(ex_sel_alu_i_reg[16]));
   LUT6 #(
     .INIT(64'hF0AAFFCCF0AA00CC)) 
-    \Using_FPGA.Native_i_1__28 
+    \Using_FPGA.Native_i_1__29 
        (.I0(\EX_Branch_CMP_Op1_reg[16] ),
         .I1(GPR_Op1[16]),
         .I2(\EX_Branch_CMP_Op1_reg[0]_0 [15]),
@@ -24957,7 +24624,7 @@ module design_1_microblaze_0_1_MB_FDR_171
         .O(ex_sel_alu_i_reg[15]));
   LUT6 #(
     .INIT(64'hF0AAFFCCF0AA00CC)) 
-    \Using_FPGA.Native_i_1__29 
+    \Using_FPGA.Native_i_1__30 
        (.I0(\EX_Branch_CMP_Op1_reg[17] ),
         .I1(GPR_Op1[17]),
         .I2(\EX_Branch_CMP_Op1_reg[0]_0 [14]),
@@ -24967,7 +24634,7 @@ module design_1_microblaze_0_1_MB_FDR_171
         .O(ex_sel_alu_i_reg[14]));
   LUT6 #(
     .INIT(64'hF0AAFFCCF0AA00CC)) 
-    \Using_FPGA.Native_i_1__30 
+    \Using_FPGA.Native_i_1__31 
        (.I0(\EX_Branch_CMP_Op1_reg[18] ),
         .I1(GPR_Op1[18]),
         .I2(\EX_Branch_CMP_Op1_reg[0]_0 [13]),
@@ -24977,7 +24644,7 @@ module design_1_microblaze_0_1_MB_FDR_171
         .O(ex_sel_alu_i_reg[13]));
   LUT6 #(
     .INIT(64'hF0AAFFCCF0AA00CC)) 
-    \Using_FPGA.Native_i_1__31 
+    \Using_FPGA.Native_i_1__32 
        (.I0(\EX_Branch_CMP_Op1_reg[19] ),
         .I1(GPR_Op1[19]),
         .I2(\EX_Branch_CMP_Op1_reg[0]_0 [12]),
@@ -24987,7 +24654,7 @@ module design_1_microblaze_0_1_MB_FDR_171
         .O(ex_sel_alu_i_reg[12]));
   LUT6 #(
     .INIT(64'hF0AAFFCCF0AA00CC)) 
-    \Using_FPGA.Native_i_1__32 
+    \Using_FPGA.Native_i_1__33 
        (.I0(\EX_Branch_CMP_Op1_reg[20] ),
         .I1(GPR_Op1[20]),
         .I2(\EX_Branch_CMP_Op1_reg[0]_0 [11]),
@@ -24997,7 +24664,7 @@ module design_1_microblaze_0_1_MB_FDR_171
         .O(ex_sel_alu_i_reg[11]));
   LUT6 #(
     .INIT(64'hF0AAFFCCF0AA00CC)) 
-    \Using_FPGA.Native_i_1__33 
+    \Using_FPGA.Native_i_1__34 
        (.I0(\EX_Branch_CMP_Op1_reg[21] ),
         .I1(GPR_Op1[21]),
         .I2(\EX_Branch_CMP_Op1_reg[0]_0 [10]),
@@ -25007,7 +24674,7 @@ module design_1_microblaze_0_1_MB_FDR_171
         .O(ex_sel_alu_i_reg[10]));
   LUT6 #(
     .INIT(64'hF0AAFFCCF0AA00CC)) 
-    \Using_FPGA.Native_i_1__34 
+    \Using_FPGA.Native_i_1__35 
        (.I0(\EX_Branch_CMP_Op1_reg[22] ),
         .I1(GPR_Op1[22]),
         .I2(\EX_Branch_CMP_Op1_reg[0]_0 [9]),
@@ -25017,7 +24684,7 @@ module design_1_microblaze_0_1_MB_FDR_171
         .O(ex_sel_alu_i_reg[9]));
   LUT6 #(
     .INIT(64'hF0AAFFCCF0AA00CC)) 
-    \Using_FPGA.Native_i_1__35 
+    \Using_FPGA.Native_i_1__36 
        (.I0(\EX_Branch_CMP_Op1_reg[23] ),
         .I1(GPR_Op1[23]),
         .I2(\EX_Branch_CMP_Op1_reg[0]_0 [8]),
@@ -25027,7 +24694,7 @@ module design_1_microblaze_0_1_MB_FDR_171
         .O(ex_sel_alu_i_reg[8]));
   LUT6 #(
     .INIT(64'hF0AAFFCCF0AA00CC)) 
-    \Using_FPGA.Native_i_1__36 
+    \Using_FPGA.Native_i_1__37 
        (.I0(\EX_Branch_CMP_Op1_reg[24] ),
         .I1(GPR_Op1[24]),
         .I2(\EX_Branch_CMP_Op1_reg[0]_0 [7]),
@@ -25037,7 +24704,7 @@ module design_1_microblaze_0_1_MB_FDR_171
         .O(ex_sel_alu_i_reg[7]));
   LUT6 #(
     .INIT(64'hF0AAFFCCF0AA00CC)) 
-    \Using_FPGA.Native_i_1__37 
+    \Using_FPGA.Native_i_1__38 
        (.I0(\EX_Branch_CMP_Op1_reg[25] ),
         .I1(GPR_Op1[25]),
         .I2(\EX_Branch_CMP_Op1_reg[0]_0 [6]),
@@ -25047,7 +24714,7 @@ module design_1_microblaze_0_1_MB_FDR_171
         .O(ex_sel_alu_i_reg[6]));
   LUT6 #(
     .INIT(64'hF0AAFFCCF0AA00CC)) 
-    \Using_FPGA.Native_i_1__38 
+    \Using_FPGA.Native_i_1__39 
        (.I0(\EX_Branch_CMP_Op1_reg[26] ),
         .I1(GPR_Op1[26]),
         .I2(\EX_Branch_CMP_Op1_reg[0]_0 [5]),
@@ -25057,7 +24724,7 @@ module design_1_microblaze_0_1_MB_FDR_171
         .O(ex_sel_alu_i_reg[5]));
   LUT6 #(
     .INIT(64'hF0AAFFCCF0AA00CC)) 
-    \Using_FPGA.Native_i_1__39 
+    \Using_FPGA.Native_i_1__40 
        (.I0(\EX_Branch_CMP_Op1_reg[27] ),
         .I1(GPR_Op1[27]),
         .I2(\EX_Branch_CMP_Op1_reg[0]_0 [4]),
@@ -25067,7 +24734,7 @@ module design_1_microblaze_0_1_MB_FDR_171
         .O(ex_sel_alu_i_reg[4]));
   LUT6 #(
     .INIT(64'hF0AAFFCCF0AA00CC)) 
-    \Using_FPGA.Native_i_1__40 
+    \Using_FPGA.Native_i_1__41 
        (.I0(\EX_Branch_CMP_Op1_reg[28] ),
         .I1(GPR_Op1[28]),
         .I2(\EX_Branch_CMP_Op1_reg[0]_0 [3]),
@@ -25077,7 +24744,7 @@ module design_1_microblaze_0_1_MB_FDR_171
         .O(ex_sel_alu_i_reg[3]));
   LUT6 #(
     .INIT(64'hF0AAFFCCF0AA00CC)) 
-    \Using_FPGA.Native_i_1__41 
+    \Using_FPGA.Native_i_1__42 
        (.I0(\EX_Branch_CMP_Op1_reg[29] ),
         .I1(GPR_Op1[29]),
         .I2(\EX_Branch_CMP_Op1_reg[0]_0 [2]),
@@ -25087,7 +24754,7 @@ module design_1_microblaze_0_1_MB_FDR_171
         .O(ex_sel_alu_i_reg[2]));
   LUT6 #(
     .INIT(64'hF0AAFFCCF0AA00CC)) 
-    \Using_FPGA.Native_i_1__42 
+    \Using_FPGA.Native_i_1__43 
        (.I0(\EX_Branch_CMP_Op1_reg[30] ),
         .I1(GPR_Op1[30]),
         .I2(\EX_Branch_CMP_Op1_reg[0]_0 [1]),
@@ -25097,7 +24764,7 @@ module design_1_microblaze_0_1_MB_FDR_171
         .O(ex_sel_alu_i_reg[1]));
   LUT6 #(
     .INIT(64'hF0AAFFCCF0AA00CC)) 
-    \Using_FPGA.Native_i_1__43 
+    \Using_FPGA.Native_i_1__44 
        (.I0(\EX_Branch_CMP_Op1_reg[31] ),
         .I1(GPR_Op1[31]),
         .I2(\EX_Branch_CMP_Op1_reg[0]_0 [0]),
@@ -25107,7 +24774,7 @@ module design_1_microblaze_0_1_MB_FDR_171
         .O(ex_sel_alu_i_reg[0]));
   LUT6 #(
     .INIT(64'hF0AAFFCCF0AA00CC)) 
-    \Using_FPGA.Native_i_2__33 
+    \Using_FPGA.Native_i_2__34 
        (.I0(\EX_Branch_CMP_Op1_reg[0] ),
         .I1(GPR_Op1[0]),
         .I2(\EX_Branch_CMP_Op1_reg[0]_0 [31]),
@@ -26422,7 +26089,7 @@ module design_1_microblaze_0_1_MB_FDR_193
   (* SOFT_HLUTNM = "soft_lutpair24" *) 
   LUT2 #(
     .INIT(4'h1)) 
-    \Using_FPGA.Native_i_1__51 
+    \Using_FPGA.Native_i_1__52 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(ex_is_mul_instr_reg),
         .O(\Using_FPGA.Native_3 ));
@@ -26650,7 +26317,7 @@ module design_1_microblaze_0_1_MB_FDR_195
         .R(sync_reset));
   LUT6 #(
     .INIT(64'h0000400000000000)) 
-    \Using_FPGA.Native_i_1__46 
+    \Using_FPGA.Native_i_1__47 
        (.I0(\Using_FPGA.Native_3 ),
         .I1(ex_is_multi_or_load_instr_reg),
         .I2(ex_is_multi_or_load_instr_reg_1),
@@ -26661,14 +26328,14 @@ module design_1_microblaze_0_1_MB_FDR_195
   (* SOFT_HLUTNM = "soft_lutpair27" *) 
   LUT2 #(
     .INIT(4'h2)) 
-    \Using_FPGA.Native_i_1__52 
+    \Using_FPGA.Native_i_1__53 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\Using_FPGA.Native_7 ),
         .O(\Using_FPGA.Native_4 ));
   (* SOFT_HLUTNM = "soft_lutpair25" *) 
   LUT5 #(
     .INIT(32'h00100000)) 
-    \Using_FPGA.Native_i_2__34 
+    \Using_FPGA.Native_i_2__35 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(ex_is_multi_or_load_instr_reg_0),
         .I2(\Using_FPGA.Native_7 ),
@@ -26678,7 +26345,7 @@ module design_1_microblaze_0_1_MB_FDR_195
   (* SOFT_HLUTNM = "soft_lutpair27" *) 
   LUT2 #(
     .INIT(4'hB)) 
-    \Using_FPGA.Native_i_2__91 
+    \Using_FPGA.Native_i_2__93 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\Using_FPGA.Native_7 ),
         .O(\Using_FPGA.Native_3 ));
@@ -27433,11 +27100,11 @@ endmodule
 module design_1_microblaze_0_1_MB_FDR_205
    (\Using_FPGA.Native_0 ,
     of_pipe_ctrl_reg0,
-    \Using_FPGA.Native_1 ,
+    ex_branch_with_delayslot_reg,
     sync_reset,
     of_Valid_II,
     Clk,
-    \Using_FPGA.Native_2 ,
+    \Using_FPGA.Native_1 ,
     of_is_div_instr,
     EX_Is_Div_Instr,
     MEM_Is_Div_Instr,
@@ -27445,11 +27112,11 @@ module design_1_microblaze_0_1_MB_FDR_205
     ex_jump_q);
   output \Using_FPGA.Native_0 ;
   output of_pipe_ctrl_reg0;
-  output \Using_FPGA.Native_1 ;
+  output ex_branch_with_delayslot_reg;
   input sync_reset;
   input of_Valid_II;
   input Clk;
-  input \Using_FPGA.Native_2 ;
+  input \Using_FPGA.Native_1 ;
   input of_is_div_instr;
   input EX_Is_Div_Instr;
   input MEM_Is_Div_Instr;
@@ -27461,8 +27128,8 @@ module design_1_microblaze_0_1_MB_FDR_205
   wire MEM_Is_Div_Instr;
   wire \Using_FPGA.Native_0 ;
   wire \Using_FPGA.Native_1 ;
-  wire \Using_FPGA.Native_2 ;
   wire ex_branch_with_delayslot;
+  wire ex_branch_with_delayslot_reg;
   wire ex_jump_q;
   wire of_Valid_II;
   wire of_is_div_instr;
@@ -27480,16 +27147,16 @@ module design_1_microblaze_0_1_MB_FDR_205
         .Q(\Using_FPGA.Native_0 ),
         .R(sync_reset));
   LUT3 #(
-    .INIT(8'h0B)) 
+    .INIT(8'h0D)) 
     \Using_FPGA.Native_i_1__109 
-       (.I0(\Using_FPGA.Native_0 ),
-        .I1(ex_branch_with_delayslot),
+       (.I0(ex_branch_with_delayslot),
+        .I1(\Using_FPGA.Native_0 ),
         .I2(ex_jump_q),
-        .O(\Using_FPGA.Native_1 ));
+        .O(ex_branch_with_delayslot_reg));
   LUT5 #(
     .INIT(32'h04040444)) 
-    \Using_FPGA.Native_i_1__49 
-       (.I0(\Using_FPGA.Native_2 ),
+    \Using_FPGA.Native_i_1__50 
+       (.I0(\Using_FPGA.Native_1 ),
         .I1(\Using_FPGA.Native_0 ),
         .I2(of_is_div_instr),
         .I3(EX_Is_Div_Instr),
@@ -27546,7 +27213,7 @@ module design_1_microblaze_0_1_MB_FDR_206
         .R(sync_reset));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__135 
+    \Using_FPGA.Native_i_1__136 
        (.I0(if_sel_input),
         .I1(\Using_FPGA.Native_0 ),
         .I2(D),
@@ -27607,7 +27274,7 @@ module design_1_microblaze_0_1_MB_FDR_208
         .R(sync_reset));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__145 
+    \Using_FPGA.Native_i_1__146 
        (.I0(if_sel_input),
         .I1(\Using_FPGA.Native_1 ),
         .I2(D),
@@ -27615,7 +27282,7 @@ module design_1_microblaze_0_1_MB_FDR_208
         .O(I085_out));
   LUT2 #(
     .INIT(4'h8)) 
-    \Using_FPGA.Native_i_2__132 
+    \Using_FPGA.Native_i_2__142 
        (.I0(D),
         .I1(of_op1_sel_spr_pc),
         .O(\Using_FPGA.Native_0 ));
@@ -27667,7 +27334,7 @@ module design_1_microblaze_0_1_MB_FDR_210
         .R(sync_reset));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__146 
+    \Using_FPGA.Native_i_1__147 
        (.I0(if_sel_input),
         .I1(\Using_FPGA.Native_1 ),
         .I2(D),
@@ -27675,7 +27342,7 @@ module design_1_microblaze_0_1_MB_FDR_210
         .O(I081_out));
   LUT2 #(
     .INIT(4'h8)) 
-    \Using_FPGA.Native_i_2__130 
+    \Using_FPGA.Native_i_2__139 
        (.I0(D),
         .I1(of_op1_sel_spr_pc),
         .O(\Using_FPGA.Native_0 ));
@@ -27727,7 +27394,7 @@ module design_1_microblaze_0_1_MB_FDR_212
         .R(sync_reset));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__147 
+    \Using_FPGA.Native_i_1__148 
        (.I0(if_sel_input),
         .I1(\Using_FPGA.Native_1 ),
         .I2(D),
@@ -27735,7 +27402,7 @@ module design_1_microblaze_0_1_MB_FDR_212
         .O(I077_out));
   LUT2 #(
     .INIT(4'h8)) 
-    \Using_FPGA.Native_i_2__128 
+    \Using_FPGA.Native_i_2__137 
        (.I0(D),
         .I1(of_op1_sel_spr_pc),
         .O(\Using_FPGA.Native_0 ));
@@ -27787,7 +27454,7 @@ module design_1_microblaze_0_1_MB_FDR_214
         .R(sync_reset));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__148 
+    \Using_FPGA.Native_i_1__149 
        (.I0(if_sel_input),
         .I1(\Using_FPGA.Native_1 ),
         .I2(D),
@@ -27795,7 +27462,7 @@ module design_1_microblaze_0_1_MB_FDR_214
         .O(I073_out));
   LUT2 #(
     .INIT(4'h8)) 
-    \Using_FPGA.Native_i_2__126 
+    \Using_FPGA.Native_i_2__135 
        (.I0(D),
         .I1(of_op1_sel_spr_pc),
         .O(\Using_FPGA.Native_0 ));
@@ -27847,7 +27514,7 @@ module design_1_microblaze_0_1_MB_FDR_216
         .R(sync_reset));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__149 
+    \Using_FPGA.Native_i_1__150 
        (.I0(if_sel_input),
         .I1(\Using_FPGA.Native_1 ),
         .I2(D),
@@ -27855,7 +27522,7 @@ module design_1_microblaze_0_1_MB_FDR_216
         .O(I069_out));
   LUT2 #(
     .INIT(4'h8)) 
-    \Using_FPGA.Native_i_2__136 
+    \Using_FPGA.Native_i_2__147 
        (.I0(D),
         .I1(of_op1_sel_spr_pc),
         .O(\Using_FPGA.Native_0 ));
@@ -27907,7 +27574,7 @@ module design_1_microblaze_0_1_MB_FDR_218
         .R(sync_reset));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__150 
+    \Using_FPGA.Native_i_1__151 
        (.I0(if_sel_input),
         .I1(\Using_FPGA.Native_1 ),
         .I2(D),
@@ -27967,7 +27634,7 @@ module design_1_microblaze_0_1_MB_FDR_220
         .R(sync_reset));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__151 
+    \Using_FPGA.Native_i_1__152 
        (.I0(if_sel_input),
         .I1(\Using_FPGA.Native_1 ),
         .I2(D),
@@ -27975,7 +27642,7 @@ module design_1_microblaze_0_1_MB_FDR_220
         .O(I061_out));
   LUT2 #(
     .INIT(4'h8)) 
-    \Using_FPGA.Native_i_2__148 
+    \Using_FPGA.Native_i_2__151 
        (.I0(D),
         .I1(of_op1_sel_spr_pc),
         .O(\Using_FPGA.Native_0 ));
@@ -28027,7 +27694,7 @@ module design_1_microblaze_0_1_MB_FDR_222
         .R(sync_reset));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__152 
+    \Using_FPGA.Native_i_1__153 
        (.I0(if_sel_input),
         .I1(\Using_FPGA.Native_1 ),
         .I2(D),
@@ -28035,7 +27702,7 @@ module design_1_microblaze_0_1_MB_FDR_222
         .O(I057_out));
   LUT2 #(
     .INIT(4'h8)) 
-    \Using_FPGA.Native_i_2__147 
+    \Using_FPGA.Native_i_2__126 
        (.I0(D),
         .I1(of_op1_sel_spr_pc),
         .O(\Using_FPGA.Native_0 ));
@@ -28087,7 +27754,7 @@ module design_1_microblaze_0_1_MB_FDR_224
         .R(sync_reset));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__153 
+    \Using_FPGA.Native_i_1__154 
        (.I0(if_sel_input),
         .I1(\Using_FPGA.Native_1 ),
         .I2(D),
@@ -28095,7 +27762,7 @@ module design_1_microblaze_0_1_MB_FDR_224
         .O(I053_out));
   LUT2 #(
     .INIT(4'h8)) 
-    \Using_FPGA.Native_i_2__146 
+    \Using_FPGA.Native_i_2__131 
        (.I0(D),
         .I1(of_op1_sel_spr_pc),
         .O(\Using_FPGA.Native_0 ));
@@ -28147,7 +27814,7 @@ module design_1_microblaze_0_1_MB_FDR_226
         .R(sync_reset));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__154 
+    \Using_FPGA.Native_i_1__155 
        (.I0(if_sel_input),
         .I1(\Using_FPGA.Native_1 ),
         .I2(D),
@@ -28155,7 +27822,7 @@ module design_1_microblaze_0_1_MB_FDR_226
         .O(I049_out));
   LUT2 #(
     .INIT(4'h8)) 
-    \Using_FPGA.Native_i_2__145 
+    \Using_FPGA.Native_i_2__130 
        (.I0(D),
         .I1(of_op1_sel_spr_pc),
         .O(\Using_FPGA.Native_0 ));
@@ -28207,7 +27874,7 @@ module design_1_microblaze_0_1_MB_FDR_228
         .R(sync_reset));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__136 
+    \Using_FPGA.Native_i_1__137 
        (.I0(if_sel_input),
         .I1(\Using_FPGA.Native_1 ),
         .I2(D),
@@ -28215,7 +27882,7 @@ module design_1_microblaze_0_1_MB_FDR_228
         .O(I0121_out));
   LUT2 #(
     .INIT(4'h8)) 
-    \Using_FPGA.Native_i_2__133 
+    \Using_FPGA.Native_i_2__144 
        (.I0(D),
         .I1(of_op1_sel_spr_pc),
         .O(\Using_FPGA.Native_0 ));
@@ -28267,7 +27934,7 @@ module design_1_microblaze_0_1_MB_FDR_230
         .R(sync_reset));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__155 
+    \Using_FPGA.Native_i_1__156 
        (.I0(if_sel_input),
         .I1(\Using_FPGA.Native_1 ),
         .I2(D),
@@ -28275,7 +27942,7 @@ module design_1_microblaze_0_1_MB_FDR_230
         .O(I045_out));
   LUT2 #(
     .INIT(4'h8)) 
-    \Using_FPGA.Native_i_2__144 
+    \Using_FPGA.Native_i_2__129 
        (.I0(D),
         .I1(of_op1_sel_spr_pc),
         .O(\Using_FPGA.Native_0 ));
@@ -28327,7 +27994,7 @@ module design_1_microblaze_0_1_MB_FDR_232
         .R(sync_reset));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__156 
+    \Using_FPGA.Native_i_1__157 
        (.I0(if_sel_input),
         .I1(\Using_FPGA.Native_1 ),
         .I2(D),
@@ -28335,7 +28002,7 @@ module design_1_microblaze_0_1_MB_FDR_232
         .O(I041_out));
   LUT2 #(
     .INIT(4'h8)) 
-    \Using_FPGA.Native_i_2__143 
+    \Using_FPGA.Native_i_2__128 
        (.I0(D),
         .I1(of_op1_sel_spr_pc),
         .O(\Using_FPGA.Native_0 ));
@@ -28387,7 +28054,7 @@ module design_1_microblaze_0_1_MB_FDR_234
         .R(sync_reset));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__157 
+    \Using_FPGA.Native_i_1__158 
        (.I0(if_sel_input),
         .I1(\Using_FPGA.Native_1 ),
         .I2(D),
@@ -28395,7 +28062,7 @@ module design_1_microblaze_0_1_MB_FDR_234
         .O(I037_out));
   LUT2 #(
     .INIT(4'h8)) 
-    \Using_FPGA.Native_i_2__142 
+    \Using_FPGA.Native_i_2__127 
        (.I0(D),
         .I1(of_op1_sel_spr_pc),
         .O(\Using_FPGA.Native_0 ));
@@ -28447,7 +28114,7 @@ module design_1_microblaze_0_1_MB_FDR_236
         .R(sync_reset));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__158 
+    \Using_FPGA.Native_i_1__159 
        (.I0(if_sel_input),
         .I1(\Using_FPGA.Native_1 ),
         .I2(D),
@@ -28455,7 +28122,7 @@ module design_1_microblaze_0_1_MB_FDR_236
         .O(I033_out));
   LUT2 #(
     .INIT(4'h8)) 
-    \Using_FPGA.Native_i_2__141 
+    \Using_FPGA.Native_i_2__133 
        (.I0(D),
         .I1(of_op1_sel_spr_pc),
         .O(\Using_FPGA.Native_0 ));
@@ -28507,7 +28174,7 @@ module design_1_microblaze_0_1_MB_FDR_238
         .R(sync_reset));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__159 
+    \Using_FPGA.Native_i_1__160 
        (.I0(if_sel_input),
         .I1(\Using_FPGA.Native_1 ),
         .I2(D),
@@ -28515,7 +28182,7 @@ module design_1_microblaze_0_1_MB_FDR_238
         .O(I029_out));
   LUT2 #(
     .INIT(4'h8)) 
-    \Using_FPGA.Native_i_2__140 
+    \Using_FPGA.Native_i_2__150 
        (.I0(D),
         .I1(of_op1_sel_spr_pc),
         .O(\Using_FPGA.Native_0 ));
@@ -28570,7 +28237,7 @@ module design_1_microblaze_0_1_MB_FDR_240
         .R(sync_reset));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__160 
+    \Using_FPGA.Native_i_1__161 
        (.I0(if_sel_input),
         .I1(\Using_FPGA.Native_1 ),
         .I2(D),
@@ -28578,7 +28245,7 @@ module design_1_microblaze_0_1_MB_FDR_240
         .O(I025_out));
   LUT3 #(
     .INIT(8'hAC)) 
-    \Using_FPGA.Native_i_2__31 
+    \Using_FPGA.Native_i_2__32 
        (.I0(D),
         .I1(ex_MSR),
         .I2(of_op1_sel_spr_pc),
@@ -28631,7 +28298,7 @@ module design_1_microblaze_0_1_MB_FDR_242
         .R(sync_reset));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__161 
+    \Using_FPGA.Native_i_1__162 
        (.I0(if_sel_input),
         .I1(\Using_FPGA.Native_1 ),
         .I2(D),
@@ -28639,7 +28306,7 @@ module design_1_microblaze_0_1_MB_FDR_242
         .O(I021_out));
   LUT2 #(
     .INIT(4'h8)) 
-    \Using_FPGA.Native_i_2__139 
+    \Using_FPGA.Native_i_2__143 
        (.I0(D),
         .I1(of_op1_sel_spr_pc),
         .O(\Using_FPGA.Native_0 ));
@@ -28691,7 +28358,7 @@ module design_1_microblaze_0_1_MB_FDR_244
         .R(sync_reset));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__162 
+    \Using_FPGA.Native_i_1__163 
        (.I0(if_sel_input),
         .I1(\Using_FPGA.Native_1 ),
         .I2(D),
@@ -28699,7 +28366,7 @@ module design_1_microblaze_0_1_MB_FDR_244
         .O(I017_out));
   LUT2 #(
     .INIT(4'h8)) 
-    \Using_FPGA.Native_i_2__138 
+    \Using_FPGA.Native_i_2__140 
        (.I0(D),
         .I1(of_op1_sel_spr_pc),
         .O(\Using_FPGA.Native_0 ));
@@ -28754,7 +28421,7 @@ module design_1_microblaze_0_1_MB_FDR_246
         .R(sync_reset));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__163 
+    \Using_FPGA.Native_i_1__164 
        (.I0(if_sel_input),
         .I1(\Using_FPGA.Native_1 ),
         .I2(D),
@@ -28762,7 +28429,7 @@ module design_1_microblaze_0_1_MB_FDR_246
         .O(I013_out));
   LUT3 #(
     .INIT(8'hAC)) 
-    \Using_FPGA.Native_i_2__30 
+    \Using_FPGA.Native_i_2__31 
        (.I0(D),
         .I1(ex_MSR),
         .I2(of_op1_sel_spr_pc),
@@ -28818,7 +28485,7 @@ module design_1_microblaze_0_1_MB_FDR_248
         .R(sync_reset));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__164 
+    \Using_FPGA.Native_i_1__165 
        (.I0(if_sel_input),
         .I1(\Using_FPGA.Native_1 ),
         .I2(D),
@@ -28826,7 +28493,7 @@ module design_1_microblaze_0_1_MB_FDR_248
         .O(I09_out));
   LUT3 #(
     .INIT(8'hAC)) 
-    \Using_FPGA.Native_i_2__29 
+    \Using_FPGA.Native_i_2__30 
        (.I0(D),
         .I1(ex_MSR),
         .I2(of_op1_sel_spr_pc),
@@ -28879,7 +28546,7 @@ module design_1_microblaze_0_1_MB_FDR_250
         .R(sync_reset));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__137 
+    \Using_FPGA.Native_i_1__138 
        (.I0(if_sel_input),
         .I1(\Using_FPGA.Native_1 ),
         .I2(D),
@@ -28887,7 +28554,7 @@ module design_1_microblaze_0_1_MB_FDR_250
         .O(I0117_out));
   LUT2 #(
     .INIT(4'h8)) 
-    \Using_FPGA.Native_i_2__131 
+    \Using_FPGA.Native_i_2__141 
        (.I0(D),
         .I1(of_op1_sel_spr_pc),
         .O(\Using_FPGA.Native_0 ));
@@ -28942,7 +28609,7 @@ module design_1_microblaze_0_1_MB_FDR_252
         .R(sync_reset));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__165 
+    \Using_FPGA.Native_i_1__166 
        (.I0(if_sel_input),
         .I1(\Using_FPGA.Native_1 ),
         .I2(D),
@@ -28950,7 +28617,7 @@ module design_1_microblaze_0_1_MB_FDR_252
         .O(I05_out));
   LUT3 #(
     .INIT(8'hAC)) 
-    \Using_FPGA.Native_i_2__28 
+    \Using_FPGA.Native_i_2__29 
        (.I0(D),
         .I1(ex_MSR),
         .I2(of_op1_sel_spr_pc),
@@ -29003,7 +28670,7 @@ module design_1_microblaze_0_1_MB_FDR_254
         .R(sync_reset));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__166 
+    \Using_FPGA.Native_i_1__167 
        (.I0(if_sel_input),
         .I1(\Using_FPGA.Native_1 ),
         .I2(D),
@@ -29011,7 +28678,7 @@ module design_1_microblaze_0_1_MB_FDR_254
         .O(I0));
   LUT2 #(
     .INIT(4'h8)) 
-    \Using_FPGA.Native_i_2__150 
+    \Using_FPGA.Native_i_2__152 
        (.I0(D),
         .I1(of_op1_sel_spr_pc),
         .O(\Using_FPGA.Native_0 ));
@@ -29063,7 +28730,7 @@ module design_1_microblaze_0_1_MB_FDR_256
         .R(sync_reset));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__138 
+    \Using_FPGA.Native_i_1__139 
        (.I0(if_sel_input),
         .I1(\Using_FPGA.Native_1 ),
         .I2(D),
@@ -29071,7 +28738,7 @@ module design_1_microblaze_0_1_MB_FDR_256
         .O(I0113_out));
   LUT2 #(
     .INIT(4'h8)) 
-    \Using_FPGA.Native_i_2__129 
+    \Using_FPGA.Native_i_2__138 
        (.I0(D),
         .I1(of_op1_sel_spr_pc),
         .O(\Using_FPGA.Native_0 ));
@@ -29123,7 +28790,7 @@ module design_1_microblaze_0_1_MB_FDR_258
         .R(sync_reset));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__139 
+    \Using_FPGA.Native_i_1__140 
        (.I0(if_sel_input),
         .I1(\Using_FPGA.Native_1 ),
         .I2(D),
@@ -29131,7 +28798,7 @@ module design_1_microblaze_0_1_MB_FDR_258
         .O(I0109_out));
   LUT2 #(
     .INIT(4'h8)) 
-    \Using_FPGA.Native_i_2__127 
+    \Using_FPGA.Native_i_2__136 
        (.I0(D),
         .I1(of_op1_sel_spr_pc),
         .O(\Using_FPGA.Native_0 ));
@@ -29183,7 +28850,7 @@ module design_1_microblaze_0_1_MB_FDR_260
         .R(sync_reset));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__140 
+    \Using_FPGA.Native_i_1__141 
        (.I0(if_sel_input),
         .I1(\Using_FPGA.Native_1 ),
         .I2(D),
@@ -29191,7 +28858,7 @@ module design_1_microblaze_0_1_MB_FDR_260
         .O(I0105_out));
   LUT2 #(
     .INIT(4'h8)) 
-    \Using_FPGA.Native_i_2__125 
+    \Using_FPGA.Native_i_2__134 
        (.I0(D),
         .I1(of_op1_sel_spr_pc),
         .O(\Using_FPGA.Native_0 ));
@@ -29243,7 +28910,7 @@ module design_1_microblaze_0_1_MB_FDR_262
         .R(sync_reset));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__141 
+    \Using_FPGA.Native_i_1__142 
        (.I0(if_sel_input),
         .I1(\Using_FPGA.Native_1 ),
         .I2(D),
@@ -29251,7 +28918,7 @@ module design_1_microblaze_0_1_MB_FDR_262
         .O(I0101_out));
   LUT2 #(
     .INIT(4'h8)) 
-    \Using_FPGA.Native_i_2__135 
+    \Using_FPGA.Native_i_2__146 
        (.I0(D),
         .I1(of_op1_sel_spr_pc),
         .O(\Using_FPGA.Native_0 ));
@@ -29303,7 +28970,7 @@ module design_1_microblaze_0_1_MB_FDR_264
         .R(sync_reset));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__142 
+    \Using_FPGA.Native_i_1__143 
        (.I0(if_sel_input),
         .I1(\Using_FPGA.Native_1 ),
         .I2(D),
@@ -29311,7 +28978,7 @@ module design_1_microblaze_0_1_MB_FDR_264
         .O(I097_out));
   LUT2 #(
     .INIT(4'h8)) 
-    \Using_FPGA.Native_i_2__137 
+    \Using_FPGA.Native_i_2__148 
        (.I0(D),
         .I1(of_op1_sel_spr_pc),
         .O(\Using_FPGA.Native_0 ));
@@ -29363,7 +29030,7 @@ module design_1_microblaze_0_1_MB_FDR_266
         .R(sync_reset));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__143 
+    \Using_FPGA.Native_i_1__144 
        (.I0(if_sel_input),
         .I1(\Using_FPGA.Native_1 ),
         .I2(D),
@@ -29371,7 +29038,7 @@ module design_1_microblaze_0_1_MB_FDR_266
         .O(I093_out));
   LUT2 #(
     .INIT(4'h8)) 
-    \Using_FPGA.Native_i_2__124 
+    \Using_FPGA.Native_i_2__132 
        (.I0(D),
         .I1(of_op1_sel_spr_pc),
         .O(\Using_FPGA.Native_0 ));
@@ -29423,7 +29090,7 @@ module design_1_microblaze_0_1_MB_FDR_268
         .R(sync_reset));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__144 
+    \Using_FPGA.Native_i_1__145 
        (.I0(if_sel_input),
         .I1(\Using_FPGA.Native_1 ),
         .I2(D),
@@ -29431,7 +29098,7 @@ module design_1_microblaze_0_1_MB_FDR_268
         .O(I089_out));
   LUT2 #(
     .INIT(4'h8)) 
-    \Using_FPGA.Native_i_2__134 
+    \Using_FPGA.Native_i_2__145 
        (.I0(D),
         .I1(of_op1_sel_spr_pc),
         .O(\Using_FPGA.Native_0 ));
@@ -29492,7 +29159,7 @@ module design_1_microblaze_0_1_MB_FDR_301
         .R(sync_reset));
   LUT5 #(
     .INIT(32'hB8BBB888)) 
-    \Using_FPGA.Native_i_1__7 
+    \Using_FPGA.Native_i_1__8 
        (.I0(D),
         .I1(wb_MSR_Clear_IE),
         .I2(\Using_FPGA.Native_2 ),
@@ -30057,7 +29724,7 @@ module design_1_microblaze_0_1_MB_FDS
         .S(sync_reset));
   LUT6 #(
     .INIT(64'hF870707070707070)) 
-    \Using_FPGA.Native_i_1__112 
+    \Using_FPGA.Native_i_1__113 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\Using_FPGA.Native_1 ),
         .I2(of_predecode[0]),
@@ -30067,7 +29734,7 @@ module design_1_microblaze_0_1_MB_FDS
         .O(I041_out));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__113 
+    \Using_FPGA.Native_i_1__114 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\Using_FPGA.Native_1 ),
         .I2(\Using_FPGA.Native_2 ),
@@ -30075,7 +29742,7 @@ module design_1_microblaze_0_1_MB_FDS
         .O(I045_out));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__114 
+    \Using_FPGA.Native_i_1__115 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\Using_FPGA.Native_1 ),
         .I2(\Using_FPGA.Native_3 ),
@@ -30083,7 +29750,7 @@ module design_1_microblaze_0_1_MB_FDS
         .O(I049_out));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__115 
+    \Using_FPGA.Native_i_1__116 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\Using_FPGA.Native_1 ),
         .I2(\Using_FPGA.Native_4 ),
@@ -30091,7 +29758,7 @@ module design_1_microblaze_0_1_MB_FDS
         .O(I053_out));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__116 
+    \Using_FPGA.Native_i_1__117 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\Using_FPGA.Native_1 ),
         .I2(\Using_FPGA.Native_5 ),
@@ -30099,7 +29766,7 @@ module design_1_microblaze_0_1_MB_FDS
         .O(I057_out));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__117 
+    \Using_FPGA.Native_i_1__118 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\Using_FPGA.Native_1 ),
         .I2(\Using_FPGA.Native_6 [0]),
@@ -30107,7 +29774,7 @@ module design_1_microblaze_0_1_MB_FDS
         .O(I061_out));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__118 
+    \Using_FPGA.Native_i_1__119 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\Using_FPGA.Native_1 ),
         .I2(\Using_FPGA.Native_6 [1]),
@@ -30115,7 +29782,7 @@ module design_1_microblaze_0_1_MB_FDS
         .O(I065_out));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__119 
+    \Using_FPGA.Native_i_1__120 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\Using_FPGA.Native_1 ),
         .I2(\Using_FPGA.Native_6 [2]),
@@ -30123,7 +29790,7 @@ module design_1_microblaze_0_1_MB_FDS
         .O(I069_out));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__120 
+    \Using_FPGA.Native_i_1__121 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\Using_FPGA.Native_1 ),
         .I2(\Using_FPGA.Native_6 [3]),
@@ -30131,7 +29798,7 @@ module design_1_microblaze_0_1_MB_FDS
         .O(I073_out));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__121 
+    \Using_FPGA.Native_i_1__122 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\Using_FPGA.Native_1 ),
         .I2(\Using_FPGA.Native_6 [4]),
@@ -30139,7 +29806,7 @@ module design_1_microblaze_0_1_MB_FDS
         .O(I077_out));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__122 
+    \Using_FPGA.Native_i_1__123 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\Using_FPGA.Native_1 ),
         .I2(\Using_FPGA.Native_6 [5]),
@@ -30147,7 +29814,7 @@ module design_1_microblaze_0_1_MB_FDS
         .O(I081_out));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__123 
+    \Using_FPGA.Native_i_1__124 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\Using_FPGA.Native_1 ),
         .I2(\Using_FPGA.Native_6 [6]),
@@ -30155,7 +29822,7 @@ module design_1_microblaze_0_1_MB_FDS
         .O(I085_out));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__124 
+    \Using_FPGA.Native_i_1__125 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\Using_FPGA.Native_1 ),
         .I2(\Using_FPGA.Native_7 ),
@@ -30163,7 +29830,7 @@ module design_1_microblaze_0_1_MB_FDS
         .O(I0129_out));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__125 
+    \Using_FPGA.Native_i_1__126 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\Using_FPGA.Native_1 ),
         .I2(\Using_FPGA.Native_8 ),
@@ -30171,7 +29838,7 @@ module design_1_microblaze_0_1_MB_FDS
         .O(I0133_out));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__126 
+    \Using_FPGA.Native_i_1__127 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\Using_FPGA.Native_1 ),
         .I2(\Using_FPGA.Native_9 ),
@@ -30179,7 +29846,7 @@ module design_1_microblaze_0_1_MB_FDS
         .O(I0137_out));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__127 
+    \Using_FPGA.Native_i_1__128 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\Using_FPGA.Native_1 ),
         .I2(\Using_FPGA.Native_10 ),
@@ -30187,7 +29854,7 @@ module design_1_microblaze_0_1_MB_FDS
         .O(I0141_out));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__128 
+    \Using_FPGA.Native_i_1__129 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\Using_FPGA.Native_1 ),
         .I2(\Using_FPGA.Native_11 ),
@@ -30195,7 +29862,7 @@ module design_1_microblaze_0_1_MB_FDS
         .O(I0145_out));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__129 
+    \Using_FPGA.Native_i_1__130 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\Using_FPGA.Native_1 ),
         .I2(\Using_FPGA.Native_12 ),
@@ -30203,7 +29870,7 @@ module design_1_microblaze_0_1_MB_FDS
         .O(I0149_out));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__130 
+    \Using_FPGA.Native_i_1__131 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\Using_FPGA.Native_1 ),
         .I2(\Using_FPGA.Native_13 ),
@@ -30211,7 +29878,7 @@ module design_1_microblaze_0_1_MB_FDS
         .O(I0153_out));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__131 
+    \Using_FPGA.Native_i_1__132 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\Using_FPGA.Native_1 ),
         .I2(\Using_FPGA.Native_14 ),
@@ -30219,7 +29886,7 @@ module design_1_microblaze_0_1_MB_FDS
         .O(I0157_out));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__132 
+    \Using_FPGA.Native_i_1__133 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\Using_FPGA.Native_1 ),
         .I2(\Using_FPGA.Native_15 ),
@@ -30227,7 +29894,7 @@ module design_1_microblaze_0_1_MB_FDS
         .O(I0161_out));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__133 
+    \Using_FPGA.Native_i_1__134 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\Using_FPGA.Native_1 ),
         .I2(\Using_FPGA.Native_16 ),
@@ -30235,7 +29902,7 @@ module design_1_microblaze_0_1_MB_FDS
         .O(I0165_out));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__134 
+    \Using_FPGA.Native_i_1__135 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\Using_FPGA.Native_1 ),
         .I2(\Using_FPGA.Native_17 ),
@@ -30243,7 +29910,7 @@ module design_1_microblaze_0_1_MB_FDS
         .O(I0169_out));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__167 
+    \Using_FPGA.Native_i_1__168 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\Using_FPGA.Native_1 ),
         .I2(\Using_FPGA.Native_6 [16]),
@@ -30251,7 +29918,7 @@ module design_1_microblaze_0_1_MB_FDS
         .O(I0125_out));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__168 
+    \Using_FPGA.Native_i_1__169 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\Using_FPGA.Native_1 ),
         .I2(\Using_FPGA.Native_6 [15]),
@@ -30259,7 +29926,7 @@ module design_1_microblaze_0_1_MB_FDS
         .O(I0121_out));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__169 
+    \Using_FPGA.Native_i_1__170 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\Using_FPGA.Native_1 ),
         .I2(\Using_FPGA.Native_6 [14]),
@@ -30267,7 +29934,7 @@ module design_1_microblaze_0_1_MB_FDS
         .O(I0117_out));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__170 
+    \Using_FPGA.Native_i_1__171 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\Using_FPGA.Native_1 ),
         .I2(\Using_FPGA.Native_6 [13]),
@@ -30275,7 +29942,7 @@ module design_1_microblaze_0_1_MB_FDS
         .O(I0113_out));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__171 
+    \Using_FPGA.Native_i_1__172 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\Using_FPGA.Native_1 ),
         .I2(\Using_FPGA.Native_6 [12]),
@@ -30283,7 +29950,7 @@ module design_1_microblaze_0_1_MB_FDS
         .O(I0109_out));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__172 
+    \Using_FPGA.Native_i_1__173 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\Using_FPGA.Native_1 ),
         .I2(\Using_FPGA.Native_6 [11]),
@@ -30291,7 +29958,7 @@ module design_1_microblaze_0_1_MB_FDS
         .O(I0105_out));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__173 
+    \Using_FPGA.Native_i_1__174 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\Using_FPGA.Native_1 ),
         .I2(\Using_FPGA.Native_6 [10]),
@@ -30299,7 +29966,7 @@ module design_1_microblaze_0_1_MB_FDS
         .O(I0101_out));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__174 
+    \Using_FPGA.Native_i_1__175 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\Using_FPGA.Native_1 ),
         .I2(\Using_FPGA.Native_6 [9]),
@@ -30307,7 +29974,7 @@ module design_1_microblaze_0_1_MB_FDS
         .O(I097_out));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__175 
+    \Using_FPGA.Native_i_1__176 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\Using_FPGA.Native_1 ),
         .I2(\Using_FPGA.Native_6 [8]),
@@ -30315,7 +29982,7 @@ module design_1_microblaze_0_1_MB_FDS
         .O(I093_out));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__176 
+    \Using_FPGA.Native_i_1__177 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\Using_FPGA.Native_1 ),
         .I2(\Using_FPGA.Native_6 [7]),
@@ -30323,7 +29990,7 @@ module design_1_microblaze_0_1_MB_FDS
         .O(I089_out));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__177 
+    \Using_FPGA.Native_i_1__178 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\Using_FPGA.Native_1 ),
         .I2(of_predecode[1]),
@@ -30331,7 +29998,7 @@ module design_1_microblaze_0_1_MB_FDS
         .O(I037_out));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__178 
+    \Using_FPGA.Native_i_1__179 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\Using_FPGA.Native_1 ),
         .I2(of_predecode[2]),
@@ -30339,7 +30006,7 @@ module design_1_microblaze_0_1_MB_FDS
         .O(I033_out));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__179 
+    \Using_FPGA.Native_i_1__180 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\Using_FPGA.Native_1 ),
         .I2(of_predecode[3]),
@@ -30347,7 +30014,7 @@ module design_1_microblaze_0_1_MB_FDS
         .O(I029_out));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__180 
+    \Using_FPGA.Native_i_1__181 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\Using_FPGA.Native_1 ),
         .I2(of_predecode[4]),
@@ -30355,7 +30022,7 @@ module design_1_microblaze_0_1_MB_FDS
         .O(I025_out));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__181 
+    \Using_FPGA.Native_i_1__182 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\Using_FPGA.Native_1 ),
         .I2(of_predecode[5]),
@@ -30363,7 +30030,7 @@ module design_1_microblaze_0_1_MB_FDS
         .O(I021_out));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__182 
+    \Using_FPGA.Native_i_1__183 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\Using_FPGA.Native_1 ),
         .I2(of_predecode[6]),
@@ -30371,7 +30038,7 @@ module design_1_microblaze_0_1_MB_FDS
         .O(I017_out));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__183 
+    \Using_FPGA.Native_i_1__184 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\Using_FPGA.Native_1 ),
         .I2(of_predecode[7]),
@@ -30379,7 +30046,7 @@ module design_1_microblaze_0_1_MB_FDS
         .O(I013_out));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__184 
+    \Using_FPGA.Native_i_1__185 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\Using_FPGA.Native_1 ),
         .I2(of_predecode[8]),
@@ -30387,7 +30054,7 @@ module design_1_microblaze_0_1_MB_FDS
         .O(I09_out));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__185 
+    \Using_FPGA.Native_i_1__186 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\Using_FPGA.Native_1 ),
         .I2(of_predecode[9]),
@@ -30395,7 +30062,7 @@ module design_1_microblaze_0_1_MB_FDS
         .O(I05_out));
   LUT4 #(
     .INIT(16'hF870)) 
-    \Using_FPGA.Native_i_1__186 
+    \Using_FPGA.Native_i_1__187 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\Using_FPGA.Native_1 ),
         .I2(of_predecode[10]),
@@ -32774,7 +32441,7 @@ module design_1_microblaze_0_1_MB_LUT6_2__parameterized3
    (Y,
     I139_out,
     in,
-    A0,
+    Instr,
     LOCKSTEP_Master_Out,
     \Using_FPGA.Native_0 ,
     \Using_FPGA.Native_1 ,
@@ -32782,14 +32449,14 @@ module design_1_microblaze_0_1_MB_LUT6_2__parameterized3
   output [1:0]Y;
   output I139_out;
   output [0:0]in;
-  input [1:0]A0;
+  input [1:0]Instr;
   input [2:0]LOCKSTEP_Master_Out;
   input [0:0]\Using_FPGA.Native_0 ;
   input [0:0]\Using_FPGA.Native_1 ;
   input [1:0]\Using_FPGA.Native_2 ;
 
-  wire [1:0]A0;
   wire I139_out;
+  wire [1:0]Instr;
   wire [2:0]LOCKSTEP_Master_Out;
   wire [0:0]\Using_FPGA.Native_0 ;
   wire [0:0]\Using_FPGA.Native_1 ;
@@ -32801,9 +32468,9 @@ module design_1_microblaze_0_1_MB_LUT6_2__parameterized3
   LUT6_2 #(
     .INIT(64'hFF00F0F0CCCCAAAA)) 
     \Using_FPGA.Native 
-       (.I0(A0[1]),
+       (.I0(Instr[1]),
         .I1(LOCKSTEP_Master_Out[1]),
-        .I2(A0[0]),
+        .I2(Instr[0]),
         .I3(LOCKSTEP_Master_Out[0]),
         .I4(LOCKSTEP_Master_Out[2]),
         .I5(1'b1),
@@ -32811,7 +32478,7 @@ module design_1_microblaze_0_1_MB_LUT6_2__parameterized3
         .O6(Y[0]));
   LUT5 #(
     .INIT(32'hE2222222)) 
-    \Using_FPGA.Native_i_2__67 
+    \Using_FPGA.Native_i_2__69 
        (.I0(\Using_FPGA.Native_0 ),
         .I1(\Using_FPGA.Native_1 ),
         .I2(Y[1]),
@@ -32830,13 +32497,13 @@ endmodule
 (* ORIG_REF_NAME = "MB_LUT6_2" *) 
 module design_1_microblaze_0_1_MB_LUT6_2__parameterized3_10
    (Y,
-    A0,
+    Instr,
     LOCKSTEP_Master_Out);
   output [1:0]Y;
-  input [1:0]A0;
+  input [1:0]Instr;
   input [2:0]LOCKSTEP_Master_Out;
 
-  wire [1:0]A0;
+  wire [1:0]Instr;
   wire [2:0]LOCKSTEP_Master_Out;
   wire [1:0]Y;
 
@@ -32844,9 +32511,9 @@ module design_1_microblaze_0_1_MB_LUT6_2__parameterized3_10
   LUT6_2 #(
     .INIT(64'hFF00F0F0CCCCAAAA)) 
     \Using_FPGA.Native 
-       (.I0(A0[1]),
+       (.I0(Instr[1]),
         .I1(LOCKSTEP_Master_Out[1]),
-        .I2(A0[0]),
+        .I2(Instr[0]),
         .I3(LOCKSTEP_Master_Out[0]),
         .I4(LOCKSTEP_Master_Out[2]),
         .I5(1'b1),
@@ -32857,13 +32524,13 @@ endmodule
 (* ORIG_REF_NAME = "MB_LUT6_2" *) 
 module design_1_microblaze_0_1_MB_LUT6_2__parameterized3_11
    (Y,
-    A0,
+    Instr,
     LOCKSTEP_Master_Out);
   output [1:0]Y;
-  input [1:0]A0;
+  input [1:0]Instr;
   input [2:0]LOCKSTEP_Master_Out;
 
-  wire [1:0]A0;
+  wire [1:0]Instr;
   wire [2:0]LOCKSTEP_Master_Out;
   wire [1:0]Y;
 
@@ -32871,9 +32538,9 @@ module design_1_microblaze_0_1_MB_LUT6_2__parameterized3_11
   LUT6_2 #(
     .INIT(64'hFF00F0F0CCCCAAAA)) 
     \Using_FPGA.Native 
-       (.I0(A0[1]),
+       (.I0(Instr[1]),
         .I1(LOCKSTEP_Master_Out[1]),
-        .I2(A0[0]),
+        .I2(Instr[0]),
         .I3(LOCKSTEP_Master_Out[0]),
         .I4(LOCKSTEP_Master_Out[2]),
         .I5(1'b1),
@@ -32884,13 +32551,13 @@ endmodule
 (* ORIG_REF_NAME = "MB_LUT6_2" *) 
 module design_1_microblaze_0_1_MB_LUT6_2__parameterized3_12
    (Y,
-    A0,
+    Instr,
     LOCKSTEP_Master_Out);
   output [1:0]Y;
-  input [1:0]A0;
+  input [1:0]Instr;
   input [2:0]LOCKSTEP_Master_Out;
 
-  wire [1:0]A0;
+  wire [1:0]Instr;
   wire [2:0]LOCKSTEP_Master_Out;
   wire [1:0]Y;
 
@@ -32898,9 +32565,9 @@ module design_1_microblaze_0_1_MB_LUT6_2__parameterized3_12
   LUT6_2 #(
     .INIT(64'hFF00F0F0CCCCAAAA)) 
     \Using_FPGA.Native 
-       (.I0(A0[1]),
+       (.I0(Instr[1]),
         .I1(LOCKSTEP_Master_Out[1]),
-        .I2(A0[0]),
+        .I2(Instr[0]),
         .I3(LOCKSTEP_Master_Out[0]),
         .I4(LOCKSTEP_Master_Out[2]),
         .I5(1'b1),
@@ -32911,13 +32578,13 @@ endmodule
 (* ORIG_REF_NAME = "MB_LUT6_2" *) 
 module design_1_microblaze_0_1_MB_LUT6_2__parameterized3_13
    (Y,
-    A0,
+    Instr,
     LOCKSTEP_Master_Out);
   output [1:0]Y;
-  input [1:0]A0;
+  input [1:0]Instr;
   input [2:0]LOCKSTEP_Master_Out;
 
-  wire [1:0]A0;
+  wire [1:0]Instr;
   wire [2:0]LOCKSTEP_Master_Out;
   wire [1:0]Y;
 
@@ -32925,9 +32592,9 @@ module design_1_microblaze_0_1_MB_LUT6_2__parameterized3_13
   LUT6_2 #(
     .INIT(64'hFF00F0F0CCCCAAAA)) 
     \Using_FPGA.Native 
-       (.I0(A0[1]),
+       (.I0(Instr[1]),
         .I1(LOCKSTEP_Master_Out[1]),
-        .I2(A0[0]),
+        .I2(Instr[0]),
         .I3(LOCKSTEP_Master_Out[0]),
         .I4(LOCKSTEP_Master_Out[2]),
         .I5(1'b1),
@@ -32938,13 +32605,13 @@ endmodule
 (* ORIG_REF_NAME = "MB_LUT6_2" *) 
 module design_1_microblaze_0_1_MB_LUT6_2__parameterized3_14
    (Y,
-    A0,
+    Instr,
     LOCKSTEP_Master_Out);
   output [1:0]Y;
-  input [1:0]A0;
+  input [1:0]Instr;
   input [2:0]LOCKSTEP_Master_Out;
 
-  wire [1:0]A0;
+  wire [1:0]Instr;
   wire [2:0]LOCKSTEP_Master_Out;
   wire [1:0]Y;
 
@@ -32952,9 +32619,9 @@ module design_1_microblaze_0_1_MB_LUT6_2__parameterized3_14
   LUT6_2 #(
     .INIT(64'hFF00F0F0CCCCAAAA)) 
     \Using_FPGA.Native 
-       (.I0(A0[1]),
+       (.I0(Instr[1]),
         .I1(LOCKSTEP_Master_Out[1]),
-        .I2(A0[0]),
+        .I2(Instr[0]),
         .I3(LOCKSTEP_Master_Out[0]),
         .I4(LOCKSTEP_Master_Out[2]),
         .I5(1'b1),
@@ -32965,13 +32632,13 @@ endmodule
 (* ORIG_REF_NAME = "MB_LUT6_2" *) 
 module design_1_microblaze_0_1_MB_LUT6_2__parameterized3_15
    (Y,
-    A0,
+    Instr,
     LOCKSTEP_Master_Out);
   output [1:0]Y;
-  input [1:0]A0;
+  input [1:0]Instr;
   input [2:0]LOCKSTEP_Master_Out;
 
-  wire [1:0]A0;
+  wire [1:0]Instr;
   wire [2:0]LOCKSTEP_Master_Out;
   wire [1:0]Y;
 
@@ -32979,9 +32646,9 @@ module design_1_microblaze_0_1_MB_LUT6_2__parameterized3_15
   LUT6_2 #(
     .INIT(64'hFF00F0F0CCCCAAAA)) 
     \Using_FPGA.Native 
-       (.I0(A0[1]),
+       (.I0(Instr[1]),
         .I1(LOCKSTEP_Master_Out[1]),
-        .I2(A0[0]),
+        .I2(Instr[0]),
         .I3(LOCKSTEP_Master_Out[0]),
         .I4(LOCKSTEP_Master_Out[2]),
         .I5(1'b1),
@@ -32992,13 +32659,13 @@ endmodule
 (* ORIG_REF_NAME = "MB_LUT6_2" *) 
 module design_1_microblaze_0_1_MB_LUT6_2__parameterized3_16
    (Y,
-    A0,
+    Instr,
     LOCKSTEP_Master_Out);
   output [1:0]Y;
-  input [1:0]A0;
+  input [1:0]Instr;
   input [2:0]LOCKSTEP_Master_Out;
 
-  wire [1:0]A0;
+  wire [1:0]Instr;
   wire [2:0]LOCKSTEP_Master_Out;
   wire [1:0]Y;
 
@@ -33006,9 +32673,9 @@ module design_1_microblaze_0_1_MB_LUT6_2__parameterized3_16
   LUT6_2 #(
     .INIT(64'hFF00F0F0CCCCAAAA)) 
     \Using_FPGA.Native 
-       (.I0(A0[1]),
+       (.I0(Instr[1]),
         .I1(LOCKSTEP_Master_Out[1]),
-        .I2(A0[0]),
+        .I2(Instr[0]),
         .I3(LOCKSTEP_Master_Out[0]),
         .I4(LOCKSTEP_Master_Out[2]),
         .I5(1'b1),
@@ -33019,13 +32686,13 @@ endmodule
 (* ORIG_REF_NAME = "MB_LUT6_2" *) 
 module design_1_microblaze_0_1_MB_LUT6_2__parameterized3_2
    (Y,
-    A0,
+    Instr,
     LOCKSTEP_Master_Out);
   output [1:0]Y;
-  input [1:0]A0;
+  input [1:0]Instr;
   input [2:0]LOCKSTEP_Master_Out;
 
-  wire [1:0]A0;
+  wire [1:0]Instr;
   wire [2:0]LOCKSTEP_Master_Out;
   wire [1:0]Y;
 
@@ -33033,9 +32700,9 @@ module design_1_microblaze_0_1_MB_LUT6_2__parameterized3_2
   LUT6_2 #(
     .INIT(64'hFF00F0F0CCCCAAAA)) 
     \Using_FPGA.Native 
-       (.I0(A0[1]),
+       (.I0(Instr[1]),
         .I1(LOCKSTEP_Master_Out[1]),
-        .I2(A0[0]),
+        .I2(Instr[0]),
         .I3(LOCKSTEP_Master_Out[0]),
         .I4(LOCKSTEP_Master_Out[2]),
         .I5(1'b1),
@@ -33046,13 +32713,13 @@ endmodule
 (* ORIG_REF_NAME = "MB_LUT6_2" *) 
 module design_1_microblaze_0_1_MB_LUT6_2__parameterized3_3
    (Y,
-    A0,
+    Instr,
     LOCKSTEP_Master_Out);
   output [1:0]Y;
-  input [1:0]A0;
+  input [1:0]Instr;
   input [2:0]LOCKSTEP_Master_Out;
 
-  wire [1:0]A0;
+  wire [1:0]Instr;
   wire [2:0]LOCKSTEP_Master_Out;
   wire [1:0]Y;
 
@@ -33060,9 +32727,9 @@ module design_1_microblaze_0_1_MB_LUT6_2__parameterized3_3
   LUT6_2 #(
     .INIT(64'hFF00F0F0CCCCAAAA)) 
     \Using_FPGA.Native 
-       (.I0(A0[1]),
+       (.I0(Instr[1]),
         .I1(LOCKSTEP_Master_Out[1]),
-        .I2(A0[0]),
+        .I2(Instr[0]),
         .I3(LOCKSTEP_Master_Out[0]),
         .I4(LOCKSTEP_Master_Out[2]),
         .I5(1'b1),
@@ -33073,13 +32740,13 @@ endmodule
 (* ORIG_REF_NAME = "MB_LUT6_2" *) 
 module design_1_microblaze_0_1_MB_LUT6_2__parameterized3_4
    (Y,
-    A0,
+    Instr,
     LOCKSTEP_Master_Out);
   output [1:0]Y;
-  input [1:0]A0;
+  input [1:0]Instr;
   input [2:0]LOCKSTEP_Master_Out;
 
-  wire [1:0]A0;
+  wire [1:0]Instr;
   wire [2:0]LOCKSTEP_Master_Out;
   wire [1:0]Y;
 
@@ -33087,9 +32754,9 @@ module design_1_microblaze_0_1_MB_LUT6_2__parameterized3_4
   LUT6_2 #(
     .INIT(64'hFF00F0F0CCCCAAAA)) 
     \Using_FPGA.Native 
-       (.I0(A0[1]),
+       (.I0(Instr[1]),
         .I1(LOCKSTEP_Master_Out[1]),
-        .I2(A0[0]),
+        .I2(Instr[0]),
         .I3(LOCKSTEP_Master_Out[0]),
         .I4(LOCKSTEP_Master_Out[2]),
         .I5(1'b1),
@@ -33100,13 +32767,13 @@ endmodule
 (* ORIG_REF_NAME = "MB_LUT6_2" *) 
 module design_1_microblaze_0_1_MB_LUT6_2__parameterized3_5
    (Y,
-    A0,
+    Instr,
     LOCKSTEP_Master_Out);
   output [1:0]Y;
-  input [1:0]A0;
+  input [1:0]Instr;
   input [2:0]LOCKSTEP_Master_Out;
 
-  wire [1:0]A0;
+  wire [1:0]Instr;
   wire [2:0]LOCKSTEP_Master_Out;
   wire [1:0]Y;
 
@@ -33114,9 +32781,9 @@ module design_1_microblaze_0_1_MB_LUT6_2__parameterized3_5
   LUT6_2 #(
     .INIT(64'hFF00F0F0CCCCAAAA)) 
     \Using_FPGA.Native 
-       (.I0(A0[1]),
+       (.I0(Instr[1]),
         .I1(LOCKSTEP_Master_Out[1]),
-        .I2(A0[0]),
+        .I2(Instr[0]),
         .I3(LOCKSTEP_Master_Out[0]),
         .I4(LOCKSTEP_Master_Out[2]),
         .I5(1'b1),
@@ -33127,13 +32794,13 @@ endmodule
 (* ORIG_REF_NAME = "MB_LUT6_2" *) 
 module design_1_microblaze_0_1_MB_LUT6_2__parameterized3_6
    (Y,
-    A0,
+    Instr,
     LOCKSTEP_Master_Out);
   output [1:0]Y;
-  input [1:0]A0;
+  input [1:0]Instr;
   input [2:0]LOCKSTEP_Master_Out;
 
-  wire [1:0]A0;
+  wire [1:0]Instr;
   wire [2:0]LOCKSTEP_Master_Out;
   wire [1:0]Y;
 
@@ -33141,9 +32808,9 @@ module design_1_microblaze_0_1_MB_LUT6_2__parameterized3_6
   LUT6_2 #(
     .INIT(64'hFF00F0F0CCCCAAAA)) 
     \Using_FPGA.Native 
-       (.I0(A0[1]),
+       (.I0(Instr[1]),
         .I1(LOCKSTEP_Master_Out[1]),
-        .I2(A0[0]),
+        .I2(Instr[0]),
         .I3(LOCKSTEP_Master_Out[0]),
         .I4(LOCKSTEP_Master_Out[2]),
         .I5(1'b1),
@@ -33154,13 +32821,13 @@ endmodule
 (* ORIG_REF_NAME = "MB_LUT6_2" *) 
 module design_1_microblaze_0_1_MB_LUT6_2__parameterized3_7
    (Y,
-    A0,
+    Instr,
     LOCKSTEP_Master_Out);
   output [1:0]Y;
-  input [1:0]A0;
+  input [1:0]Instr;
   input [2:0]LOCKSTEP_Master_Out;
 
-  wire [1:0]A0;
+  wire [1:0]Instr;
   wire [2:0]LOCKSTEP_Master_Out;
   wire [1:0]Y;
 
@@ -33168,9 +32835,9 @@ module design_1_microblaze_0_1_MB_LUT6_2__parameterized3_7
   LUT6_2 #(
     .INIT(64'hFF00F0F0CCCCAAAA)) 
     \Using_FPGA.Native 
-       (.I0(A0[1]),
+       (.I0(Instr[1]),
         .I1(LOCKSTEP_Master_Out[1]),
-        .I2(A0[0]),
+        .I2(Instr[0]),
         .I3(LOCKSTEP_Master_Out[0]),
         .I4(LOCKSTEP_Master_Out[2]),
         .I5(1'b1),
@@ -33181,13 +32848,13 @@ endmodule
 (* ORIG_REF_NAME = "MB_LUT6_2" *) 
 module design_1_microblaze_0_1_MB_LUT6_2__parameterized3_8
    (Y,
-    A0,
+    Instr,
     LOCKSTEP_Master_Out);
   output [1:0]Y;
-  input [1:0]A0;
+  input [1:0]Instr;
   input [2:0]LOCKSTEP_Master_Out;
 
-  wire [1:0]A0;
+  wire [1:0]Instr;
   wire [2:0]LOCKSTEP_Master_Out;
   wire [1:0]Y;
 
@@ -33195,9 +32862,9 @@ module design_1_microblaze_0_1_MB_LUT6_2__parameterized3_8
   LUT6_2 #(
     .INIT(64'hFF00F0F0CCCCAAAA)) 
     \Using_FPGA.Native 
-       (.I0(A0[1]),
+       (.I0(Instr[1]),
         .I1(LOCKSTEP_Master_Out[1]),
-        .I2(A0[0]),
+        .I2(Instr[0]),
         .I3(LOCKSTEP_Master_Out[0]),
         .I4(LOCKSTEP_Master_Out[2]),
         .I5(1'b1),
@@ -33208,13 +32875,13 @@ endmodule
 (* ORIG_REF_NAME = "MB_LUT6_2" *) 
 module design_1_microblaze_0_1_MB_LUT6_2__parameterized3_9
    (Y,
-    A0,
+    Instr,
     LOCKSTEP_Master_Out);
   output [1:0]Y;
-  input [1:0]A0;
+  input [1:0]Instr;
   input [2:0]LOCKSTEP_Master_Out;
 
-  wire [1:0]A0;
+  wire [1:0]Instr;
   wire [2:0]LOCKSTEP_Master_Out;
   wire [1:0]Y;
 
@@ -33222,9 +32889,9 @@ module design_1_microblaze_0_1_MB_LUT6_2__parameterized3_9
   LUT6_2 #(
     .INIT(64'hFF00F0F0CCCCAAAA)) 
     \Using_FPGA.Native 
-       (.I0(A0[1]),
+       (.I0(Instr[1]),
         .I1(LOCKSTEP_Master_Out[1]),
-        .I2(A0[0]),
+        .I2(Instr[0]),
         .I3(LOCKSTEP_Master_Out[0]),
         .I4(LOCKSTEP_Master_Out[2]),
         .I5(1'b1),
@@ -34392,19 +34059,19 @@ module design_1_microblaze_0_1_MB_LUT6__parameterized10
    (of_read_ex_write_op1_conflict_part2,
     I0,
     of_predecode,
-    \Using_FPGA.Native_i_1__67 ,
-    \Using_FPGA.Native_i_1__67_0 ,
+    \Using_FPGA.Native_i_1__68 ,
+    \Using_FPGA.Native_i_1__68_0 ,
     ex_valid);
   output of_read_ex_write_op1_conflict_part2;
   input I0;
   input [1:0]of_predecode;
-  input \Using_FPGA.Native_i_1__67 ;
-  input \Using_FPGA.Native_i_1__67_0 ;
+  input \Using_FPGA.Native_i_1__68 ;
+  input \Using_FPGA.Native_i_1__68_0 ;
   input ex_valid;
 
   wire I0;
-  wire \Using_FPGA.Native_i_1__67 ;
-  wire \Using_FPGA.Native_i_1__67_0 ;
+  wire \Using_FPGA.Native_i_1__68 ;
+  wire \Using_FPGA.Native_i_1__68_0 ;
   wire ex_valid;
   wire [1:0]of_predecode;
   wire of_read_ex_write_op1_conflict_part2;
@@ -34415,9 +34082,9 @@ module design_1_microblaze_0_1_MB_LUT6__parameterized10
     \Using_FPGA.Native 
        (.I0(I0),
         .I1(of_predecode[1]),
-        .I2(\Using_FPGA.Native_i_1__67 ),
+        .I2(\Using_FPGA.Native_i_1__68 ),
         .I3(of_predecode[0]),
-        .I4(\Using_FPGA.Native_i_1__67_0 ),
+        .I4(\Using_FPGA.Native_i_1__68_0 ),
         .I5(ex_valid),
         .O(of_read_ex_write_op1_conflict_part2));
 endmodule
@@ -34427,19 +34094,19 @@ module design_1_microblaze_0_1_MB_LUT6__parameterized10_77
    (of_read_ex_write_op2_conflict_part2,
     I0,
     of_predecode,
-    \Using_FPGA.Native_i_1__11 ,
-    \Using_FPGA.Native_i_1__11_0 ,
+    \Using_FPGA.Native_i_1__12 ,
+    \Using_FPGA.Native_i_1__12_0 ,
     ex_valid);
   output of_read_ex_write_op2_conflict_part2;
   input I0;
   input [1:0]of_predecode;
-  input \Using_FPGA.Native_i_1__11 ;
-  input \Using_FPGA.Native_i_1__11_0 ;
+  input \Using_FPGA.Native_i_1__12 ;
+  input \Using_FPGA.Native_i_1__12_0 ;
   input ex_valid;
 
   wire I0;
-  wire \Using_FPGA.Native_i_1__11 ;
-  wire \Using_FPGA.Native_i_1__11_0 ;
+  wire \Using_FPGA.Native_i_1__12 ;
+  wire \Using_FPGA.Native_i_1__12_0 ;
   wire ex_valid;
   wire [1:0]of_predecode;
   wire of_read_ex_write_op2_conflict_part2;
@@ -34450,9 +34117,9 @@ module design_1_microblaze_0_1_MB_LUT6__parameterized10_77
     \Using_FPGA.Native 
        (.I0(I0),
         .I1(of_predecode[1]),
-        .I2(\Using_FPGA.Native_i_1__11 ),
+        .I2(\Using_FPGA.Native_i_1__12 ),
         .I3(of_predecode[0]),
-        .I4(\Using_FPGA.Native_i_1__11_0 ),
+        .I4(\Using_FPGA.Native_i_1__12_0 ),
         .I5(ex_valid),
         .O(of_read_ex_write_op2_conflict_part2));
 endmodule
@@ -34461,30 +34128,30 @@ endmodule
 module design_1_microblaze_0_1_MB_LUT6__parameterized10_79
    (ex_is_multi_or_load_instr_reg,
     I0,
-    \Using_FPGA.Native_i_1__65_0 ,
-    \Using_FPGA.Native_i_1__65_1 ,
-    \Using_FPGA.Native_i_1__65_2 ,
-    \Using_FPGA.Native_i_1__65_3 ,
+    \Using_FPGA.Native_i_1__66_0 ,
+    \Using_FPGA.Native_i_1__66_1 ,
+    \Using_FPGA.Native_i_1__66_2 ,
+    \Using_FPGA.Native_i_1__66_3 ,
     ex_valid,
     of_read_ex_write_op3_conflict_part1,
     ex_is_multi_or_load_instr,
     of_predecode);
   output ex_is_multi_or_load_instr_reg;
   input I0;
-  input \Using_FPGA.Native_i_1__65_0 ;
-  input \Using_FPGA.Native_i_1__65_1 ;
-  input \Using_FPGA.Native_i_1__65_2 ;
-  input \Using_FPGA.Native_i_1__65_3 ;
+  input \Using_FPGA.Native_i_1__66_0 ;
+  input \Using_FPGA.Native_i_1__66_1 ;
+  input \Using_FPGA.Native_i_1__66_2 ;
+  input \Using_FPGA.Native_i_1__66_3 ;
   input ex_valid;
   input of_read_ex_write_op3_conflict_part1;
   input ex_is_multi_or_load_instr;
   input [0:0]of_predecode;
 
   wire I0;
-  wire \Using_FPGA.Native_i_1__65_0 ;
-  wire \Using_FPGA.Native_i_1__65_1 ;
-  wire \Using_FPGA.Native_i_1__65_2 ;
-  wire \Using_FPGA.Native_i_1__65_3 ;
+  wire \Using_FPGA.Native_i_1__66_0 ;
+  wire \Using_FPGA.Native_i_1__66_1 ;
+  wire \Using_FPGA.Native_i_1__66_2 ;
+  wire \Using_FPGA.Native_i_1__66_3 ;
   wire ex_is_multi_or_load_instr;
   wire ex_is_multi_or_load_instr_reg;
   wire ex_valid;
@@ -34497,15 +34164,15 @@ module design_1_microblaze_0_1_MB_LUT6__parameterized10_79
     .INIT(64'h9009000000000000)) 
     \Using_FPGA.Native 
        (.I0(I0),
-        .I1(\Using_FPGA.Native_i_1__65_0 ),
-        .I2(\Using_FPGA.Native_i_1__65_1 ),
-        .I3(\Using_FPGA.Native_i_1__65_2 ),
-        .I4(\Using_FPGA.Native_i_1__65_3 ),
+        .I1(\Using_FPGA.Native_i_1__66_0 ),
+        .I2(\Using_FPGA.Native_i_1__66_1 ),
+        .I3(\Using_FPGA.Native_i_1__66_2 ),
+        .I4(\Using_FPGA.Native_i_1__66_3 ),
         .I5(ex_valid),
         .O(of_read_ex_write_op3_conflict_part2));
   LUT4 #(
     .INIT(16'h7FFF)) 
-    \Using_FPGA.Native_i_1__65 
+    \Using_FPGA.Native_i_1__66 
        (.I0(of_read_ex_write_op3_conflict_part2),
         .I1(of_read_ex_write_op3_conflict_part1),
         .I2(ex_is_multi_or_load_instr),
@@ -34581,8 +34248,8 @@ endmodule
 module design_1_microblaze_0_1_MB_LUT6__parameterized10_85
    (mem_is_multi_or_load_instr_reg,
     Q,
-    \Using_FPGA.Native_i_1__64_0 ,
-    \Using_FPGA.Native_i_1__64_1 ,
+    \Using_FPGA.Native_i_1__65_0 ,
+    \Using_FPGA.Native_i_1__65_1 ,
     mem_gpr_write,
     mem_valid_instr,
     of_read_mem_write_op3_conflict_part1,
@@ -34590,8 +34257,8 @@ module design_1_microblaze_0_1_MB_LUT6__parameterized10_85
     of_predecode);
   output mem_is_multi_or_load_instr_reg;
   input [1:0]Q;
-  input \Using_FPGA.Native_i_1__64_0 ;
-  input \Using_FPGA.Native_i_1__64_1 ;
+  input \Using_FPGA.Native_i_1__65_0 ;
+  input \Using_FPGA.Native_i_1__65_1 ;
   input mem_gpr_write;
   input mem_valid_instr;
   input of_read_mem_write_op3_conflict_part1;
@@ -34599,8 +34266,8 @@ module design_1_microblaze_0_1_MB_LUT6__parameterized10_85
   input [0:0]of_predecode;
 
   wire [1:0]Q;
-  wire \Using_FPGA.Native_i_1__64_0 ;
-  wire \Using_FPGA.Native_i_1__64_1 ;
+  wire \Using_FPGA.Native_i_1__65_0 ;
+  wire \Using_FPGA.Native_i_1__65_1 ;
   wire mem_gpr_write;
   wire mem_is_multi_or_load_instr;
   wire mem_is_multi_or_load_instr_reg;
@@ -34614,15 +34281,15 @@ module design_1_microblaze_0_1_MB_LUT6__parameterized10_85
     .INIT(64'h9009000000000000)) 
     \Using_FPGA.Native 
        (.I0(Q[1]),
-        .I1(\Using_FPGA.Native_i_1__64_0 ),
+        .I1(\Using_FPGA.Native_i_1__65_0 ),
         .I2(Q[0]),
-        .I3(\Using_FPGA.Native_i_1__64_1 ),
+        .I3(\Using_FPGA.Native_i_1__65_1 ),
         .I4(mem_gpr_write),
         .I5(mem_valid_instr),
         .O(of_read_mem_write_op3_conflict_part2));
   LUT4 #(
     .INIT(16'h7FFF)) 
-    \Using_FPGA.Native_i_1__64 
+    \Using_FPGA.Native_i_1__65 
        (.I0(of_read_mem_write_op3_conflict_part2),
         .I1(of_read_mem_write_op3_conflict_part1),
         .I2(mem_is_multi_or_load_instr),
@@ -34812,7 +34479,7 @@ module design_1_microblaze_0_1_MB_LUT6__parameterized8
         .O(O));
   LUT3 #(
     .INIT(8'h7F)) 
-    \Using_FPGA.Native_i_1__67 
+    \Using_FPGA.Native_i_1__68 
        (.I0(O),
         .I1(ex_is_multi_or_load_instr),
         .I2(of_read_ex_write_op1_conflict_part2),
@@ -34849,16 +34516,16 @@ endmodule
 module design_1_microblaze_0_1_MB_LUT6__parameterized8_78
    (of_read_ex_write_op3_conflict_part1,
     D,
-    \Using_FPGA.Native_i_1__65 ,
-    \Using_FPGA.Native_i_1__65_0 );
+    \Using_FPGA.Native_i_1__66 ,
+    \Using_FPGA.Native_i_1__66_0 );
   output of_read_ex_write_op3_conflict_part1;
   input [2:0]D;
-  input [1:0]\Using_FPGA.Native_i_1__65 ;
-  input \Using_FPGA.Native_i_1__65_0 ;
+  input [1:0]\Using_FPGA.Native_i_1__66 ;
+  input \Using_FPGA.Native_i_1__66_0 ;
 
   wire [2:0]D;
-  wire [1:0]\Using_FPGA.Native_i_1__65 ;
-  wire \Using_FPGA.Native_i_1__65_0 ;
+  wire [1:0]\Using_FPGA.Native_i_1__66 ;
+  wire \Using_FPGA.Native_i_1__66_0 ;
   wire of_read_ex_write_op3_conflict_part1;
 
   (* box_type = "PRIMITIVE" *) 
@@ -34866,11 +34533,11 @@ module design_1_microblaze_0_1_MB_LUT6__parameterized8_78
     .INIT(64'h9009000000009009)) 
     \Using_FPGA.Native 
        (.I0(D[2]),
-        .I1(\Using_FPGA.Native_i_1__65 [1]),
+        .I1(\Using_FPGA.Native_i_1__66 [1]),
         .I2(D[1]),
-        .I3(\Using_FPGA.Native_i_1__65 [0]),
+        .I3(\Using_FPGA.Native_i_1__66 [0]),
         .I4(D[0]),
-        .I5(\Using_FPGA.Native_i_1__65_0 ),
+        .I5(\Using_FPGA.Native_i_1__66_0 ),
         .O(of_read_ex_write_op3_conflict_part1));
 endmodule
 
@@ -34907,7 +34574,7 @@ module design_1_microblaze_0_1_MB_LUT6__parameterized8_80
         .O(of_read_mem_write_op1_conflict_part1));
   LUT3 #(
     .INIT(8'h7F)) 
-    \Using_FPGA.Native_i_1__66 
+    \Using_FPGA.Native_i_1__67 
        (.I0(of_read_mem_write_op1_conflict_part1),
         .I1(mem_is_multi_or_load_instr),
         .I2(of_read_mem_write_op1_conflict_part2),
@@ -34945,15 +34612,15 @@ module design_1_microblaze_0_1_MB_LUT6__parameterized8_84
    (of_read_mem_write_op3_conflict_part1,
     Q,
     D,
-    \Using_FPGA.Native_i_1__64 );
+    \Using_FPGA.Native_i_1__65 );
   output of_read_mem_write_op3_conflict_part1;
   input [2:0]Q;
   input [1:0]D;
-  input \Using_FPGA.Native_i_1__64 ;
+  input \Using_FPGA.Native_i_1__65 ;
 
   wire [1:0]D;
   wire [2:0]Q;
-  wire \Using_FPGA.Native_i_1__64 ;
+  wire \Using_FPGA.Native_i_1__65 ;
   wire of_read_mem_write_op3_conflict_part1;
 
   (* box_type = "PRIMITIVE" *) 
@@ -34965,7 +34632,7 @@ module design_1_microblaze_0_1_MB_LUT6__parameterized8_84
         .I2(Q[1]),
         .I3(D[0]),
         .I4(Q[0]),
-        .I5(\Using_FPGA.Native_i_1__64 ),
+        .I5(\Using_FPGA.Native_i_1__65 ),
         .O(of_read_mem_write_op3_conflict_part1));
 endmodule
 
@@ -35438,7 +35105,7 @@ module design_1_microblaze_0_1_MB_MUXCY_107
         .S({lopt_9,\^lopt_6 ,\^lopt_3 ,1'b1}));
   LUT4 #(
     .INIT(16'h4540)) 
-    \Using_FPGA.Native_i_1__100 
+    \Using_FPGA.Native_i_1__101 
        (.I0(\Using_FPGA.Native_2 ),
         .I1(ex_MSR_cmb2_out),
         .I2(\Using_FPGA.Native_0 ),
@@ -35446,7 +35113,7 @@ module design_1_microblaze_0_1_MB_MUXCY_107
         .O(\Using_FPGA.Native_1 ));
   LUT6 #(
     .INIT(64'hFFF2F2F2F2F2F2F2)) 
-    \Using_LWX_SWX_instr.ex_reservation_i_3 
+    \Using_LWX_SWX_instr.ex_reservation_i_2 
        (.I0(wb_exception),
         .I1(\Using_LWX_SWX_instr.ex_reservation_reg ),
         .I2(ex_MSR_Set_SW_BIP),
@@ -35516,7 +35183,7 @@ module design_1_microblaze_0_1_MB_MUXCY_108
     of_PipeRun_carry_10,
     ex_mbar_sleep,
     ex_mbar_decode,
-    \Using_FPGA.Native_i_1__108 ,
+    \Using_FPGA.Native_i_1__110 ,
     ex_first_cycle,
     ex_mbar_stall_no_sleep_1,
     ex_jump_hold,
@@ -35528,7 +35195,7 @@ module design_1_microblaze_0_1_MB_MUXCY_108
   input of_PipeRun_carry_10;
   input ex_mbar_sleep;
   input ex_mbar_decode;
-  input \Using_FPGA.Native_i_1__108 ;
+  input \Using_FPGA.Native_i_1__110 ;
   input ex_first_cycle;
   input ex_mbar_stall_no_sleep_1;
   input ex_jump_hold;
@@ -35538,7 +35205,7 @@ module design_1_microblaze_0_1_MB_MUXCY_108
   wire \<const0> ;
   wire EX_MBAR_Stall__2;
   wire \Using_FPGA.Native_0 ;
-  wire \Using_FPGA.Native_i_1__108 ;
+  wire \Using_FPGA.Native_i_1__110 ;
   wire ex_first_cycle;
   wire ex_jump_hold;
   wire ex_mbar_decode;
@@ -35553,10 +35220,10 @@ module design_1_microblaze_0_1_MB_MUXCY_108
        (.G(\<const0> ));
   LUT6 #(
     .INIT(64'hAAAAAAAAAEAEAEAA)) 
-    \Using_FPGA.Native_i_2__90 
+    \Using_FPGA.Native_i_2__92 
        (.I0(ex_mbar_sleep),
         .I1(ex_mbar_decode),
-        .I2(\Using_FPGA.Native_i_1__108 ),
+        .I2(\Using_FPGA.Native_i_1__110 ),
         .I3(ex_first_cycle),
         .I4(ex_mbar_stall_no_sleep_1),
         .I5(ex_jump_hold),
@@ -35627,7 +35294,7 @@ module design_1_microblaze_0_1_MB_MUXCY_110
 
   wire \Using_FPGA.Native_0 ;
   wire \Using_FPGA.Native_1 ;
-  wire \Using_FPGA.Native_i_1__50_n_0 ;
+  wire \Using_FPGA.Native_i_1__51_n_0 ;
   wire [0:0]ex_MSR_cmb2_out;
   wire ex_jump;
   wire ex_jump_nodelay_reg;
@@ -35657,10 +35324,10 @@ module design_1_microblaze_0_1_MB_MUXCY_110
         .CYINIT(1'b0),
         .DI({\NLW_Using_FPGA.Native_CARRY4_DI_UNCONNECTED [3:1],1'b0}),
         .O(\NLW_Using_FPGA.Native_CARRY4_O_UNCONNECTED [3:0]),
-        .S({\NLW_Using_FPGA.Native_CARRY4_S_UNCONNECTED [3:1],\Using_FPGA.Native_i_1__50_n_0 }));
+        .S({\NLW_Using_FPGA.Native_CARRY4_S_UNCONNECTED [3:1],\Using_FPGA.Native_i_1__51_n_0 }));
   LUT4 #(
     .INIT(16'h4540)) 
-    \Using_FPGA.Native_i_1__101 
+    \Using_FPGA.Native_i_1__102 
        (.I0(\Using_FPGA.Native_1 ),
         .I1(ex_MSR_cmb2_out),
         .I2(of_pause_reg),
@@ -35668,9 +35335,9 @@ module design_1_microblaze_0_1_MB_MUXCY_110
         .O(\Using_FPGA.Native_0 ));
   LUT1 #(
     .INIT(2'h1)) 
-    \Using_FPGA.Native_i_1__50 
+    \Using_FPGA.Native_i_1__51 
        (.I0(of_pause),
-        .O(\Using_FPGA.Native_i_1__50_n_0 ));
+        .O(\Using_FPGA.Native_i_1__51_n_0 ));
   LUT6 #(
     .INIT(64'h00000000E2E6E2EE)) 
     ex_jump_nodelay_i_1
@@ -36488,7 +36155,7 @@ endmodule
 (* ORIG_REF_NAME = "MB_MUXCY" *) 
 module design_1_microblaze_0_1_MB_MUXCY_90
    (mem_wait_on_ready_N,
-    mem_databus_Data_Strobe,
+    MEM_DataBus_Ready,
     mem_load_store_access,
     mem_Write_DCache,
     mem_valid_instr,
@@ -36502,7 +36169,7 @@ module design_1_microblaze_0_1_MB_MUXCY_90
     lopt_7,
     lopt_8);
   output mem_wait_on_ready_N;
-  input mem_databus_Data_Strobe;
+  input MEM_DataBus_Ready;
   input mem_load_store_access;
   input mem_Write_DCache;
   input mem_valid_instr;
@@ -36516,7 +36183,8 @@ module design_1_microblaze_0_1_MB_MUXCY_90
   input lopt_7;
   input lopt_8;
 
-  wire \Using_FPGA.Native_i_1__106_n_0 ;
+  wire MEM_DataBus_Ready;
+  wire \Using_FPGA.Native_i_1__107_n_0 ;
   wire \^lopt_1 ;
   wire \^lopt_2 ;
   wire \^lopt_3 ;
@@ -36527,7 +36195,6 @@ module design_1_microblaze_0_1_MB_MUXCY_90
   wire \^lopt_8 ;
   wire lopt_9;
   wire mem_Write_DCache;
-  wire mem_databus_Data_Strobe;
   wire mem_load_store_access;
   wire mem_valid_instr;
   wire mem_wait_on_ready_N;
@@ -36549,17 +36216,17 @@ module design_1_microblaze_0_1_MB_MUXCY_90
   CARRY4 \Using_FPGA.Native_CARRY4 
        (.CI(1'b0),
         .CO({\^lopt_7 ,\^lopt_4 ,\^lopt_1 ,mem_wait_on_ready_N}),
-        .CYINIT(mem_databus_Data_Strobe),
+        .CYINIT(MEM_DataBus_Ready),
         .DI({\^lopt_8 ,\^lopt_5 ,\^lopt_2 ,1'b1}),
         .O(\NLW_Using_FPGA.Native_CARRY4_O_UNCONNECTED [3:0]),
-        .S({lopt_9,\^lopt_6 ,\^lopt_3 ,\Using_FPGA.Native_i_1__106_n_0 }));
+        .S({lopt_9,\^lopt_6 ,\^lopt_3 ,\Using_FPGA.Native_i_1__107_n_0 }));
   LUT3 #(
     .INIT(8'hE0)) 
-    \Using_FPGA.Native_i_1__106 
+    \Using_FPGA.Native_i_1__107 
        (.I0(mem_load_store_access),
         .I1(mem_Write_DCache),
         .I2(mem_valid_instr),
-        .O(\Using_FPGA.Native_i_1__106_n_0 ));
+        .O(\Using_FPGA.Native_i_1__107_n_0 ));
 endmodule
 
 (* ORIG_REF_NAME = "MB_MUXCY" *) 
@@ -36649,7 +36316,7 @@ module design_1_microblaze_0_1_MB_MUXCY_91
        (.G(\<const0> ));
   LUT4 #(
     .INIT(16'h4540)) 
-    \Using_FPGA.Native_i_1__57 
+    \Using_FPGA.Native_i_1__58 
        (.I0(\Using_FPGA.Native_3 ),
         .I1(ex_MSR[0]),
         .I2(mem_div_stall_i_reg),
@@ -36657,7 +36324,7 @@ module design_1_microblaze_0_1_MB_MUXCY_91
         .O(\Using_FPGA.Native_0 ));
   LUT4 #(
     .INIT(16'hEF40)) 
-    \Using_FPGA.Native_i_1__62 
+    \Using_FPGA.Native_i_1__63 
        (.I0(\Using_FPGA.Native_3 ),
         .I1(ex_MSR[1]),
         .I2(mem_div_stall_i_reg),
@@ -36665,7 +36332,7 @@ module design_1_microblaze_0_1_MB_MUXCY_91
         .O(\Using_FPGA.Native_1 ));
   LUT4 #(
     .INIT(16'hEF40)) 
-    \Using_FPGA.Native_i_1__63 
+    \Using_FPGA.Native_i_1__64 
        (.I0(\Using_FPGA.Native_3 ),
         .I1(ex_MSR[2]),
         .I2(mem_div_stall_i_reg),
@@ -36805,7 +36472,7 @@ module design_1_microblaze_0_1_MB_MUXCY_93
         .S({lopt_9,\^lopt_6 ,\^lopt_3 ,force_jump2}));
   LUT3 #(
     .INIT(8'h08)) 
-    \Using_FPGA.Native_i_1__61 
+    \Using_FPGA.Native_i_1__62 
        (.I0(force2),
         .I1(out),
         .I2(\Using_FPGA.Native_0 ),
@@ -36822,29 +36489,29 @@ endmodule
 (* ORIG_REF_NAME = "MB_MUXCY" *) 
 module design_1_microblaze_0_1_MB_MUXCY_94
    (ex_jump_wanted,
-    ex_branch_with_delayslot_reg,
     \Using_FPGA.Native_0 ,
+    \Using_FPGA.Native_1 ,
     jump_carry2,
-    EX_MBAR_Stall__2,
-    ex_branch_with_delayslot,
     of_valid,
+    ex_branch_with_delayslot,
+    EX_MBAR_Stall__2,
     lopt,
     lopt_1);
   output ex_jump_wanted;
-  output ex_branch_with_delayslot_reg;
-  input \Using_FPGA.Native_0 ;
+  output \Using_FPGA.Native_0 ;
+  input \Using_FPGA.Native_1 ;
   input jump_carry2;
-  input EX_MBAR_Stall__2;
-  input ex_branch_with_delayslot;
   input of_valid;
+  input ex_branch_with_delayslot;
+  input EX_MBAR_Stall__2;
   input lopt;
   output lopt_1;
 
   wire \<const0> ;
   wire EX_MBAR_Stall__2;
   wire \Using_FPGA.Native_0 ;
+  wire \Using_FPGA.Native_1 ;
   wire ex_branch_with_delayslot;
-  wire ex_branch_with_delayslot_reg;
   wire ex_jump_wanted;
   wire jump_carry2;
   wire of_valid;
@@ -36854,13 +36521,13 @@ module design_1_microblaze_0_1_MB_MUXCY_94
   GND GND
        (.G(\<const0> ));
   LUT4 #(
-    .INIT(16'h7757)) 
-    \Using_FPGA.Native_i_1__108 
+    .INIT(16'h55DF)) 
+    \Using_FPGA.Native_i_1__110 
        (.I0(ex_jump_wanted),
-        .I1(EX_MBAR_Stall__2),
+        .I1(of_valid),
         .I2(ex_branch_with_delayslot),
-        .I3(of_valid),
-        .O(ex_branch_with_delayslot_reg));
+        .I3(EX_MBAR_Stall__2),
+        .O(\Using_FPGA.Native_0 ));
 endmodule
 
 (* ORIG_REF_NAME = "MB_MUXCY" *) 
@@ -36951,6 +36618,7 @@ module design_1_microblaze_0_1_MB_MUXCY_97
     ex_mbar_sleep,
     ex_databus_addr,
     \if_pc_reg[30] ,
+    \if_pc_reg[0]_0 ,
     O,
     \if_pc_reg[28] ,
     \if_pc_reg[27] ,
@@ -36982,7 +36650,7 @@ module design_1_microblaze_0_1_MB_MUXCY_97
     \if_pc_reg[1] ,
     O56_out,
     if_missed_fetch,
-    ib_addr_strobe,
+    if_missed_fetch_reg_0,
     IB_Ready,
     LOCKSTEP_Master_Out,
     in0,
@@ -37022,8 +36690,9 @@ module design_1_microblaze_0_1_MB_MUXCY_97
   input ex_first_cycle;
   input ex_mbar_decode;
   input ex_mbar_sleep;
-  input [0:31]ex_databus_addr;
+  input [1:0]ex_databus_addr;
   input [1:0]\if_pc_reg[30] ;
+  input [29:0]\if_pc_reg[0]_0 ;
   input O;
   input \if_pc_reg[28] ;
   input \if_pc_reg[27] ;
@@ -37055,7 +36724,7 @@ module design_1_microblaze_0_1_MB_MUXCY_97
   input \if_pc_reg[1] ;
   input O56_out;
   input if_missed_fetch;
-  input ib_addr_strobe;
+  input [0:0]if_missed_fetch_reg_0;
   input IB_Ready;
   input [0:0]LOCKSTEP_Master_Out;
   input in0;
@@ -37069,12 +36738,12 @@ module design_1_microblaze_0_1_MB_MUXCY_97
   wire O;
   wire O56_out;
   wire [2:0]Q;
-  wire \Using_FPGA.Native_i_1__47_n_0 ;
+  wire \Using_FPGA.Native_i_1__48_n_0 ;
   wire ex_Take_Intr_or_Exc_reg;
   wire ex_Take_Intr_or_Exc_reg_0;
   wire ex_Take_Intr_or_Exc_reg_1;
   wire ex_branch_with_delayslot;
-  wire [0:31]ex_databus_addr;
+  wire [1:0]ex_databus_addr;
   wire ex_delayslot_Instr0;
   wire ex_first_cycle;
   wire ex_jump_hold;
@@ -37093,10 +36762,11 @@ module design_1_microblaze_0_1_MB_MUXCY_97
   wire ex_valid_keep_reg_0;
   wire ex_valid_keep_reg_1;
   wire ex_valid_reg;
-  wire ib_addr_strobe;
   wire if_missed_fetch;
   wire if_missed_fetch_reg;
+  wire [0:0]if_missed_fetch_reg_0;
   wire [31:0]\if_pc_reg[0] ;
+  wire [29:0]\if_pc_reg[0]_0 ;
   wire \if_pc_reg[10] ;
   wire \if_pc_reg[11] ;
   wire \if_pc_reg[12] ;
@@ -37143,6 +36813,261 @@ module design_1_microblaze_0_1_MB_MUXCY_97
   wire [3:0]\NLW_Using_FPGA.Native_CARRY4_O_UNCONNECTED ;
   wire [3:1]\NLW_Using_FPGA.Native_CARRY4_S_UNCONNECTED ;
 
+  (* SOFT_HLUTNM = "soft_lutpair35" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \Instr_Addr[0]_INST_0 
+       (.I0(\if_pc_reg[0]_0 [29]),
+        .I1(ex_jump_hold_reg),
+        .I2(O56_out),
+        .O(\if_pc_reg[0] [31]));
+  (* SOFT_HLUTNM = "soft_lutpair40" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \Instr_Addr[10]_INST_0 
+       (.I0(\if_pc_reg[0]_0 [19]),
+        .I1(ex_jump_hold_reg),
+        .I2(\if_pc_reg[10] ),
+        .O(\if_pc_reg[0] [21]));
+  (* SOFT_HLUTNM = "soft_lutpair41" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \Instr_Addr[11]_INST_0 
+       (.I0(\if_pc_reg[0]_0 [18]),
+        .I1(ex_jump_hold_reg),
+        .I2(\if_pc_reg[11] ),
+        .O(\if_pc_reg[0] [20]));
+  (* SOFT_HLUTNM = "soft_lutpair41" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \Instr_Addr[12]_INST_0 
+       (.I0(\if_pc_reg[0]_0 [17]),
+        .I1(ex_jump_hold_reg),
+        .I2(\if_pc_reg[12] ),
+        .O(\if_pc_reg[0] [19]));
+  (* SOFT_HLUTNM = "soft_lutpair42" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \Instr_Addr[13]_INST_0 
+       (.I0(\if_pc_reg[0]_0 [16]),
+        .I1(ex_jump_hold_reg),
+        .I2(\if_pc_reg[13] ),
+        .O(\if_pc_reg[0] [18]));
+  (* SOFT_HLUTNM = "soft_lutpair42" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \Instr_Addr[14]_INST_0 
+       (.I0(\if_pc_reg[0]_0 [15]),
+        .I1(ex_jump_hold_reg),
+        .I2(\if_pc_reg[14] ),
+        .O(\if_pc_reg[0] [17]));
+  (* SOFT_HLUTNM = "soft_lutpair43" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \Instr_Addr[15]_INST_0 
+       (.I0(\if_pc_reg[0]_0 [14]),
+        .I1(ex_jump_hold_reg),
+        .I2(\if_pc_reg[15] ),
+        .O(\if_pc_reg[0] [16]));
+  (* SOFT_HLUTNM = "soft_lutpair43" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \Instr_Addr[16]_INST_0 
+       (.I0(\if_pc_reg[0]_0 [13]),
+        .I1(ex_jump_hold_reg),
+        .I2(\if_pc_reg[16] ),
+        .O(\if_pc_reg[0] [15]));
+  (* SOFT_HLUTNM = "soft_lutpair44" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \Instr_Addr[17]_INST_0 
+       (.I0(\if_pc_reg[0]_0 [12]),
+        .I1(ex_jump_hold_reg),
+        .I2(\if_pc_reg[17] ),
+        .O(\if_pc_reg[0] [14]));
+  (* SOFT_HLUTNM = "soft_lutpair44" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \Instr_Addr[18]_INST_0 
+       (.I0(\if_pc_reg[0]_0 [11]),
+        .I1(ex_jump_hold_reg),
+        .I2(\if_pc_reg[18] ),
+        .O(\if_pc_reg[0] [13]));
+  (* SOFT_HLUTNM = "soft_lutpair45" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \Instr_Addr[19]_INST_0 
+       (.I0(\if_pc_reg[0]_0 [10]),
+        .I1(ex_jump_hold_reg),
+        .I2(\if_pc_reg[19] ),
+        .O(\if_pc_reg[0] [12]));
+  (* SOFT_HLUTNM = "soft_lutpair36" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \Instr_Addr[1]_INST_0 
+       (.I0(\if_pc_reg[0]_0 [28]),
+        .I1(ex_jump_hold_reg),
+        .I2(\if_pc_reg[1] ),
+        .O(\if_pc_reg[0] [30]));
+  (* SOFT_HLUTNM = "soft_lutpair45" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \Instr_Addr[20]_INST_0 
+       (.I0(\if_pc_reg[0]_0 [9]),
+        .I1(ex_jump_hold_reg),
+        .I2(\if_pc_reg[20] ),
+        .O(\if_pc_reg[0] [11]));
+  (* SOFT_HLUTNM = "soft_lutpair46" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \Instr_Addr[21]_INST_0 
+       (.I0(\if_pc_reg[0]_0 [8]),
+        .I1(ex_jump_hold_reg),
+        .I2(\if_pc_reg[21] ),
+        .O(\if_pc_reg[0] [10]));
+  (* SOFT_HLUTNM = "soft_lutpair46" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \Instr_Addr[22]_INST_0 
+       (.I0(\if_pc_reg[0]_0 [7]),
+        .I1(ex_jump_hold_reg),
+        .I2(\if_pc_reg[22] ),
+        .O(\if_pc_reg[0] [9]));
+  (* SOFT_HLUTNM = "soft_lutpair47" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \Instr_Addr[23]_INST_0 
+       (.I0(\if_pc_reg[0]_0 [6]),
+        .I1(ex_jump_hold_reg),
+        .I2(\if_pc_reg[23] ),
+        .O(\if_pc_reg[0] [8]));
+  (* SOFT_HLUTNM = "soft_lutpair47" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \Instr_Addr[24]_INST_0 
+       (.I0(\if_pc_reg[0]_0 [5]),
+        .I1(ex_jump_hold_reg),
+        .I2(\if_pc_reg[24] ),
+        .O(\if_pc_reg[0] [7]));
+  (* SOFT_HLUTNM = "soft_lutpair48" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \Instr_Addr[25]_INST_0 
+       (.I0(\if_pc_reg[0]_0 [4]),
+        .I1(ex_jump_hold_reg),
+        .I2(\if_pc_reg[25] ),
+        .O(\if_pc_reg[0] [6]));
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \Instr_Addr[26]_INST_0 
+       (.I0(\if_pc_reg[0]_0 [3]),
+        .I1(ex_jump_hold_reg),
+        .I2(\if_pc_reg[26] ),
+        .O(\if_pc_reg[0] [5]));
+  (* SOFT_HLUTNM = "soft_lutpair50" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \Instr_Addr[27]_INST_0 
+       (.I0(\if_pc_reg[0]_0 [2]),
+        .I1(ex_jump_hold_reg),
+        .I2(\if_pc_reg[27] ),
+        .O(\if_pc_reg[0] [4]));
+  (* SOFT_HLUTNM = "soft_lutpair50" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \Instr_Addr[28]_INST_0 
+       (.I0(\if_pc_reg[0]_0 [1]),
+        .I1(ex_jump_hold_reg),
+        .I2(\if_pc_reg[28] ),
+        .O(\if_pc_reg[0] [3]));
+  (* SOFT_HLUTNM = "soft_lutpair49" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \Instr_Addr[29]_INST_0 
+       (.I0(\if_pc_reg[0]_0 [0]),
+        .I1(ex_jump_hold_reg),
+        .I2(O),
+        .O(\if_pc_reg[0] [2]));
+  (* SOFT_HLUTNM = "soft_lutpair36" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \Instr_Addr[2]_INST_0 
+       (.I0(\if_pc_reg[0]_0 [27]),
+        .I1(ex_jump_hold_reg),
+        .I2(\if_pc_reg[2] ),
+        .O(\if_pc_reg[0] [29]));
+  (* SOFT_HLUTNM = "soft_lutpair49" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \Instr_Addr[30]_INST_0 
+       (.I0(ex_databus_addr[1]),
+        .I1(ex_jump_hold_reg),
+        .I2(\if_pc_reg[30] [1]),
+        .O(\if_pc_reg[0] [1]));
+  (* SOFT_HLUTNM = "soft_lutpair48" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \Instr_Addr[31]_INST_0 
+       (.I0(ex_databus_addr[0]),
+        .I1(ex_jump_hold_reg),
+        .I2(\if_pc_reg[30] [0]),
+        .O(\if_pc_reg[0] [0]));
+  (* SOFT_HLUTNM = "soft_lutpair37" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \Instr_Addr[3]_INST_0 
+       (.I0(\if_pc_reg[0]_0 [26]),
+        .I1(ex_jump_hold_reg),
+        .I2(\if_pc_reg[3] ),
+        .O(\if_pc_reg[0] [28]));
+  (* SOFT_HLUTNM = "soft_lutpair38" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \Instr_Addr[4]_INST_0 
+       (.I0(\if_pc_reg[0]_0 [25]),
+        .I1(ex_jump_hold_reg),
+        .I2(\if_pc_reg[4] ),
+        .O(\if_pc_reg[0] [27]));
+  (* SOFT_HLUTNM = "soft_lutpair37" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \Instr_Addr[5]_INST_0 
+       (.I0(\if_pc_reg[0]_0 [24]),
+        .I1(ex_jump_hold_reg),
+        .I2(\if_pc_reg[5] ),
+        .O(\if_pc_reg[0] [26]));
+  (* SOFT_HLUTNM = "soft_lutpair38" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \Instr_Addr[6]_INST_0 
+       (.I0(\if_pc_reg[0]_0 [23]),
+        .I1(ex_jump_hold_reg),
+        .I2(\if_pc_reg[6] ),
+        .O(\if_pc_reg[0] [25]));
+  (* SOFT_HLUTNM = "soft_lutpair39" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \Instr_Addr[7]_INST_0 
+       (.I0(\if_pc_reg[0]_0 [22]),
+        .I1(ex_jump_hold_reg),
+        .I2(\if_pc_reg[7] ),
+        .O(\if_pc_reg[0] [24]));
+  (* SOFT_HLUTNM = "soft_lutpair39" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \Instr_Addr[8]_INST_0 
+       (.I0(\if_pc_reg[0]_0 [21]),
+        .I1(ex_jump_hold_reg),
+        .I2(\if_pc_reg[8] ),
+        .O(\if_pc_reg[0] [23]));
+  (* SOFT_HLUTNM = "soft_lutpair40" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \Instr_Addr[9]_INST_0 
+       (.I0(\if_pc_reg[0]_0 [20]),
+        .I1(ex_jump_hold_reg),
+        .I2(\if_pc_reg[9] ),
+        .O(\if_pc_reg[0] [22]));
   (* OPT_MODIFIED = "MLO " *) 
   (* XILINX_LEGACY_PRIM = "(MUXCY,XORCY)" *) 
   (* XILINX_TRANSFORM_PINMAP = "LO:O" *) 
@@ -37153,17 +37078,17 @@ module design_1_microblaze_0_1_MB_MUXCY_97
         .CYINIT(1'b0),
         .DI({\NLW_Using_FPGA.Native_CARRY4_DI_UNCONNECTED [3:1],1'b0}),
         .O(\NLW_Using_FPGA.Native_CARRY4_O_UNCONNECTED [3:0]),
-        .S({\NLW_Using_FPGA.Native_CARRY4_S_UNCONNECTED [3:1],\Using_FPGA.Native_i_1__47_n_0 }));
+        .S({\NLW_Using_FPGA.Native_CARRY4_S_UNCONNECTED [3:1],\Using_FPGA.Native_i_1__48_n_0 }));
   LUT6 #(
     .INIT(64'h00000000FFABFFFF)) 
-    \Using_FPGA.Native_i_1__47 
+    \Using_FPGA.Native_i_1__48 
        (.I0(ex_jump_hold),
         .I1(ex_mbar_stall_no_sleep_1),
         .I2(ex_first_cycle),
         .I3(ex_Take_Intr_or_Exc_reg_1),
         .I4(ex_mbar_decode),
         .I5(ex_mbar_sleep),
-        .O(\Using_FPGA.Native_i_1__47_n_0 ));
+        .O(\Using_FPGA.Native_i_1__48_n_0 ));
   LUT5 #(
     .INIT(32'hAEAAAAAA)) 
     \Using_FPGA.Native_i_2 
@@ -37249,266 +37174,11 @@ module design_1_microblaze_0_1_MB_MUXCY_97
     if_missed_fetch_i_1
        (.I0(ex_jump_hold_reg),
         .I1(if_missed_fetch),
-        .I2(ib_addr_strobe),
+        .I2(if_missed_fetch_reg_0),
         .I3(IB_Ready),
         .I4(LOCKSTEP_Master_Out),
         .I5(sync_reset),
         .O(if_missed_fetch_reg));
-  (* SOFT_HLUTNM = "soft_lutpair35" *) 
-  LUT3 #(
-    .INIT(8'hB8)) 
-    \instr_addr[0]_i_2 
-       (.I0(ex_databus_addr[0]),
-        .I1(ex_jump_hold_reg),
-        .I2(O56_out),
-        .O(\if_pc_reg[0] [31]));
-  (* SOFT_HLUTNM = "soft_lutpair40" *) 
-  LUT3 #(
-    .INIT(8'hB8)) 
-    \instr_addr[10]_i_1 
-       (.I0(ex_databus_addr[10]),
-        .I1(ex_jump_hold_reg),
-        .I2(\if_pc_reg[10] ),
-        .O(\if_pc_reg[0] [21]));
-  (* SOFT_HLUTNM = "soft_lutpair41" *) 
-  LUT3 #(
-    .INIT(8'hB8)) 
-    \instr_addr[11]_i_1 
-       (.I0(ex_databus_addr[11]),
-        .I1(ex_jump_hold_reg),
-        .I2(\if_pc_reg[11] ),
-        .O(\if_pc_reg[0] [20]));
-  (* SOFT_HLUTNM = "soft_lutpair41" *) 
-  LUT3 #(
-    .INIT(8'hB8)) 
-    \instr_addr[12]_i_1 
-       (.I0(ex_databus_addr[12]),
-        .I1(ex_jump_hold_reg),
-        .I2(\if_pc_reg[12] ),
-        .O(\if_pc_reg[0] [19]));
-  (* SOFT_HLUTNM = "soft_lutpair42" *) 
-  LUT3 #(
-    .INIT(8'hB8)) 
-    \instr_addr[13]_i_1 
-       (.I0(ex_databus_addr[13]),
-        .I1(ex_jump_hold_reg),
-        .I2(\if_pc_reg[13] ),
-        .O(\if_pc_reg[0] [18]));
-  (* SOFT_HLUTNM = "soft_lutpair42" *) 
-  LUT3 #(
-    .INIT(8'hB8)) 
-    \instr_addr[14]_i_1 
-       (.I0(ex_databus_addr[14]),
-        .I1(ex_jump_hold_reg),
-        .I2(\if_pc_reg[14] ),
-        .O(\if_pc_reg[0] [17]));
-  (* SOFT_HLUTNM = "soft_lutpair43" *) 
-  LUT3 #(
-    .INIT(8'hB8)) 
-    \instr_addr[15]_i_1 
-       (.I0(ex_databus_addr[15]),
-        .I1(ex_jump_hold_reg),
-        .I2(\if_pc_reg[15] ),
-        .O(\if_pc_reg[0] [16]));
-  (* SOFT_HLUTNM = "soft_lutpair43" *) 
-  LUT3 #(
-    .INIT(8'hB8)) 
-    \instr_addr[16]_i_1 
-       (.I0(ex_databus_addr[16]),
-        .I1(ex_jump_hold_reg),
-        .I2(\if_pc_reg[16] ),
-        .O(\if_pc_reg[0] [15]));
-  (* SOFT_HLUTNM = "soft_lutpair44" *) 
-  LUT3 #(
-    .INIT(8'hB8)) 
-    \instr_addr[17]_i_1 
-       (.I0(ex_databus_addr[17]),
-        .I1(ex_jump_hold_reg),
-        .I2(\if_pc_reg[17] ),
-        .O(\if_pc_reg[0] [14]));
-  (* SOFT_HLUTNM = "soft_lutpair44" *) 
-  LUT3 #(
-    .INIT(8'hB8)) 
-    \instr_addr[18]_i_1 
-       (.I0(ex_databus_addr[18]),
-        .I1(ex_jump_hold_reg),
-        .I2(\if_pc_reg[18] ),
-        .O(\if_pc_reg[0] [13]));
-  (* SOFT_HLUTNM = "soft_lutpair45" *) 
-  LUT3 #(
-    .INIT(8'hB8)) 
-    \instr_addr[19]_i_1 
-       (.I0(ex_databus_addr[19]),
-        .I1(ex_jump_hold_reg),
-        .I2(\if_pc_reg[19] ),
-        .O(\if_pc_reg[0] [12]));
-  (* SOFT_HLUTNM = "soft_lutpair36" *) 
-  LUT3 #(
-    .INIT(8'hB8)) 
-    \instr_addr[1]_i_1 
-       (.I0(ex_databus_addr[1]),
-        .I1(ex_jump_hold_reg),
-        .I2(\if_pc_reg[1] ),
-        .O(\if_pc_reg[0] [30]));
-  (* SOFT_HLUTNM = "soft_lutpair45" *) 
-  LUT3 #(
-    .INIT(8'hB8)) 
-    \instr_addr[20]_i_1 
-       (.I0(ex_databus_addr[20]),
-        .I1(ex_jump_hold_reg),
-        .I2(\if_pc_reg[20] ),
-        .O(\if_pc_reg[0] [11]));
-  (* SOFT_HLUTNM = "soft_lutpair46" *) 
-  LUT3 #(
-    .INIT(8'hB8)) 
-    \instr_addr[21]_i_1 
-       (.I0(ex_databus_addr[21]),
-        .I1(ex_jump_hold_reg),
-        .I2(\if_pc_reg[21] ),
-        .O(\if_pc_reg[0] [10]));
-  (* SOFT_HLUTNM = "soft_lutpair46" *) 
-  LUT3 #(
-    .INIT(8'hB8)) 
-    \instr_addr[22]_i_1 
-       (.I0(ex_databus_addr[22]),
-        .I1(ex_jump_hold_reg),
-        .I2(\if_pc_reg[22] ),
-        .O(\if_pc_reg[0] [9]));
-  (* SOFT_HLUTNM = "soft_lutpair47" *) 
-  LUT3 #(
-    .INIT(8'hB8)) 
-    \instr_addr[23]_i_1 
-       (.I0(ex_databus_addr[23]),
-        .I1(ex_jump_hold_reg),
-        .I2(\if_pc_reg[23] ),
-        .O(\if_pc_reg[0] [8]));
-  (* SOFT_HLUTNM = "soft_lutpair47" *) 
-  LUT3 #(
-    .INIT(8'hB8)) 
-    \instr_addr[24]_i_1 
-       (.I0(ex_databus_addr[24]),
-        .I1(ex_jump_hold_reg),
-        .I2(\if_pc_reg[24] ),
-        .O(\if_pc_reg[0] [7]));
-  (* SOFT_HLUTNM = "soft_lutpair48" *) 
-  LUT3 #(
-    .INIT(8'hB8)) 
-    \instr_addr[25]_i_1 
-       (.I0(ex_databus_addr[25]),
-        .I1(ex_jump_hold_reg),
-        .I2(\if_pc_reg[25] ),
-        .O(\if_pc_reg[0] [6]));
-  LUT3 #(
-    .INIT(8'hB8)) 
-    \instr_addr[26]_i_1 
-       (.I0(ex_databus_addr[26]),
-        .I1(ex_jump_hold_reg),
-        .I2(\if_pc_reg[26] ),
-        .O(\if_pc_reg[0] [5]));
-  (* SOFT_HLUTNM = "soft_lutpair50" *) 
-  LUT3 #(
-    .INIT(8'hB8)) 
-    \instr_addr[27]_i_1 
-       (.I0(ex_databus_addr[27]),
-        .I1(ex_jump_hold_reg),
-        .I2(\if_pc_reg[27] ),
-        .O(\if_pc_reg[0] [4]));
-  (* SOFT_HLUTNM = "soft_lutpair50" *) 
-  LUT3 #(
-    .INIT(8'hB8)) 
-    \instr_addr[28]_i_1 
-       (.I0(ex_databus_addr[28]),
-        .I1(ex_jump_hold_reg),
-        .I2(\if_pc_reg[28] ),
-        .O(\if_pc_reg[0] [3]));
-  (* SOFT_HLUTNM = "soft_lutpair49" *) 
-  LUT3 #(
-    .INIT(8'hB8)) 
-    \instr_addr[29]_i_1 
-       (.I0(ex_databus_addr[29]),
-        .I1(ex_jump_hold_reg),
-        .I2(O),
-        .O(\if_pc_reg[0] [2]));
-  (* SOFT_HLUTNM = "soft_lutpair36" *) 
-  LUT3 #(
-    .INIT(8'hB8)) 
-    \instr_addr[2]_i_1 
-       (.I0(ex_databus_addr[2]),
-        .I1(ex_jump_hold_reg),
-        .I2(\if_pc_reg[2] ),
-        .O(\if_pc_reg[0] [29]));
-  (* SOFT_HLUTNM = "soft_lutpair49" *) 
-  LUT3 #(
-    .INIT(8'hB8)) 
-    \instr_addr[30]_i_1 
-       (.I0(ex_databus_addr[30]),
-        .I1(ex_jump_hold_reg),
-        .I2(\if_pc_reg[30] [1]),
-        .O(\if_pc_reg[0] [1]));
-  (* SOFT_HLUTNM = "soft_lutpair48" *) 
-  LUT3 #(
-    .INIT(8'hB8)) 
-    \instr_addr[31]_i_1 
-       (.I0(ex_databus_addr[31]),
-        .I1(ex_jump_hold_reg),
-        .I2(\if_pc_reg[30] [0]),
-        .O(\if_pc_reg[0] [0]));
-  (* SOFT_HLUTNM = "soft_lutpair37" *) 
-  LUT3 #(
-    .INIT(8'hB8)) 
-    \instr_addr[3]_i_1 
-       (.I0(ex_databus_addr[3]),
-        .I1(ex_jump_hold_reg),
-        .I2(\if_pc_reg[3] ),
-        .O(\if_pc_reg[0] [28]));
-  (* SOFT_HLUTNM = "soft_lutpair38" *) 
-  LUT3 #(
-    .INIT(8'hB8)) 
-    \instr_addr[4]_i_1 
-       (.I0(ex_databus_addr[4]),
-        .I1(ex_jump_hold_reg),
-        .I2(\if_pc_reg[4] ),
-        .O(\if_pc_reg[0] [27]));
-  (* SOFT_HLUTNM = "soft_lutpair37" *) 
-  LUT3 #(
-    .INIT(8'hB8)) 
-    \instr_addr[5]_i_1 
-       (.I0(ex_databus_addr[5]),
-        .I1(ex_jump_hold_reg),
-        .I2(\if_pc_reg[5] ),
-        .O(\if_pc_reg[0] [26]));
-  (* SOFT_HLUTNM = "soft_lutpair38" *) 
-  LUT3 #(
-    .INIT(8'hB8)) 
-    \instr_addr[6]_i_1 
-       (.I0(ex_databus_addr[6]),
-        .I1(ex_jump_hold_reg),
-        .I2(\if_pc_reg[6] ),
-        .O(\if_pc_reg[0] [25]));
-  (* SOFT_HLUTNM = "soft_lutpair39" *) 
-  LUT3 #(
-    .INIT(8'hB8)) 
-    \instr_addr[7]_i_1 
-       (.I0(ex_databus_addr[7]),
-        .I1(ex_jump_hold_reg),
-        .I2(\if_pc_reg[7] ),
-        .O(\if_pc_reg[0] [24]));
-  (* SOFT_HLUTNM = "soft_lutpair39" *) 
-  LUT3 #(
-    .INIT(8'hB8)) 
-    \instr_addr[8]_i_1 
-       (.I0(ex_databus_addr[8]),
-        .I1(ex_jump_hold_reg),
-        .I2(\if_pc_reg[8] ),
-        .O(\if_pc_reg[0] [23]));
-  (* SOFT_HLUTNM = "soft_lutpair40" *) 
-  LUT3 #(
-    .INIT(8'hB8)) 
-    \instr_addr[9]_i_1 
-       (.I0(ex_databus_addr[9]),
-        .I1(ex_jump_hold_reg),
-        .I2(\if_pc_reg[9] ),
-        .O(\if_pc_reg[0] [22]));
   (* SOFT_HLUTNM = "soft_lutpair33" *) 
   LUT5 #(
     .INIT(32'h000000EA)) 
@@ -37617,7 +37287,7 @@ module design_1_microblaze_0_1_MB_MUXCY_99
         .S({\^lopt_9 ,\^lopt_6 ,\^lopt_3 ,if_valid}));
   LUT1 #(
     .INIT(2'h1)) 
-    \Using_FPGA.Native_i_1__48 
+    \Using_FPGA.Native_i_1__49 
        (.I0(if_missed_fetch),
         .O(if_valid));
 endmodule
@@ -38861,8 +38531,9 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_312
     \data_rd_reg_reg[0]_0 ,
     \data_rd_reg_reg[0]_1 ,
     \LOCKSTEP_Out_reg[3007] ,
-    wb_databus_steered_read_data,
+    WB_Steered_Read_Data1__0,
     \LOCKSTEP_Out_reg[3007]_0 ,
+    \LOCKSTEP_Out_reg[3007]_1 ,
     wb_mul_result);
   output [0:0]wb_gpr_write_dbg_reg;
   output [0:0]\WB_MEM_Result_reg[0] ;
@@ -38873,19 +38544,21 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_312
   input [0:0]\data_rd_reg_reg[0]_0 ;
   input \data_rd_reg_reg[0]_1 ;
   input \LOCKSTEP_Out_reg[3007] ;
-  input [0:0]wb_databus_steered_read_data;
-  input [0:0]\LOCKSTEP_Out_reg[3007]_0 ;
+  input WB_Steered_Read_Data1__0;
+  input \LOCKSTEP_Out_reg[3007]_0 ;
+  input [0:0]\LOCKSTEP_Out_reg[3007]_1 ;
   input [0:0]wb_mul_result;
 
   wire LO;
   wire \LOCKSTEP_Out_reg[3007] ;
-  wire [0:0]\LOCKSTEP_Out_reg[3007]_0 ;
+  wire \LOCKSTEP_Out_reg[3007]_0 ;
+  wire [0:0]\LOCKSTEP_Out_reg[3007]_1 ;
   wire [0:0]\WB_MEM_Result_reg[0] ;
+  wire WB_Steered_Read_Data1__0;
   wire addr_AddSub_31;
   wire \data_rd_reg_reg[0] ;
   wire [0:0]\data_rd_reg_reg[0]_0 ;
   wire \data_rd_reg_reg[0]_1 ;
-  wire [0:0]wb_databus_steered_read_data;
   wire [0:0]wb_excep_return_addr;
   wire wb_gpr_wr_dbg;
   wire [0:0]wb_gpr_write_dbg_reg;
@@ -38895,14 +38568,15 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_312
   wire [3:1]\NLW_Using_FPGA.Native_I2_CARRY4_O_UNCONNECTED ;
   wire [3:1]\NLW_Using_FPGA.Native_I2_CARRY4_S_UNCONNECTED ;
 
-  LUT5 #(
-    .INIT(32'hBBBBBBB8)) 
+  LUT6 #(
+    .INIT(64'hBBBBBBBBBBBB8B88)) 
     \Trace_New_Reg_Value[0]_INST_0 
        (.I0(wb_excep_return_addr),
         .I1(\LOCKSTEP_Out_reg[3007] ),
-        .I2(wb_databus_steered_read_data),
+        .I2(WB_Steered_Read_Data1__0),
         .I3(\LOCKSTEP_Out_reg[3007]_0 ),
-        .I4(wb_mul_result),
+        .I4(\LOCKSTEP_Out_reg[3007]_1 ),
+        .I5(wb_mul_result),
         .O(\WB_MEM_Result_reg[0] ));
   (* OPT_MODIFIED = "MLO " *) 
   (* XILINX_LEGACY_PRIM = "(MUXCY,XORCY)" *) 
@@ -38935,11 +38609,12 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_314
     DI,
     \data_rd_reg_reg[10]_0 ,
     \LOCKSTEP_Out_reg[3017] ,
-    wb_databus_steered_read_data,
+    WB_Steered_Read_Data1__0,
     \LOCKSTEP_Out_reg[3017]_0 ,
+    \LOCKSTEP_Out_reg[3017]_1 ,
     wb_mul_result,
     S,
-    \LOCKSTEP_Out_reg[3017]_1 ,
+    \LOCKSTEP_Out_reg[3017]_2 ,
     lopt,
     lopt_1);
   output [0:0]wb_gpr_write_dbg_reg;
@@ -38950,24 +38625,26 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_314
   input DI;
   input \data_rd_reg_reg[10]_0 ;
   input \LOCKSTEP_Out_reg[3017] ;
-  input [0:0]wb_databus_steered_read_data;
-  input [0:0]\LOCKSTEP_Out_reg[3017]_0 ;
+  input WB_Steered_Read_Data1__0;
+  input \LOCKSTEP_Out_reg[3017]_0 ;
+  input [0:0]\LOCKSTEP_Out_reg[3017]_1 ;
   input [0:0]wb_mul_result;
   input S;
-  input \LOCKSTEP_Out_reg[3017]_1 ;
+  input \LOCKSTEP_Out_reg[3017]_2 ;
   input lopt;
   input lopt_1;
 
   wire DI;
   wire LO;
   wire \LOCKSTEP_Out_reg[3017] ;
-  wire [0:0]\LOCKSTEP_Out_reg[3017]_0 ;
-  wire \LOCKSTEP_Out_reg[3017]_1 ;
+  wire \LOCKSTEP_Out_reg[3017]_0 ;
+  wire [0:0]\LOCKSTEP_Out_reg[3017]_1 ;
+  wire \LOCKSTEP_Out_reg[3017]_2 ;
   wire S;
   wire [0:0]\WB_MEM_Result_reg[10] ;
+  wire WB_Steered_Read_Data1__0;
   wire \data_rd_reg_reg[10] ;
   wire \data_rd_reg_reg[10]_0 ;
-  wire [0:0]wb_databus_steered_read_data;
   wire [10:10]wb_excep_return_addr;
   wire wb_gpr_wr_dbg;
   wire [0:0]wb_gpr_write_dbg_reg;
@@ -38975,14 +38652,15 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_314
 
   assign LO = lopt;
   assign wb_excep_return_addr = lopt_1;
-  LUT5 #(
-    .INIT(32'hBBBBBBB8)) 
+  LUT6 #(
+    .INIT(64'hBBBBBBBBBBBB8B88)) 
     \Trace_New_Reg_Value[10]_INST_0 
        (.I0(wb_excep_return_addr),
         .I1(\LOCKSTEP_Out_reg[3017] ),
-        .I2(wb_databus_steered_read_data),
+        .I2(WB_Steered_Read_Data1__0),
         .I3(\LOCKSTEP_Out_reg[3017]_0 ),
-        .I4(wb_mul_result),
+        .I4(\LOCKSTEP_Out_reg[3017]_1 ),
+        .I5(wb_mul_result),
         .O(\WB_MEM_Result_reg[10] ));
   LUT5 #(
     .INIT(32'h8080BF80)) 
@@ -39005,11 +38683,12 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_317
     DI,
     \data_rd_reg_reg[11]_0 ,
     \LOCKSTEP_Out_reg[3018] ,
-    wb_databus_steered_read_data,
+    WB_Steered_Read_Data1__0,
     \LOCKSTEP_Out_reg[3018]_0 ,
+    \LOCKSTEP_Out_reg[3018]_1 ,
     wb_mul_result,
     S,
-    \LOCKSTEP_Out_reg[3018]_1 ,
+    \LOCKSTEP_Out_reg[3018]_2 ,
     lopt,
     lopt_1);
   output [0:0]wb_gpr_write_dbg_reg;
@@ -39020,24 +38699,26 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_317
   input DI;
   input \data_rd_reg_reg[11]_0 ;
   input \LOCKSTEP_Out_reg[3018] ;
-  input [0:0]wb_databus_steered_read_data;
-  input [0:0]\LOCKSTEP_Out_reg[3018]_0 ;
+  input WB_Steered_Read_Data1__0;
+  input \LOCKSTEP_Out_reg[3018]_0 ;
+  input [0:0]\LOCKSTEP_Out_reg[3018]_1 ;
   input [0:0]wb_mul_result;
   input S;
-  input \LOCKSTEP_Out_reg[3018]_1 ;
+  input \LOCKSTEP_Out_reg[3018]_2 ;
   input lopt;
   input lopt_1;
 
   wire DI;
   wire LO;
   wire \LOCKSTEP_Out_reg[3018] ;
-  wire [0:0]\LOCKSTEP_Out_reg[3018]_0 ;
-  wire \LOCKSTEP_Out_reg[3018]_1 ;
+  wire \LOCKSTEP_Out_reg[3018]_0 ;
+  wire [0:0]\LOCKSTEP_Out_reg[3018]_1 ;
+  wire \LOCKSTEP_Out_reg[3018]_2 ;
   wire S;
   wire [0:0]\WB_MEM_Result_reg[11] ;
+  wire WB_Steered_Read_Data1__0;
   wire \data_rd_reg_reg[11] ;
   wire \data_rd_reg_reg[11]_0 ;
-  wire [0:0]wb_databus_steered_read_data;
   wire [11:11]wb_excep_return_addr;
   wire wb_gpr_wr_dbg;
   wire [0:0]wb_gpr_write_dbg_reg;
@@ -39045,14 +38726,15 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_317
 
   assign LO = lopt;
   assign wb_excep_return_addr = lopt_1;
-  LUT5 #(
-    .INIT(32'hBBBBBBB8)) 
+  LUT6 #(
+    .INIT(64'hBBBBBBBBBBBB8B88)) 
     \Trace_New_Reg_Value[11]_INST_0 
        (.I0(wb_excep_return_addr),
         .I1(\LOCKSTEP_Out_reg[3018] ),
-        .I2(wb_databus_steered_read_data),
+        .I2(WB_Steered_Read_Data1__0),
         .I3(\LOCKSTEP_Out_reg[3018]_0 ),
-        .I4(wb_mul_result),
+        .I4(\LOCKSTEP_Out_reg[3018]_1 ),
+        .I5(wb_mul_result),
         .O(\WB_MEM_Result_reg[11] ));
   LUT5 #(
     .INIT(32'h8080BF80)) 
@@ -39075,11 +38757,12 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_320
     DI,
     \data_rd_reg_reg[12]_0 ,
     \LOCKSTEP_Out_reg[3019] ,
-    wb_databus_steered_read_data,
+    WB_Steered_Read_Data1__0,
     \LOCKSTEP_Out_reg[3019]_0 ,
+    \LOCKSTEP_Out_reg[3019]_1 ,
     wb_mul_result,
     S,
-    \LOCKSTEP_Out_reg[3019]_1 ,
+    \LOCKSTEP_Out_reg[3019]_2 ,
     lopt,
     lopt_1,
     lopt_2,
@@ -39100,11 +38783,12 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_320
   input DI;
   input \data_rd_reg_reg[12]_0 ;
   input \LOCKSTEP_Out_reg[3019] ;
-  input [0:0]wb_databus_steered_read_data;
-  input [0:0]\LOCKSTEP_Out_reg[3019]_0 ;
+  input WB_Steered_Read_Data1__0;
+  input \LOCKSTEP_Out_reg[3019]_0 ;
+  input [0:0]\LOCKSTEP_Out_reg[3019]_1 ;
   input [0:0]wb_mul_result;
   input S;
-  input \LOCKSTEP_Out_reg[3019]_1 ;
+  input \LOCKSTEP_Out_reg[3019]_2 ;
   output lopt;
   input lopt_1;
   input lopt_2;
@@ -39121,10 +38805,12 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_320
   wire DI;
   wire LO;
   wire \LOCKSTEP_Out_reg[3019] ;
-  wire [0:0]\LOCKSTEP_Out_reg[3019]_0 ;
-  wire \LOCKSTEP_Out_reg[3019]_1 ;
+  wire \LOCKSTEP_Out_reg[3019]_0 ;
+  wire [0:0]\LOCKSTEP_Out_reg[3019]_1 ;
+  wire \LOCKSTEP_Out_reg[3019]_2 ;
   wire S;
   wire [0:0]\WB_MEM_Result_reg[12] ;
+  wire WB_Steered_Read_Data1__0;
   wire \data_rd_reg_reg[12] ;
   wire \data_rd_reg_reg[12]_0 ;
   wire \^lopt_1 ;
@@ -39139,7 +38825,6 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_320
   wire \^lopt_7 ;
   wire \^lopt_8 ;
   wire \^lopt_9 ;
-  wire [0:0]wb_databus_steered_read_data;
   wire [12:12]wb_excep_return_addr;
   wire wb_gpr_wr_dbg;
   wire [0:0]wb_gpr_write_dbg_reg;
@@ -39157,21 +38842,22 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_320
   assign lopt_3 = \^lopt_4 ;
   assign lopt_6 = \^lopt_7 ;
   assign lopt_9 = \^lopt_10 ;
-  LUT5 #(
-    .INIT(32'hBBBBBBB8)) 
+  LUT6 #(
+    .INIT(64'hBBBBBBBBBBBB8B88)) 
     \Trace_New_Reg_Value[12]_INST_0 
        (.I0(wb_excep_return_addr),
         .I1(\LOCKSTEP_Out_reg[3019] ),
-        .I2(wb_databus_steered_read_data),
+        .I2(WB_Steered_Read_Data1__0),
         .I3(\LOCKSTEP_Out_reg[3019]_0 ),
-        .I4(wb_mul_result),
+        .I4(\LOCKSTEP_Out_reg[3019]_1 ),
+        .I5(wb_mul_result),
         .O(\WB_MEM_Result_reg[12] ));
   (* OPT_MODIFIED = "MLO " *) 
   (* XILINX_LEGACY_PRIM = "(MUXCY,XORCY)" *) 
   (* XILINX_TRANSFORM_PINMAP = "LO:O" *) 
   (* box_type = "PRIMITIVE" *) 
   CARRY4 \Using_FPGA.Native_I1_CARRY4 
-       (.CI(\LOCKSTEP_Out_reg[3019]_1 ),
+       (.CI(\LOCKSTEP_Out_reg[3019]_2 ),
         .CO({\^lopt_7 ,\^lopt_4 ,\^lopt_1 ,LO}),
         .CYINIT(1'b0),
         .DI({\^lopt_8 ,\^lopt_5 ,\^lopt_2 ,DI}),
@@ -39198,11 +38884,12 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_323
     DI,
     \data_rd_reg_reg[13]_0 ,
     \LOCKSTEP_Out_reg[3020] ,
-    wb_databus_steered_read_data,
+    WB_Steered_Read_Data1__0,
     \LOCKSTEP_Out_reg[3020]_0 ,
+    \LOCKSTEP_Out_reg[3020]_1 ,
     wb_mul_result,
     S,
-    \LOCKSTEP_Out_reg[3020]_1 ,
+    \LOCKSTEP_Out_reg[3020]_2 ,
     lopt,
     lopt_1);
   output [0:0]wb_gpr_write_dbg_reg;
@@ -39213,24 +38900,26 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_323
   input DI;
   input \data_rd_reg_reg[13]_0 ;
   input \LOCKSTEP_Out_reg[3020] ;
-  input [0:0]wb_databus_steered_read_data;
-  input [0:0]\LOCKSTEP_Out_reg[3020]_0 ;
+  input WB_Steered_Read_Data1__0;
+  input \LOCKSTEP_Out_reg[3020]_0 ;
+  input [0:0]\LOCKSTEP_Out_reg[3020]_1 ;
   input [0:0]wb_mul_result;
   input S;
-  input \LOCKSTEP_Out_reg[3020]_1 ;
+  input \LOCKSTEP_Out_reg[3020]_2 ;
   input lopt;
   input lopt_1;
 
   wire DI;
   wire LO;
   wire \LOCKSTEP_Out_reg[3020] ;
-  wire [0:0]\LOCKSTEP_Out_reg[3020]_0 ;
-  wire \LOCKSTEP_Out_reg[3020]_1 ;
+  wire \LOCKSTEP_Out_reg[3020]_0 ;
+  wire [0:0]\LOCKSTEP_Out_reg[3020]_1 ;
+  wire \LOCKSTEP_Out_reg[3020]_2 ;
   wire S;
   wire [0:0]\WB_MEM_Result_reg[13] ;
+  wire WB_Steered_Read_Data1__0;
   wire \data_rd_reg_reg[13] ;
   wire \data_rd_reg_reg[13]_0 ;
-  wire [0:0]wb_databus_steered_read_data;
   wire [13:13]wb_excep_return_addr;
   wire wb_gpr_wr_dbg;
   wire [0:0]wb_gpr_write_dbg_reg;
@@ -39238,14 +38927,15 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_323
 
   assign LO = lopt;
   assign wb_excep_return_addr = lopt_1;
-  LUT5 #(
-    .INIT(32'hBBBBBBB8)) 
+  LUT6 #(
+    .INIT(64'hBBBBBBBBBBBB8B88)) 
     \Trace_New_Reg_Value[13]_INST_0 
        (.I0(wb_excep_return_addr),
         .I1(\LOCKSTEP_Out_reg[3020] ),
-        .I2(wb_databus_steered_read_data),
+        .I2(WB_Steered_Read_Data1__0),
         .I3(\LOCKSTEP_Out_reg[3020]_0 ),
-        .I4(wb_mul_result),
+        .I4(\LOCKSTEP_Out_reg[3020]_1 ),
+        .I5(wb_mul_result),
         .O(\WB_MEM_Result_reg[13] ));
   LUT5 #(
     .INIT(32'h8080BF80)) 
@@ -39268,11 +38958,12 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_326
     DI,
     \data_rd_reg_reg[14]_0 ,
     \LOCKSTEP_Out_reg[3021] ,
-    wb_databus_steered_read_data,
+    WB_Steered_Read_Data1__0,
     \LOCKSTEP_Out_reg[3021]_0 ,
+    \LOCKSTEP_Out_reg[3021]_1 ,
     wb_mul_result,
     S,
-    \LOCKSTEP_Out_reg[3021]_1 ,
+    \LOCKSTEP_Out_reg[3021]_2 ,
     lopt,
     lopt_1);
   output [0:0]wb_gpr_write_dbg_reg;
@@ -39283,24 +38974,26 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_326
   input DI;
   input \data_rd_reg_reg[14]_0 ;
   input \LOCKSTEP_Out_reg[3021] ;
-  input [0:0]wb_databus_steered_read_data;
-  input [0:0]\LOCKSTEP_Out_reg[3021]_0 ;
+  input WB_Steered_Read_Data1__0;
+  input \LOCKSTEP_Out_reg[3021]_0 ;
+  input [0:0]\LOCKSTEP_Out_reg[3021]_1 ;
   input [0:0]wb_mul_result;
   input S;
-  input \LOCKSTEP_Out_reg[3021]_1 ;
+  input \LOCKSTEP_Out_reg[3021]_2 ;
   input lopt;
   input lopt_1;
 
   wire DI;
   wire LO;
   wire \LOCKSTEP_Out_reg[3021] ;
-  wire [0:0]\LOCKSTEP_Out_reg[3021]_0 ;
-  wire \LOCKSTEP_Out_reg[3021]_1 ;
+  wire \LOCKSTEP_Out_reg[3021]_0 ;
+  wire [0:0]\LOCKSTEP_Out_reg[3021]_1 ;
+  wire \LOCKSTEP_Out_reg[3021]_2 ;
   wire S;
   wire [0:0]\WB_MEM_Result_reg[14] ;
+  wire WB_Steered_Read_Data1__0;
   wire \data_rd_reg_reg[14] ;
   wire \data_rd_reg_reg[14]_0 ;
-  wire [0:0]wb_databus_steered_read_data;
   wire [14:14]wb_excep_return_addr;
   wire wb_gpr_wr_dbg;
   wire [0:0]wb_gpr_write_dbg_reg;
@@ -39308,14 +39001,15 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_326
 
   assign LO = lopt;
   assign wb_excep_return_addr = lopt_1;
-  LUT5 #(
-    .INIT(32'hBBBBBBB8)) 
+  LUT6 #(
+    .INIT(64'hBBBBBBBBBBBB8B88)) 
     \Trace_New_Reg_Value[14]_INST_0 
        (.I0(wb_excep_return_addr),
         .I1(\LOCKSTEP_Out_reg[3021] ),
-        .I2(wb_databus_steered_read_data),
+        .I2(WB_Steered_Read_Data1__0),
         .I3(\LOCKSTEP_Out_reg[3021]_0 ),
-        .I4(wb_mul_result),
+        .I4(\LOCKSTEP_Out_reg[3021]_1 ),
+        .I5(wb_mul_result),
         .O(\WB_MEM_Result_reg[14] ));
   LUT5 #(
     .INIT(32'h8080BF80)) 
@@ -39338,11 +39032,12 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_329
     DI,
     \data_rd_reg_reg[15]_0 ,
     \LOCKSTEP_Out_reg[3022] ,
-    wb_databus_steered_read_data,
+    WB_Steered_Read_Data1__0,
     \LOCKSTEP_Out_reg[3022]_0 ,
+    \LOCKSTEP_Out_reg[3022]_1 ,
     wb_mul_result,
     S,
-    \LOCKSTEP_Out_reg[3022]_1 ,
+    \LOCKSTEP_Out_reg[3022]_2 ,
     lopt,
     lopt_1);
   output [0:0]wb_gpr_write_dbg_reg;
@@ -39353,24 +39048,26 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_329
   input DI;
   input \data_rd_reg_reg[15]_0 ;
   input \LOCKSTEP_Out_reg[3022] ;
-  input [0:0]wb_databus_steered_read_data;
-  input [0:0]\LOCKSTEP_Out_reg[3022]_0 ;
+  input WB_Steered_Read_Data1__0;
+  input \LOCKSTEP_Out_reg[3022]_0 ;
+  input [0:0]\LOCKSTEP_Out_reg[3022]_1 ;
   input [0:0]wb_mul_result;
   input S;
-  input \LOCKSTEP_Out_reg[3022]_1 ;
+  input \LOCKSTEP_Out_reg[3022]_2 ;
   input lopt;
   input lopt_1;
 
   wire DI;
   wire LO;
   wire \LOCKSTEP_Out_reg[3022] ;
-  wire [0:0]\LOCKSTEP_Out_reg[3022]_0 ;
-  wire \LOCKSTEP_Out_reg[3022]_1 ;
+  wire \LOCKSTEP_Out_reg[3022]_0 ;
+  wire [0:0]\LOCKSTEP_Out_reg[3022]_1 ;
+  wire \LOCKSTEP_Out_reg[3022]_2 ;
   wire S;
   wire [0:0]\WB_MEM_Result_reg[15] ;
+  wire WB_Steered_Read_Data1__0;
   wire \data_rd_reg_reg[15] ;
   wire \data_rd_reg_reg[15]_0 ;
-  wire [0:0]wb_databus_steered_read_data;
   wire [15:15]wb_excep_return_addr;
   wire wb_gpr_wr_dbg;
   wire [0:0]wb_gpr_write_dbg_reg;
@@ -39378,14 +39075,15 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_329
 
   assign LO = lopt;
   assign wb_excep_return_addr = lopt_1;
-  LUT5 #(
-    .INIT(32'hBBBBBBB8)) 
+  LUT6 #(
+    .INIT(64'hBBBBBBBBBBBB8B88)) 
     \Trace_New_Reg_Value[15]_INST_0 
        (.I0(wb_excep_return_addr),
         .I1(\LOCKSTEP_Out_reg[3022] ),
-        .I2(wb_databus_steered_read_data),
+        .I2(WB_Steered_Read_Data1__0),
         .I3(\LOCKSTEP_Out_reg[3022]_0 ),
-        .I4(wb_mul_result),
+        .I4(\LOCKSTEP_Out_reg[3022]_1 ),
+        .I5(wb_mul_result),
         .O(\WB_MEM_Result_reg[15] ));
   LUT5 #(
     .INIT(32'h8080BF80)) 
@@ -39757,11 +39455,12 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_344
     DI,
     \data_rd_reg_reg[1]_0 ,
     \LOCKSTEP_Out_reg[3008] ,
-    wb_databus_steered_read_data,
+    WB_Steered_Read_Data1__0,
     \LOCKSTEP_Out_reg[3008]_0 ,
+    \LOCKSTEP_Out_reg[3008]_1 ,
     wb_mul_result,
     S,
-    \LOCKSTEP_Out_reg[3008]_1 ,
+    \LOCKSTEP_Out_reg[3008]_2 ,
     lopt,
     lopt_1);
   output [0:0]wb_gpr_write_dbg_reg;
@@ -39772,24 +39471,26 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_344
   input DI;
   input \data_rd_reg_reg[1]_0 ;
   input \LOCKSTEP_Out_reg[3008] ;
-  input [0:0]wb_databus_steered_read_data;
-  input [0:0]\LOCKSTEP_Out_reg[3008]_0 ;
+  input WB_Steered_Read_Data1__0;
+  input \LOCKSTEP_Out_reg[3008]_0 ;
+  input [0:0]\LOCKSTEP_Out_reg[3008]_1 ;
   input [0:0]wb_mul_result;
   input S;
-  input \LOCKSTEP_Out_reg[3008]_1 ;
+  input \LOCKSTEP_Out_reg[3008]_2 ;
   input lopt;
   input lopt_1;
 
   wire DI;
   wire LO;
   wire \LOCKSTEP_Out_reg[3008] ;
-  wire [0:0]\LOCKSTEP_Out_reg[3008]_0 ;
-  wire \LOCKSTEP_Out_reg[3008]_1 ;
+  wire \LOCKSTEP_Out_reg[3008]_0 ;
+  wire [0:0]\LOCKSTEP_Out_reg[3008]_1 ;
+  wire \LOCKSTEP_Out_reg[3008]_2 ;
   wire S;
   wire [0:0]\WB_MEM_Result_reg[1] ;
+  wire WB_Steered_Read_Data1__0;
   wire \data_rd_reg_reg[1] ;
   wire \data_rd_reg_reg[1]_0 ;
-  wire [0:0]wb_databus_steered_read_data;
   wire [1:1]wb_excep_return_addr;
   wire wb_gpr_wr_dbg;
   wire [0:0]wb_gpr_write_dbg_reg;
@@ -39797,14 +39498,15 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_344
 
   assign LO = lopt;
   assign wb_excep_return_addr = lopt_1;
-  LUT5 #(
-    .INIT(32'hBBBBBBB8)) 
+  LUT6 #(
+    .INIT(64'hBBBBBBBBBBBB8B88)) 
     \Trace_New_Reg_Value[1]_INST_0 
        (.I0(wb_excep_return_addr),
         .I1(\LOCKSTEP_Out_reg[3008] ),
-        .I2(wb_databus_steered_read_data),
+        .I2(WB_Steered_Read_Data1__0),
         .I3(\LOCKSTEP_Out_reg[3008]_0 ),
-        .I4(wb_mul_result),
+        .I4(\LOCKSTEP_Out_reg[3008]_1 ),
+        .I5(wb_mul_result),
         .O(\WB_MEM_Result_reg[1] ));
   LUT5 #(
     .INIT(32'h8080BF80)) 
@@ -40176,12 +39878,11 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_359
     DI,
     \data_rd_reg_reg[24]_0 ,
     \LOCKSTEP_Out_reg[3031] ,
+    wb_databus_steered_read_data,
     \LOCKSTEP_Out_reg[3031]_0 ,
-    \LOCKSTEP_Out_reg[3031]_1 ,
-    \LOCKSTEP_Out_reg[3031]_2 ,
     wb_mul_result,
     S,
-    \LOCKSTEP_Out_reg[3031]_3 ,
+    \LOCKSTEP_Out_reg[3031]_1 ,
     lopt,
     lopt_1,
     lopt_2,
@@ -40202,12 +39903,11 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_359
   input DI;
   input \data_rd_reg_reg[24]_0 ;
   input \LOCKSTEP_Out_reg[3031] ;
-  input \LOCKSTEP_Out_reg[3031]_0 ;
-  input \LOCKSTEP_Out_reg[3031]_1 ;
-  input [0:0]\LOCKSTEP_Out_reg[3031]_2 ;
+  input [0:0]wb_databus_steered_read_data;
+  input [0:0]\LOCKSTEP_Out_reg[3031]_0 ;
   input [0:0]wb_mul_result;
   input S;
-  input \LOCKSTEP_Out_reg[3031]_3 ;
+  input \LOCKSTEP_Out_reg[3031]_1 ;
   output lopt;
   input lopt_1;
   input lopt_2;
@@ -40224,10 +39924,8 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_359
   wire DI;
   wire LO;
   wire \LOCKSTEP_Out_reg[3031] ;
-  wire \LOCKSTEP_Out_reg[3031]_0 ;
+  wire [0:0]\LOCKSTEP_Out_reg[3031]_0 ;
   wire \LOCKSTEP_Out_reg[3031]_1 ;
-  wire [0:0]\LOCKSTEP_Out_reg[3031]_2 ;
-  wire \LOCKSTEP_Out_reg[3031]_3 ;
   wire S;
   wire [0:0]\WB_MEM_Result_reg[24] ;
   wire \data_rd_reg_reg[24] ;
@@ -40244,6 +39942,7 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_359
   wire \^lopt_7 ;
   wire \^lopt_8 ;
   wire \^lopt_9 ;
+  wire [0:0]wb_databus_steered_read_data;
   wire [24:24]wb_excep_return_addr;
   wire wb_gpr_wr_dbg;
   wire [0:0]wb_gpr_write_dbg_reg;
@@ -40261,22 +39960,21 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_359
   assign lopt_3 = \^lopt_4 ;
   assign lopt_6 = \^lopt_7 ;
   assign lopt_9 = \^lopt_10 ;
-  LUT6 #(
-    .INIT(64'hBBBBBBBBBBBBBBB8)) 
+  LUT5 #(
+    .INIT(32'hBBBBBBB8)) 
     \Trace_New_Reg_Value[24]_INST_0 
        (.I0(wb_excep_return_addr),
         .I1(\LOCKSTEP_Out_reg[3031] ),
-        .I2(\LOCKSTEP_Out_reg[3031]_0 ),
-        .I3(\LOCKSTEP_Out_reg[3031]_1 ),
-        .I4(\LOCKSTEP_Out_reg[3031]_2 ),
-        .I5(wb_mul_result),
+        .I2(wb_databus_steered_read_data),
+        .I3(\LOCKSTEP_Out_reg[3031]_0 ),
+        .I4(wb_mul_result),
         .O(\WB_MEM_Result_reg[24] ));
   (* OPT_MODIFIED = "MLO " *) 
   (* XILINX_LEGACY_PRIM = "(MUXCY,XORCY)" *) 
   (* XILINX_TRANSFORM_PINMAP = "LO:O" *) 
   (* box_type = "PRIMITIVE" *) 
   CARRY4 \Using_FPGA.Native_I1_CARRY4 
-       (.CI(\LOCKSTEP_Out_reg[3031]_3 ),
+       (.CI(\LOCKSTEP_Out_reg[3031]_1 ),
         .CO({\^lopt_7 ,\^lopt_4 ,\^lopt_1 ,LO}),
         .CYINIT(1'b0),
         .DI({\^lopt_8 ,\^lopt_5 ,\^lopt_2 ,DI}),
@@ -40304,12 +40002,11 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_362
     \data_rd_reg_reg[25]_1 ,
     DI,
     \LOCKSTEP_Out_reg[3032] ,
+    wb_databus_steered_read_data,
     \LOCKSTEP_Out_reg[3032]_0 ,
-    \LOCKSTEP_Out_reg[3032]_1 ,
-    \LOCKSTEP_Out_reg[3032]_2 ,
     wb_mul_result,
     S,
-    \LOCKSTEP_Out_reg[3032]_3 ,
+    \LOCKSTEP_Out_reg[3032]_1 ,
     lopt,
     lopt_1);
   output [0:0]wb_gpr_write_dbg_reg;
@@ -40321,27 +40018,25 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_362
   input \data_rd_reg_reg[25]_1 ;
   input DI;
   input \LOCKSTEP_Out_reg[3032] ;
-  input \LOCKSTEP_Out_reg[3032]_0 ;
-  input \LOCKSTEP_Out_reg[3032]_1 ;
-  input [0:0]\LOCKSTEP_Out_reg[3032]_2 ;
+  input [0:0]wb_databus_steered_read_data;
+  input [0:0]\LOCKSTEP_Out_reg[3032]_0 ;
   input [0:0]wb_mul_result;
   input S;
-  input \LOCKSTEP_Out_reg[3032]_3 ;
+  input \LOCKSTEP_Out_reg[3032]_1 ;
   input lopt;
   input lopt_1;
 
   wire DI;
   wire LO;
   wire \LOCKSTEP_Out_reg[3032] ;
-  wire \LOCKSTEP_Out_reg[3032]_0 ;
+  wire [0:0]\LOCKSTEP_Out_reg[3032]_0 ;
   wire \LOCKSTEP_Out_reg[3032]_1 ;
-  wire [0:0]\LOCKSTEP_Out_reg[3032]_2 ;
-  wire \LOCKSTEP_Out_reg[3032]_3 ;
   wire S;
   wire [0:0]\WB_MEM_Result_reg[25] ;
   wire \data_rd_reg_reg[25] ;
   wire [0:0]\data_rd_reg_reg[25]_0 ;
   wire \data_rd_reg_reg[25]_1 ;
+  wire [0:0]wb_databus_steered_read_data;
   wire [25:25]wb_excep_return_addr;
   wire wb_gpr_wr_dbg;
   wire [0:0]wb_gpr_write_dbg_reg;
@@ -40349,15 +40044,14 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_362
 
   assign LO = lopt;
   assign wb_excep_return_addr = lopt_1;
-  LUT6 #(
-    .INIT(64'hBBBBBBBBBBBBBBB8)) 
+  LUT5 #(
+    .INIT(32'hBBBBBBB8)) 
     \Trace_New_Reg_Value[25]_INST_0 
        (.I0(wb_excep_return_addr),
         .I1(\LOCKSTEP_Out_reg[3032] ),
-        .I2(\LOCKSTEP_Out_reg[3032]_0 ),
-        .I3(\LOCKSTEP_Out_reg[3032]_1 ),
-        .I4(\LOCKSTEP_Out_reg[3032]_2 ),
-        .I5(wb_mul_result),
+        .I2(wb_databus_steered_read_data),
+        .I3(\LOCKSTEP_Out_reg[3032]_0 ),
+        .I4(wb_mul_result),
         .O(\WB_MEM_Result_reg[25] ));
   LUT6 #(
     .INIT(64'hBF80BFBFBF808080)) 
@@ -40381,12 +40075,11 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_365
     DI,
     \data_rd_reg_reg[26]_0 ,
     \LOCKSTEP_Out_reg[3033] ,
+    wb_databus_steered_read_data,
     \LOCKSTEP_Out_reg[3033]_0 ,
-    \LOCKSTEP_Out_reg[3033]_1 ,
-    \LOCKSTEP_Out_reg[3033]_2 ,
     wb_mul_result,
     S,
-    \LOCKSTEP_Out_reg[3033]_3 ,
+    \LOCKSTEP_Out_reg[3033]_1 ,
     lopt,
     lopt_1);
   output [0:0]wb_gpr_write_dbg_reg;
@@ -40397,26 +40090,24 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_365
   input DI;
   input \data_rd_reg_reg[26]_0 ;
   input \LOCKSTEP_Out_reg[3033] ;
-  input \LOCKSTEP_Out_reg[3033]_0 ;
-  input \LOCKSTEP_Out_reg[3033]_1 ;
-  input [0:0]\LOCKSTEP_Out_reg[3033]_2 ;
+  input [0:0]wb_databus_steered_read_data;
+  input [0:0]\LOCKSTEP_Out_reg[3033]_0 ;
   input [0:0]wb_mul_result;
   input S;
-  input \LOCKSTEP_Out_reg[3033]_3 ;
+  input \LOCKSTEP_Out_reg[3033]_1 ;
   input lopt;
   input lopt_1;
 
   wire DI;
   wire LO;
   wire \LOCKSTEP_Out_reg[3033] ;
-  wire \LOCKSTEP_Out_reg[3033]_0 ;
+  wire [0:0]\LOCKSTEP_Out_reg[3033]_0 ;
   wire \LOCKSTEP_Out_reg[3033]_1 ;
-  wire [0:0]\LOCKSTEP_Out_reg[3033]_2 ;
-  wire \LOCKSTEP_Out_reg[3033]_3 ;
   wire S;
   wire [0:0]\WB_MEM_Result_reg[26] ;
   wire \data_rd_reg_reg[26] ;
   wire \data_rd_reg_reg[26]_0 ;
+  wire [0:0]wb_databus_steered_read_data;
   wire [26:26]wb_excep_return_addr;
   wire wb_gpr_wr_dbg;
   wire [0:0]wb_gpr_write_dbg_reg;
@@ -40424,15 +40115,14 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_365
 
   assign LO = lopt;
   assign wb_excep_return_addr = lopt_1;
-  LUT6 #(
-    .INIT(64'hBBBBBBBBBBBBBBB8)) 
+  LUT5 #(
+    .INIT(32'hBBBBBBB8)) 
     \Trace_New_Reg_Value[26]_INST_0 
        (.I0(wb_excep_return_addr),
         .I1(\LOCKSTEP_Out_reg[3033] ),
-        .I2(\LOCKSTEP_Out_reg[3033]_0 ),
-        .I3(\LOCKSTEP_Out_reg[3033]_1 ),
-        .I4(\LOCKSTEP_Out_reg[3033]_2 ),
-        .I5(wb_mul_result),
+        .I2(wb_databus_steered_read_data),
+        .I3(\LOCKSTEP_Out_reg[3033]_0 ),
+        .I4(wb_mul_result),
         .O(\WB_MEM_Result_reg[26] ));
   LUT5 #(
     .INIT(32'h8080BF80)) 
@@ -40455,12 +40145,11 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_368
     DI,
     \data_rd_reg_reg[27]_0 ,
     \LOCKSTEP_Out_reg[3034] ,
+    wb_databus_steered_read_data,
     \LOCKSTEP_Out_reg[3034]_0 ,
-    \LOCKSTEP_Out_reg[3034]_1 ,
-    \LOCKSTEP_Out_reg[3034]_2 ,
     wb_mul_result,
     S,
-    \LOCKSTEP_Out_reg[3034]_3 ,
+    \LOCKSTEP_Out_reg[3034]_1 ,
     lopt,
     lopt_1);
   output [0:0]wb_gpr_write_dbg_reg;
@@ -40471,26 +40160,24 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_368
   input DI;
   input \data_rd_reg_reg[27]_0 ;
   input \LOCKSTEP_Out_reg[3034] ;
-  input \LOCKSTEP_Out_reg[3034]_0 ;
-  input \LOCKSTEP_Out_reg[3034]_1 ;
-  input [0:0]\LOCKSTEP_Out_reg[3034]_2 ;
+  input [0:0]wb_databus_steered_read_data;
+  input [0:0]\LOCKSTEP_Out_reg[3034]_0 ;
   input [0:0]wb_mul_result;
   input S;
-  input \LOCKSTEP_Out_reg[3034]_3 ;
+  input \LOCKSTEP_Out_reg[3034]_1 ;
   input lopt;
   input lopt_1;
 
   wire DI;
   wire LO;
   wire \LOCKSTEP_Out_reg[3034] ;
-  wire \LOCKSTEP_Out_reg[3034]_0 ;
+  wire [0:0]\LOCKSTEP_Out_reg[3034]_0 ;
   wire \LOCKSTEP_Out_reg[3034]_1 ;
-  wire [0:0]\LOCKSTEP_Out_reg[3034]_2 ;
-  wire \LOCKSTEP_Out_reg[3034]_3 ;
   wire S;
   wire [0:0]\WB_MEM_Result_reg[27] ;
   wire \data_rd_reg_reg[27] ;
   wire \data_rd_reg_reg[27]_0 ;
+  wire [0:0]wb_databus_steered_read_data;
   wire [27:27]wb_excep_return_addr;
   wire wb_gpr_wr_dbg;
   wire [0:0]wb_gpr_write_dbg_reg;
@@ -40498,15 +40185,14 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_368
 
   assign LO = lopt;
   assign wb_excep_return_addr = lopt_1;
-  LUT6 #(
-    .INIT(64'hBBBBBBBBBBBBBBB8)) 
+  LUT5 #(
+    .INIT(32'hBBBBBBB8)) 
     \Trace_New_Reg_Value[27]_INST_0 
        (.I0(wb_excep_return_addr),
         .I1(\LOCKSTEP_Out_reg[3034] ),
-        .I2(\LOCKSTEP_Out_reg[3034]_0 ),
-        .I3(\LOCKSTEP_Out_reg[3034]_1 ),
-        .I4(\LOCKSTEP_Out_reg[3034]_2 ),
-        .I5(wb_mul_result),
+        .I2(wb_databus_steered_read_data),
+        .I3(\LOCKSTEP_Out_reg[3034]_0 ),
+        .I4(wb_mul_result),
         .O(\WB_MEM_Result_reg[27] ));
   LUT5 #(
     .INIT(32'h8080BF80)) 
@@ -40530,12 +40216,11 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_371
     \data_rd_reg_reg[28]_1 ,
     DI,
     \LOCKSTEP_Out_reg[3035] ,
+    wb_databus_steered_read_data,
     \LOCKSTEP_Out_reg[3035]_0 ,
-    \LOCKSTEP_Out_reg[3035]_1 ,
-    \LOCKSTEP_Out_reg[3035]_2 ,
     wb_mul_result,
     S,
-    \LOCKSTEP_Out_reg[3035]_3 ,
+    \LOCKSTEP_Out_reg[3035]_1 ,
     lopt,
     lopt_1,
     lopt_2,
@@ -40557,12 +40242,11 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_371
   input \data_rd_reg_reg[28]_1 ;
   input DI;
   input \LOCKSTEP_Out_reg[3035] ;
-  input \LOCKSTEP_Out_reg[3035]_0 ;
-  input \LOCKSTEP_Out_reg[3035]_1 ;
-  input [0:0]\LOCKSTEP_Out_reg[3035]_2 ;
+  input [0:0]wb_databus_steered_read_data;
+  input [0:0]\LOCKSTEP_Out_reg[3035]_0 ;
   input [0:0]wb_mul_result;
   input S;
-  input \LOCKSTEP_Out_reg[3035]_3 ;
+  input \LOCKSTEP_Out_reg[3035]_1 ;
   output lopt;
   input lopt_1;
   input lopt_2;
@@ -40579,10 +40263,8 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_371
   wire DI;
   wire LO;
   wire \LOCKSTEP_Out_reg[3035] ;
-  wire \LOCKSTEP_Out_reg[3035]_0 ;
+  wire [0:0]\LOCKSTEP_Out_reg[3035]_0 ;
   wire \LOCKSTEP_Out_reg[3035]_1 ;
-  wire [0:0]\LOCKSTEP_Out_reg[3035]_2 ;
-  wire \LOCKSTEP_Out_reg[3035]_3 ;
   wire S;
   wire [0:0]\WB_MEM_Result_reg[28] ;
   wire \data_rd_reg_reg[28] ;
@@ -40600,6 +40282,7 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_371
   wire \^lopt_7 ;
   wire \^lopt_8 ;
   wire \^lopt_9 ;
+  wire [0:0]wb_databus_steered_read_data;
   wire [28:28]wb_excep_return_addr;
   wire wb_gpr_wr_dbg;
   wire [0:0]wb_gpr_write_dbg_reg;
@@ -40617,22 +40300,21 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_371
   assign lopt_3 = \^lopt_4 ;
   assign lopt_6 = \^lopt_7 ;
   assign lopt_9 = \^lopt_10 ;
-  LUT6 #(
-    .INIT(64'hBBBBBBBBBBBBBBB8)) 
+  LUT5 #(
+    .INIT(32'hBBBBBBB8)) 
     \Trace_New_Reg_Value[28]_INST_0 
        (.I0(wb_excep_return_addr),
         .I1(\LOCKSTEP_Out_reg[3035] ),
-        .I2(\LOCKSTEP_Out_reg[3035]_0 ),
-        .I3(\LOCKSTEP_Out_reg[3035]_1 ),
-        .I4(\LOCKSTEP_Out_reg[3035]_2 ),
-        .I5(wb_mul_result),
+        .I2(wb_databus_steered_read_data),
+        .I3(\LOCKSTEP_Out_reg[3035]_0 ),
+        .I4(wb_mul_result),
         .O(\WB_MEM_Result_reg[28] ));
   (* OPT_MODIFIED = "MLO " *) 
   (* XILINX_LEGACY_PRIM = "(MUXCY,XORCY)" *) 
   (* XILINX_TRANSFORM_PINMAP = "LO:O" *) 
   (* box_type = "PRIMITIVE" *) 
   CARRY4 \Using_FPGA.Native_I1_CARRY4 
-       (.CI(\LOCKSTEP_Out_reg[3035]_3 ),
+       (.CI(\LOCKSTEP_Out_reg[3035]_1 ),
         .CO({\^lopt_7 ,\^lopt_4 ,\^lopt_1 ,LO}),
         .CYINIT(1'b0),
         .DI({\^lopt_8 ,\^lopt_5 ,\^lopt_2 ,DI}),
@@ -40661,12 +40343,11 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_374
     \data_rd_reg_reg[29]_1 ,
     DI,
     \LOCKSTEP_Out_reg[3036] ,
+    wb_databus_steered_read_data,
     \LOCKSTEP_Out_reg[3036]_0 ,
-    \LOCKSTEP_Out_reg[3036]_1 ,
-    \LOCKSTEP_Out_reg[3036]_2 ,
     wb_mul_result,
     S,
-    \LOCKSTEP_Out_reg[3036]_3 ,
+    \LOCKSTEP_Out_reg[3036]_1 ,
     lopt,
     lopt_1);
   output [0:0]wb_gpr_write_dbg_reg;
@@ -40678,27 +40359,25 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_374
   input \data_rd_reg_reg[29]_1 ;
   input DI;
   input \LOCKSTEP_Out_reg[3036] ;
-  input \LOCKSTEP_Out_reg[3036]_0 ;
-  input \LOCKSTEP_Out_reg[3036]_1 ;
-  input [0:0]\LOCKSTEP_Out_reg[3036]_2 ;
+  input [0:0]wb_databus_steered_read_data;
+  input [0:0]\LOCKSTEP_Out_reg[3036]_0 ;
   input [0:0]wb_mul_result;
   input S;
-  input \LOCKSTEP_Out_reg[3036]_3 ;
+  input \LOCKSTEP_Out_reg[3036]_1 ;
   input lopt;
   input lopt_1;
 
   wire DI;
   wire LO;
   wire \LOCKSTEP_Out_reg[3036] ;
-  wire \LOCKSTEP_Out_reg[3036]_0 ;
+  wire [0:0]\LOCKSTEP_Out_reg[3036]_0 ;
   wire \LOCKSTEP_Out_reg[3036]_1 ;
-  wire [0:0]\LOCKSTEP_Out_reg[3036]_2 ;
-  wire \LOCKSTEP_Out_reg[3036]_3 ;
   wire S;
   wire [0:0]\WB_MEM_Result_reg[29] ;
   wire \data_rd_reg_reg[29] ;
   wire [0:0]\data_rd_reg_reg[29]_0 ;
   wire \data_rd_reg_reg[29]_1 ;
+  wire [0:0]wb_databus_steered_read_data;
   wire [29:29]wb_excep_return_addr;
   wire wb_gpr_wr_dbg;
   wire [0:0]wb_gpr_write_dbg_reg;
@@ -40706,15 +40385,14 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_374
 
   assign LO = lopt;
   assign wb_excep_return_addr = lopt_1;
-  LUT6 #(
-    .INIT(64'hBBBBBBBBBBBBBBB8)) 
+  LUT5 #(
+    .INIT(32'hBBBBBBB8)) 
     \Trace_New_Reg_Value[29]_INST_0 
        (.I0(wb_excep_return_addr),
         .I1(\LOCKSTEP_Out_reg[3036] ),
-        .I2(\LOCKSTEP_Out_reg[3036]_0 ),
-        .I3(\LOCKSTEP_Out_reg[3036]_1 ),
-        .I4(\LOCKSTEP_Out_reg[3036]_2 ),
-        .I5(wb_mul_result),
+        .I2(wb_databus_steered_read_data),
+        .I3(\LOCKSTEP_Out_reg[3036]_0 ),
+        .I4(wb_mul_result),
         .O(\WB_MEM_Result_reg[29] ));
   LUT6 #(
     .INIT(64'hBF80BFBFBF808080)) 
@@ -40738,11 +40416,12 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_377
     DI,
     \data_rd_reg_reg[2]_0 ,
     \LOCKSTEP_Out_reg[3009] ,
-    wb_databus_steered_read_data,
+    WB_Steered_Read_Data1__0,
     \LOCKSTEP_Out_reg[3009]_0 ,
+    \LOCKSTEP_Out_reg[3009]_1 ,
     wb_mul_result,
     S,
-    \LOCKSTEP_Out_reg[3009]_1 ,
+    \LOCKSTEP_Out_reg[3009]_2 ,
     lopt,
     lopt_1);
   output [0:0]wb_gpr_write_dbg_reg;
@@ -40753,24 +40432,26 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_377
   input DI;
   input \data_rd_reg_reg[2]_0 ;
   input \LOCKSTEP_Out_reg[3009] ;
-  input [0:0]wb_databus_steered_read_data;
-  input [0:0]\LOCKSTEP_Out_reg[3009]_0 ;
+  input WB_Steered_Read_Data1__0;
+  input \LOCKSTEP_Out_reg[3009]_0 ;
+  input [0:0]\LOCKSTEP_Out_reg[3009]_1 ;
   input [0:0]wb_mul_result;
   input S;
-  input \LOCKSTEP_Out_reg[3009]_1 ;
+  input \LOCKSTEP_Out_reg[3009]_2 ;
   input lopt;
   input lopt_1;
 
   wire DI;
   wire LO;
   wire \LOCKSTEP_Out_reg[3009] ;
-  wire [0:0]\LOCKSTEP_Out_reg[3009]_0 ;
-  wire \LOCKSTEP_Out_reg[3009]_1 ;
+  wire \LOCKSTEP_Out_reg[3009]_0 ;
+  wire [0:0]\LOCKSTEP_Out_reg[3009]_1 ;
+  wire \LOCKSTEP_Out_reg[3009]_2 ;
   wire S;
   wire [0:0]\WB_MEM_Result_reg[2] ;
+  wire WB_Steered_Read_Data1__0;
   wire \data_rd_reg_reg[2] ;
   wire \data_rd_reg_reg[2]_0 ;
-  wire [0:0]wb_databus_steered_read_data;
   wire [2:2]wb_excep_return_addr;
   wire wb_gpr_wr_dbg;
   wire [0:0]wb_gpr_write_dbg_reg;
@@ -40778,14 +40459,15 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_377
 
   assign LO = lopt;
   assign wb_excep_return_addr = lopt_1;
-  LUT5 #(
-    .INIT(32'hBBBBBBB8)) 
+  LUT6 #(
+    .INIT(64'hBBBBBBBBBBBB8B88)) 
     \Trace_New_Reg_Value[2]_INST_0 
        (.I0(wb_excep_return_addr),
         .I1(\LOCKSTEP_Out_reg[3009] ),
-        .I2(wb_databus_steered_read_data),
+        .I2(WB_Steered_Read_Data1__0),
         .I3(\LOCKSTEP_Out_reg[3009]_0 ),
-        .I4(wb_mul_result),
+        .I4(\LOCKSTEP_Out_reg[3009]_1 ),
+        .I5(wb_mul_result),
         .O(\WB_MEM_Result_reg[2] ));
   LUT5 #(
     .INIT(32'h8080BF80)) 
@@ -40809,12 +40491,11 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_380
     \data_rd_reg_reg[30]_1 ,
     DI,
     \LOCKSTEP_Out_reg[3037] ,
+    wb_databus_steered_read_data,
     \LOCKSTEP_Out_reg[3037]_0 ,
-    \LOCKSTEP_Out_reg[3037]_1 ,
-    \LOCKSTEP_Out_reg[3037]_2 ,
     wb_mul_result,
     S,
-    \LOCKSTEP_Out_reg[3037]_3 ,
+    \LOCKSTEP_Out_reg[3037]_1 ,
     lopt,
     lopt_1);
   output [0:0]wb_gpr_write_dbg_reg;
@@ -40826,27 +40507,25 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_380
   input \data_rd_reg_reg[30]_1 ;
   input DI;
   input \LOCKSTEP_Out_reg[3037] ;
-  input \LOCKSTEP_Out_reg[3037]_0 ;
-  input \LOCKSTEP_Out_reg[3037]_1 ;
-  input [0:0]\LOCKSTEP_Out_reg[3037]_2 ;
+  input [0:0]wb_databus_steered_read_data;
+  input [0:0]\LOCKSTEP_Out_reg[3037]_0 ;
   input [0:0]wb_mul_result;
   input S;
-  input \LOCKSTEP_Out_reg[3037]_3 ;
+  input \LOCKSTEP_Out_reg[3037]_1 ;
   input lopt;
   input lopt_1;
 
   wire DI;
   wire LO;
   wire \LOCKSTEP_Out_reg[3037] ;
-  wire \LOCKSTEP_Out_reg[3037]_0 ;
+  wire [0:0]\LOCKSTEP_Out_reg[3037]_0 ;
   wire \LOCKSTEP_Out_reg[3037]_1 ;
-  wire [0:0]\LOCKSTEP_Out_reg[3037]_2 ;
-  wire \LOCKSTEP_Out_reg[3037]_3 ;
   wire S;
   wire [0:0]\WB_MEM_Result_reg[30] ;
   wire \data_rd_reg_reg[30] ;
   wire [0:0]\data_rd_reg_reg[30]_0 ;
   wire \data_rd_reg_reg[30]_1 ;
+  wire [0:0]wb_databus_steered_read_data;
   wire [30:30]wb_excep_return_addr;
   wire wb_gpr_wr_dbg;
   wire [0:0]wb_gpr_write_dbg_reg;
@@ -40854,15 +40533,14 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_380
 
   assign LO = lopt;
   assign wb_excep_return_addr = lopt_1;
-  LUT6 #(
-    .INIT(64'hBBBBBBBBBBBBBBB8)) 
+  LUT5 #(
+    .INIT(32'hBBBBBBB8)) 
     \Trace_New_Reg_Value[30]_INST_0 
        (.I0(wb_excep_return_addr),
         .I1(\LOCKSTEP_Out_reg[3037] ),
-        .I2(\LOCKSTEP_Out_reg[3037]_0 ),
-        .I3(\LOCKSTEP_Out_reg[3037]_1 ),
-        .I4(\LOCKSTEP_Out_reg[3037]_2 ),
-        .I5(wb_mul_result),
+        .I2(wb_databus_steered_read_data),
+        .I3(\LOCKSTEP_Out_reg[3037]_0 ),
+        .I4(wb_mul_result),
         .O(\WB_MEM_Result_reg[30] ));
   LUT6 #(
     .INIT(64'hBF80BFBFBF808080)) 
@@ -40886,9 +40564,8 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_383
     DI,
     \data_rd_reg_reg[31]_0 ,
     \LOCKSTEP_Out_reg[3038] ,
+    wb_databus_steered_read_data,
     \LOCKSTEP_Out_reg[3038]_0 ,
-    \LOCKSTEP_Out_reg[3038]_1 ,
-    \LOCKSTEP_Out_reg[3038]_2 ,
     wb_mul_result,
     S,
     CI,
@@ -40902,9 +40579,8 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_383
   input DI;
   input \data_rd_reg_reg[31]_0 ;
   input \LOCKSTEP_Out_reg[3038] ;
-  input \LOCKSTEP_Out_reg[3038]_0 ;
-  input \LOCKSTEP_Out_reg[3038]_1 ;
-  input [0:0]\LOCKSTEP_Out_reg[3038]_2 ;
+  input [0:0]wb_databus_steered_read_data;
+  input [0:0]\LOCKSTEP_Out_reg[3038]_0 ;
   input [0:0]wb_mul_result;
   input S;
   input CI;
@@ -40915,13 +40591,12 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_383
   wire DI;
   wire LO;
   wire \LOCKSTEP_Out_reg[3038] ;
-  wire \LOCKSTEP_Out_reg[3038]_0 ;
-  wire \LOCKSTEP_Out_reg[3038]_1 ;
-  wire [0:0]\LOCKSTEP_Out_reg[3038]_2 ;
+  wire [0:0]\LOCKSTEP_Out_reg[3038]_0 ;
   wire S;
   wire [0:0]\WB_MEM_Result_reg[31] ;
   wire \data_rd_reg_reg[31] ;
   wire \data_rd_reg_reg[31]_0 ;
+  wire [0:0]wb_databus_steered_read_data;
   wire [31:31]wb_excep_return_addr;
   wire wb_gpr_wr_dbg;
   wire [0:0]wb_gpr_write_dbg_reg;
@@ -40929,15 +40604,14 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_383
 
   assign LO = lopt;
   assign wb_excep_return_addr = lopt_1;
-  LUT6 #(
-    .INIT(64'hBBBBBBBBBBBBBBB8)) 
+  LUT5 #(
+    .INIT(32'hBBBBBBB8)) 
     \Trace_New_Reg_Value[31]_INST_0 
        (.I0(wb_excep_return_addr),
         .I1(\LOCKSTEP_Out_reg[3038] ),
-        .I2(\LOCKSTEP_Out_reg[3038]_0 ),
-        .I3(\LOCKSTEP_Out_reg[3038]_1 ),
-        .I4(\LOCKSTEP_Out_reg[3038]_2 ),
-        .I5(wb_mul_result),
+        .I2(wb_databus_steered_read_data),
+        .I3(\LOCKSTEP_Out_reg[3038]_0 ),
+        .I4(wb_mul_result),
         .O(\WB_MEM_Result_reg[31] ));
   LUT5 #(
     .INIT(32'h8080BF80)) 
@@ -40960,11 +40634,12 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_386
     DI,
     \data_rd_reg_reg[3]_0 ,
     \LOCKSTEP_Out_reg[3010] ,
-    wb_databus_steered_read_data,
+    WB_Steered_Read_Data1__0,
     \LOCKSTEP_Out_reg[3010]_0 ,
+    \LOCKSTEP_Out_reg[3010]_1 ,
     wb_mul_result,
     S,
-    \LOCKSTEP_Out_reg[3010]_1 ,
+    \LOCKSTEP_Out_reg[3010]_2 ,
     lopt,
     lopt_1);
   output [0:0]wb_gpr_write_dbg_reg;
@@ -40975,24 +40650,26 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_386
   input DI;
   input \data_rd_reg_reg[3]_0 ;
   input \LOCKSTEP_Out_reg[3010] ;
-  input [0:0]wb_databus_steered_read_data;
-  input [0:0]\LOCKSTEP_Out_reg[3010]_0 ;
+  input WB_Steered_Read_Data1__0;
+  input \LOCKSTEP_Out_reg[3010]_0 ;
+  input [0:0]\LOCKSTEP_Out_reg[3010]_1 ;
   input [0:0]wb_mul_result;
   input S;
-  input \LOCKSTEP_Out_reg[3010]_1 ;
+  input \LOCKSTEP_Out_reg[3010]_2 ;
   input lopt;
   input lopt_1;
 
   wire DI;
   wire LO;
   wire \LOCKSTEP_Out_reg[3010] ;
-  wire [0:0]\LOCKSTEP_Out_reg[3010]_0 ;
-  wire \LOCKSTEP_Out_reg[3010]_1 ;
+  wire \LOCKSTEP_Out_reg[3010]_0 ;
+  wire [0:0]\LOCKSTEP_Out_reg[3010]_1 ;
+  wire \LOCKSTEP_Out_reg[3010]_2 ;
   wire S;
   wire [0:0]\WB_MEM_Result_reg[3] ;
+  wire WB_Steered_Read_Data1__0;
   wire \data_rd_reg_reg[3] ;
   wire \data_rd_reg_reg[3]_0 ;
-  wire [0:0]wb_databus_steered_read_data;
   wire [3:3]wb_excep_return_addr;
   wire wb_gpr_wr_dbg;
   wire [0:0]wb_gpr_write_dbg_reg;
@@ -41000,14 +40677,15 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_386
 
   assign LO = lopt;
   assign wb_excep_return_addr = lopt_1;
-  LUT5 #(
-    .INIT(32'hBBBBBBB8)) 
+  LUT6 #(
+    .INIT(64'hBBBBBBBBBBBB8B88)) 
     \Trace_New_Reg_Value[3]_INST_0 
        (.I0(wb_excep_return_addr),
         .I1(\LOCKSTEP_Out_reg[3010] ),
-        .I2(wb_databus_steered_read_data),
+        .I2(WB_Steered_Read_Data1__0),
         .I3(\LOCKSTEP_Out_reg[3010]_0 ),
-        .I4(wb_mul_result),
+        .I4(\LOCKSTEP_Out_reg[3010]_1 ),
+        .I5(wb_mul_result),
         .O(\WB_MEM_Result_reg[3] ));
   LUT5 #(
     .INIT(32'h8080BF80)) 
@@ -41030,11 +40708,12 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_389
     DI,
     \data_rd_reg_reg[4]_0 ,
     \LOCKSTEP_Out_reg[3011] ,
-    wb_databus_steered_read_data,
+    WB_Steered_Read_Data1__0,
     \LOCKSTEP_Out_reg[3011]_0 ,
+    \LOCKSTEP_Out_reg[3011]_1 ,
     wb_mul_result,
     S,
-    \LOCKSTEP_Out_reg[3011]_1 ,
+    \LOCKSTEP_Out_reg[3011]_2 ,
     lopt,
     lopt_1,
     lopt_2,
@@ -41055,11 +40734,12 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_389
   input DI;
   input \data_rd_reg_reg[4]_0 ;
   input \LOCKSTEP_Out_reg[3011] ;
-  input [0:0]wb_databus_steered_read_data;
-  input [0:0]\LOCKSTEP_Out_reg[3011]_0 ;
+  input WB_Steered_Read_Data1__0;
+  input \LOCKSTEP_Out_reg[3011]_0 ;
+  input [0:0]\LOCKSTEP_Out_reg[3011]_1 ;
   input [0:0]wb_mul_result;
   input S;
-  input \LOCKSTEP_Out_reg[3011]_1 ;
+  input \LOCKSTEP_Out_reg[3011]_2 ;
   output lopt;
   input lopt_1;
   input lopt_2;
@@ -41076,10 +40756,12 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_389
   wire DI;
   wire LO;
   wire \LOCKSTEP_Out_reg[3011] ;
-  wire [0:0]\LOCKSTEP_Out_reg[3011]_0 ;
-  wire \LOCKSTEP_Out_reg[3011]_1 ;
+  wire \LOCKSTEP_Out_reg[3011]_0 ;
+  wire [0:0]\LOCKSTEP_Out_reg[3011]_1 ;
+  wire \LOCKSTEP_Out_reg[3011]_2 ;
   wire S;
   wire [0:0]\WB_MEM_Result_reg[4] ;
+  wire WB_Steered_Read_Data1__0;
   wire \data_rd_reg_reg[4] ;
   wire \data_rd_reg_reg[4]_0 ;
   wire \^lopt_1 ;
@@ -41094,7 +40776,6 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_389
   wire \^lopt_7 ;
   wire \^lopt_8 ;
   wire \^lopt_9 ;
-  wire [0:0]wb_databus_steered_read_data;
   wire [4:4]wb_excep_return_addr;
   wire wb_gpr_wr_dbg;
   wire [0:0]wb_gpr_write_dbg_reg;
@@ -41112,21 +40793,22 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_389
   assign lopt_3 = \^lopt_4 ;
   assign lopt_6 = \^lopt_7 ;
   assign lopt_9 = \^lopt_10 ;
-  LUT5 #(
-    .INIT(32'hBBBBBBB8)) 
+  LUT6 #(
+    .INIT(64'hBBBBBBBBBBBB8B88)) 
     \Trace_New_Reg_Value[4]_INST_0 
        (.I0(wb_excep_return_addr),
         .I1(\LOCKSTEP_Out_reg[3011] ),
-        .I2(wb_databus_steered_read_data),
+        .I2(WB_Steered_Read_Data1__0),
         .I3(\LOCKSTEP_Out_reg[3011]_0 ),
-        .I4(wb_mul_result),
+        .I4(\LOCKSTEP_Out_reg[3011]_1 ),
+        .I5(wb_mul_result),
         .O(\WB_MEM_Result_reg[4] ));
   (* OPT_MODIFIED = "MLO " *) 
   (* XILINX_LEGACY_PRIM = "(MUXCY,XORCY)" *) 
   (* XILINX_TRANSFORM_PINMAP = "LO:O" *) 
   (* box_type = "PRIMITIVE" *) 
   CARRY4 \Using_FPGA.Native_I1_CARRY4 
-       (.CI(\LOCKSTEP_Out_reg[3011]_1 ),
+       (.CI(\LOCKSTEP_Out_reg[3011]_2 ),
         .CO({\^lopt_7 ,\^lopt_4 ,\^lopt_1 ,LO}),
         .CYINIT(1'b0),
         .DI({\^lopt_8 ,\^lopt_5 ,\^lopt_2 ,DI}),
@@ -41153,11 +40835,12 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_392
     DI,
     \data_rd_reg_reg[5]_0 ,
     \LOCKSTEP_Out_reg[3012] ,
-    wb_databus_steered_read_data,
+    WB_Steered_Read_Data1__0,
     \LOCKSTEP_Out_reg[3012]_0 ,
+    \LOCKSTEP_Out_reg[3012]_1 ,
     wb_mul_result,
     S,
-    \LOCKSTEP_Out_reg[3012]_1 ,
+    \LOCKSTEP_Out_reg[3012]_2 ,
     lopt,
     lopt_1);
   output [0:0]wb_gpr_write_dbg_reg;
@@ -41168,24 +40851,26 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_392
   input DI;
   input \data_rd_reg_reg[5]_0 ;
   input \LOCKSTEP_Out_reg[3012] ;
-  input [0:0]wb_databus_steered_read_data;
-  input [0:0]\LOCKSTEP_Out_reg[3012]_0 ;
+  input WB_Steered_Read_Data1__0;
+  input \LOCKSTEP_Out_reg[3012]_0 ;
+  input [0:0]\LOCKSTEP_Out_reg[3012]_1 ;
   input [0:0]wb_mul_result;
   input S;
-  input \LOCKSTEP_Out_reg[3012]_1 ;
+  input \LOCKSTEP_Out_reg[3012]_2 ;
   input lopt;
   input lopt_1;
 
   wire DI;
   wire LO;
   wire \LOCKSTEP_Out_reg[3012] ;
-  wire [0:0]\LOCKSTEP_Out_reg[3012]_0 ;
-  wire \LOCKSTEP_Out_reg[3012]_1 ;
+  wire \LOCKSTEP_Out_reg[3012]_0 ;
+  wire [0:0]\LOCKSTEP_Out_reg[3012]_1 ;
+  wire \LOCKSTEP_Out_reg[3012]_2 ;
   wire S;
   wire [0:0]\WB_MEM_Result_reg[5] ;
+  wire WB_Steered_Read_Data1__0;
   wire \data_rd_reg_reg[5] ;
   wire \data_rd_reg_reg[5]_0 ;
-  wire [0:0]wb_databus_steered_read_data;
   wire [5:5]wb_excep_return_addr;
   wire wb_gpr_wr_dbg;
   wire [0:0]wb_gpr_write_dbg_reg;
@@ -41193,14 +40878,15 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_392
 
   assign LO = lopt;
   assign wb_excep_return_addr = lopt_1;
-  LUT5 #(
-    .INIT(32'hBBBBBBB8)) 
+  LUT6 #(
+    .INIT(64'hBBBBBBBBBBBB8B88)) 
     \Trace_New_Reg_Value[5]_INST_0 
        (.I0(wb_excep_return_addr),
         .I1(\LOCKSTEP_Out_reg[3012] ),
-        .I2(wb_databus_steered_read_data),
+        .I2(WB_Steered_Read_Data1__0),
         .I3(\LOCKSTEP_Out_reg[3012]_0 ),
-        .I4(wb_mul_result),
+        .I4(\LOCKSTEP_Out_reg[3012]_1 ),
+        .I5(wb_mul_result),
         .O(\WB_MEM_Result_reg[5] ));
   LUT5 #(
     .INIT(32'h8080BF80)) 
@@ -41223,11 +40909,12 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_395
     DI,
     \data_rd_reg_reg[6]_0 ,
     \LOCKSTEP_Out_reg[3013] ,
-    wb_databus_steered_read_data,
+    WB_Steered_Read_Data1__0,
     \LOCKSTEP_Out_reg[3013]_0 ,
+    \LOCKSTEP_Out_reg[3013]_1 ,
     wb_mul_result,
     S,
-    \LOCKSTEP_Out_reg[3013]_1 ,
+    \LOCKSTEP_Out_reg[3013]_2 ,
     lopt,
     lopt_1);
   output [0:0]wb_gpr_write_dbg_reg;
@@ -41238,24 +40925,26 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_395
   input DI;
   input \data_rd_reg_reg[6]_0 ;
   input \LOCKSTEP_Out_reg[3013] ;
-  input [0:0]wb_databus_steered_read_data;
-  input [0:0]\LOCKSTEP_Out_reg[3013]_0 ;
+  input WB_Steered_Read_Data1__0;
+  input \LOCKSTEP_Out_reg[3013]_0 ;
+  input [0:0]\LOCKSTEP_Out_reg[3013]_1 ;
   input [0:0]wb_mul_result;
   input S;
-  input \LOCKSTEP_Out_reg[3013]_1 ;
+  input \LOCKSTEP_Out_reg[3013]_2 ;
   input lopt;
   input lopt_1;
 
   wire DI;
   wire LO;
   wire \LOCKSTEP_Out_reg[3013] ;
-  wire [0:0]\LOCKSTEP_Out_reg[3013]_0 ;
-  wire \LOCKSTEP_Out_reg[3013]_1 ;
+  wire \LOCKSTEP_Out_reg[3013]_0 ;
+  wire [0:0]\LOCKSTEP_Out_reg[3013]_1 ;
+  wire \LOCKSTEP_Out_reg[3013]_2 ;
   wire S;
   wire [0:0]\WB_MEM_Result_reg[6] ;
+  wire WB_Steered_Read_Data1__0;
   wire \data_rd_reg_reg[6] ;
   wire \data_rd_reg_reg[6]_0 ;
-  wire [0:0]wb_databus_steered_read_data;
   wire [6:6]wb_excep_return_addr;
   wire wb_gpr_wr_dbg;
   wire [0:0]wb_gpr_write_dbg_reg;
@@ -41263,14 +40952,15 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_395
 
   assign LO = lopt;
   assign wb_excep_return_addr = lopt_1;
-  LUT5 #(
-    .INIT(32'hBBBBBBB8)) 
+  LUT6 #(
+    .INIT(64'hBBBBBBBBBBBB8B88)) 
     \Trace_New_Reg_Value[6]_INST_0 
        (.I0(wb_excep_return_addr),
         .I1(\LOCKSTEP_Out_reg[3013] ),
-        .I2(wb_databus_steered_read_data),
+        .I2(WB_Steered_Read_Data1__0),
         .I3(\LOCKSTEP_Out_reg[3013]_0 ),
-        .I4(wb_mul_result),
+        .I4(\LOCKSTEP_Out_reg[3013]_1 ),
+        .I5(wb_mul_result),
         .O(\WB_MEM_Result_reg[6] ));
   LUT5 #(
     .INIT(32'h8080BF80)) 
@@ -41293,11 +40983,12 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_398
     DI,
     \data_rd_reg_reg[7]_0 ,
     \LOCKSTEP_Out_reg[3014] ,
-    wb_databus_steered_read_data,
+    WB_Steered_Read_Data1__0,
     \LOCKSTEP_Out_reg[3014]_0 ,
+    \LOCKSTEP_Out_reg[3014]_1 ,
     wb_mul_result,
     S,
-    \LOCKSTEP_Out_reg[3014]_1 ,
+    \LOCKSTEP_Out_reg[3014]_2 ,
     lopt,
     lopt_1);
   output [0:0]wb_gpr_write_dbg_reg;
@@ -41308,24 +40999,26 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_398
   input DI;
   input \data_rd_reg_reg[7]_0 ;
   input \LOCKSTEP_Out_reg[3014] ;
-  input [0:0]wb_databus_steered_read_data;
-  input [0:0]\LOCKSTEP_Out_reg[3014]_0 ;
+  input WB_Steered_Read_Data1__0;
+  input \LOCKSTEP_Out_reg[3014]_0 ;
+  input [0:0]\LOCKSTEP_Out_reg[3014]_1 ;
   input [0:0]wb_mul_result;
   input S;
-  input \LOCKSTEP_Out_reg[3014]_1 ;
+  input \LOCKSTEP_Out_reg[3014]_2 ;
   input lopt;
   input lopt_1;
 
   wire DI;
   wire LO;
   wire \LOCKSTEP_Out_reg[3014] ;
-  wire [0:0]\LOCKSTEP_Out_reg[3014]_0 ;
-  wire \LOCKSTEP_Out_reg[3014]_1 ;
+  wire \LOCKSTEP_Out_reg[3014]_0 ;
+  wire [0:0]\LOCKSTEP_Out_reg[3014]_1 ;
+  wire \LOCKSTEP_Out_reg[3014]_2 ;
   wire S;
   wire [0:0]\WB_MEM_Result_reg[7] ;
+  wire WB_Steered_Read_Data1__0;
   wire \data_rd_reg_reg[7] ;
   wire \data_rd_reg_reg[7]_0 ;
-  wire [0:0]wb_databus_steered_read_data;
   wire [7:7]wb_excep_return_addr;
   wire wb_gpr_wr_dbg;
   wire [0:0]wb_gpr_write_dbg_reg;
@@ -41333,14 +41026,15 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_398
 
   assign LO = lopt;
   assign wb_excep_return_addr = lopt_1;
-  LUT5 #(
-    .INIT(32'hBBBBBBB8)) 
+  LUT6 #(
+    .INIT(64'hBBBBBBBBBBBB8B88)) 
     \Trace_New_Reg_Value[7]_INST_0 
        (.I0(wb_excep_return_addr),
         .I1(\LOCKSTEP_Out_reg[3014] ),
-        .I2(wb_databus_steered_read_data),
+        .I2(WB_Steered_Read_Data1__0),
         .I3(\LOCKSTEP_Out_reg[3014]_0 ),
-        .I4(wb_mul_result),
+        .I4(\LOCKSTEP_Out_reg[3014]_1 ),
+        .I5(wb_mul_result),
         .O(\WB_MEM_Result_reg[7] ));
   LUT5 #(
     .INIT(32'h8080BF80)) 
@@ -41363,11 +41057,12 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_401
     DI,
     \data_rd_reg_reg[8]_0 ,
     \LOCKSTEP_Out_reg[3015] ,
-    wb_databus_steered_read_data,
+    WB_Steered_Read_Data1__0,
     \LOCKSTEP_Out_reg[3015]_0 ,
+    \LOCKSTEP_Out_reg[3015]_1 ,
     wb_mul_result,
     S,
-    \LOCKSTEP_Out_reg[3015]_1 ,
+    \LOCKSTEP_Out_reg[3015]_2 ,
     lopt,
     lopt_1,
     lopt_2,
@@ -41388,11 +41083,12 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_401
   input DI;
   input \data_rd_reg_reg[8]_0 ;
   input \LOCKSTEP_Out_reg[3015] ;
-  input [0:0]wb_databus_steered_read_data;
-  input [0:0]\LOCKSTEP_Out_reg[3015]_0 ;
+  input WB_Steered_Read_Data1__0;
+  input \LOCKSTEP_Out_reg[3015]_0 ;
+  input [0:0]\LOCKSTEP_Out_reg[3015]_1 ;
   input [0:0]wb_mul_result;
   input S;
-  input \LOCKSTEP_Out_reg[3015]_1 ;
+  input \LOCKSTEP_Out_reg[3015]_2 ;
   output lopt;
   input lopt_1;
   input lopt_2;
@@ -41409,10 +41105,12 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_401
   wire DI;
   wire LO;
   wire \LOCKSTEP_Out_reg[3015] ;
-  wire [0:0]\LOCKSTEP_Out_reg[3015]_0 ;
-  wire \LOCKSTEP_Out_reg[3015]_1 ;
+  wire \LOCKSTEP_Out_reg[3015]_0 ;
+  wire [0:0]\LOCKSTEP_Out_reg[3015]_1 ;
+  wire \LOCKSTEP_Out_reg[3015]_2 ;
   wire S;
   wire [0:0]\WB_MEM_Result_reg[8] ;
+  wire WB_Steered_Read_Data1__0;
   wire \data_rd_reg_reg[8] ;
   wire \data_rd_reg_reg[8]_0 ;
   wire \^lopt_1 ;
@@ -41427,7 +41125,6 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_401
   wire \^lopt_7 ;
   wire \^lopt_8 ;
   wire \^lopt_9 ;
-  wire [0:0]wb_databus_steered_read_data;
   wire [8:8]wb_excep_return_addr;
   wire wb_gpr_wr_dbg;
   wire [0:0]wb_gpr_write_dbg_reg;
@@ -41445,21 +41142,22 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_401
   assign lopt_3 = \^lopt_4 ;
   assign lopt_6 = \^lopt_7 ;
   assign lopt_9 = \^lopt_10 ;
-  LUT5 #(
-    .INIT(32'hBBBBBBB8)) 
+  LUT6 #(
+    .INIT(64'hBBBBBBBBBBBB8B88)) 
     \Trace_New_Reg_Value[8]_INST_0 
        (.I0(wb_excep_return_addr),
         .I1(\LOCKSTEP_Out_reg[3015] ),
-        .I2(wb_databus_steered_read_data),
+        .I2(WB_Steered_Read_Data1__0),
         .I3(\LOCKSTEP_Out_reg[3015]_0 ),
-        .I4(wb_mul_result),
+        .I4(\LOCKSTEP_Out_reg[3015]_1 ),
+        .I5(wb_mul_result),
         .O(\WB_MEM_Result_reg[8] ));
   (* OPT_MODIFIED = "MLO " *) 
   (* XILINX_LEGACY_PRIM = "(MUXCY,XORCY)" *) 
   (* XILINX_TRANSFORM_PINMAP = "LO:O" *) 
   (* box_type = "PRIMITIVE" *) 
   CARRY4 \Using_FPGA.Native_I1_CARRY4 
-       (.CI(\LOCKSTEP_Out_reg[3015]_1 ),
+       (.CI(\LOCKSTEP_Out_reg[3015]_2 ),
         .CO({\^lopt_7 ,\^lopt_4 ,\^lopt_1 ,LO}),
         .CYINIT(1'b0),
         .DI({\^lopt_8 ,\^lopt_5 ,\^lopt_2 ,DI}),
@@ -41486,8 +41184,9 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_404
     DI,
     \data_rd_reg_reg[9]_0 ,
     \LOCKSTEP_Out_reg[3016] ,
-    wb_databus_steered_read_data,
+    WB_Steered_Read_Data1__0,
     \LOCKSTEP_Out_reg[3016]_0 ,
+    \LOCKSTEP_Out_reg[3016]_1 ,
     wb_mul_result,
     S,
     CI,
@@ -41501,8 +41200,9 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_404
   input DI;
   input \data_rd_reg_reg[9]_0 ;
   input \LOCKSTEP_Out_reg[3016] ;
-  input [0:0]wb_databus_steered_read_data;
-  input [0:0]\LOCKSTEP_Out_reg[3016]_0 ;
+  input WB_Steered_Read_Data1__0;
+  input \LOCKSTEP_Out_reg[3016]_0 ;
+  input [0:0]\LOCKSTEP_Out_reg[3016]_1 ;
   input [0:0]wb_mul_result;
   input S;
   input CI;
@@ -41513,12 +41213,13 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_404
   wire DI;
   wire LO;
   wire \LOCKSTEP_Out_reg[3016] ;
-  wire [0:0]\LOCKSTEP_Out_reg[3016]_0 ;
+  wire \LOCKSTEP_Out_reg[3016]_0 ;
+  wire [0:0]\LOCKSTEP_Out_reg[3016]_1 ;
   wire S;
   wire [0:0]\WB_MEM_Result_reg[9] ;
+  wire WB_Steered_Read_Data1__0;
   wire \data_rd_reg_reg[9] ;
   wire \data_rd_reg_reg[9]_0 ;
-  wire [0:0]wb_databus_steered_read_data;
   wire [9:9]wb_excep_return_addr;
   wire wb_gpr_wr_dbg;
   wire [0:0]wb_gpr_write_dbg_reg;
@@ -41526,14 +41227,15 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_404
 
   assign LO = lopt;
   assign wb_excep_return_addr = lopt_1;
-  LUT5 #(
-    .INIT(32'hBBBBBBB8)) 
+  LUT6 #(
+    .INIT(64'hBBBBBBBBBBBB8B88)) 
     \Trace_New_Reg_Value[9]_INST_0 
        (.I0(wb_excep_return_addr),
         .I1(\LOCKSTEP_Out_reg[3016] ),
-        .I2(wb_databus_steered_read_data),
+        .I2(WB_Steered_Read_Data1__0),
         .I3(\LOCKSTEP_Out_reg[3016]_0 ),
-        .I4(wb_mul_result),
+        .I4(\LOCKSTEP_Out_reg[3016]_1 ),
+        .I5(wb_mul_result),
         .O(\WB_MEM_Result_reg[9] ));
   LUT5 #(
     .INIT(32'h8080BF80)) 
@@ -43950,7 +43652,7 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_492
         .S({\^lopt_9 ,\^lopt_6 ,\^lopt_3 ,S}));
   LUT5 #(
     .INIT(32'hFF202020)) 
-    \Using_FPGA.Native_i_1__8 
+    \Using_FPGA.Native_i_1__9 
        (.I0(\Q_reg[31] ),
         .I1(ex_div_unsigned),
         .I2(ex_start_div),
@@ -44260,14 +43962,14 @@ endmodule
 (* ORIG_REF_NAME = "MB_MUXCY_XORCY" *) 
 module design_1_microblaze_0_1_MB_MUXCY_XORCY_618
    (EX_CarryOut,
-    ex_databus_addr,
+    \EX_Op2_reg[9] ,
     S,
     DI,
     EX_CarryIn,
     lopt,
     lopt_1);
   output EX_CarryOut;
-  output [0:0]ex_databus_addr;
+  output [0:0]\EX_Op2_reg[9] ;
   input S;
   input DI;
   input EX_CarryIn;
@@ -44277,24 +43979,24 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_618
   wire DI;
   wire EX_CarryIn;
   wire EX_CarryOut;
+  wire [0:0]\EX_Op2_reg[9] ;
   wire S;
-  wire [0:0]ex_databus_addr;
 
   assign EX_CarryOut = lopt;
-  assign ex_databus_addr = lopt_1;
+  assign \EX_Op2_reg[9]  = lopt_1;
 endmodule
 
 (* ORIG_REF_NAME = "MB_MUXCY_XORCY" *) 
 module design_1_microblaze_0_1_MB_MUXCY_XORCY_620
    (EX_CarryOut,
-    ex_databus_addr,
+    \EX_Op2_reg[8] ,
     S,
     DI,
     LO,
     lopt,
     lopt_1);
   output EX_CarryOut;
-  output [0:0]ex_databus_addr;
+  output [0:0]\EX_Op2_reg[8] ;
   input S;
   input DI;
   input LO;
@@ -44303,25 +44005,25 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_620
 
   wire DI;
   wire EX_CarryOut;
+  wire [0:0]\EX_Op2_reg[8] ;
   wire LO;
   wire S;
-  wire [0:0]ex_databus_addr;
 
   assign EX_CarryOut = lopt;
-  assign ex_databus_addr = lopt_1;
+  assign \EX_Op2_reg[8]  = lopt_1;
 endmodule
 
 (* ORIG_REF_NAME = "MB_MUXCY_XORCY" *) 
 module design_1_microblaze_0_1_MB_MUXCY_XORCY_622
    (EX_CarryOut,
-    ex_databus_addr,
+    \EX_Op2_reg[7] ,
     S,
     DI,
     LO,
     lopt,
     lopt_1);
   output EX_CarryOut;
-  output [0:0]ex_databus_addr;
+  output [0:0]\EX_Op2_reg[7] ;
   input S;
   input DI;
   input LO;
@@ -44330,18 +44032,18 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_622
 
   wire DI;
   wire EX_CarryOut;
+  wire [0:0]\EX_Op2_reg[7] ;
   wire LO;
   wire S;
-  wire [0:0]ex_databus_addr;
 
   assign EX_CarryOut = lopt;
-  assign ex_databus_addr = lopt_1;
+  assign \EX_Op2_reg[7]  = lopt_1;
 endmodule
 
 (* ORIG_REF_NAME = "MB_MUXCY_XORCY" *) 
 module design_1_microblaze_0_1_MB_MUXCY_XORCY_624
    (EX_CarryOut,
-    ex_databus_addr,
+    \EX_Op2_reg[6] ,
     S,
     DI,
     LO,
@@ -44358,7 +44060,7 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_624
     lopt_10,
     lopt_11);
   output EX_CarryOut;
-  output [0:0]ex_databus_addr;
+  output [0:0]\EX_Op2_reg[6] ;
   input S;
   input DI;
   input LO;
@@ -44377,9 +44079,9 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_624
 
   wire DI;
   wire EX_CarryOut;
+  wire [0:0]\EX_Op2_reg[6] ;
   wire LO;
   wire S;
-  wire [0:0]ex_databus_addr;
   wire \^lopt_1 ;
   wire \^lopt_10 ;
   wire \^lopt_11 ;
@@ -44414,21 +44116,21 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_624
         .CO({\^lopt_7 ,\^lopt_4 ,\^lopt_1 ,EX_CarryOut}),
         .CYINIT(1'b0),
         .DI({\^lopt_8 ,\^lopt_5 ,\^lopt_2 ,DI}),
-        .O({lopt_12,\^lopt_11 ,\^lopt_10 ,ex_databus_addr}),
+        .O({lopt_12,\^lopt_11 ,\^lopt_10 ,\EX_Op2_reg[6] }),
         .S({\^lopt_9 ,\^lopt_6 ,\^lopt_3 ,S}));
 endmodule
 
 (* ORIG_REF_NAME = "MB_MUXCY_XORCY" *) 
 module design_1_microblaze_0_1_MB_MUXCY_XORCY_626
    (EX_CarryOut,
-    ex_databus_addr,
+    \EX_Op2_reg[5] ,
     S,
     DI,
     LO,
     lopt,
     lopt_1);
   output EX_CarryOut;
-  output [0:0]ex_databus_addr;
+  output [0:0]\EX_Op2_reg[5] ;
   input S;
   input DI;
   input LO;
@@ -44437,25 +44139,25 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_626
 
   wire DI;
   wire EX_CarryOut;
+  wire [0:0]\EX_Op2_reg[5] ;
   wire LO;
   wire S;
-  wire [0:0]ex_databus_addr;
 
   assign EX_CarryOut = lopt;
-  assign ex_databus_addr = lopt_1;
+  assign \EX_Op2_reg[5]  = lopt_1;
 endmodule
 
 (* ORIG_REF_NAME = "MB_MUXCY_XORCY" *) 
 module design_1_microblaze_0_1_MB_MUXCY_XORCY_628
    (EX_CarryOut,
-    ex_databus_addr,
+    \EX_Op2_reg[4] ,
     S,
     DI,
     LO,
     lopt,
     lopt_1);
   output EX_CarryOut;
-  output [0:0]ex_databus_addr;
+  output [0:0]\EX_Op2_reg[4] ;
   input S;
   input DI;
   input LO;
@@ -44464,25 +44166,25 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_628
 
   wire DI;
   wire EX_CarryOut;
+  wire [0:0]\EX_Op2_reg[4] ;
   wire LO;
   wire S;
-  wire [0:0]ex_databus_addr;
 
   assign EX_CarryOut = lopt;
-  assign ex_databus_addr = lopt_1;
+  assign \EX_Op2_reg[4]  = lopt_1;
 endmodule
 
 (* ORIG_REF_NAME = "MB_MUXCY_XORCY" *) 
 module design_1_microblaze_0_1_MB_MUXCY_XORCY_630
    (EX_CarryOut,
-    ex_databus_addr,
+    \EX_Op2_reg[3] ,
     S,
     DI,
     LO,
     lopt,
     lopt_1);
   output EX_CarryOut;
-  output [0:0]ex_databus_addr;
+  output [0:0]\EX_Op2_reg[3] ;
   input S;
   input DI;
   input LO;
@@ -44491,12 +44193,12 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_630
 
   wire DI;
   wire EX_CarryOut;
+  wire [0:0]\EX_Op2_reg[3] ;
   wire LO;
   wire S;
-  wire [0:0]ex_databus_addr;
 
   assign EX_CarryOut = lopt;
-  assign ex_databus_addr = lopt_1;
+  assign \EX_Op2_reg[3]  = lopt_1;
 endmodule
 
 (* ORIG_REF_NAME = "MB_MUXCY_XORCY" *) 
@@ -44609,7 +44311,7 @@ endmodule
 (* ORIG_REF_NAME = "MB_MUXCY_XORCY" *) 
 module design_1_microblaze_0_1_MB_MUXCY_XORCY_636
    (EX_CarryOut,
-    ex_databus_addr,
+    \EX_Op2_reg[2] ,
     S,
     DI,
     LO,
@@ -44625,7 +44327,7 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_636
     lopt_9,
     lopt_10);
   output EX_CarryOut;
-  output [0:0]ex_databus_addr;
+  output [0:0]\EX_Op2_reg[2] ;
   input S;
   input DI;
   input LO;
@@ -44643,9 +44345,9 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_636
 
   wire DI;
   wire EX_CarryOut;
+  wire [0:0]\EX_Op2_reg[2] ;
   wire LO;
   wire S;
-  wire [0:0]ex_databus_addr;
   wire \^lopt_1 ;
   wire \^lopt_10 ;
   wire lopt_11;
@@ -44679,21 +44381,21 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_636
         .CO({\^lopt_7 ,\^lopt_4 ,\^lopt_1 ,EX_CarryOut}),
         .CYINIT(1'b0),
         .DI({\^lopt_8 ,\^lopt_5 ,\^lopt_2 ,DI}),
-        .O({lopt_11,\NLW_Using_FPGA.Native_I1_CARRY4_O_UNCONNECTED [2],\^lopt_10 ,ex_databus_addr}),
+        .O({lopt_11,\NLW_Using_FPGA.Native_I1_CARRY4_O_UNCONNECTED [2],\^lopt_10 ,\EX_Op2_reg[2] }),
         .S({\^lopt_9 ,\^lopt_6 ,\^lopt_3 ,S}));
 endmodule
 
 (* ORIG_REF_NAME = "MB_MUXCY_XORCY" *) 
 module design_1_microblaze_0_1_MB_MUXCY_XORCY_638
    (EX_CarryOut,
-    ex_databus_addr,
+    \EX_Op2_reg[29] ,
     S,
     DI,
     LO,
     lopt,
     lopt_1);
   output EX_CarryOut;
-  output [0:0]ex_databus_addr;
+  output [0:0]\EX_Op2_reg[29] ;
   input S;
   input DI;
   input LO;
@@ -44702,25 +44404,25 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_638
 
   wire DI;
   wire EX_CarryOut;
+  wire [0:0]\EX_Op2_reg[29] ;
   wire LO;
   wire S;
-  wire [0:0]ex_databus_addr;
 
   assign EX_CarryOut = lopt;
-  assign ex_databus_addr = lopt_1;
+  assign \EX_Op2_reg[29]  = lopt_1;
 endmodule
 
 (* ORIG_REF_NAME = "MB_MUXCY_XORCY" *) 
 module design_1_microblaze_0_1_MB_MUXCY_XORCY_640
    (EX_CarryOut,
-    ex_databus_addr,
+    \EX_Op2_reg[28] ,
     S,
     DI,
     LO,
     lopt,
     lopt_1);
   output EX_CarryOut;
-  output [0:0]ex_databus_addr;
+  output [0:0]\EX_Op2_reg[28] ;
   input S;
   input DI;
   input LO;
@@ -44729,25 +44431,25 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_640
 
   wire DI;
   wire EX_CarryOut;
+  wire [0:0]\EX_Op2_reg[28] ;
   wire LO;
   wire S;
-  wire [0:0]ex_databus_addr;
 
   assign EX_CarryOut = lopt;
-  assign ex_databus_addr = lopt_1;
+  assign \EX_Op2_reg[28]  = lopt_1;
 endmodule
 
 (* ORIG_REF_NAME = "MB_MUXCY_XORCY" *) 
 module design_1_microblaze_0_1_MB_MUXCY_XORCY_642
    (EX_CarryOut,
-    ex_databus_addr,
+    \EX_Op2_reg[27] ,
     S,
     DI,
     LO,
     lopt,
     lopt_1);
   output EX_CarryOut;
-  output [0:0]ex_databus_addr;
+  output [0:0]\EX_Op2_reg[27] ;
   input S;
   input DI;
   input LO;
@@ -44756,18 +44458,18 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_642
 
   wire DI;
   wire EX_CarryOut;
+  wire [0:0]\EX_Op2_reg[27] ;
   wire LO;
   wire S;
-  wire [0:0]ex_databus_addr;
 
   assign EX_CarryOut = lopt;
-  assign ex_databus_addr = lopt_1;
+  assign \EX_Op2_reg[27]  = lopt_1;
 endmodule
 
 (* ORIG_REF_NAME = "MB_MUXCY_XORCY" *) 
 module design_1_microblaze_0_1_MB_MUXCY_XORCY_644
    (EX_CarryOut,
-    ex_databus_addr,
+    \EX_Op2_reg[26] ,
     S,
     DI,
     LO,
@@ -44784,7 +44486,7 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_644
     lopt_10,
     lopt_11);
   output EX_CarryOut;
-  output [0:0]ex_databus_addr;
+  output [0:0]\EX_Op2_reg[26] ;
   input S;
   input DI;
   input LO;
@@ -44803,9 +44505,9 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_644
 
   wire DI;
   wire EX_CarryOut;
+  wire [0:0]\EX_Op2_reg[26] ;
   wire LO;
   wire S;
-  wire [0:0]ex_databus_addr;
   wire \^lopt_1 ;
   wire \^lopt_10 ;
   wire \^lopt_11 ;
@@ -44840,21 +44542,21 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_644
         .CO({\^lopt_7 ,\^lopt_4 ,\^lopt_1 ,EX_CarryOut}),
         .CYINIT(1'b0),
         .DI({\^lopt_8 ,\^lopt_5 ,\^lopt_2 ,DI}),
-        .O({lopt_12,\^lopt_11 ,\^lopt_10 ,ex_databus_addr}),
+        .O({lopt_12,\^lopt_11 ,\^lopt_10 ,\EX_Op2_reg[26] }),
         .S({\^lopt_9 ,\^lopt_6 ,\^lopt_3 ,S}));
 endmodule
 
 (* ORIG_REF_NAME = "MB_MUXCY_XORCY" *) 
 module design_1_microblaze_0_1_MB_MUXCY_XORCY_646
    (EX_CarryOut,
-    ex_databus_addr,
+    \EX_Op2_reg[25] ,
     S,
     DI,
     LO,
     lopt,
     lopt_1);
   output EX_CarryOut;
-  output [0:0]ex_databus_addr;
+  output [0:0]\EX_Op2_reg[25] ;
   input S;
   input DI;
   input LO;
@@ -44863,25 +44565,25 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_646
 
   wire DI;
   wire EX_CarryOut;
+  wire [0:0]\EX_Op2_reg[25] ;
   wire LO;
   wire S;
-  wire [0:0]ex_databus_addr;
 
   assign EX_CarryOut = lopt;
-  assign ex_databus_addr = lopt_1;
+  assign \EX_Op2_reg[25]  = lopt_1;
 endmodule
 
 (* ORIG_REF_NAME = "MB_MUXCY_XORCY" *) 
 module design_1_microblaze_0_1_MB_MUXCY_XORCY_648
    (EX_CarryOut,
-    ex_databus_addr,
+    \EX_Op2_reg[24] ,
     S,
     DI,
     LO,
     lopt,
     lopt_1);
   output EX_CarryOut;
-  output [0:0]ex_databus_addr;
+  output [0:0]\EX_Op2_reg[24] ;
   input S;
   input DI;
   input LO;
@@ -44890,25 +44592,25 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_648
 
   wire DI;
   wire EX_CarryOut;
+  wire [0:0]\EX_Op2_reg[24] ;
   wire LO;
   wire S;
-  wire [0:0]ex_databus_addr;
 
   assign EX_CarryOut = lopt;
-  assign ex_databus_addr = lopt_1;
+  assign \EX_Op2_reg[24]  = lopt_1;
 endmodule
 
 (* ORIG_REF_NAME = "MB_MUXCY_XORCY" *) 
 module design_1_microblaze_0_1_MB_MUXCY_XORCY_650
    (EX_CarryOut,
-    ex_databus_addr,
+    \EX_Op2_reg[23] ,
     S,
     DI,
     LO,
     lopt,
     lopt_1);
   output EX_CarryOut;
-  output [0:0]ex_databus_addr;
+  output [0:0]\EX_Op2_reg[23] ;
   input S;
   input DI;
   input LO;
@@ -44917,18 +44619,18 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_650
 
   wire DI;
   wire EX_CarryOut;
+  wire [0:0]\EX_Op2_reg[23] ;
   wire LO;
   wire S;
-  wire [0:0]ex_databus_addr;
 
   assign EX_CarryOut = lopt;
-  assign ex_databus_addr = lopt_1;
+  assign \EX_Op2_reg[23]  = lopt_1;
 endmodule
 
 (* ORIG_REF_NAME = "MB_MUXCY_XORCY" *) 
 module design_1_microblaze_0_1_MB_MUXCY_XORCY_652
    (EX_CarryOut,
-    ex_databus_addr,
+    \EX_Op2_reg[22] ,
     S,
     DI,
     LO,
@@ -44945,7 +44647,7 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_652
     lopt_10,
     lopt_11);
   output EX_CarryOut;
-  output [0:0]ex_databus_addr;
+  output [0:0]\EX_Op2_reg[22] ;
   input S;
   input DI;
   input LO;
@@ -44964,9 +44666,9 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_652
 
   wire DI;
   wire EX_CarryOut;
+  wire [0:0]\EX_Op2_reg[22] ;
   wire LO;
   wire S;
-  wire [0:0]ex_databus_addr;
   wire \^lopt_1 ;
   wire \^lopt_10 ;
   wire \^lopt_11 ;
@@ -45001,21 +44703,21 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_652
         .CO({\^lopt_7 ,\^lopt_4 ,\^lopt_1 ,EX_CarryOut}),
         .CYINIT(1'b0),
         .DI({\^lopt_8 ,\^lopt_5 ,\^lopt_2 ,DI}),
-        .O({lopt_12,\^lopt_11 ,\^lopt_10 ,ex_databus_addr}),
+        .O({lopt_12,\^lopt_11 ,\^lopt_10 ,\EX_Op2_reg[22] }),
         .S({\^lopt_9 ,\^lopt_6 ,\^lopt_3 ,S}));
 endmodule
 
 (* ORIG_REF_NAME = "MB_MUXCY_XORCY" *) 
 module design_1_microblaze_0_1_MB_MUXCY_XORCY_654
    (EX_CarryOut,
-    ex_databus_addr,
+    \EX_Op2_reg[21] ,
     S,
     DI,
     LO,
     lopt,
     lopt_1);
   output EX_CarryOut;
-  output [0:0]ex_databus_addr;
+  output [0:0]\EX_Op2_reg[21] ;
   input S;
   input DI;
   input LO;
@@ -45024,25 +44726,25 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_654
 
   wire DI;
   wire EX_CarryOut;
+  wire [0:0]\EX_Op2_reg[21] ;
   wire LO;
   wire S;
-  wire [0:0]ex_databus_addr;
 
   assign EX_CarryOut = lopt;
-  assign ex_databus_addr = lopt_1;
+  assign \EX_Op2_reg[21]  = lopt_1;
 endmodule
 
 (* ORIG_REF_NAME = "MB_MUXCY_XORCY" *) 
 module design_1_microblaze_0_1_MB_MUXCY_XORCY_656
    (EX_CarryOut,
-    ex_databus_addr,
+    \EX_Op2_reg[20] ,
     S,
     DI,
     LO,
     lopt,
     lopt_1);
   output EX_CarryOut;
-  output [0:0]ex_databus_addr;
+  output [0:0]\EX_Op2_reg[20] ;
   input S;
   input DI;
   input LO;
@@ -45051,25 +44753,25 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_656
 
   wire DI;
   wire EX_CarryOut;
+  wire [0:0]\EX_Op2_reg[20] ;
   wire LO;
   wire S;
-  wire [0:0]ex_databus_addr;
 
   assign EX_CarryOut = lopt;
-  assign ex_databus_addr = lopt_1;
+  assign \EX_Op2_reg[20]  = lopt_1;
 endmodule
 
 (* ORIG_REF_NAME = "MB_MUXCY_XORCY" *) 
 module design_1_microblaze_0_1_MB_MUXCY_XORCY_658
    (EX_CarryOut,
-    ex_databus_addr,
+    \EX_Op2_reg[1] ,
     S,
     DI,
     LO,
     lopt,
     lopt_1);
   output EX_CarryOut;
-  output [0:0]ex_databus_addr;
+  output [0:0]\EX_Op2_reg[1] ;
   input S;
   input DI;
   input LO;
@@ -45078,25 +44780,25 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_658
 
   wire DI;
   wire EX_CarryOut;
+  wire [0:0]\EX_Op2_reg[1] ;
   wire LO;
   wire S;
-  wire [0:0]ex_databus_addr;
 
   assign EX_CarryOut = lopt;
-  assign ex_databus_addr = lopt_1;
+  assign \EX_Op2_reg[1]  = lopt_1;
 endmodule
 
 (* ORIG_REF_NAME = "MB_MUXCY_XORCY" *) 
 module design_1_microblaze_0_1_MB_MUXCY_XORCY_660
    (EX_CarryOut,
-    ex_databus_addr,
+    \EX_Op2_reg[19] ,
     S,
     DI,
     LO,
     lopt,
     lopt_1);
   output EX_CarryOut;
-  output [0:0]ex_databus_addr;
+  output [0:0]\EX_Op2_reg[19] ;
   input S;
   input DI;
   input LO;
@@ -45105,18 +44807,18 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_660
 
   wire DI;
   wire EX_CarryOut;
+  wire [0:0]\EX_Op2_reg[19] ;
   wire LO;
   wire S;
-  wire [0:0]ex_databus_addr;
 
   assign EX_CarryOut = lopt;
-  assign ex_databus_addr = lopt_1;
+  assign \EX_Op2_reg[19]  = lopt_1;
 endmodule
 
 (* ORIG_REF_NAME = "MB_MUXCY_XORCY" *) 
 module design_1_microblaze_0_1_MB_MUXCY_XORCY_662
    (EX_CarryOut,
-    ex_databus_addr,
+    \EX_Op2_reg[18] ,
     S,
     DI,
     LO,
@@ -45133,7 +44835,7 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_662
     lopt_10,
     lopt_11);
   output EX_CarryOut;
-  output [0:0]ex_databus_addr;
+  output [0:0]\EX_Op2_reg[18] ;
   input S;
   input DI;
   input LO;
@@ -45152,9 +44854,9 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_662
 
   wire DI;
   wire EX_CarryOut;
+  wire [0:0]\EX_Op2_reg[18] ;
   wire LO;
   wire S;
-  wire [0:0]ex_databus_addr;
   wire \^lopt_1 ;
   wire \^lopt_10 ;
   wire \^lopt_11 ;
@@ -45189,21 +44891,21 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_662
         .CO({\^lopt_7 ,\^lopt_4 ,\^lopt_1 ,EX_CarryOut}),
         .CYINIT(1'b0),
         .DI({\^lopt_8 ,\^lopt_5 ,\^lopt_2 ,DI}),
-        .O({lopt_12,\^lopt_11 ,\^lopt_10 ,ex_databus_addr}),
+        .O({lopt_12,\^lopt_11 ,\^lopt_10 ,\EX_Op2_reg[18] }),
         .S({\^lopt_9 ,\^lopt_6 ,\^lopt_3 ,S}));
 endmodule
 
 (* ORIG_REF_NAME = "MB_MUXCY_XORCY" *) 
 module design_1_microblaze_0_1_MB_MUXCY_XORCY_664
    (EX_CarryOut,
-    ex_databus_addr,
+    \EX_Op2_reg[17] ,
     S,
     DI,
     LO,
     lopt,
     lopt_1);
   output EX_CarryOut;
-  output [0:0]ex_databus_addr;
+  output [0:0]\EX_Op2_reg[17] ;
   input S;
   input DI;
   input LO;
@@ -45212,25 +44914,25 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_664
 
   wire DI;
   wire EX_CarryOut;
+  wire [0:0]\EX_Op2_reg[17] ;
   wire LO;
   wire S;
-  wire [0:0]ex_databus_addr;
 
   assign EX_CarryOut = lopt;
-  assign ex_databus_addr = lopt_1;
+  assign \EX_Op2_reg[17]  = lopt_1;
 endmodule
 
 (* ORIG_REF_NAME = "MB_MUXCY_XORCY" *) 
 module design_1_microblaze_0_1_MB_MUXCY_XORCY_666
    (EX_CarryOut,
-    ex_databus_addr,
+    \EX_Op2_reg[16] ,
     S,
     DI,
     LO,
     lopt,
     lopt_1);
   output EX_CarryOut;
-  output [0:0]ex_databus_addr;
+  output [0:0]\EX_Op2_reg[16] ;
   input S;
   input DI;
   input LO;
@@ -45239,25 +44941,25 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_666
 
   wire DI;
   wire EX_CarryOut;
+  wire [0:0]\EX_Op2_reg[16] ;
   wire LO;
   wire S;
-  wire [0:0]ex_databus_addr;
 
   assign EX_CarryOut = lopt;
-  assign ex_databus_addr = lopt_1;
+  assign \EX_Op2_reg[16]  = lopt_1;
 endmodule
 
 (* ORIG_REF_NAME = "MB_MUXCY_XORCY" *) 
 module design_1_microblaze_0_1_MB_MUXCY_XORCY_668
    (EX_CarryOut,
-    ex_databus_addr,
+    \EX_Op2_reg[15] ,
     S,
     DI,
     LO,
     lopt,
     lopt_1);
   output EX_CarryOut;
-  output [0:0]ex_databus_addr;
+  output [0:0]\EX_Op2_reg[15] ;
   input S;
   input DI;
   input LO;
@@ -45266,18 +44968,18 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_668
 
   wire DI;
   wire EX_CarryOut;
+  wire [0:0]\EX_Op2_reg[15] ;
   wire LO;
   wire S;
-  wire [0:0]ex_databus_addr;
 
   assign EX_CarryOut = lopt;
-  assign ex_databus_addr = lopt_1;
+  assign \EX_Op2_reg[15]  = lopt_1;
 endmodule
 
 (* ORIG_REF_NAME = "MB_MUXCY_XORCY" *) 
 module design_1_microblaze_0_1_MB_MUXCY_XORCY_670
    (EX_CarryOut,
-    ex_databus_addr,
+    \EX_Op2_reg[14] ,
     S,
     DI,
     LO,
@@ -45294,7 +44996,7 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_670
     lopt_10,
     lopt_11);
   output EX_CarryOut;
-  output [0:0]ex_databus_addr;
+  output [0:0]\EX_Op2_reg[14] ;
   input S;
   input DI;
   input LO;
@@ -45313,9 +45015,9 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_670
 
   wire DI;
   wire EX_CarryOut;
+  wire [0:0]\EX_Op2_reg[14] ;
   wire LO;
   wire S;
-  wire [0:0]ex_databus_addr;
   wire \^lopt_1 ;
   wire \^lopt_10 ;
   wire \^lopt_11 ;
@@ -45350,21 +45052,21 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_670
         .CO({\^lopt_7 ,\^lopt_4 ,\^lopt_1 ,EX_CarryOut}),
         .CYINIT(1'b0),
         .DI({\^lopt_8 ,\^lopt_5 ,\^lopt_2 ,DI}),
-        .O({lopt_12,\^lopt_11 ,\^lopt_10 ,ex_databus_addr}),
+        .O({lopt_12,\^lopt_11 ,\^lopt_10 ,\EX_Op2_reg[14] }),
         .S({\^lopt_9 ,\^lopt_6 ,\^lopt_3 ,S}));
 endmodule
 
 (* ORIG_REF_NAME = "MB_MUXCY_XORCY" *) 
 module design_1_microblaze_0_1_MB_MUXCY_XORCY_672
    (EX_CarryOut,
-    ex_databus_addr,
+    \EX_Op2_reg[13] ,
     S,
     DI,
     LO,
     lopt,
     lopt_1);
   output EX_CarryOut;
-  output [0:0]ex_databus_addr;
+  output [0:0]\EX_Op2_reg[13] ;
   input S;
   input DI;
   input LO;
@@ -45373,25 +45075,25 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_672
 
   wire DI;
   wire EX_CarryOut;
+  wire [0:0]\EX_Op2_reg[13] ;
   wire LO;
   wire S;
-  wire [0:0]ex_databus_addr;
 
   assign EX_CarryOut = lopt;
-  assign ex_databus_addr = lopt_1;
+  assign \EX_Op2_reg[13]  = lopt_1;
 endmodule
 
 (* ORIG_REF_NAME = "MB_MUXCY_XORCY" *) 
 module design_1_microblaze_0_1_MB_MUXCY_XORCY_674
    (EX_CarryOut,
-    ex_databus_addr,
+    \EX_Op2_reg[12] ,
     S,
     DI,
     LO,
     lopt,
     lopt_1);
   output EX_CarryOut;
-  output [0:0]ex_databus_addr;
+  output [0:0]\EX_Op2_reg[12] ;
   input S;
   input DI;
   input LO;
@@ -45400,25 +45102,25 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_674
 
   wire DI;
   wire EX_CarryOut;
+  wire [0:0]\EX_Op2_reg[12] ;
   wire LO;
   wire S;
-  wire [0:0]ex_databus_addr;
 
   assign EX_CarryOut = lopt;
-  assign ex_databus_addr = lopt_1;
+  assign \EX_Op2_reg[12]  = lopt_1;
 endmodule
 
 (* ORIG_REF_NAME = "MB_MUXCY_XORCY" *) 
 module design_1_microblaze_0_1_MB_MUXCY_XORCY_676
    (EX_CarryOut,
-    ex_databus_addr,
+    \EX_Op2_reg[11] ,
     S,
     DI,
     LO,
     lopt,
     lopt_1);
   output EX_CarryOut;
-  output [0:0]ex_databus_addr;
+  output [0:0]\EX_Op2_reg[11] ;
   input S;
   input DI;
   input LO;
@@ -45427,18 +45129,18 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_676
 
   wire DI;
   wire EX_CarryOut;
+  wire [0:0]\EX_Op2_reg[11] ;
   wire LO;
   wire S;
-  wire [0:0]ex_databus_addr;
 
   assign EX_CarryOut = lopt;
-  assign ex_databus_addr = lopt_1;
+  assign \EX_Op2_reg[11]  = lopt_1;
 endmodule
 
 (* ORIG_REF_NAME = "MB_MUXCY_XORCY" *) 
 module design_1_microblaze_0_1_MB_MUXCY_XORCY_678
    (EX_CarryOut,
-    ex_databus_addr,
+    \EX_Op2_reg[10] ,
     S,
     DI,
     LO,
@@ -45455,7 +45157,7 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_678
     lopt_10,
     lopt_11);
   output EX_CarryOut;
-  output [0:0]ex_databus_addr;
+  output [0:0]\EX_Op2_reg[10] ;
   input S;
   input DI;
   input LO;
@@ -45474,9 +45176,9 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_678
 
   wire DI;
   wire EX_CarryOut;
+  wire [0:0]\EX_Op2_reg[10] ;
   wire LO;
   wire S;
-  wire [0:0]ex_databus_addr;
   wire \^lopt_1 ;
   wire \^lopt_10 ;
   wire \^lopt_11 ;
@@ -45511,21 +45213,21 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_678
         .CO({\^lopt_7 ,\^lopt_4 ,\^lopt_1 ,EX_CarryOut}),
         .CYINIT(1'b0),
         .DI({\^lopt_8 ,\^lopt_5 ,\^lopt_2 ,DI}),
-        .O({lopt_12,\^lopt_11 ,\^lopt_10 ,ex_databus_addr}),
+        .O({lopt_12,\^lopt_11 ,\^lopt_10 ,\EX_Op2_reg[10] }),
         .S({\^lopt_9 ,\^lopt_6 ,\^lopt_3 ,S}));
 endmodule
 
 (* ORIG_REF_NAME = "MB_MUXCY_XORCY" *) 
 module design_1_microblaze_0_1_MB_MUXCY_XORCY_679
    (\EX_Op2_reg[0] ,
-    ex_databus_addr,
+    \EX_Op2_reg[0]_0 ,
     S,
     DI,
     CI,
     lopt,
     lopt_1);
   output \EX_Op2_reg[0] ;
-  output [0:0]ex_databus_addr;
+  output [0:0]\EX_Op2_reg[0]_0 ;
   input S;
   input DI;
   input CI;
@@ -45535,11 +45237,11 @@ module design_1_microblaze_0_1_MB_MUXCY_XORCY_679
   wire CI;
   wire DI;
   wire \EX_Op2_reg[0] ;
+  wire [0:0]\EX_Op2_reg[0]_0 ;
   wire S;
-  wire [0:0]ex_databus_addr;
 
   assign \EX_Op2_reg[0]  = lopt;
-  assign ex_databus_addr = lopt_1;
+  assign \EX_Op2_reg[0]_0  = lopt_1;
 endmodule
 
 (* ORIG_REF_NAME = "MB_MUXF7" *) 
@@ -46451,21 +46153,21 @@ endmodule
 (* ORIG_REF_NAME = "MB_MUXF7" *) 
 module design_1_microblaze_0_1_MB_MUXF7_192
    (of_instr_ii_0,
-    mem_access_completed_reg,
+    IReady_0,
     \Using_FPGA.Native_0 ,
     I0_1,
     I1,
-    iext_data_strobe,
+    IReady,
     \Using_FPGA.Native_1 ,
     \Using_FPGA.Native_2 ,
     \Using_FPGA.Native_3 ,
     if_missed_fetch);
   output of_instr_ii_0;
-  output mem_access_completed_reg;
+  output IReady_0;
   input \Using_FPGA.Native_0 ;
   input I0_1;
   input I1;
-  input iext_data_strobe;
+  input IReady;
   input \Using_FPGA.Native_1 ;
   input \Using_FPGA.Native_2 ;
   input [0:0]\Using_FPGA.Native_3 ;
@@ -46473,24 +46175,24 @@ module design_1_microblaze_0_1_MB_MUXF7_192
 
   wire I0_1;
   wire I1;
+  wire IReady;
+  wire IReady_0;
   wire \Using_FPGA.Native_0 ;
   wire \Using_FPGA.Native_1 ;
   wire \Using_FPGA.Native_2 ;
   wire [0:0]\Using_FPGA.Native_3 ;
-  wire iext_data_strobe;
   wire if_missed_fetch;
-  wire mem_access_completed_reg;
   wire of_instr_ii_0;
 
   LUT5 #(
     .INIT(32'h0000FF02)) 
     \PC_Buffer_reg[3][31]_srl4_i_1 
-       (.I0(iext_data_strobe),
+       (.I0(IReady),
         .I1(\Using_FPGA.Native_1 ),
         .I2(\Using_FPGA.Native_2 ),
         .I3(\Using_FPGA.Native_3 ),
         .I4(if_missed_fetch),
-        .O(mem_access_completed_reg));
+        .O(IReady_0));
   (* box_type = "PRIMITIVE" *) 
   MUXF7 \Using_FPGA.Native 
        (.I0(I0_1),
@@ -46674,7 +46376,7 @@ module design_1_microblaze_0_1_MB_MUXF7_207
         .S(\Using_FPGA.Native_0 ));
   LUT3 #(
     .INIT(8'hE2)) 
-    \Using_FPGA.Native_i_2__66 
+    \Using_FPGA.Native_i_2__68 
        (.I0(out),
         .I1(\Using_FPGA.Native_1 ),
         .I2(Q),
@@ -46712,7 +46414,7 @@ module design_1_microblaze_0_1_MB_MUXF7_209
         .S(\Using_FPGA.Native_0 ));
   LUT3 #(
     .INIT(8'hE2)) 
-    \Using_FPGA.Native_i_2__56 
+    \Using_FPGA.Native_i_2__58 
        (.I0(out),
         .I1(\Using_FPGA.Native_1 ),
         .I2(Q),
@@ -46750,7 +46452,7 @@ module design_1_microblaze_0_1_MB_MUXF7_211
         .S(\Using_FPGA.Native_0 ));
   LUT3 #(
     .INIT(8'hE2)) 
-    \Using_FPGA.Native_i_2__55 
+    \Using_FPGA.Native_i_2__57 
        (.I0(out),
         .I1(\Using_FPGA.Native_1 ),
         .I2(Q),
@@ -46788,7 +46490,7 @@ module design_1_microblaze_0_1_MB_MUXF7_213
         .S(\Using_FPGA.Native_0 ));
   LUT3 #(
     .INIT(8'hE2)) 
-    \Using_FPGA.Native_i_2__54 
+    \Using_FPGA.Native_i_2__56 
        (.I0(out),
         .I1(\Using_FPGA.Native_1 ),
         .I2(Q),
@@ -46826,7 +46528,7 @@ module design_1_microblaze_0_1_MB_MUXF7_215
         .S(\Using_FPGA.Native_0 ));
   LUT3 #(
     .INIT(8'hE2)) 
-    \Using_FPGA.Native_i_2__53 
+    \Using_FPGA.Native_i_2__55 
        (.I0(out),
         .I1(\Using_FPGA.Native_1 ),
         .I2(Q),
@@ -46864,7 +46566,7 @@ module design_1_microblaze_0_1_MB_MUXF7_217
         .S(\Using_FPGA.Native_0 ));
   LUT3 #(
     .INIT(8'hE2)) 
-    \Using_FPGA.Native_i_2__52 
+    \Using_FPGA.Native_i_2__54 
        (.I0(out),
         .I1(\Using_FPGA.Native_1 ),
         .I2(Q),
@@ -46902,7 +46604,7 @@ module design_1_microblaze_0_1_MB_MUXF7_219
         .S(\Using_FPGA.Native_0 ));
   LUT3 #(
     .INIT(8'hE2)) 
-    \Using_FPGA.Native_i_2__51 
+    \Using_FPGA.Native_i_2__53 
        (.I0(out),
         .I1(\Using_FPGA.Native_1 ),
         .I2(Q),
@@ -46940,7 +46642,7 @@ module design_1_microblaze_0_1_MB_MUXF7_221
         .S(\Using_FPGA.Native_0 ));
   LUT3 #(
     .INIT(8'hE2)) 
-    \Using_FPGA.Native_i_2__50 
+    \Using_FPGA.Native_i_2__52 
        (.I0(out),
         .I1(\Using_FPGA.Native_1 ),
         .I2(Q),
@@ -46978,7 +46680,7 @@ module design_1_microblaze_0_1_MB_MUXF7_223
         .S(\Using_FPGA.Native_0 ));
   LUT3 #(
     .INIT(8'hE2)) 
-    \Using_FPGA.Native_i_2__49 
+    \Using_FPGA.Native_i_2__51 
        (.I0(out),
         .I1(\Using_FPGA.Native_1 ),
         .I2(Q),
@@ -47016,7 +46718,7 @@ module design_1_microblaze_0_1_MB_MUXF7_225
         .S(\Using_FPGA.Native_0 ));
   LUT3 #(
     .INIT(8'hE2)) 
-    \Using_FPGA.Native_i_2__48 
+    \Using_FPGA.Native_i_2__50 
        (.I0(out),
         .I1(\Using_FPGA.Native_1 ),
         .I2(Q),
@@ -47054,7 +46756,7 @@ module design_1_microblaze_0_1_MB_MUXF7_227
         .S(\Using_FPGA.Native_0 ));
   LUT3 #(
     .INIT(8'hE2)) 
-    \Using_FPGA.Native_i_2__47 
+    \Using_FPGA.Native_i_2__49 
        (.I0(out),
         .I1(\Using_FPGA.Native_1 ),
         .I2(Q),
@@ -47092,7 +46794,7 @@ module design_1_microblaze_0_1_MB_MUXF7_229
         .S(\Using_FPGA.Native_0 ));
   LUT3 #(
     .INIT(8'hE2)) 
-    \Using_FPGA.Native_i_2__65 
+    \Using_FPGA.Native_i_2__67 
        (.I0(out),
         .I1(\Using_FPGA.Native_1 ),
         .I2(Q),
@@ -47130,7 +46832,7 @@ module design_1_microblaze_0_1_MB_MUXF7_231
         .S(\Using_FPGA.Native_0 ));
   LUT3 #(
     .INIT(8'hE2)) 
-    \Using_FPGA.Native_i_2__46 
+    \Using_FPGA.Native_i_2__48 
        (.I0(out),
         .I1(\Using_FPGA.Native_1 ),
         .I2(Q),
@@ -47168,7 +46870,7 @@ module design_1_microblaze_0_1_MB_MUXF7_233
         .S(\Using_FPGA.Native_0 ));
   LUT3 #(
     .INIT(8'hE2)) 
-    \Using_FPGA.Native_i_2__45 
+    \Using_FPGA.Native_i_2__47 
        (.I0(out),
         .I1(\Using_FPGA.Native_1 ),
         .I2(Q),
@@ -47206,7 +46908,7 @@ module design_1_microblaze_0_1_MB_MUXF7_235
         .S(\Using_FPGA.Native_0 ));
   LUT3 #(
     .INIT(8'hE2)) 
-    \Using_FPGA.Native_i_2__44 
+    \Using_FPGA.Native_i_2__46 
        (.I0(out),
         .I1(\Using_FPGA.Native_1 ),
         .I2(Q),
@@ -47244,7 +46946,7 @@ module design_1_microblaze_0_1_MB_MUXF7_237
         .S(\Using_FPGA.Native_0 ));
   LUT3 #(
     .INIT(8'hE2)) 
-    \Using_FPGA.Native_i_2__43 
+    \Using_FPGA.Native_i_2__45 
        (.I0(out),
         .I1(\Using_FPGA.Native_1 ),
         .I2(Q),
@@ -47282,7 +46984,7 @@ module design_1_microblaze_0_1_MB_MUXF7_239
         .S(\Using_FPGA.Native_0 ));
   LUT3 #(
     .INIT(8'hE2)) 
-    \Using_FPGA.Native_i_2__42 
+    \Using_FPGA.Native_i_2__44 
        (.I0(out),
         .I1(\Using_FPGA.Native_1 ),
         .I2(Q),
@@ -47320,7 +47022,7 @@ module design_1_microblaze_0_1_MB_MUXF7_241
         .S(\Using_FPGA.Native_0 ));
   LUT3 #(
     .INIT(8'hE2)) 
-    \Using_FPGA.Native_i_2__41 
+    \Using_FPGA.Native_i_2__43 
        (.I0(out),
         .I1(\Using_FPGA.Native_1 ),
         .I2(Q),
@@ -47358,7 +47060,7 @@ module design_1_microblaze_0_1_MB_MUXF7_243
         .S(\Using_FPGA.Native_0 ));
   LUT3 #(
     .INIT(8'hE2)) 
-    \Using_FPGA.Native_i_2__40 
+    \Using_FPGA.Native_i_2__42 
        (.I0(out),
         .I1(\Using_FPGA.Native_1 ),
         .I2(Q),
@@ -47396,7 +47098,7 @@ module design_1_microblaze_0_1_MB_MUXF7_245
         .S(\Using_FPGA.Native_0 ));
   LUT3 #(
     .INIT(8'hE2)) 
-    \Using_FPGA.Native_i_2__39 
+    \Using_FPGA.Native_i_2__41 
        (.I0(out),
         .I1(\Using_FPGA.Native_1 ),
         .I2(Q),
@@ -47434,7 +47136,7 @@ module design_1_microblaze_0_1_MB_MUXF7_247
         .S(\Using_FPGA.Native_0 ));
   LUT3 #(
     .INIT(8'hE2)) 
-    \Using_FPGA.Native_i_2__38 
+    \Using_FPGA.Native_i_2__40 
        (.I0(out),
         .I1(\Using_FPGA.Native_1 ),
         .I2(Q),
@@ -47472,7 +47174,7 @@ module design_1_microblaze_0_1_MB_MUXF7_249
         .S(\Using_FPGA.Native_0 ));
   LUT3 #(
     .INIT(8'hE2)) 
-    \Using_FPGA.Native_i_2__37 
+    \Using_FPGA.Native_i_2__39 
        (.I0(out),
         .I1(\Using_FPGA.Native_1 ),
         .I2(Q),
@@ -47510,7 +47212,7 @@ module design_1_microblaze_0_1_MB_MUXF7_251
         .S(\Using_FPGA.Native_0 ));
   LUT3 #(
     .INIT(8'hE2)) 
-    \Using_FPGA.Native_i_2__64 
+    \Using_FPGA.Native_i_2__66 
        (.I0(out),
         .I1(\Using_FPGA.Native_1 ),
         .I2(Q),
@@ -47548,7 +47250,7 @@ module design_1_microblaze_0_1_MB_MUXF7_253
         .S(\Using_FPGA.Native_0 ));
   LUT3 #(
     .INIT(8'hE2)) 
-    \Using_FPGA.Native_i_2__36 
+    \Using_FPGA.Native_i_2__38 
        (.I0(out),
         .I1(\Using_FPGA.Native_1 ),
         .I2(Q),
@@ -47586,7 +47288,7 @@ module design_1_microblaze_0_1_MB_MUXF7_255
         .S(\Using_FPGA.Native_0 ));
   LUT3 #(
     .INIT(8'hE2)) 
-    \Using_FPGA.Native_i_2__35 
+    \Using_FPGA.Native_i_2__37 
        (.I0(out),
         .I1(\Using_FPGA.Native_1 ),
         .I2(Q),
@@ -47624,7 +47326,7 @@ module design_1_microblaze_0_1_MB_MUXF7_257
         .S(\Using_FPGA.Native_0 ));
   LUT3 #(
     .INIT(8'hE2)) 
-    \Using_FPGA.Native_i_2__63 
+    \Using_FPGA.Native_i_2__65 
        (.I0(out),
         .I1(\Using_FPGA.Native_1 ),
         .I2(Q),
@@ -47662,7 +47364,7 @@ module design_1_microblaze_0_1_MB_MUXF7_259
         .S(\Using_FPGA.Native_0 ));
   LUT3 #(
     .INIT(8'hE2)) 
-    \Using_FPGA.Native_i_2__62 
+    \Using_FPGA.Native_i_2__64 
        (.I0(out),
         .I1(\Using_FPGA.Native_1 ),
         .I2(Q),
@@ -47700,7 +47402,7 @@ module design_1_microblaze_0_1_MB_MUXF7_261
         .S(\Using_FPGA.Native_0 ));
   LUT3 #(
     .INIT(8'hE2)) 
-    \Using_FPGA.Native_i_2__61 
+    \Using_FPGA.Native_i_2__63 
        (.I0(out),
         .I1(\Using_FPGA.Native_1 ),
         .I2(Q),
@@ -47738,7 +47440,7 @@ module design_1_microblaze_0_1_MB_MUXF7_263
         .S(\Using_FPGA.Native_0 ));
   LUT3 #(
     .INIT(8'hE2)) 
-    \Using_FPGA.Native_i_2__60 
+    \Using_FPGA.Native_i_2__62 
        (.I0(out),
         .I1(\Using_FPGA.Native_1 ),
         .I2(Q),
@@ -47776,7 +47478,7 @@ module design_1_microblaze_0_1_MB_MUXF7_265
         .S(\Using_FPGA.Native_0 ));
   LUT3 #(
     .INIT(8'hE2)) 
-    \Using_FPGA.Native_i_2__59 
+    \Using_FPGA.Native_i_2__61 
        (.I0(out),
         .I1(\Using_FPGA.Native_1 ),
         .I2(Q),
@@ -47814,7 +47516,7 @@ module design_1_microblaze_0_1_MB_MUXF7_267
         .S(\Using_FPGA.Native_0 ));
   LUT3 #(
     .INIT(8'hE2)) 
-    \Using_FPGA.Native_i_2__58 
+    \Using_FPGA.Native_i_2__60 
        (.I0(out),
         .I1(\Using_FPGA.Native_1 ),
         .I2(Q),
@@ -47852,7 +47554,7 @@ module design_1_microblaze_0_1_MB_MUXF7_269
         .S(\Using_FPGA.Native_0 ));
   LUT3 #(
     .INIT(8'hE2)) 
-    \Using_FPGA.Native_i_2__57 
+    \Using_FPGA.Native_i_2__59 
        (.I0(out),
         .I1(\Using_FPGA.Native_1 ),
         .I2(Q),
@@ -47932,7 +47634,7 @@ module design_1_microblaze_0_1_MB_MUXF7_524
         .S(of_op1_sel_spr));
   LUT3 #(
     .INIT(8'hB8)) 
-    \Using_FPGA.Native_i_2__114 
+    \Using_FPGA.Native_i_2__116 
        (.I0(Q[1]),
         .I1(ex_swap_byte_instr),
         .I2(Q[0]),
@@ -47972,7 +47674,7 @@ module design_1_microblaze_0_1_MB_MUXF7_525
         .S(of_op1_sel_spr));
   LUT3 #(
     .INIT(8'hB8)) 
-    \Using_FPGA.Native_i_2__113 
+    \Using_FPGA.Native_i_2__115 
        (.I0(Q[1]),
         .I1(ex_swap_byte_instr),
         .I2(Q[0]),
@@ -48012,7 +47714,7 @@ module design_1_microblaze_0_1_MB_MUXF7_526
         .S(of_op1_sel_spr));
   LUT3 #(
     .INIT(8'hB8)) 
-    \Using_FPGA.Native_i_2__112 
+    \Using_FPGA.Native_i_2__114 
        (.I0(Q[1]),
         .I1(ex_swap_byte_instr),
         .I2(Q[0]),
@@ -48052,7 +47754,7 @@ module design_1_microblaze_0_1_MB_MUXF7_527
         .S(of_op1_sel_spr));
   LUT3 #(
     .INIT(8'hB8)) 
-    \Using_FPGA.Native_i_2__111 
+    \Using_FPGA.Native_i_2__113 
        (.I0(Q[1]),
         .I1(ex_swap_byte_instr),
         .I2(Q[0]),
@@ -48092,7 +47794,7 @@ module design_1_microblaze_0_1_MB_MUXF7_528
         .S(of_op1_sel_spr));
   LUT3 #(
     .INIT(8'hB8)) 
-    \Using_FPGA.Native_i_2__110 
+    \Using_FPGA.Native_i_2__112 
        (.I0(Q[1]),
         .I1(ex_swap_byte_instr),
         .I2(Q[0]),
@@ -48132,7 +47834,7 @@ module design_1_microblaze_0_1_MB_MUXF7_529
         .S(of_op1_sel_spr));
   LUT3 #(
     .INIT(8'hB8)) 
-    \Using_FPGA.Native_i_2__109 
+    \Using_FPGA.Native_i_2__111 
        (.I0(Q[1]),
         .I1(ex_swap_byte_instr),
         .I2(Q[0]),
@@ -48172,7 +47874,7 @@ module design_1_microblaze_0_1_MB_MUXF7_530
         .S(of_op1_sel_spr));
   LUT3 #(
     .INIT(8'hB8)) 
-    \Using_FPGA.Native_i_2__108 
+    \Using_FPGA.Native_i_2__110 
        (.I0(Q[0]),
         .I1(ex_swap_byte_instr),
         .I2(Q[1]),
@@ -48212,7 +47914,7 @@ module design_1_microblaze_0_1_MB_MUXF7_531
         .S(of_op1_sel_spr));
   LUT3 #(
     .INIT(8'hB8)) 
-    \Using_FPGA.Native_i_2__107 
+    \Using_FPGA.Native_i_2__109 
        (.I0(Q[0]),
         .I1(ex_swap_byte_instr),
         .I2(Q[1]),
@@ -48252,7 +47954,7 @@ module design_1_microblaze_0_1_MB_MUXF7_532
         .S(of_op1_sel_spr));
   LUT3 #(
     .INIT(8'hB8)) 
-    \Using_FPGA.Native_i_2__106 
+    \Using_FPGA.Native_i_2__108 
        (.I0(Q[0]),
         .I1(ex_swap_byte_instr),
         .I2(Q[1]),
@@ -48292,7 +47994,7 @@ module design_1_microblaze_0_1_MB_MUXF7_533
         .S(of_op1_sel_spr));
   LUT3 #(
     .INIT(8'hB8)) 
-    \Using_FPGA.Native_i_2__105 
+    \Using_FPGA.Native_i_2__107 
        (.I0(Q[0]),
         .I1(ex_swap_byte_instr),
         .I2(Q[1]),
@@ -48332,7 +48034,7 @@ module design_1_microblaze_0_1_MB_MUXF7_534
         .S(of_op1_sel_spr));
   LUT3 #(
     .INIT(8'hB8)) 
-    \Using_FPGA.Native_i_2__123 
+    \Using_FPGA.Native_i_2__125 
        (.I0(Q[0]),
         .I1(ex_swap_byte_instr),
         .I2(Q[1]),
@@ -48372,7 +48074,7 @@ module design_1_microblaze_0_1_MB_MUXF7_535
         .S(of_op1_sel_spr));
   LUT3 #(
     .INIT(8'hB8)) 
-    \Using_FPGA.Native_i_2__104 
+    \Using_FPGA.Native_i_2__106 
        (.I0(Q[0]),
         .I1(ex_swap_byte_instr),
         .I2(Q[1]),
@@ -48412,7 +48114,7 @@ module design_1_microblaze_0_1_MB_MUXF7_536
         .S(of_op1_sel_spr));
   LUT3 #(
     .INIT(8'hB8)) 
-    \Using_FPGA.Native_i_2__103 
+    \Using_FPGA.Native_i_2__105 
        (.I0(Q[0]),
         .I1(ex_swap_byte_instr),
         .I2(Q[1]),
@@ -48452,7 +48154,7 @@ module design_1_microblaze_0_1_MB_MUXF7_537
         .S(of_op1_sel_spr));
   LUT3 #(
     .INIT(8'hB8)) 
-    \Using_FPGA.Native_i_2__102 
+    \Using_FPGA.Native_i_2__104 
        (.I0(Q[0]),
         .I1(ex_swap_byte_instr),
         .I2(Q[1]),
@@ -48492,7 +48194,7 @@ module design_1_microblaze_0_1_MB_MUXF7_538
         .S(of_op1_sel_spr));
   LUT3 #(
     .INIT(8'hB8)) 
-    \Using_FPGA.Native_i_2__101 
+    \Using_FPGA.Native_i_2__103 
        (.I0(Q[0]),
         .I1(ex_swap_byte_instr),
         .I2(Q[1]),
@@ -48532,7 +48234,7 @@ module design_1_microblaze_0_1_MB_MUXF7_539
         .S(of_op1_sel_spr));
   LUT3 #(
     .INIT(8'hB8)) 
-    \Using_FPGA.Native_i_2__100 
+    \Using_FPGA.Native_i_2__102 
        (.I0(Q[1]),
         .I1(ex_swap_byte_instr),
         .I2(Q[0]),
@@ -48572,7 +48274,7 @@ module design_1_microblaze_0_1_MB_MUXF7_540
         .S(of_op1_sel_spr));
   LUT3 #(
     .INIT(8'hB8)) 
-    \Using_FPGA.Native_i_2__99 
+    \Using_FPGA.Native_i_2__101 
        (.I0(Q[1]),
         .I1(ex_swap_byte_instr),
         .I2(Q[0]),
@@ -48612,7 +48314,7 @@ module design_1_microblaze_0_1_MB_MUXF7_541
         .S(of_op1_sel_spr));
   LUT3 #(
     .INIT(8'hB8)) 
-    \Using_FPGA.Native_i_2__98 
+    \Using_FPGA.Native_i_2__100 
        (.I0(Q[1]),
         .I1(ex_swap_byte_instr),
         .I2(Q[0]),
@@ -48652,7 +48354,7 @@ module design_1_microblaze_0_1_MB_MUXF7_542
         .S(of_op1_sel_spr));
   LUT3 #(
     .INIT(8'hB8)) 
-    \Using_FPGA.Native_i_2__97 
+    \Using_FPGA.Native_i_2__99 
        (.I0(Q[1]),
         .I1(ex_swap_byte_instr),
         .I2(Q[0]),
@@ -48692,7 +48394,7 @@ module design_1_microblaze_0_1_MB_MUXF7_543
         .S(of_op1_sel_spr));
   LUT3 #(
     .INIT(8'hB8)) 
-    \Using_FPGA.Native_i_2__96 
+    \Using_FPGA.Native_i_2__98 
        (.I0(Q[1]),
         .I1(ex_swap_byte_instr),
         .I2(Q[0]),
@@ -48732,7 +48434,7 @@ module design_1_microblaze_0_1_MB_MUXF7_544
         .S(of_op1_sel_spr));
   LUT3 #(
     .INIT(8'hB8)) 
-    \Using_FPGA.Native_i_2__95 
+    \Using_FPGA.Native_i_2__97 
        (.I0(Q[1]),
         .I1(ex_swap_byte_instr),
         .I2(Q[0]),
@@ -48772,7 +48474,7 @@ module design_1_microblaze_0_1_MB_MUXF7_545
         .S(of_op1_sel_spr));
   LUT3 #(
     .INIT(8'hB8)) 
-    \Using_FPGA.Native_i_2__122 
+    \Using_FPGA.Native_i_2__124 
        (.I0(Q[0]),
         .I1(ex_swap_byte_instr),
         .I2(Q[1]),
@@ -48812,7 +48514,7 @@ module design_1_microblaze_0_1_MB_MUXF7_546
         .S(of_op1_sel_spr));
   LUT3 #(
     .INIT(8'hB8)) 
-    \Using_FPGA.Native_i_2__94 
+    \Using_FPGA.Native_i_2__96 
        (.I0(Q[1]),
         .I1(ex_swap_byte_instr),
         .I2(Q[0]),
@@ -48852,7 +48554,7 @@ module design_1_microblaze_0_1_MB_MUXF7_547
         .S(of_op1_sel_spr));
   LUT3 #(
     .INIT(8'hB8)) 
-    \Using_FPGA.Native_i_2__93 
+    \Using_FPGA.Native_i_2__95 
        (.I0(Q[1]),
         .I1(ex_swap_byte_instr),
         .I2(Q[0]),
@@ -48892,7 +48594,7 @@ module design_1_microblaze_0_1_MB_MUXF7_548
         .S(of_op1_sel_spr));
   LUT3 #(
     .INIT(8'hB8)) 
-    \Using_FPGA.Native_i_2__121 
+    \Using_FPGA.Native_i_2__123 
        (.I0(Q[0]),
         .I1(ex_swap_byte_instr),
         .I2(Q[1]),
@@ -48932,7 +48634,7 @@ module design_1_microblaze_0_1_MB_MUXF7_549
         .S(of_op1_sel_spr));
   LUT3 #(
     .INIT(8'hB8)) 
-    \Using_FPGA.Native_i_2__120 
+    \Using_FPGA.Native_i_2__122 
        (.I0(Q[0]),
         .I1(ex_swap_byte_instr),
         .I2(Q[1]),
@@ -48972,7 +48674,7 @@ module design_1_microblaze_0_1_MB_MUXF7_550
         .S(of_op1_sel_spr));
   LUT3 #(
     .INIT(8'hB8)) 
-    \Using_FPGA.Native_i_2__119 
+    \Using_FPGA.Native_i_2__121 
        (.I0(Q[0]),
         .I1(ex_swap_byte_instr),
         .I2(Q[1]),
@@ -49012,7 +48714,7 @@ module design_1_microblaze_0_1_MB_MUXF7_551
         .S(of_op1_sel_spr));
   LUT3 #(
     .INIT(8'hB8)) 
-    \Using_FPGA.Native_i_2__118 
+    \Using_FPGA.Native_i_2__120 
        (.I0(Q[0]),
         .I1(ex_swap_byte_instr),
         .I2(Q[1]),
@@ -49052,7 +48754,7 @@ module design_1_microblaze_0_1_MB_MUXF7_552
         .S(of_op1_sel_spr));
   LUT3 #(
     .INIT(8'hB8)) 
-    \Using_FPGA.Native_i_2__117 
+    \Using_FPGA.Native_i_2__119 
        (.I0(Q[0]),
         .I1(ex_swap_byte_instr),
         .I2(Q[1]),
@@ -49092,7 +48794,7 @@ module design_1_microblaze_0_1_MB_MUXF7_553
         .S(of_op1_sel_spr));
   LUT3 #(
     .INIT(8'hB8)) 
-    \Using_FPGA.Native_i_2__116 
+    \Using_FPGA.Native_i_2__118 
        (.I0(Q[1]),
         .I1(ex_swap_byte_instr),
         .I2(Q[0]),
@@ -49132,7 +48834,7 @@ module design_1_microblaze_0_1_MB_MUXF7_554
         .S(of_op1_sel_spr));
   LUT3 #(
     .INIT(8'hB8)) 
-    \Using_FPGA.Native_i_2__115 
+    \Using_FPGA.Native_i_2__117 
        (.I0(Q[1]),
         .I1(ex_swap_byte_instr),
         .I2(Q[0]),
@@ -50990,7 +50692,7 @@ endmodule
 (* C_DEBUG_EVENT_COUNTERS = "5" *) (* C_DEBUG_EXTERNAL_TRACE = "0" *) (* C_DEBUG_INTERFACE = "0" *) 
 (* C_DEBUG_LATENCY_COUNTERS = "1" *) (* C_DEBUG_PROFILE_SIZE = "0" *) (* C_DEBUG_TRACE_ASYNC_RESET = "0" *) 
 (* C_DEBUG_TRACE_SIZE = "8192" *) (* C_DIV_ZERO_EXCEPTION = "0" *) (* C_DYNAMIC_BUS_SIZING = "0" *) 
-(* C_D_AXI = "1" *) (* C_D_LMB = "0" *) (* C_ECC_USE_CE_EXCEPTION = "0" *) 
+(* C_D_AXI = "1" *) (* C_D_LMB = "1" *) (* C_ECC_USE_CE_EXCEPTION = "0" *) 
 (* C_EDGE_IS_POSITIVE = "1" *) (* C_ENDIANNESS = "1" *) (* C_FAMILY = "zynq" *) 
 (* C_FAULT_TOLERANT = "0" *) (* C_FPU_EXCEPTION = "0" *) (* C_FREQ = "50000000" *) 
 (* C_FSL_EXCEPTION = "0" *) (* C_FSL_LINKS = "0" *) (* C_IADDR_SIZE = "32" *) 
@@ -50998,8 +50700,8 @@ endmodule
 (* C_ICACHE_FORCE_TAG_LUTRAM = "0" *) (* C_ICACHE_HIGHADDR = "64'b0000000000000000000000000000000000111111111111111111111111111111" *) (* C_ICACHE_LINE_LEN = "4" *) 
 (* C_ICACHE_STREAMS = "0" *) (* C_ICACHE_VICTIMS = "0" *) (* C_ILL_OPCODE_EXCEPTION = "0" *) 
 (* C_IMPRECISE_EXCEPTIONS = "0" *) (* C_INSTANCE = "design_1_microblaze_0_1" *) (* C_INSTR_SIZE = "32" *) 
-(* C_INTERCONNECT = "2" *) (* C_INTERRUPT_IS_EDGE = "0" *) (* C_I_AXI = "1" *) 
-(* C_I_LMB = "0" *) (* C_LMB_DATA_SIZE = "32" *) (* C_LOCKSTEP_MASTER = "0" *) 
+(* C_INTERCONNECT = "2" *) (* C_INTERRUPT_IS_EDGE = "0" *) (* C_I_AXI = "0" *) 
+(* C_I_LMB = "1" *) (* C_LMB_DATA_SIZE = "32" *) (* C_LOCKSTEP_MASTER = "0" *) 
 (* C_LOCKSTEP_SLAVE = "0" *) (* C_M0_AXIS_DATA_WIDTH = "32" *) (* C_M10_AXIS_DATA_WIDTH = "32" *) 
 (* C_M11_AXIS_DATA_WIDTH = "32" *) (* C_M12_AXIS_DATA_WIDTH = "32" *) (* C_M13_AXIS_DATA_WIDTH = "32" *) 
 (* C_M14_AXIS_DATA_WIDTH = "32" *) (* C_M15_AXIS_DATA_WIDTH = "32" *) (* C_M1_AXIS_DATA_WIDTH = "32" *) 
@@ -51921,9 +51623,16 @@ module design_1_microblaze_0_1_MicroBlaze
 
   wire \<const0> ;
   wire \<const1> ;
+  wire [0:3]Byte_Enable;
   wire Clk;
   wire Config_Reg_En;
+  wire DReady;
+  wire DWait;
+  wire D_AS;
+  wire [0:31]Data_Addr;
+  wire [0:31]Data_Read;
   wire Data_Read_Reg_En;
+  wire [0:31]Data_Write;
   wire Dbg_Capture;
   wire Dbg_Clk;
   wire Dbg_Continue;
@@ -51941,12 +51650,16 @@ module design_1_microblaze_0_1_MicroBlaze
   wire Dbg_Update;
   wire Debug_Rst;
   wire Hibernate;
-  wire IWAIT;
+  wire IFetch;
+  wire IReady;
+  wire I_AS;
+  wire [0:31]Instr;
+  wire [0:31]Instr_Addr;
   wire Interrupt;
   wire [0:1]Interrupt_Ack;
   wire [0:31]Interrupt_Address;
   wire [1:46]\^LOCKSTEP_Master_Out ;
-  wire [284:3228]\^LOCKSTEP_Out ;
+  wire [2:3228]\^LOCKSTEP_Out ;
   wire [31:0]M_AXI_DP_ARADDR;
   wire M_AXI_DP_ARREADY;
   wire M_AXI_DP_ARVALID;
@@ -51959,16 +51672,12 @@ module design_1_microblaze_0_1_MicroBlaze
   wire M_AXI_DP_WREADY;
   wire [3:0]M_AXI_DP_WSTRB;
   wire M_AXI_DP_WVALID;
-  wire [31:0]M_AXI_IP_ARADDR;
-  wire M_AXI_IP_ARREADY;
-  wire M_AXI_IP_ARVALID;
-  wire [31:0]M_AXI_IP_RDATA;
-  wire M_AXI_IP_RVALID;
   wire Mb_Reset;
-  wire MicroBlaze_Core_I_n_341;
+  wire MicroBlaze_Core_I_n_413;
   wire Pause;
   wire Pause_Ack;
   wire \Performance.Core/Use_Debug_Logic.Master_Core.Debug_Perf/Status_Reg_En ;
+  wire Read_Strobe;
   wire Reset;
   wire [0:1]Reset_Mode;
   wire Scan_En;
@@ -51997,76 +51706,8 @@ module design_1_microblaze_0_1_MicroBlaze
   wire Trace_Reg_Write;
   wire Trace_Valid_Instr;
   wire [0:1]Wakeup;
+  wire Write_Strobe;
 
-  assign Byte_Enable[0] = \<const0> ;
-  assign Byte_Enable[1] = \<const0> ;
-  assign Byte_Enable[2] = \<const0> ;
-  assign Byte_Enable[3] = \<const0> ;
-  assign D_AS = \<const0> ;
-  assign Data_Addr[0] = \<const0> ;
-  assign Data_Addr[1] = \<const0> ;
-  assign Data_Addr[2] = \<const0> ;
-  assign Data_Addr[3] = \<const0> ;
-  assign Data_Addr[4] = \<const0> ;
-  assign Data_Addr[5] = \<const0> ;
-  assign Data_Addr[6] = \<const0> ;
-  assign Data_Addr[7] = \<const0> ;
-  assign Data_Addr[8] = \<const0> ;
-  assign Data_Addr[9] = \<const0> ;
-  assign Data_Addr[10] = \<const0> ;
-  assign Data_Addr[11] = \<const0> ;
-  assign Data_Addr[12] = \<const0> ;
-  assign Data_Addr[13] = \<const0> ;
-  assign Data_Addr[14] = \<const0> ;
-  assign Data_Addr[15] = \<const0> ;
-  assign Data_Addr[16] = \<const0> ;
-  assign Data_Addr[17] = \<const0> ;
-  assign Data_Addr[18] = \<const0> ;
-  assign Data_Addr[19] = \<const0> ;
-  assign Data_Addr[20] = \<const0> ;
-  assign Data_Addr[21] = \<const0> ;
-  assign Data_Addr[22] = \<const0> ;
-  assign Data_Addr[23] = \<const0> ;
-  assign Data_Addr[24] = \<const0> ;
-  assign Data_Addr[25] = \<const0> ;
-  assign Data_Addr[26] = \<const0> ;
-  assign Data_Addr[27] = \<const0> ;
-  assign Data_Addr[28] = \<const0> ;
-  assign Data_Addr[29] = \<const0> ;
-  assign Data_Addr[30] = \<const0> ;
-  assign Data_Addr[31] = \<const0> ;
-  assign Data_Write[0] = \<const0> ;
-  assign Data_Write[1] = \<const0> ;
-  assign Data_Write[2] = \<const0> ;
-  assign Data_Write[3] = \<const0> ;
-  assign Data_Write[4] = \<const0> ;
-  assign Data_Write[5] = \<const0> ;
-  assign Data_Write[6] = \<const0> ;
-  assign Data_Write[7] = \<const0> ;
-  assign Data_Write[8] = \<const0> ;
-  assign Data_Write[9] = \<const0> ;
-  assign Data_Write[10] = \<const0> ;
-  assign Data_Write[11] = \<const0> ;
-  assign Data_Write[12] = \<const0> ;
-  assign Data_Write[13] = \<const0> ;
-  assign Data_Write[14] = \<const0> ;
-  assign Data_Write[15] = \<const0> ;
-  assign Data_Write[16] = \<const0> ;
-  assign Data_Write[17] = \<const0> ;
-  assign Data_Write[18] = \<const0> ;
-  assign Data_Write[19] = \<const0> ;
-  assign Data_Write[20] = \<const0> ;
-  assign Data_Write[21] = \<const0> ;
-  assign Data_Write[22] = \<const0> ;
-  assign Data_Write[23] = \<const0> ;
-  assign Data_Write[24] = \<const0> ;
-  assign Data_Write[25] = \<const0> ;
-  assign Data_Write[26] = \<const0> ;
-  assign Data_Write[27] = \<const0> ;
-  assign Data_Write[28] = \<const0> ;
-  assign Data_Write[29] = \<const0> ;
-  assign Data_Write[30] = \<const0> ;
-  assign Data_Write[31] = \<const0> ;
   assign Dbg_ARREADY = \<const0> ;
   assign Dbg_AWREADY = \<const0> ;
   assign Dbg_BRESP[1] = \<const0> ;
@@ -52161,40 +51802,6 @@ module design_1_microblaze_0_1_MicroBlaze
   assign Dbg_Trig_In[7] = \<const0> ;
   assign Dbg_WREADY = \<const0> ;
   assign Dbg_Wakeup = \^LOCKSTEP_Master_Out [11];
-  assign IFetch = \<const0> ;
-  assign I_AS = \<const0> ;
-  assign Instr_Addr[0] = \<const0> ;
-  assign Instr_Addr[1] = \<const0> ;
-  assign Instr_Addr[2] = \<const0> ;
-  assign Instr_Addr[3] = \<const0> ;
-  assign Instr_Addr[4] = \<const0> ;
-  assign Instr_Addr[5] = \<const0> ;
-  assign Instr_Addr[6] = \<const0> ;
-  assign Instr_Addr[7] = \<const0> ;
-  assign Instr_Addr[8] = \<const0> ;
-  assign Instr_Addr[9] = \<const0> ;
-  assign Instr_Addr[10] = \<const0> ;
-  assign Instr_Addr[11] = \<const0> ;
-  assign Instr_Addr[12] = \<const0> ;
-  assign Instr_Addr[13] = \<const0> ;
-  assign Instr_Addr[14] = \<const0> ;
-  assign Instr_Addr[15] = \<const0> ;
-  assign Instr_Addr[16] = \<const0> ;
-  assign Instr_Addr[17] = \<const0> ;
-  assign Instr_Addr[18] = \<const0> ;
-  assign Instr_Addr[19] = \<const0> ;
-  assign Instr_Addr[20] = \<const0> ;
-  assign Instr_Addr[21] = \<const0> ;
-  assign Instr_Addr[22] = \<const0> ;
-  assign Instr_Addr[23] = \<const0> ;
-  assign Instr_Addr[24] = \<const0> ;
-  assign Instr_Addr[25] = \<const0> ;
-  assign Instr_Addr[26] = \<const0> ;
-  assign Instr_Addr[27] = \<const0> ;
-  assign Instr_Addr[28] = \<const0> ;
-  assign Instr_Addr[29] = \<const0> ;
-  assign Instr_Addr[30] = \<const0> ;
-  assign Instr_Addr[31] = \<const0> ;
   assign LOCKSTEP_Master_Out[0] = \<const0> ;
   assign LOCKSTEP_Master_Out[1] = \^LOCKSTEP_Master_Out [1];
   assign LOCKSTEP_Master_Out[2] = \<const0> ;
@@ -56257,40 +55864,7 @@ module design_1_microblaze_0_1_MicroBlaze
   assign LOCKSTEP_Master_Out[4095] = \<const0> ;
   assign LOCKSTEP_Out[0] = \^LOCKSTEP_Out [3228];
   assign LOCKSTEP_Out[1] = \<const0> ;
-  assign LOCKSTEP_Out[2] = \<const0> ;
-  assign LOCKSTEP_Out[3] = \<const0> ;
-  assign LOCKSTEP_Out[4] = \<const0> ;
-  assign LOCKSTEP_Out[5] = \<const0> ;
-  assign LOCKSTEP_Out[6] = \<const0> ;
-  assign LOCKSTEP_Out[7] = \<const0> ;
-  assign LOCKSTEP_Out[8] = \<const0> ;
-  assign LOCKSTEP_Out[9] = \<const0> ;
-  assign LOCKSTEP_Out[10] = \<const0> ;
-  assign LOCKSTEP_Out[11] = \<const0> ;
-  assign LOCKSTEP_Out[12] = \<const0> ;
-  assign LOCKSTEP_Out[13] = \<const0> ;
-  assign LOCKSTEP_Out[14] = \<const0> ;
-  assign LOCKSTEP_Out[15] = \<const0> ;
-  assign LOCKSTEP_Out[16] = \<const0> ;
-  assign LOCKSTEP_Out[17] = \<const0> ;
-  assign LOCKSTEP_Out[18] = \<const0> ;
-  assign LOCKSTEP_Out[19] = \<const0> ;
-  assign LOCKSTEP_Out[20] = \<const0> ;
-  assign LOCKSTEP_Out[21] = \<const0> ;
-  assign LOCKSTEP_Out[22] = \<const0> ;
-  assign LOCKSTEP_Out[23] = \<const0> ;
-  assign LOCKSTEP_Out[24] = \<const0> ;
-  assign LOCKSTEP_Out[25] = \<const0> ;
-  assign LOCKSTEP_Out[26] = \<const0> ;
-  assign LOCKSTEP_Out[27] = \<const0> ;
-  assign LOCKSTEP_Out[28] = \<const0> ;
-  assign LOCKSTEP_Out[29] = \<const0> ;
-  assign LOCKSTEP_Out[30] = \<const0> ;
-  assign LOCKSTEP_Out[31] = \<const0> ;
-  assign LOCKSTEP_Out[32] = \<const0> ;
-  assign LOCKSTEP_Out[33] = \<const0> ;
-  assign LOCKSTEP_Out[34] = \<const0> ;
-  assign LOCKSTEP_Out[35] = \<const0> ;
+  assign LOCKSTEP_Out[2:35] = \^LOCKSTEP_Out [2:35];
   assign LOCKSTEP_Out[36] = \<const0> ;
   assign LOCKSTEP_Out[37] = \<const0> ;
   assign LOCKSTEP_Out[38] = \<const0> ;
@@ -56323,38 +55897,7 @@ module design_1_microblaze_0_1_MicroBlaze
   assign LOCKSTEP_Out[65] = \<const0> ;
   assign LOCKSTEP_Out[66] = \<const0> ;
   assign LOCKSTEP_Out[67] = \<const0> ;
-  assign LOCKSTEP_Out[68] = \<const0> ;
-  assign LOCKSTEP_Out[69] = \<const0> ;
-  assign LOCKSTEP_Out[70] = \<const0> ;
-  assign LOCKSTEP_Out[71] = \<const0> ;
-  assign LOCKSTEP_Out[72] = \<const0> ;
-  assign LOCKSTEP_Out[73] = \<const0> ;
-  assign LOCKSTEP_Out[74] = \<const0> ;
-  assign LOCKSTEP_Out[75] = \<const0> ;
-  assign LOCKSTEP_Out[76] = \<const0> ;
-  assign LOCKSTEP_Out[77] = \<const0> ;
-  assign LOCKSTEP_Out[78] = \<const0> ;
-  assign LOCKSTEP_Out[79] = \<const0> ;
-  assign LOCKSTEP_Out[80] = \<const0> ;
-  assign LOCKSTEP_Out[81] = \<const0> ;
-  assign LOCKSTEP_Out[82] = \<const0> ;
-  assign LOCKSTEP_Out[83] = \<const0> ;
-  assign LOCKSTEP_Out[84] = \<const0> ;
-  assign LOCKSTEP_Out[85] = \<const0> ;
-  assign LOCKSTEP_Out[86] = \<const0> ;
-  assign LOCKSTEP_Out[87] = \<const0> ;
-  assign LOCKSTEP_Out[88] = \<const0> ;
-  assign LOCKSTEP_Out[89] = \<const0> ;
-  assign LOCKSTEP_Out[90] = \<const0> ;
-  assign LOCKSTEP_Out[91] = \<const0> ;
-  assign LOCKSTEP_Out[92] = \<const0> ;
-  assign LOCKSTEP_Out[93] = \<const0> ;
-  assign LOCKSTEP_Out[94] = \<const0> ;
-  assign LOCKSTEP_Out[95] = \<const0> ;
-  assign LOCKSTEP_Out[96] = \<const0> ;
-  assign LOCKSTEP_Out[97] = \<const0> ;
-  assign LOCKSTEP_Out[98] = \<const0> ;
-  assign LOCKSTEP_Out[99] = \<const0> ;
+  assign LOCKSTEP_Out[68:99] = \^LOCKSTEP_Out [68:99];
   assign LOCKSTEP_Out[100] = \<const0> ;
   assign LOCKSTEP_Out[101] = \<const0> ;
   assign LOCKSTEP_Out[102] = \<const0> ;
@@ -56387,38 +55930,7 @@ module design_1_microblaze_0_1_MicroBlaze
   assign LOCKSTEP_Out[129] = \<const0> ;
   assign LOCKSTEP_Out[130] = \<const0> ;
   assign LOCKSTEP_Out[131] = \<const0> ;
-  assign LOCKSTEP_Out[132] = \<const0> ;
-  assign LOCKSTEP_Out[133] = \<const0> ;
-  assign LOCKSTEP_Out[134] = \<const0> ;
-  assign LOCKSTEP_Out[135] = \<const0> ;
-  assign LOCKSTEP_Out[136] = \<const0> ;
-  assign LOCKSTEP_Out[137] = \<const0> ;
-  assign LOCKSTEP_Out[138] = \<const0> ;
-  assign LOCKSTEP_Out[139] = \<const0> ;
-  assign LOCKSTEP_Out[140] = \<const0> ;
-  assign LOCKSTEP_Out[141] = \<const0> ;
-  assign LOCKSTEP_Out[142] = \<const0> ;
-  assign LOCKSTEP_Out[143] = \<const0> ;
-  assign LOCKSTEP_Out[144] = \<const0> ;
-  assign LOCKSTEP_Out[145] = \<const0> ;
-  assign LOCKSTEP_Out[146] = \<const0> ;
-  assign LOCKSTEP_Out[147] = \<const0> ;
-  assign LOCKSTEP_Out[148] = \<const0> ;
-  assign LOCKSTEP_Out[149] = \<const0> ;
-  assign LOCKSTEP_Out[150] = \<const0> ;
-  assign LOCKSTEP_Out[151] = \<const0> ;
-  assign LOCKSTEP_Out[152] = \<const0> ;
-  assign LOCKSTEP_Out[153] = \<const0> ;
-  assign LOCKSTEP_Out[154] = \<const0> ;
-  assign LOCKSTEP_Out[155] = \<const0> ;
-  assign LOCKSTEP_Out[156] = \<const0> ;
-  assign LOCKSTEP_Out[157] = \<const0> ;
-  assign LOCKSTEP_Out[158] = \<const0> ;
-  assign LOCKSTEP_Out[159] = \<const0> ;
-  assign LOCKSTEP_Out[160] = \<const0> ;
-  assign LOCKSTEP_Out[161] = \<const0> ;
-  assign LOCKSTEP_Out[162] = \<const0> ;
-  assign LOCKSTEP_Out[163] = \<const0> ;
+  assign LOCKSTEP_Out[132:163] = \^LOCKSTEP_Out [132:163];
   assign LOCKSTEP_Out[164] = \<const0> ;
   assign LOCKSTEP_Out[165] = \<const0> ;
   assign LOCKSTEP_Out[166] = \<const0> ;
@@ -56451,13 +55963,7 @@ module design_1_microblaze_0_1_MicroBlaze
   assign LOCKSTEP_Out[193] = \<const0> ;
   assign LOCKSTEP_Out[194] = \<const0> ;
   assign LOCKSTEP_Out[195] = \<const0> ;
-  assign LOCKSTEP_Out[196] = \<const0> ;
-  assign LOCKSTEP_Out[197] = \<const0> ;
-  assign LOCKSTEP_Out[198] = \<const0> ;
-  assign LOCKSTEP_Out[199] = \<const0> ;
-  assign LOCKSTEP_Out[200] = \<const0> ;
-  assign LOCKSTEP_Out[201] = \<const0> ;
-  assign LOCKSTEP_Out[202] = \<const0> ;
+  assign LOCKSTEP_Out[196:202] = \^LOCKSTEP_Out [196:202];
   assign LOCKSTEP_Out[203] = \<const0> ;
   assign LOCKSTEP_Out[204] = \<const0> ;
   assign LOCKSTEP_Out[205] = \<const0> ;
@@ -56536,22 +56042,22 @@ module design_1_microblaze_0_1_MicroBlaze
   assign LOCKSTEP_Out[278] = \<const0> ;
   assign LOCKSTEP_Out[279] = \<const0> ;
   assign LOCKSTEP_Out[280] = \<const0> ;
-  assign LOCKSTEP_Out[281] = \^LOCKSTEP_Out [284];
+  assign LOCKSTEP_Out[281] = \<const0> ;
   assign LOCKSTEP_Out[282] = \<const0> ;
   assign LOCKSTEP_Out[283] = \<const0> ;
-  assign LOCKSTEP_Out[284] = \^LOCKSTEP_Out [284];
+  assign LOCKSTEP_Out[284] = \<const0> ;
   assign LOCKSTEP_Out[285] = \<const0> ;
   assign LOCKSTEP_Out[286] = \<const0> ;
   assign LOCKSTEP_Out[287] = \<const0> ;
   assign LOCKSTEP_Out[288] = \<const0> ;
   assign LOCKSTEP_Out[289] = \<const0> ;
-  assign LOCKSTEP_Out[290] = \^LOCKSTEP_Out [284];
+  assign LOCKSTEP_Out[290] = \<const0> ;
   assign LOCKSTEP_Out[291] = \<const0> ;
   assign LOCKSTEP_Out[292] = \<const0> ;
   assign LOCKSTEP_Out[293] = \<const0> ;
-  assign LOCKSTEP_Out[294] = \^LOCKSTEP_Out [284];
-  assign LOCKSTEP_Out[295] = \^LOCKSTEP_Out [284];
-  assign LOCKSTEP_Out[296] = \^LOCKSTEP_Out [284];
+  assign LOCKSTEP_Out[294] = \<const0> ;
+  assign LOCKSTEP_Out[295] = \<const0> ;
+  assign LOCKSTEP_Out[296] = \<const0> ;
   assign LOCKSTEP_Out[297] = \<const0> ;
   assign LOCKSTEP_Out[298] = \<const0> ;
   assign LOCKSTEP_Out[299] = \<const0> ;
@@ -56629,7 +56135,38 @@ module design_1_microblaze_0_1_MicroBlaze
   assign LOCKSTEP_Out[371] = \<const0> ;
   assign LOCKSTEP_Out[372] = \<const0> ;
   assign LOCKSTEP_Out[373] = \<const0> ;
-  assign LOCKSTEP_Out[374:405] = \^LOCKSTEP_Out [374:405];
+  assign LOCKSTEP_Out[374] = \<const0> ;
+  assign LOCKSTEP_Out[375] = \<const0> ;
+  assign LOCKSTEP_Out[376] = \<const0> ;
+  assign LOCKSTEP_Out[377] = \<const0> ;
+  assign LOCKSTEP_Out[378] = \<const0> ;
+  assign LOCKSTEP_Out[379] = \<const0> ;
+  assign LOCKSTEP_Out[380] = \<const0> ;
+  assign LOCKSTEP_Out[381] = \<const0> ;
+  assign LOCKSTEP_Out[382] = \<const0> ;
+  assign LOCKSTEP_Out[383] = \<const0> ;
+  assign LOCKSTEP_Out[384] = \<const0> ;
+  assign LOCKSTEP_Out[385] = \<const0> ;
+  assign LOCKSTEP_Out[386] = \<const0> ;
+  assign LOCKSTEP_Out[387] = \<const0> ;
+  assign LOCKSTEP_Out[388] = \<const0> ;
+  assign LOCKSTEP_Out[389] = \<const0> ;
+  assign LOCKSTEP_Out[390] = \<const0> ;
+  assign LOCKSTEP_Out[391] = \<const0> ;
+  assign LOCKSTEP_Out[392] = \<const0> ;
+  assign LOCKSTEP_Out[393] = \<const0> ;
+  assign LOCKSTEP_Out[394] = \<const0> ;
+  assign LOCKSTEP_Out[395] = \<const0> ;
+  assign LOCKSTEP_Out[396] = \<const0> ;
+  assign LOCKSTEP_Out[397] = \<const0> ;
+  assign LOCKSTEP_Out[398] = \<const0> ;
+  assign LOCKSTEP_Out[399] = \<const0> ;
+  assign LOCKSTEP_Out[400] = \<const0> ;
+  assign LOCKSTEP_Out[401] = \<const0> ;
+  assign LOCKSTEP_Out[402] = \<const0> ;
+  assign LOCKSTEP_Out[403] = \<const0> ;
+  assign LOCKSTEP_Out[404] = \<const0> ;
+  assign LOCKSTEP_Out[405] = \<const0> ;
   assign LOCKSTEP_Out[406] = \<const0> ;
   assign LOCKSTEP_Out[407] = \<const0> ;
   assign LOCKSTEP_Out[408] = \<const0> ;
@@ -56671,24 +56208,24 @@ module design_1_microblaze_0_1_MicroBlaze
   assign LOCKSTEP_Out[444] = \<const0> ;
   assign LOCKSTEP_Out[445] = \<const0> ;
   assign LOCKSTEP_Out[446] = \<const0> ;
-  assign LOCKSTEP_Out[447] = \^LOCKSTEP_Out [284];
+  assign LOCKSTEP_Out[447] = \<const0> ;
   assign LOCKSTEP_Out[448] = \<const0> ;
   assign LOCKSTEP_Out[449] = \<const0> ;
-  assign LOCKSTEP_Out[450] = \^LOCKSTEP_Out [284];
+  assign LOCKSTEP_Out[450] = \<const0> ;
   assign LOCKSTEP_Out[451] = \<const0> ;
   assign LOCKSTEP_Out[452] = \<const0> ;
   assign LOCKSTEP_Out[453] = \<const0> ;
-  assign LOCKSTEP_Out[454] = \^LOCKSTEP_Out [284];
-  assign LOCKSTEP_Out[455] = \^LOCKSTEP_Out [284];
-  assign LOCKSTEP_Out[456] = \^LOCKSTEP_Out [284];
+  assign LOCKSTEP_Out[454] = \<const0> ;
+  assign LOCKSTEP_Out[455] = \<const0> ;
+  assign LOCKSTEP_Out[456] = \<const0> ;
   assign LOCKSTEP_Out[457] = \<const0> ;
   assign LOCKSTEP_Out[458] = \<const0> ;
   assign LOCKSTEP_Out[459] = \<const0> ;
-  assign LOCKSTEP_Out[460] = \^LOCKSTEP_Out [284];
-  assign LOCKSTEP_Out[461] = \^LOCKSTEP_Out [284];
-  assign LOCKSTEP_Out[462] = \^LOCKSTEP_Out [284];
-  assign LOCKSTEP_Out[463] = \^LOCKSTEP_Out [463];
-  assign LOCKSTEP_Out[464] = \^LOCKSTEP_Out [284];
+  assign LOCKSTEP_Out[460] = \<const0> ;
+  assign LOCKSTEP_Out[461] = \<const0> ;
+  assign LOCKSTEP_Out[462] = \<const0> ;
+  assign LOCKSTEP_Out[463] = \<const0> ;
+  assign LOCKSTEP_Out[464] = \<const0> ;
   assign LOCKSTEP_Out[465] = \<const0> ;
   assign LOCKSTEP_Out[466:497] = \^LOCKSTEP_Out [632:663];
   assign LOCKSTEP_Out[498] = \<const0> ;
@@ -56732,19 +56269,19 @@ module design_1_microblaze_0_1_MicroBlaze
   assign LOCKSTEP_Out[536] = \<const0> ;
   assign LOCKSTEP_Out[537] = \<const0> ;
   assign LOCKSTEP_Out[538] = \<const0> ;
-  assign LOCKSTEP_Out[539] = \^LOCKSTEP_Out [284];
+  assign LOCKSTEP_Out[539] = \^LOCKSTEP_Out [542];
   assign LOCKSTEP_Out[540] = \<const0> ;
   assign LOCKSTEP_Out[541] = \<const0> ;
-  assign LOCKSTEP_Out[542] = \^LOCKSTEP_Out [284];
+  assign LOCKSTEP_Out[542] = \^LOCKSTEP_Out [542];
   assign LOCKSTEP_Out[543] = \<const0> ;
   assign LOCKSTEP_Out[544] = \<const0> ;
   assign LOCKSTEP_Out[545] = \<const0> ;
-  assign LOCKSTEP_Out[546] = \^LOCKSTEP_Out [284];
-  assign LOCKSTEP_Out[547] = \^LOCKSTEP_Out [284];
+  assign LOCKSTEP_Out[546] = \^LOCKSTEP_Out [542];
+  assign LOCKSTEP_Out[547] = \^LOCKSTEP_Out [542];
   assign LOCKSTEP_Out[548] = \<const0> ;
   assign LOCKSTEP_Out[549] = \<const0> ;
   assign LOCKSTEP_Out[550] = \<const0> ;
-  assign LOCKSTEP_Out[551] = \^LOCKSTEP_Out [284];
+  assign LOCKSTEP_Out[551] = \^LOCKSTEP_Out [542];
   assign LOCKSTEP_Out[552] = \<const0> ;
   assign LOCKSTEP_Out[553] = \<const0> ;
   assign LOCKSTEP_Out[554] = \<const0> ;
@@ -56786,9 +56323,9 @@ module design_1_microblaze_0_1_MicroBlaze
   assign LOCKSTEP_Out[625] = \<const0> ;
   assign LOCKSTEP_Out[626] = \<const0> ;
   assign LOCKSTEP_Out[627] = \<const0> ;
-  assign LOCKSTEP_Out[628] = \^LOCKSTEP_Out [284];
+  assign LOCKSTEP_Out[628] = \^LOCKSTEP_Out [542];
   assign LOCKSTEP_Out[629] = \^LOCKSTEP_Out [629];
-  assign LOCKSTEP_Out[630] = \^LOCKSTEP_Out [284];
+  assign LOCKSTEP_Out[630] = \^LOCKSTEP_Out [542];
   assign LOCKSTEP_Out[631] = \<const0> ;
   assign LOCKSTEP_Out[632:663] = \^LOCKSTEP_Out [632:663];
   assign LOCKSTEP_Out[664] = \<const0> ;
@@ -56832,24 +56369,24 @@ module design_1_microblaze_0_1_MicroBlaze
   assign LOCKSTEP_Out[702] = \<const0> ;
   assign LOCKSTEP_Out[703] = \<const0> ;
   assign LOCKSTEP_Out[704] = \<const0> ;
-  assign LOCKSTEP_Out[705] = \^LOCKSTEP_Out [284];
+  assign LOCKSTEP_Out[705] = \^LOCKSTEP_Out [542];
   assign LOCKSTEP_Out[706] = \<const0> ;
   assign LOCKSTEP_Out[707] = \<const0> ;
-  assign LOCKSTEP_Out[708] = \^LOCKSTEP_Out [284];
+  assign LOCKSTEP_Out[708] = \^LOCKSTEP_Out [542];
   assign LOCKSTEP_Out[709] = \<const0> ;
   assign LOCKSTEP_Out[710] = \<const0> ;
   assign LOCKSTEP_Out[711] = \<const0> ;
-  assign LOCKSTEP_Out[712] = \^LOCKSTEP_Out [284];
-  assign LOCKSTEP_Out[713] = \^LOCKSTEP_Out [284];
+  assign LOCKSTEP_Out[712] = \^LOCKSTEP_Out [542];
+  assign LOCKSTEP_Out[713] = \^LOCKSTEP_Out [542];
   assign LOCKSTEP_Out[714] = \<const0> ;
   assign LOCKSTEP_Out[715] = \<const0> ;
   assign LOCKSTEP_Out[716] = \<const0> ;
-  assign LOCKSTEP_Out[717] = \^LOCKSTEP_Out [284];
+  assign LOCKSTEP_Out[717] = \^LOCKSTEP_Out [542];
   assign LOCKSTEP_Out[718] = \<const0> ;
   assign LOCKSTEP_Out[719] = \<const0> ;
   assign LOCKSTEP_Out[720] = \<const0> ;
   assign LOCKSTEP_Out[721] = \^LOCKSTEP_Out [721];
-  assign LOCKSTEP_Out[722] = \^LOCKSTEP_Out [284];
+  assign LOCKSTEP_Out[722] = \^LOCKSTEP_Out [542];
   assign LOCKSTEP_Out[723] = \<const0> ;
   assign LOCKSTEP_Out[724] = \<const0> ;
   assign LOCKSTEP_Out[725] = \<const0> ;
@@ -61103,12 +60640,44 @@ module design_1_microblaze_0_1_MicroBlaze
   assign M_AXI_IC_WSTRB[0] = \<const0> ;
   assign M_AXI_IC_WUSER[0] = \<const0> ;
   assign M_AXI_IC_WVALID = \<const0> ;
+  assign M_AXI_IP_ARADDR[31] = \<const0> ;
+  assign M_AXI_IP_ARADDR[30] = \<const0> ;
+  assign M_AXI_IP_ARADDR[29] = \<const0> ;
+  assign M_AXI_IP_ARADDR[28] = \<const0> ;
+  assign M_AXI_IP_ARADDR[27] = \<const0> ;
+  assign M_AXI_IP_ARADDR[26] = \<const0> ;
+  assign M_AXI_IP_ARADDR[25] = \<const0> ;
+  assign M_AXI_IP_ARADDR[24] = \<const0> ;
+  assign M_AXI_IP_ARADDR[23] = \<const0> ;
+  assign M_AXI_IP_ARADDR[22] = \<const0> ;
+  assign M_AXI_IP_ARADDR[21] = \<const0> ;
+  assign M_AXI_IP_ARADDR[20] = \<const0> ;
+  assign M_AXI_IP_ARADDR[19] = \<const0> ;
+  assign M_AXI_IP_ARADDR[18] = \<const0> ;
+  assign M_AXI_IP_ARADDR[17] = \<const0> ;
+  assign M_AXI_IP_ARADDR[16] = \<const0> ;
+  assign M_AXI_IP_ARADDR[15] = \<const0> ;
+  assign M_AXI_IP_ARADDR[14] = \<const0> ;
+  assign M_AXI_IP_ARADDR[13] = \<const0> ;
+  assign M_AXI_IP_ARADDR[12] = \<const0> ;
+  assign M_AXI_IP_ARADDR[11] = \<const0> ;
+  assign M_AXI_IP_ARADDR[10] = \<const0> ;
+  assign M_AXI_IP_ARADDR[9] = \<const0> ;
+  assign M_AXI_IP_ARADDR[8] = \<const0> ;
+  assign M_AXI_IP_ARADDR[7] = \<const0> ;
+  assign M_AXI_IP_ARADDR[6] = \<const0> ;
+  assign M_AXI_IP_ARADDR[5] = \<const0> ;
+  assign M_AXI_IP_ARADDR[4] = \<const0> ;
+  assign M_AXI_IP_ARADDR[3] = \<const0> ;
+  assign M_AXI_IP_ARADDR[2] = \<const0> ;
+  assign M_AXI_IP_ARADDR[1] = \<const0> ;
+  assign M_AXI_IP_ARADDR[0] = \<const0> ;
   assign M_AXI_IP_ARBURST[1] = \<const0> ;
-  assign M_AXI_IP_ARBURST[0] = \<const1> ;
+  assign M_AXI_IP_ARBURST[0] = \<const0> ;
   assign M_AXI_IP_ARCACHE[3] = \<const0> ;
   assign M_AXI_IP_ARCACHE[2] = \<const0> ;
-  assign M_AXI_IP_ARCACHE[1] = \<const1> ;
-  assign M_AXI_IP_ARCACHE[0] = \<const1> ;
+  assign M_AXI_IP_ARCACHE[1] = \<const0> ;
+  assign M_AXI_IP_ARCACHE[0] = \<const0> ;
   assign M_AXI_IP_ARID[0] = \<const0> ;
   assign M_AXI_IP_ARLEN[7] = \<const0> ;
   assign M_AXI_IP_ARLEN[6] = \<const0> ;
@@ -61119,16 +60688,17 @@ module design_1_microblaze_0_1_MicroBlaze
   assign M_AXI_IP_ARLEN[1] = \<const0> ;
   assign M_AXI_IP_ARLEN[0] = \<const0> ;
   assign M_AXI_IP_ARLOCK = \<const0> ;
-  assign M_AXI_IP_ARPROT[2] = \<const1> ;
+  assign M_AXI_IP_ARPROT[2] = \<const0> ;
   assign M_AXI_IP_ARPROT[1] = \<const0> ;
   assign M_AXI_IP_ARPROT[0] = \<const0> ;
   assign M_AXI_IP_ARQOS[3] = \<const0> ;
-  assign M_AXI_IP_ARQOS[2] = \<const1> ;
-  assign M_AXI_IP_ARQOS[1] = \<const1> ;
-  assign M_AXI_IP_ARQOS[0] = \<const1> ;
+  assign M_AXI_IP_ARQOS[2] = \<const0> ;
+  assign M_AXI_IP_ARQOS[1] = \<const0> ;
+  assign M_AXI_IP_ARQOS[0] = \<const0> ;
   assign M_AXI_IP_ARSIZE[2] = \<const0> ;
-  assign M_AXI_IP_ARSIZE[1] = \<const1> ;
+  assign M_AXI_IP_ARSIZE[1] = \<const0> ;
   assign M_AXI_IP_ARSIZE[0] = \<const0> ;
+  assign M_AXI_IP_ARVALID = \<const0> ;
   assign M_AXI_IP_AWADDR[31] = \<const0> ;
   assign M_AXI_IP_AWADDR[30] = \<const0> ;
   assign M_AXI_IP_AWADDR[29] = \<const0> ;
@@ -61162,7 +60732,7 @@ module design_1_microblaze_0_1_MicroBlaze
   assign M_AXI_IP_AWADDR[1] = \<const0> ;
   assign M_AXI_IP_AWADDR[0] = \<const0> ;
   assign M_AXI_IP_AWBURST[1] = \<const0> ;
-  assign M_AXI_IP_AWBURST[0] = \<const1> ;
+  assign M_AXI_IP_AWBURST[0] = \<const0> ;
   assign M_AXI_IP_AWCACHE[3] = \<const0> ;
   assign M_AXI_IP_AWCACHE[2] = \<const0> ;
   assign M_AXI_IP_AWCACHE[1] = \<const0> ;
@@ -61177,19 +60747,19 @@ module design_1_microblaze_0_1_MicroBlaze
   assign M_AXI_IP_AWLEN[1] = \<const0> ;
   assign M_AXI_IP_AWLEN[0] = \<const0> ;
   assign M_AXI_IP_AWLOCK = \<const0> ;
-  assign M_AXI_IP_AWPROT[2] = \<const1> ;
+  assign M_AXI_IP_AWPROT[2] = \<const0> ;
   assign M_AXI_IP_AWPROT[1] = \<const0> ;
   assign M_AXI_IP_AWPROT[0] = \<const0> ;
   assign M_AXI_IP_AWQOS[3] = \<const0> ;
-  assign M_AXI_IP_AWQOS[2] = \<const1> ;
-  assign M_AXI_IP_AWQOS[1] = \<const1> ;
-  assign M_AXI_IP_AWQOS[0] = \<const1> ;
+  assign M_AXI_IP_AWQOS[2] = \<const0> ;
+  assign M_AXI_IP_AWQOS[1] = \<const0> ;
+  assign M_AXI_IP_AWQOS[0] = \<const0> ;
   assign M_AXI_IP_AWSIZE[2] = \<const0> ;
-  assign M_AXI_IP_AWSIZE[1] = \<const1> ;
+  assign M_AXI_IP_AWSIZE[1] = \<const0> ;
   assign M_AXI_IP_AWSIZE[0] = \<const0> ;
   assign M_AXI_IP_AWVALID = \<const0> ;
   assign M_AXI_IP_BREADY = \<const0> ;
-  assign M_AXI_IP_RREADY = \<const1> ;
+  assign M_AXI_IP_RREADY = \<const0> ;
   assign M_AXI_IP_WDATA[31] = \<const0> ;
   assign M_AXI_IP_WDATA[30] = \<const0> ;
   assign M_AXI_IP_WDATA[29] = \<const0> ;
@@ -61484,7 +61054,6 @@ module design_1_microblaze_0_1_MicroBlaze
   assign RAM_From[2] = \<const0> ;
   assign RAM_From[1] = \<const0> ;
   assign RAM_From[0] = \<const0> ;
-  assign Read_Strobe = \<const0> ;
   assign S0_AXIS_TREADY = \<const0> ;
   assign S10_AXIS_TREADY = \<const0> ;
   assign S11_AXIS_TREADY = \<const0> ;
@@ -61535,17 +61104,16 @@ module design_1_microblaze_0_1_MicroBlaze
   assign Trace_PID_Reg[5] = \<const0> ;
   assign Trace_PID_Reg[6] = \<const0> ;
   assign Trace_PID_Reg[7] = \<const0> ;
-  assign Write_Strobe = \<const0> ;
   LUT5 #(
     .INIT(32'h00000040)) 
     Dbg_TDO_INST_0_i_1
-       (.I0(MicroBlaze_Core_I_n_341),
+       (.I0(MicroBlaze_Core_I_n_413),
         .I1(Dbg_Reg_En[6]),
         .I2(Dbg_Reg_En[7]),
         .I3(Dbg_Reg_En[4]),
         .I4(Dbg_Reg_En[5]),
         .O(\Performance.Core/Use_Debug_Logic.Master_Core.Debug_Perf/Status_Reg_En ));
-  (* SOFT_HLUTNM = "soft_lutpair75" *) 
+  (* SOFT_HLUTNM = "soft_lutpair91" *) 
   LUT4 #(
     .INIT(16'hFFFE)) 
     Dbg_TDO_INST_0_i_11
@@ -61563,7 +61131,7 @@ module design_1_microblaze_0_1_MicroBlaze
         .I3(Dbg_Reg_En[7]),
         .I4(Dbg_TDO_INST_0_i_26_n_0),
         .O(Config_Reg_En));
-  (* SOFT_HLUTNM = "soft_lutpair75" *) 
+  (* SOFT_HLUTNM = "soft_lutpair91" *) 
   LUT4 #(
     .INIT(16'hFFFE)) 
     Dbg_TDO_INST_0_i_26
@@ -61589,11 +61157,347 @@ module design_1_microblaze_0_1_MicroBlaze
         .D(\^LOCKSTEP_Master_Out [10]),
         .Q(\^LOCKSTEP_Out [3228]),
         .R(Reset));
-  FDRE \LOCKSTEP_Out_reg[281] 
+  FDRE \LOCKSTEP_Out_reg[10] 
        (.C(Clk),
         .CE(1'b1),
-        .D(1'b1),
-        .Q(\^LOCKSTEP_Out [284]),
+        .D(Instr_Addr[6]),
+        .Q(\^LOCKSTEP_Out [10]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[11] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Instr_Addr[7]),
+        .Q(\^LOCKSTEP_Out [11]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[12] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Instr_Addr[8]),
+        .Q(\^LOCKSTEP_Out [12]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[132] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Write[0]),
+        .Q(\^LOCKSTEP_Out [132]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[133] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Write[1]),
+        .Q(\^LOCKSTEP_Out [133]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[134] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Write[2]),
+        .Q(\^LOCKSTEP_Out [134]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[135] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Write[3]),
+        .Q(\^LOCKSTEP_Out [135]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[136] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Write[4]),
+        .Q(\^LOCKSTEP_Out [136]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[137] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Write[5]),
+        .Q(\^LOCKSTEP_Out [137]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[138] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Write[6]),
+        .Q(\^LOCKSTEP_Out [138]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[139] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Write[7]),
+        .Q(\^LOCKSTEP_Out [139]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[13] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Instr_Addr[9]),
+        .Q(\^LOCKSTEP_Out [13]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[140] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Write[8]),
+        .Q(\^LOCKSTEP_Out [140]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[141] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Write[9]),
+        .Q(\^LOCKSTEP_Out [141]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[142] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Write[10]),
+        .Q(\^LOCKSTEP_Out [142]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[143] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Write[11]),
+        .Q(\^LOCKSTEP_Out [143]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[144] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Write[12]),
+        .Q(\^LOCKSTEP_Out [144]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[145] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Write[13]),
+        .Q(\^LOCKSTEP_Out [145]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[146] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Write[14]),
+        .Q(\^LOCKSTEP_Out [146]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[147] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Write[15]),
+        .Q(\^LOCKSTEP_Out [147]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[148] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Write[16]),
+        .Q(\^LOCKSTEP_Out [148]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[149] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Write[17]),
+        .Q(\^LOCKSTEP_Out [149]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[14] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Instr_Addr[10]),
+        .Q(\^LOCKSTEP_Out [14]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[150] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Write[18]),
+        .Q(\^LOCKSTEP_Out [150]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[151] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Write[19]),
+        .Q(\^LOCKSTEP_Out [151]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[152] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Write[20]),
+        .Q(\^LOCKSTEP_Out [152]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[153] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Write[21]),
+        .Q(\^LOCKSTEP_Out [153]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[154] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Write[22]),
+        .Q(\^LOCKSTEP_Out [154]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[155] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Write[23]),
+        .Q(\^LOCKSTEP_Out [155]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[156] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Write[24]),
+        .Q(\^LOCKSTEP_Out [156]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[157] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Write[25]),
+        .Q(\^LOCKSTEP_Out [157]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[158] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Write[26]),
+        .Q(\^LOCKSTEP_Out [158]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[159] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Write[27]),
+        .Q(\^LOCKSTEP_Out [159]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[15] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Instr_Addr[11]),
+        .Q(\^LOCKSTEP_Out [15]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[160] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Write[28]),
+        .Q(\^LOCKSTEP_Out [160]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[161] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Write[29]),
+        .Q(\^LOCKSTEP_Out [161]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[162] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Write[30]),
+        .Q(\^LOCKSTEP_Out [162]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[163] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Write[31]),
+        .Q(\^LOCKSTEP_Out [163]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[16] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Instr_Addr[12]),
+        .Q(\^LOCKSTEP_Out [16]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[17] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Instr_Addr[13]),
+        .Q(\^LOCKSTEP_Out [17]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[18] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Instr_Addr[14]),
+        .Q(\^LOCKSTEP_Out [18]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[196] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(D_AS),
+        .Q(\^LOCKSTEP_Out [196]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[197] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Read_Strobe),
+        .Q(\^LOCKSTEP_Out [197]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[198] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Write_Strobe),
+        .Q(\^LOCKSTEP_Out [198]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[199] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Byte_Enable[0]),
+        .Q(\^LOCKSTEP_Out [199]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[19] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Instr_Addr[15]),
+        .Q(\^LOCKSTEP_Out [19]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[200] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Byte_Enable[1]),
+        .Q(\^LOCKSTEP_Out [200]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[201] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Byte_Enable[2]),
+        .Q(\^LOCKSTEP_Out [201]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[202] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Byte_Enable[3]),
+        .Q(\^LOCKSTEP_Out [202]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[20] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Instr_Addr[16]),
+        .Q(\^LOCKSTEP_Out [20]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[21] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Instr_Addr[17]),
+        .Q(\^LOCKSTEP_Out [21]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[22] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Instr_Addr[18]),
+        .Q(\^LOCKSTEP_Out [22]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[23] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Instr_Addr[19]),
+        .Q(\^LOCKSTEP_Out [23]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[24] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Instr_Addr[20]),
+        .Q(\^LOCKSTEP_Out [24]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[25] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Instr_Addr[21]),
+        .Q(\^LOCKSTEP_Out [25]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[26] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Instr_Addr[22]),
+        .Q(\^LOCKSTEP_Out [26]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[27] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Instr_Addr[23]),
+        .Q(\^LOCKSTEP_Out [27]),
         .R(Reset));
   FDRE \LOCKSTEP_Out_reg[2881] 
        (.C(Clk),
@@ -61708,6 +61612,12 @@ module design_1_microblaze_0_1_MicroBlaze
         .CE(1'b1),
         .D(Trace_Instruction[18]),
         .Q(\^LOCKSTEP_Out [2899]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[28] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Instr_Addr[24]),
+        .Q(\^LOCKSTEP_Out [28]),
         .R(Reset));
   FDRE \LOCKSTEP_Out_reg[2900] 
        (.C(Clk),
@@ -62044,6 +61954,18 @@ module design_1_microblaze_0_1_MicroBlaze
         .CE(1'b1),
         .D(\^Trace_MSR_Reg [13]),
         .Q(\^LOCKSTEP_Out [2997]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[29] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Instr_Addr[25]),
+        .Q(\^LOCKSTEP_Out [29]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[2] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(IFetch),
+        .Q(\^LOCKSTEP_Out [2]),
         .R(Reset));
   FDRE \LOCKSTEP_Out_reg[3007] 
        (.C(Clk),
@@ -62399,6 +62321,12 @@ module design_1_microblaze_0_1_MicroBlaze
         .D(Trace_Data_Address[20]),
         .Q(\^LOCKSTEP_Out [3099]),
         .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[30] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Instr_Addr[26]),
+        .Q(\^LOCKSTEP_Out [30]),
+        .R(Reset));
   FDRE \LOCKSTEP_Out_reg[3100] 
        (.C(Clk),
         .CE(1'b1),
@@ -62657,6 +62585,12 @@ module design_1_microblaze_0_1_MicroBlaze
         .D(Trace_Data_Write_Value[31]),
         .Q(\^LOCKSTEP_Out [3174]),
         .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[31] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Instr_Addr[27]),
+        .Q(\^LOCKSTEP_Out [31]),
+        .R(Reset));
   FDRE \LOCKSTEP_Out_reg[3207] 
        (.C(Clk),
         .CE(1'b1),
@@ -62717,203 +62651,35 @@ module design_1_microblaze_0_1_MicroBlaze
         .D(Trace_MEM_PipeRun),
         .Q(\^LOCKSTEP_Out [3227]),
         .R(Reset));
-  FDRE \LOCKSTEP_Out_reg[374] 
+  FDRE \LOCKSTEP_Out_reg[32] 
        (.C(Clk),
         .CE(1'b1),
-        .D(M_AXI_IP_ARADDR[31]),
-        .Q(\^LOCKSTEP_Out [374]),
+        .D(Instr_Addr[28]),
+        .Q(\^LOCKSTEP_Out [32]),
         .R(Reset));
-  FDRE \LOCKSTEP_Out_reg[375] 
+  FDRE \LOCKSTEP_Out_reg[33] 
        (.C(Clk),
         .CE(1'b1),
-        .D(M_AXI_IP_ARADDR[30]),
-        .Q(\^LOCKSTEP_Out [375]),
+        .D(Instr_Addr[29]),
+        .Q(\^LOCKSTEP_Out [33]),
         .R(Reset));
-  FDRE \LOCKSTEP_Out_reg[376] 
+  FDRE \LOCKSTEP_Out_reg[34] 
        (.C(Clk),
         .CE(1'b1),
-        .D(M_AXI_IP_ARADDR[29]),
-        .Q(\^LOCKSTEP_Out [376]),
+        .D(Instr_Addr[30]),
+        .Q(\^LOCKSTEP_Out [34]),
         .R(Reset));
-  FDRE \LOCKSTEP_Out_reg[377] 
+  FDRE \LOCKSTEP_Out_reg[35] 
        (.C(Clk),
         .CE(1'b1),
-        .D(M_AXI_IP_ARADDR[28]),
-        .Q(\^LOCKSTEP_Out [377]),
+        .D(Instr_Addr[31]),
+        .Q(\^LOCKSTEP_Out [35]),
         .R(Reset));
-  FDRE \LOCKSTEP_Out_reg[378] 
+  FDRE \LOCKSTEP_Out_reg[3] 
        (.C(Clk),
         .CE(1'b1),
-        .D(M_AXI_IP_ARADDR[27]),
-        .Q(\^LOCKSTEP_Out [378]),
-        .R(Reset));
-  FDRE \LOCKSTEP_Out_reg[379] 
-       (.C(Clk),
-        .CE(1'b1),
-        .D(M_AXI_IP_ARADDR[26]),
-        .Q(\^LOCKSTEP_Out [379]),
-        .R(Reset));
-  FDRE \LOCKSTEP_Out_reg[380] 
-       (.C(Clk),
-        .CE(1'b1),
-        .D(M_AXI_IP_ARADDR[25]),
-        .Q(\^LOCKSTEP_Out [380]),
-        .R(Reset));
-  FDRE \LOCKSTEP_Out_reg[381] 
-       (.C(Clk),
-        .CE(1'b1),
-        .D(M_AXI_IP_ARADDR[24]),
-        .Q(\^LOCKSTEP_Out [381]),
-        .R(Reset));
-  FDRE \LOCKSTEP_Out_reg[382] 
-       (.C(Clk),
-        .CE(1'b1),
-        .D(M_AXI_IP_ARADDR[23]),
-        .Q(\^LOCKSTEP_Out [382]),
-        .R(Reset));
-  FDRE \LOCKSTEP_Out_reg[383] 
-       (.C(Clk),
-        .CE(1'b1),
-        .D(M_AXI_IP_ARADDR[22]),
-        .Q(\^LOCKSTEP_Out [383]),
-        .R(Reset));
-  FDRE \LOCKSTEP_Out_reg[384] 
-       (.C(Clk),
-        .CE(1'b1),
-        .D(M_AXI_IP_ARADDR[21]),
-        .Q(\^LOCKSTEP_Out [384]),
-        .R(Reset));
-  FDRE \LOCKSTEP_Out_reg[385] 
-       (.C(Clk),
-        .CE(1'b1),
-        .D(M_AXI_IP_ARADDR[20]),
-        .Q(\^LOCKSTEP_Out [385]),
-        .R(Reset));
-  FDRE \LOCKSTEP_Out_reg[386] 
-       (.C(Clk),
-        .CE(1'b1),
-        .D(M_AXI_IP_ARADDR[19]),
-        .Q(\^LOCKSTEP_Out [386]),
-        .R(Reset));
-  FDRE \LOCKSTEP_Out_reg[387] 
-       (.C(Clk),
-        .CE(1'b1),
-        .D(M_AXI_IP_ARADDR[18]),
-        .Q(\^LOCKSTEP_Out [387]),
-        .R(Reset));
-  FDRE \LOCKSTEP_Out_reg[388] 
-       (.C(Clk),
-        .CE(1'b1),
-        .D(M_AXI_IP_ARADDR[17]),
-        .Q(\^LOCKSTEP_Out [388]),
-        .R(Reset));
-  FDRE \LOCKSTEP_Out_reg[389] 
-       (.C(Clk),
-        .CE(1'b1),
-        .D(M_AXI_IP_ARADDR[16]),
-        .Q(\^LOCKSTEP_Out [389]),
-        .R(Reset));
-  FDRE \LOCKSTEP_Out_reg[390] 
-       (.C(Clk),
-        .CE(1'b1),
-        .D(M_AXI_IP_ARADDR[15]),
-        .Q(\^LOCKSTEP_Out [390]),
-        .R(Reset));
-  FDRE \LOCKSTEP_Out_reg[391] 
-       (.C(Clk),
-        .CE(1'b1),
-        .D(M_AXI_IP_ARADDR[14]),
-        .Q(\^LOCKSTEP_Out [391]),
-        .R(Reset));
-  FDRE \LOCKSTEP_Out_reg[392] 
-       (.C(Clk),
-        .CE(1'b1),
-        .D(M_AXI_IP_ARADDR[13]),
-        .Q(\^LOCKSTEP_Out [392]),
-        .R(Reset));
-  FDRE \LOCKSTEP_Out_reg[393] 
-       (.C(Clk),
-        .CE(1'b1),
-        .D(M_AXI_IP_ARADDR[12]),
-        .Q(\^LOCKSTEP_Out [393]),
-        .R(Reset));
-  FDRE \LOCKSTEP_Out_reg[394] 
-       (.C(Clk),
-        .CE(1'b1),
-        .D(M_AXI_IP_ARADDR[11]),
-        .Q(\^LOCKSTEP_Out [394]),
-        .R(Reset));
-  FDRE \LOCKSTEP_Out_reg[395] 
-       (.C(Clk),
-        .CE(1'b1),
-        .D(M_AXI_IP_ARADDR[10]),
-        .Q(\^LOCKSTEP_Out [395]),
-        .R(Reset));
-  FDRE \LOCKSTEP_Out_reg[396] 
-       (.C(Clk),
-        .CE(1'b1),
-        .D(M_AXI_IP_ARADDR[9]),
-        .Q(\^LOCKSTEP_Out [396]),
-        .R(Reset));
-  FDRE \LOCKSTEP_Out_reg[397] 
-       (.C(Clk),
-        .CE(1'b1),
-        .D(M_AXI_IP_ARADDR[8]),
-        .Q(\^LOCKSTEP_Out [397]),
-        .R(Reset));
-  FDRE \LOCKSTEP_Out_reg[398] 
-       (.C(Clk),
-        .CE(1'b1),
-        .D(M_AXI_IP_ARADDR[7]),
-        .Q(\^LOCKSTEP_Out [398]),
-        .R(Reset));
-  FDRE \LOCKSTEP_Out_reg[399] 
-       (.C(Clk),
-        .CE(1'b1),
-        .D(M_AXI_IP_ARADDR[6]),
-        .Q(\^LOCKSTEP_Out [399]),
-        .R(Reset));
-  FDRE \LOCKSTEP_Out_reg[400] 
-       (.C(Clk),
-        .CE(1'b1),
-        .D(M_AXI_IP_ARADDR[5]),
-        .Q(\^LOCKSTEP_Out [400]),
-        .R(Reset));
-  FDRE \LOCKSTEP_Out_reg[401] 
-       (.C(Clk),
-        .CE(1'b1),
-        .D(M_AXI_IP_ARADDR[4]),
-        .Q(\^LOCKSTEP_Out [401]),
-        .R(Reset));
-  FDRE \LOCKSTEP_Out_reg[402] 
-       (.C(Clk),
-        .CE(1'b1),
-        .D(M_AXI_IP_ARADDR[3]),
-        .Q(\^LOCKSTEP_Out [402]),
-        .R(Reset));
-  FDRE \LOCKSTEP_Out_reg[403] 
-       (.C(Clk),
-        .CE(1'b1),
-        .D(M_AXI_IP_ARADDR[2]),
-        .Q(\^LOCKSTEP_Out [403]),
-        .R(Reset));
-  FDRE \LOCKSTEP_Out_reg[404] 
-       (.C(Clk),
-        .CE(1'b1),
-        .D(M_AXI_IP_ARADDR[1]),
-        .Q(\^LOCKSTEP_Out [404]),
-        .R(Reset));
-  FDRE \LOCKSTEP_Out_reg[405] 
-       (.C(Clk),
-        .CE(1'b1),
-        .D(M_AXI_IP_ARADDR[0]),
-        .Q(\^LOCKSTEP_Out [405]),
-        .R(Reset));
-  FDRE \LOCKSTEP_Out_reg[463] 
-       (.C(Clk),
-        .CE(1'b1),
-        .D(M_AXI_IP_ARVALID),
-        .Q(\^LOCKSTEP_Out [463]),
+        .D(I_AS),
+        .Q(\^LOCKSTEP_Out [3]),
         .R(Reset));
   FDRE \LOCKSTEP_Out_reg[466] 
        (.C(Clk),
@@ -63106,6 +62872,18 @@ module design_1_microblaze_0_1_MicroBlaze
         .CE(1'b1),
         .D(M_AXI_DP_ARADDR[0]),
         .Q(\^LOCKSTEP_Out [663]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[4] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Instr_Addr[0]),
+        .Q(\^LOCKSTEP_Out [4]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[539] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(1'b1),
+        .Q(\^LOCKSTEP_Out [542]),
         .R(Reset));
   FDRE \LOCKSTEP_Out_reg[555] 
        (.C(Clk),
@@ -63305,6 +63083,12 @@ module design_1_microblaze_0_1_MicroBlaze
         .D(M_AXI_DP_WDATA[0]),
         .Q(\^LOCKSTEP_Out [587]),
         .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[5] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Instr_Addr[1]),
+        .Q(\^LOCKSTEP_Out [5]),
+        .R(Reset));
   FDRE \LOCKSTEP_Out_reg[620] 
        (.C(Clk),
         .CE(1'b1),
@@ -63335,21 +63119,240 @@ module design_1_microblaze_0_1_MicroBlaze
         .D(M_AXI_DP_WVALID),
         .Q(\^LOCKSTEP_Out [629]),
         .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[68] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Addr[0]),
+        .Q(\^LOCKSTEP_Out [68]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[69] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Addr[1]),
+        .Q(\^LOCKSTEP_Out [69]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[6] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Instr_Addr[2]),
+        .Q(\^LOCKSTEP_Out [6]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[70] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Addr[2]),
+        .Q(\^LOCKSTEP_Out [70]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[71] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Addr[3]),
+        .Q(\^LOCKSTEP_Out [71]),
+        .R(Reset));
   FDRE \LOCKSTEP_Out_reg[721] 
        (.C(Clk),
         .CE(1'b1),
         .D(M_AXI_DP_ARVALID),
         .Q(\^LOCKSTEP_Out [721]),
         .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[72] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Addr[4]),
+        .Q(\^LOCKSTEP_Out [72]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[73] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Addr[5]),
+        .Q(\^LOCKSTEP_Out [73]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[74] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Addr[6]),
+        .Q(\^LOCKSTEP_Out [74]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[75] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Addr[7]),
+        .Q(\^LOCKSTEP_Out [75]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[76] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Addr[8]),
+        .Q(\^LOCKSTEP_Out [76]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[77] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Addr[9]),
+        .Q(\^LOCKSTEP_Out [77]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[78] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Addr[10]),
+        .Q(\^LOCKSTEP_Out [78]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[79] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Addr[11]),
+        .Q(\^LOCKSTEP_Out [79]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[7] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Instr_Addr[3]),
+        .Q(\^LOCKSTEP_Out [7]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[80] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Addr[12]),
+        .Q(\^LOCKSTEP_Out [80]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[81] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Addr[13]),
+        .Q(\^LOCKSTEP_Out [81]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[82] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Addr[14]),
+        .Q(\^LOCKSTEP_Out [82]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[83] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Addr[15]),
+        .Q(\^LOCKSTEP_Out [83]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[84] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Addr[16]),
+        .Q(\^LOCKSTEP_Out [84]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[85] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Addr[17]),
+        .Q(\^LOCKSTEP_Out [85]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[86] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Addr[18]),
+        .Q(\^LOCKSTEP_Out [86]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[87] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Addr[19]),
+        .Q(\^LOCKSTEP_Out [87]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[88] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Addr[20]),
+        .Q(\^LOCKSTEP_Out [88]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[89] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Addr[21]),
+        .Q(\^LOCKSTEP_Out [89]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[8] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Instr_Addr[4]),
+        .Q(\^LOCKSTEP_Out [8]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[90] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Addr[22]),
+        .Q(\^LOCKSTEP_Out [90]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[91] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Addr[23]),
+        .Q(\^LOCKSTEP_Out [91]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[92] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Addr[24]),
+        .Q(\^LOCKSTEP_Out [92]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[93] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Addr[25]),
+        .Q(\^LOCKSTEP_Out [93]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[94] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Addr[26]),
+        .Q(\^LOCKSTEP_Out [94]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[95] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Addr[27]),
+        .Q(\^LOCKSTEP_Out [95]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[96] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Addr[28]),
+        .Q(\^LOCKSTEP_Out [96]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[97] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Addr[29]),
+        .Q(\^LOCKSTEP_Out [97]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[98] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Addr[30]),
+        .Q(\^LOCKSTEP_Out [98]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[99] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Addr[31]),
+        .Q(\^LOCKSTEP_Out [99]),
+        .R(Reset));
+  FDRE \LOCKSTEP_Out_reg[9] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Instr_Addr[5]),
+        .Q(\^LOCKSTEP_Out [9]),
+        .R(Reset));
   design_1_microblaze_0_1_MicroBlaze_Core MicroBlaze_Core_I
        (.Clk(Clk),
         .Config_Reg_En(Config_Reg_En),
-        .D({\^LOCKSTEP_Master_Out [10],M_AXI_IP_ARADDR,M_AXI_IP_ARVALID,M_AXI_DP_ARADDR,M_AXI_DP_AWVALID,M_AXI_DP_WDATA,M_AXI_DP_WSTRB,M_AXI_DP_WVALID,M_AXI_DP_ARVALID,Trace_Instruction[0],Trace_Instruction[1],Trace_Instruction[2],Trace_Instruction[3],Trace_Instruction[4],Trace_Instruction[5],Trace_Instruction[6],Trace_Instruction[7],Trace_Instruction[8],Trace_Instruction[9],Trace_Instruction[10],Trace_Instruction[11],Trace_Instruction[12],Trace_Instruction[13],Trace_Instruction[14],Trace_Instruction[15],Trace_Instruction[16],Trace_Instruction[17],Trace_Instruction[18],Trace_Instruction[19],Trace_Instruction[20],Trace_Instruction[21],Trace_Instruction[22],Trace_Instruction[23],Trace_Instruction[24],Trace_Instruction[25],Trace_Instruction[26],Trace_Instruction[27],Trace_Instruction[28],Trace_Instruction[29],Trace_Instruction[30],Trace_Instruction[31],Trace_Valid_Instr,Trace_PC[0],Trace_PC[1],Trace_PC[2],Trace_PC[3],Trace_PC[4],Trace_PC[5],Trace_PC[6],Trace_PC[7],Trace_PC[8],Trace_PC[9],Trace_PC[10],Trace_PC[11],Trace_PC[12],Trace_PC[13],Trace_PC[14],Trace_PC[15],Trace_PC[16],Trace_PC[17],Trace_PC[18],Trace_PC[19],Trace_PC[20],Trace_PC[21],Trace_PC[22],Trace_PC[23],Trace_PC[24],Trace_PC[25],Trace_PC[26],Trace_PC[27],Trace_PC[28],Trace_PC[29],Trace_PC[30],Trace_PC[31],Trace_Reg_Write,Trace_Reg_Addr[0],Trace_Reg_Addr[1],Trace_Reg_Addr[2],Trace_Reg_Addr[3],Trace_Reg_Addr[4],\^Trace_MSR_Reg [8],\^Trace_MSR_Reg [11],\^Trace_MSR_Reg [12],\^Trace_MSR_Reg [13],Trace_New_Reg_Value[0],Trace_New_Reg_Value[1],Trace_New_Reg_Value[2],Trace_New_Reg_Value[3],Trace_New_Reg_Value[4],Trace_New_Reg_Value[5],Trace_New_Reg_Value[6],Trace_New_Reg_Value[7],Trace_New_Reg_Value[8],Trace_New_Reg_Value[9],Trace_New_Reg_Value[10],Trace_New_Reg_Value[11],Trace_New_Reg_Value[12],Trace_New_Reg_Value[13],Trace_New_Reg_Value[14],Trace_New_Reg_Value[15],Trace_New_Reg_Value[16],Trace_New_Reg_Value[17],Trace_New_Reg_Value[18],Trace_New_Reg_Value[19],Trace_New_Reg_Value[20],Trace_New_Reg_Value[21],Trace_New_Reg_Value[22],Trace_New_Reg_Value[23],Trace_New_Reg_Value[24],Trace_New_Reg_Value[25],Trace_New_Reg_Value[26],Trace_New_Reg_Value[27],Trace_New_Reg_Value[28],Trace_New_Reg_Value[29],Trace_New_Reg_Value[30],Trace_New_Reg_Value[31],Trace_Exception_Taken,\^Trace_Exception_Kind [1],\^Trace_Exception_Kind [3],\^Trace_Exception_Kind [4],Trace_Jump_Taken,Trace_Delay_Slot,Trace_Data_Address[0],Trace_Data_Address[1],Trace_Data_Address[2],Trace_Data_Address[3],Trace_Data_Address[4],Trace_Data_Address[5],Trace_Data_Address[6],Trace_Data_Address[7],Trace_Data_Address[8],Trace_Data_Address[9],Trace_Data_Address[10],Trace_Data_Address[11],Trace_Data_Address[12],Trace_Data_Address[13],Trace_Data_Address[14],Trace_Data_Address[15],Trace_Data_Address[16],Trace_Data_Address[17],Trace_Data_Address[18],Trace_Data_Address[19],Trace_Data_Address[20],Trace_Data_Address[21],Trace_Data_Address[22],Trace_Data_Address[23],Trace_Data_Address[24],Trace_Data_Address[25],Trace_Data_Address[26],Trace_Data_Address[27],Trace_Data_Address[28],Trace_Data_Address[29],Trace_Data_Address[30],Trace_Data_Address[31],Trace_Data_Write_Value[0],Trace_Data_Write_Value[1],Trace_Data_Write_Value[2],Trace_Data_Write_Value[3],Trace_Data_Write_Value[4],Trace_Data_Write_Value[5],Trace_Data_Write_Value[6],Trace_Data_Write_Value[7],Trace_Data_Write_Value[8],Trace_Data_Write_Value[9],Trace_Data_Write_Value[10],Trace_Data_Write_Value[11],Trace_Data_Write_Value[12],Trace_Data_Write_Value[13],Trace_Data_Write_Value[14],Trace_Data_Write_Value[15],Trace_Data_Write_Value[16],Trace_Data_Write_Value[17],Trace_Data_Write_Value[18],Trace_Data_Write_Value[19],Trace_Data_Write_Value[20],Trace_Data_Write_Value[21],Trace_Data_Write_Value[22],Trace_Data_Write_Value[23],Trace_Data_Write_Value[24],Trace_Data_Write_Value[25],Trace_Data_Write_Value[26],Trace_Data_Write_Value[27],Trace_Data_Write_Value[28],Trace_Data_Write_Value[29],Trace_Data_Write_Value[30],Trace_Data_Write_Value[31],Trace_Data_Byte_Enable[0],Trace_Data_Byte_Enable[1],Trace_Data_Byte_Enable[2],Trace_Data_Byte_Enable[3],Trace_Data_Access,Trace_Data_Read,Trace_Data_Write}),
+        .D({\^LOCKSTEP_Master_Out [10],IFetch,I_AS,Instr_Addr[0],Instr_Addr[1],Instr_Addr[2],Instr_Addr[3],Instr_Addr[4],Instr_Addr[5],Instr_Addr[6],Instr_Addr[7],Instr_Addr[8],Instr_Addr[9],Instr_Addr[10],Instr_Addr[11],Instr_Addr[12],Instr_Addr[13],Instr_Addr[14],Instr_Addr[15],Instr_Addr[16],Instr_Addr[17],Instr_Addr[18],Instr_Addr[19],Instr_Addr[20],Instr_Addr[21],Instr_Addr[22],Instr_Addr[23],Instr_Addr[24],Instr_Addr[25],Instr_Addr[26],Instr_Addr[27],Instr_Addr[28],Instr_Addr[29],Instr_Addr[30],Instr_Addr[31],Data_Addr[0],Data_Addr[1],Data_Addr[2],Data_Addr[3],Data_Addr[4],Data_Addr[5],Data_Addr[6],Data_Addr[7],Data_Addr[8],Data_Addr[9],Data_Addr[10],Data_Addr[11],Data_Addr[12],Data_Addr[13],Data_Addr[14],Data_Addr[15],Data_Addr[16],Data_Addr[17],Data_Addr[18],Data_Addr[19],Data_Addr[20],Data_Addr[21],Data_Addr[22],Data_Addr[23],Data_Addr[24],Data_Addr[25],Data_Addr[26],Data_Addr[27],Data_Addr[28],Data_Addr[29],Data_Addr[30],Data_Addr[31],Data_Write[0],Data_Write[1],Data_Write[2],Data_Write[3],Data_Write[4],Data_Write[5],Data_Write[6],Data_Write[7],Data_Write[8],Data_Write[9],Data_Write[10],Data_Write[11],Data_Write[12],Data_Write[13],Data_Write[14],Data_Write[15],Data_Write[16],Data_Write[17],Data_Write[18],Data_Write[19],Data_Write[20],Data_Write[21],Data_Write[22],Data_Write[23],Data_Write[24],Data_Write[25],Data_Write[26],Data_Write[27],Data_Write[28],Data_Write[29],Data_Write[30],Data_Write[31],D_AS,Read_Strobe,Write_Strobe,Byte_Enable[0],Byte_Enable[1],Byte_Enable[2],Byte_Enable[3],M_AXI_DP_ARADDR,M_AXI_DP_AWVALID,M_AXI_DP_WDATA,M_AXI_DP_WSTRB,M_AXI_DP_WVALID,M_AXI_DP_ARVALID,Trace_Instruction[0],Trace_Instruction[1],Trace_Instruction[2],Trace_Instruction[3],Trace_Instruction[4],Trace_Instruction[5],Trace_Instruction[6],Trace_Instruction[7],Trace_Instruction[8],Trace_Instruction[9],Trace_Instruction[10],Trace_Instruction[11],Trace_Instruction[12],Trace_Instruction[13],Trace_Instruction[14],Trace_Instruction[15],Trace_Instruction[16],Trace_Instruction[17],Trace_Instruction[18],Trace_Instruction[19],Trace_Instruction[20],Trace_Instruction[21],Trace_Instruction[22],Trace_Instruction[23],Trace_Instruction[24],Trace_Instruction[25],Trace_Instruction[26],Trace_Instruction[27],Trace_Instruction[28],Trace_Instruction[29],Trace_Instruction[30],Trace_Instruction[31],Trace_Valid_Instr,Trace_PC[0],Trace_PC[1],Trace_PC[2],Trace_PC[3],Trace_PC[4],Trace_PC[5],Trace_PC[6],Trace_PC[7],Trace_PC[8],Trace_PC[9],Trace_PC[10],Trace_PC[11],Trace_PC[12],Trace_PC[13],Trace_PC[14],Trace_PC[15],Trace_PC[16],Trace_PC[17],Trace_PC[18],Trace_PC[19],Trace_PC[20],Trace_PC[21],Trace_PC[22],Trace_PC[23],Trace_PC[24],Trace_PC[25],Trace_PC[26],Trace_PC[27],Trace_PC[28],Trace_PC[29],Trace_PC[30],Trace_PC[31],Trace_Reg_Write,Trace_Reg_Addr[0],Trace_Reg_Addr[1],Trace_Reg_Addr[2],Trace_Reg_Addr[3],Trace_Reg_Addr[4],\^Trace_MSR_Reg [8],\^Trace_MSR_Reg [11],\^Trace_MSR_Reg [12],\^Trace_MSR_Reg [13],Trace_New_Reg_Value[0],Trace_New_Reg_Value[1],Trace_New_Reg_Value[2],Trace_New_Reg_Value[3],Trace_New_Reg_Value[4],Trace_New_Reg_Value[5],Trace_New_Reg_Value[6],Trace_New_Reg_Value[7],Trace_New_Reg_Value[8],Trace_New_Reg_Value[9],Trace_New_Reg_Value[10],Trace_New_Reg_Value[11],Trace_New_Reg_Value[12],Trace_New_Reg_Value[13],Trace_New_Reg_Value[14],Trace_New_Reg_Value[15],Trace_New_Reg_Value[16],Trace_New_Reg_Value[17],Trace_New_Reg_Value[18],Trace_New_Reg_Value[19],Trace_New_Reg_Value[20],Trace_New_Reg_Value[21],Trace_New_Reg_Value[22],Trace_New_Reg_Value[23],Trace_New_Reg_Value[24],Trace_New_Reg_Value[25],Trace_New_Reg_Value[26],Trace_New_Reg_Value[27],Trace_New_Reg_Value[28],Trace_New_Reg_Value[29],Trace_New_Reg_Value[30],Trace_New_Reg_Value[31],Trace_Exception_Taken,\^Trace_Exception_Kind [1],\^Trace_Exception_Kind [3],\^Trace_Exception_Kind [4],Trace_Jump_Taken,Trace_Delay_Slot,Trace_Data_Address[0],Trace_Data_Address[1],Trace_Data_Address[2],Trace_Data_Address[3],Trace_Data_Address[4],Trace_Data_Address[5],Trace_Data_Address[6],Trace_Data_Address[7],Trace_Data_Address[8],Trace_Data_Address[9],Trace_Data_Address[10],Trace_Data_Address[11],Trace_Data_Address[12],Trace_Data_Address[13],Trace_Data_Address[14],Trace_Data_Address[15],Trace_Data_Address[16],Trace_Data_Address[17],Trace_Data_Address[18],Trace_Data_Address[19],Trace_Data_Address[20],Trace_Data_Address[21],Trace_Data_Address[22],Trace_Data_Address[23],Trace_Data_Address[24],Trace_Data_Address[25],Trace_Data_Address[26],Trace_Data_Address[27],Trace_Data_Address[28],Trace_Data_Address[29],Trace_Data_Address[30],Trace_Data_Address[31],Trace_Data_Write_Value[0],Trace_Data_Write_Value[1],Trace_Data_Write_Value[2],Trace_Data_Write_Value[3],Trace_Data_Write_Value[4],Trace_Data_Write_Value[5],Trace_Data_Write_Value[6],Trace_Data_Write_Value[7],Trace_Data_Write_Value[8],Trace_Data_Write_Value[9],Trace_Data_Write_Value[10],Trace_Data_Write_Value[11],Trace_Data_Write_Value[12],Trace_Data_Write_Value[13],Trace_Data_Write_Value[14],Trace_Data_Write_Value[15],Trace_Data_Write_Value[16],Trace_Data_Write_Value[17],Trace_Data_Write_Value[18],Trace_Data_Write_Value[19],Trace_Data_Write_Value[20],Trace_Data_Write_Value[21],Trace_Data_Write_Value[22],Trace_Data_Write_Value[23],Trace_Data_Write_Value[24],Trace_Data_Write_Value[25],Trace_Data_Write_Value[26],Trace_Data_Write_Value[27],Trace_Data_Write_Value[28],Trace_Data_Write_Value[29],Trace_Data_Write_Value[30],Trace_Data_Write_Value[31],Trace_Data_Byte_Enable[0],Trace_Data_Byte_Enable[1],Trace_Data_Byte_Enable[2],Trace_Data_Byte_Enable[3],Trace_Data_Access,Trace_Data_Read,Trace_Data_Write}),
+        .DReady(DReady),
+        .DWait(DWait),
+        .Data_Read(Data_Read),
         .Data_Read_Reg_En(Data_Read_Reg_En),
         .Dbg_Capture(Dbg_Capture),
         .Dbg_Clk(Dbg_Clk),
         .Dbg_Reg_En(Dbg_Reg_En),
-        .Dbg_Reg_En_0_sp_1(MicroBlaze_Core_I_n_341),
+        .Dbg_Reg_En_0_sp_1(MicroBlaze_Core_I_n_413),
         .Dbg_Shift(Dbg_Shift),
         .Dbg_Stop(Dbg_Stop),
         .Dbg_TDI(Dbg_TDI),
@@ -63361,7 +63364,8 @@ module design_1_microblaze_0_1_MicroBlaze
         .Dbg_Update(Dbg_Update),
         .Debug_Rst(Debug_Rst),
         .Hibernate(Hibernate),
-        .IWAIT(IWAIT),
+        .IReady(IReady),
+        .Instr(Instr),
         .Interrupt(Interrupt),
         .Interrupt_Ack(Interrupt_Ack),
         .Interrupt_Address(Interrupt_Address),
@@ -63372,9 +63376,6 @@ module design_1_microblaze_0_1_MicroBlaze
         .M_AXI_DP_RDATA(M_AXI_DP_RDATA),
         .M_AXI_DP_RVALID(M_AXI_DP_RVALID),
         .M_AXI_DP_WREADY(M_AXI_DP_WREADY),
-        .M_AXI_IP_ARREADY(M_AXI_IP_ARREADY),
-        .M_AXI_IP_RDATA(M_AXI_IP_RDATA),
-        .M_AXI_IP_RVALID(M_AXI_IP_RVALID),
         .Mb_Reset(Mb_Reset),
         .Pause(Pause),
         .Pause_Ack(Pause_Ack),
@@ -63421,9 +63422,6 @@ module design_1_microblaze_0_1_MicroBlaze_Core
     Reset,
     Mb_Reset,
     Debug_Rst,
-    IWAIT,
-    M_AXI_IP_RVALID,
-    M_AXI_IP_ARREADY,
     Interrupt,
     M_AXI_DP_BVALID,
     M_AXI_DP_RVALID,
@@ -63433,22 +63431,26 @@ module design_1_microblaze_0_1_MicroBlaze_Core
     Reset_Mode,
     Data_Read_Reg_En,
     Config_Reg_En,
+    IReady,
     Dbg_Shift,
+    DReady,
+    DWait,
     Dbg_Reg_En,
     Status_Reg_En,
     Scan_Reset_Sel,
     Scan_Reset,
     Scan_En,
+    Instr,
     M_AXI_DP_RDATA,
     Dbg_TDI,
-    M_AXI_IP_RDATA,
     Interrupt_Address,
+    Data_Read,
     Wakeup);
   output of_pause_reg;
   output mem_div_stall_i_reg;
   output \Using_FPGA.Native ;
   output Pause_Ack;
-  output [288:0]D;
+  output [360:0]D;
   output Sleep;
   output [40:0]LOCKSTEP_Master_Out;
   output Hibernate;
@@ -63469,9 +63471,6 @@ module design_1_microblaze_0_1_MicroBlaze_Core
   input Reset;
   input Mb_Reset;
   input Debug_Rst;
-  input IWAIT;
-  input M_AXI_IP_RVALID;
-  input M_AXI_IP_ARREADY;
   input Interrupt;
   input M_AXI_DP_BVALID;
   input M_AXI_DP_RVALID;
@@ -63481,21 +63480,28 @@ module design_1_microblaze_0_1_MicroBlaze_Core
   input [0:1]Reset_Mode;
   input Data_Read_Reg_En;
   input Config_Reg_En;
+  input IReady;
   input Dbg_Shift;
+  input DReady;
+  input DWait;
   input [0:7]Dbg_Reg_En;
   input Status_Reg_En;
   input Scan_Reset_Sel;
   input Scan_Reset;
   input Scan_En;
+  input [0:31]Instr;
   input [31:0]M_AXI_DP_RDATA;
   input Dbg_TDI;
-  input [31:0]M_AXI_IP_RDATA;
   input [0:31]Interrupt_Address;
+  input [0:31]Data_Read;
   input [0:1]Wakeup;
 
   wire Clk;
   wire Config_Reg_En;
-  wire [288:0]D;
+  wire [360:0]D;
+  wire DReady;
+  wire DWait;
+  wire [0:31]Data_Read;
   wire Data_Read_Reg_En;
   wire Dbg_Capture;
   wire Dbg_Clk;
@@ -63512,7 +63518,8 @@ module design_1_microblaze_0_1_MicroBlaze_Core
   wire Dbg_Update;
   wire Debug_Rst;
   wire Hibernate;
-  wire IWAIT;
+  wire IReady;
+  wire [0:31]Instr;
   wire Interrupt;
   wire [0:1]Interrupt_Ack;
   wire [0:31]Interrupt_Address;
@@ -63523,9 +63530,6 @@ module design_1_microblaze_0_1_MicroBlaze_Core
   wire [31:0]M_AXI_DP_RDATA;
   wire M_AXI_DP_RVALID;
   wire M_AXI_DP_WREADY;
-  wire M_AXI_IP_ARREADY;
-  wire [31:0]M_AXI_IP_RDATA;
-  wire M_AXI_IP_RVALID;
   wire Mb_Reset;
   wire Pause;
   wire Pause_Ack;
@@ -63551,6 +63555,9 @@ module design_1_microblaze_0_1_MicroBlaze_Core
        (.Clk(Clk),
         .Config_Reg_En(Config_Reg_En),
         .D(D),
+        .DReady(DReady),
+        .DWait(DWait),
+        .Data_Read(Data_Read),
         .Data_Read_Reg_En(Data_Read_Reg_En),
         .Dbg_Capture(Dbg_Capture),
         .Dbg_Clk(Dbg_Clk),
@@ -63567,7 +63574,8 @@ module design_1_microblaze_0_1_MicroBlaze_Core
         .Dbg_Update(Dbg_Update),
         .E(of_pause_reg),
         .Hibernate(Hibernate),
-        .IWAIT(IWAIT),
+        .IReady(IReady),
+        .Instr(Instr),
         .Interrupt(Interrupt),
         .Interrupt_Ack(Interrupt_Ack),
         .Interrupt_Address(Interrupt_Address),
@@ -63578,9 +63586,6 @@ module design_1_microblaze_0_1_MicroBlaze_Core
         .M_AXI_DP_RDATA(M_AXI_DP_RDATA),
         .M_AXI_DP_RVALID(M_AXI_DP_RVALID),
         .M_AXI_DP_WREADY(M_AXI_DP_WREADY),
-        .M_AXI_IP_ARREADY(M_AXI_IP_ARREADY),
-        .M_AXI_IP_RDATA(M_AXI_IP_RDATA),
-        .M_AXI_IP_RVALID(M_AXI_IP_RVALID),
         .Pause(Pause),
         .Pause_Ack(Pause_Ack),
         .Reset_Mode(Reset_Mode),
@@ -63650,9 +63655,6 @@ module design_1_microblaze_0_1_MicroBlaze_GTi
     Dbg_Update,
     Dbg_Stop,
     Dbg_Capture,
-    IWAIT,
-    M_AXI_IP_RVALID,
-    M_AXI_IP_ARREADY,
     Interrupt,
     M_AXI_DP_BVALID,
     M_AXI_DP_RVALID,
@@ -63662,22 +63664,26 @@ module design_1_microblaze_0_1_MicroBlaze_GTi
     Reset_Mode,
     Data_Read_Reg_En,
     Config_Reg_En,
+    IReady,
     Dbg_Shift,
+    DReady,
+    DWait,
     Dbg_Reg_En,
     wakeup_i,
     Status_Reg_En,
     Scan_Reset_Sel,
     Scan_Reset,
     Scan_En,
+    Instr,
     M_AXI_DP_RDATA,
     Dbg_TDI,
-    M_AXI_IP_RDATA,
-    Interrupt_Address);
+    Interrupt_Address,
+    Data_Read);
   output [0:0]E;
   output [0:0]mem_div_stall_i_reg;
   output [0:0]\Using_FPGA.Native ;
   output Pause_Ack;
-  output [288:0]D;
+  output [360:0]D;
   output Sleep;
   output [40:0]LOCKSTEP_Master_Out;
   output Hibernate;
@@ -63696,9 +63702,6 @@ module design_1_microblaze_0_1_MicroBlaze_GTi
   input Dbg_Update;
   input Dbg_Stop;
   input Dbg_Capture;
-  input IWAIT;
-  input M_AXI_IP_RVALID;
-  input M_AXI_IP_ARREADY;
   input Interrupt;
   input M_AXI_DP_BVALID;
   input M_AXI_DP_RVALID;
@@ -63708,25 +63711,32 @@ module design_1_microblaze_0_1_MicroBlaze_GTi
   input [0:1]Reset_Mode;
   input Data_Read_Reg_En;
   input Config_Reg_En;
+  input IReady;
   input Dbg_Shift;
+  input DReady;
+  input DWait;
   input [0:7]Dbg_Reg_En;
   input [0:1]wakeup_i;
   input Status_Reg_En;
   input Scan_Reset_Sel;
   input Scan_Reset;
   input Scan_En;
+  input [0:31]Instr;
   input [31:0]M_AXI_DP_RDATA;
   input Dbg_TDI;
-  input [31:0]M_AXI_IP_RDATA;
   input [0:31]Interrupt_Address;
+  input [0:31]Data_Read;
 
   wire \ALU_I/DI ;
+  wire \Byte_Doublet_Handle_gti_I/WB_Steered_Read_Data1__0 ;
   wire [0:0]\Byte_Doublet_Handle_gti_I/wb_read_lsb_1_sel ;
   wire [0:1]\Byte_Doublet_Handle_gti_I/wb_read_lsb_sel ;
   wire \Byte_Doublet_Handle_gti_I/wb_read_msb_doublet_sel ;
   wire Clk;
   wire Config_Reg_En;
-  wire [288:0]D;
+  wire [360:0]D;
+  wire DReady;
+  wire DWait;
   wire Data_Flow_I_n_0;
   wire Data_Flow_I_n_1;
   wire Data_Flow_I_n_10;
@@ -63735,51 +63745,51 @@ module design_1_microblaze_0_1_MicroBlaze_GTi
   wire Data_Flow_I_n_13;
   wire Data_Flow_I_n_14;
   wire Data_Flow_I_n_15;
-  wire Data_Flow_I_n_150;
-  wire Data_Flow_I_n_151;
-  wire Data_Flow_I_n_153;
-  wire Data_Flow_I_n_155;
-  wire Data_Flow_I_n_156;
-  wire Data_Flow_I_n_157;
-  wire Data_Flow_I_n_158;
-  wire Data_Flow_I_n_159;
   wire Data_Flow_I_n_16;
-  wire Data_Flow_I_n_160;
-  wire Data_Flow_I_n_161;
-  wire Data_Flow_I_n_162;
-  wire Data_Flow_I_n_163;
-  wire Data_Flow_I_n_164;
-  wire Data_Flow_I_n_165;
-  wire Data_Flow_I_n_166;
-  wire Data_Flow_I_n_167;
-  wire Data_Flow_I_n_168;
-  wire Data_Flow_I_n_169;
   wire Data_Flow_I_n_17;
-  wire Data_Flow_I_n_170;
-  wire Data_Flow_I_n_171;
-  wire Data_Flow_I_n_172;
-  wire Data_Flow_I_n_173;
-  wire Data_Flow_I_n_174;
-  wire Data_Flow_I_n_175;
-  wire Data_Flow_I_n_176;
-  wire Data_Flow_I_n_177;
-  wire Data_Flow_I_n_178;
-  wire Data_Flow_I_n_179;
   wire Data_Flow_I_n_18;
-  wire Data_Flow_I_n_180;
-  wire Data_Flow_I_n_181;
-  wire Data_Flow_I_n_182;
-  wire Data_Flow_I_n_183;
-  wire Data_Flow_I_n_184;
-  wire Data_Flow_I_n_185;
-  wire Data_Flow_I_n_186;
-  wire Data_Flow_I_n_187;
   wire Data_Flow_I_n_19;
+  wire Data_Flow_I_n_194;
+  wire Data_Flow_I_n_195;
+  wire Data_Flow_I_n_197;
+  wire Data_Flow_I_n_199;
   wire Data_Flow_I_n_2;
   wire Data_Flow_I_n_20;
+  wire Data_Flow_I_n_200;
+  wire Data_Flow_I_n_201;
+  wire Data_Flow_I_n_202;
+  wire Data_Flow_I_n_203;
+  wire Data_Flow_I_n_204;
+  wire Data_Flow_I_n_205;
+  wire Data_Flow_I_n_206;
+  wire Data_Flow_I_n_207;
+  wire Data_Flow_I_n_208;
+  wire Data_Flow_I_n_209;
   wire Data_Flow_I_n_21;
+  wire Data_Flow_I_n_210;
+  wire Data_Flow_I_n_211;
+  wire Data_Flow_I_n_212;
+  wire Data_Flow_I_n_213;
+  wire Data_Flow_I_n_214;
+  wire Data_Flow_I_n_215;
+  wire Data_Flow_I_n_216;
+  wire Data_Flow_I_n_217;
+  wire Data_Flow_I_n_218;
+  wire Data_Flow_I_n_219;
   wire Data_Flow_I_n_22;
+  wire Data_Flow_I_n_220;
+  wire Data_Flow_I_n_221;
+  wire Data_Flow_I_n_222;
+  wire Data_Flow_I_n_223;
+  wire Data_Flow_I_n_224;
+  wire Data_Flow_I_n_225;
+  wire Data_Flow_I_n_226;
+  wire Data_Flow_I_n_227;
+  wire Data_Flow_I_n_228;
+  wire Data_Flow_I_n_229;
   wire Data_Flow_I_n_23;
+  wire Data_Flow_I_n_230;
+  wire Data_Flow_I_n_231;
   wire Data_Flow_I_n_24;
   wire Data_Flow_I_n_25;
   wire Data_Flow_I_n_26;
@@ -63798,6 +63808,7 @@ module design_1_microblaze_0_1_MicroBlaze_GTi
   wire Data_Flow_I_n_9;
   wire \Data_Flow_Logic_I/R ;
   wire \Data_Flow_Logic_I/WB_MEM_Result0 ;
+  wire [0:31]Data_Read;
   wire Data_Read_Reg_En;
   wire Dbg_Capture;
   wire Dbg_Clk;
@@ -63812,53 +63823,40 @@ module design_1_microblaze_0_1_MicroBlaze_GTi
   wire [1:0]Dbg_Trig_In;
   wire [1:0]Dbg_Trig_Out;
   wire Dbg_Update;
-  wire Decode_I_n_176;
-  wire Decode_I_n_248;
-  wire Decode_I_n_249;
-  wire Decode_I_n_252;
-  wire Decode_I_n_253;
-  wire Decode_I_n_254;
-  wire Decode_I_n_258;
-  wire Decode_I_n_259;
-  wire Decode_I_n_260;
-  wire Decode_I_n_261;
-  wire Decode_I_n_296;
-  wire Decode_I_n_297;
-  wire Decode_I_n_298;
-  wire Decode_I_n_299;
-  wire Decode_I_n_300;
-  wire Decode_I_n_301;
-  wire Decode_I_n_302;
-  wire Decode_I_n_303;
-  wire Decode_I_n_304;
+  wire Decode_I_n_235;
   wire Decode_I_n_305;
   wire Decode_I_n_306;
-  wire Decode_I_n_307;
-  wire Decode_I_n_308;
-  wire Decode_I_n_309;
   wire Decode_I_n_310;
   wire Decode_I_n_311;
   wire Decode_I_n_312;
-  wire Decode_I_n_313;
-  wire Decode_I_n_314;
-  wire Decode_I_n_315;
   wire Decode_I_n_316;
   wire Decode_I_n_317;
   wire Decode_I_n_318;
   wire Decode_I_n_319;
-  wire Decode_I_n_320;
-  wire Decode_I_n_321;
-  wire Decode_I_n_322;
-  wire Decode_I_n_323;
-  wire Decode_I_n_324;
-  wire Decode_I_n_325;
-  wire Decode_I_n_326;
-  wire Decode_I_n_329;
-  wire Decode_I_n_332;
-  wire Decode_I_n_333;
-  wire Decode_I_n_336;
-  wire Decode_I_n_339;
-  wire Decode_I_n_340;
+  wire Decode_I_n_354;
+  wire Decode_I_n_355;
+  wire Decode_I_n_356;
+  wire Decode_I_n_357;
+  wire Decode_I_n_358;
+  wire Decode_I_n_359;
+  wire Decode_I_n_360;
+  wire Decode_I_n_361;
+  wire Decode_I_n_362;
+  wire Decode_I_n_363;
+  wire Decode_I_n_364;
+  wire Decode_I_n_365;
+  wire Decode_I_n_366;
+  wire Decode_I_n_367;
+  wire Decode_I_n_368;
+  wire Decode_I_n_369;
+  wire Decode_I_n_370;
+  wire Decode_I_n_371;
+  wire Decode_I_n_372;
+  wire Decode_I_n_373;
+  wire Decode_I_n_374;
+  wire Decode_I_n_375;
+  wire Decode_I_n_376;
+  wire Decode_I_n_377;
   wire Decode_I_n_378;
   wire Decode_I_n_379;
   wire Decode_I_n_380;
@@ -63866,29 +63864,15 @@ module design_1_microblaze_0_1_MicroBlaze_GTi
   wire Decode_I_n_382;
   wire Decode_I_n_383;
   wire Decode_I_n_384;
-  wire Decode_I_n_385;
-  wire Decode_I_n_386;
-  wire Decode_I_n_387;
   wire Decode_I_n_388;
-  wire Decode_I_n_389;
-  wire Decode_I_n_390;
   wire Decode_I_n_391;
   wire Decode_I_n_392;
   wire Decode_I_n_393;
   wire Decode_I_n_394;
   wire Decode_I_n_395;
-  wire Decode_I_n_396;
-  wire Decode_I_n_397;
   wire Decode_I_n_398;
-  wire Decode_I_n_399;
-  wire Decode_I_n_400;
   wire Decode_I_n_401;
   wire Decode_I_n_402;
-  wire Decode_I_n_403;
-  wire Decode_I_n_404;
-  wire Decode_I_n_405;
-  wire Decode_I_n_406;
-  wire Decode_I_n_407;
   wire Decode_I_n_408;
   wire Decode_I_n_409;
   wire Decode_I_n_410;
@@ -63916,17 +63900,25 @@ module design_1_microblaze_0_1_MicroBlaze_GTi
   wire Decode_I_n_432;
   wire Decode_I_n_433;
   wire Decode_I_n_434;
+  wire Decode_I_n_435;
+  wire Decode_I_n_436;
+  wire Decode_I_n_437;
+  wire Decode_I_n_438;
+  wire Decode_I_n_439;
+  wire Decode_I_n_440;
   wire [0:0]E;
   wire EX_ALU_Sel_Logic;
   wire EX_Enable_ALU;
   wire [0:31]EX_Fwd;
   wire Hibernate;
   wire IB_Ready;
-  wire IWAIT;
+  wire IReady;
+  wire [0:31]Instr;
   wire Interrupt;
   wire [0:1]Interrupt_Ack;
   wire [0:31]Interrupt_Address;
   wire [40:0]LOCKSTEP_Master_Out;
+  wire MEM_DataBus_Ready;
   wire [0:31]MEM_Fwd;
   wire [0:31]MEM_PC;
   wire M_AXI_DP_ARREADY;
@@ -63935,9 +63927,6 @@ module design_1_microblaze_0_1_MicroBlaze_GTi
   wire [31:0]M_AXI_DP_RDATA;
   wire M_AXI_DP_RVALID;
   wire M_AXI_DP_WREADY;
-  wire M_AXI_IP_ARREADY;
-  wire [31:0]M_AXI_IP_RDATA;
-  wire M_AXI_IP_RVALID;
   wire \Operand_Select_I/I0 ;
   wire \Operand_Select_I/I1 ;
   wire [0:15]\Operand_Select_I/imm_reg ;
@@ -63949,6 +63938,7 @@ module design_1_microblaze_0_1_MicroBlaze_GTi
   wire [0:0]\PreFetch_Buffer_I1/if_predecode ;
   wire \PreFetch_Buffer_I1/p_1_in49_in ;
   wire [0:1]Reset_Mode;
+  wire SRI;
   wire Scan_En;
   wire Scan_Reset;
   wire Scan_Reset_Sel;
@@ -63958,6 +63948,14 @@ module design_1_microblaze_0_1_MicroBlaze_GTi
   wire Sleep_Out;
   wire Status_Reg_En;
   wire Suspend;
+  wire \Use_DBUS.DAXI_Interface_I1_n_14 ;
+  wire \Use_DBUS.DAXI_Interface_I1_n_15 ;
+  wire \Use_DBUS.DAXI_Interface_I1_n_16 ;
+  wire \Use_DBUS.DAXI_Interface_I1_n_17 ;
+  wire \Use_DBUS.DAXI_Interface_I1_n_18 ;
+  wire \Use_DBUS.DAXI_Interface_I1_n_19 ;
+  wire \Use_DBUS.DAXI_Interface_I1_n_20 ;
+  wire \Use_DBUS.DAXI_Interface_I1_n_21 ;
   wire \Use_DBUS.DAXI_Interface_I1_n_22 ;
   wire \Use_DBUS.DAXI_Interface_I1_n_23 ;
   wire \Use_DBUS.DAXI_Interface_I1_n_24 ;
@@ -63974,14 +63972,6 @@ module design_1_microblaze_0_1_MicroBlaze_GTi
   wire \Use_DBUS.DAXI_Interface_I1_n_35 ;
   wire \Use_DBUS.DAXI_Interface_I1_n_36 ;
   wire \Use_DBUS.DAXI_Interface_I1_n_37 ;
-  wire \Use_DBUS.DAXI_Interface_I1_n_38 ;
-  wire \Use_DBUS.DAXI_Interface_I1_n_39 ;
-  wire \Use_DBUS.DAXI_Interface_I1_n_40 ;
-  wire \Use_DBUS.DAXI_Interface_I1_n_41 ;
-  wire \Use_DBUS.DAXI_Interface_I1_n_42 ;
-  wire \Use_DBUS.DAXI_Interface_I1_n_43 ;
-  wire \Use_DBUS.DAXI_Interface_I1_n_44 ;
-  wire \Use_DBUS.DAXI_Interface_I1_n_45 ;
   wire \Use_Debug_Logic.Master_Core.Debug_Perf_n_38 ;
   wire \Use_Debug_Logic.Master_Core.Debug_Perf_n_39 ;
   wire \Use_Debug_Logic.Master_Core.Debug_Perf_n_40 ;
@@ -64007,7 +63997,7 @@ module design_1_microblaze_0_1_MicroBlaze_GTi
   wire [0:1]ex_alu_op;
   wire ex_byte_access;
   wire ex_cmp_op;
-  wire [0:31]ex_databus_addr;
+  wire [30:31]ex_databus_addr;
   wire ex_div_unsigned;
   wire ex_doublet_access;
   wire ex_exception_no_load_store__0;
@@ -64029,12 +64019,7 @@ module design_1_microblaze_0_1_MicroBlaze_GTi
   wire [0:31]gpr_op1;
   wire [0:31]gpr_op2;
   wire [0:31]gpr_op3;
-  wire [0:31]ib_addr;
-  wire ib_addr_strobe;
   wire [0:31]ib_data;
-  wire ib_fetch;
-  wire [0:31]iext_data;
-  wire iext_data_strobe;
   wire [3:3]if_sel_input;
   wire [0:31]interrupt_address_d1;
   wire lopt;
@@ -64043,7 +64028,6 @@ module design_1_microblaze_0_1_MicroBlaze_GTi
   wire mem_Exception_Taken;
   wire [28:30]mem_MSR;
   wire mem_byte_access;
-  wire mem_databus_Data_Strobe;
   wire mem_databus_access;
   wire mem_databus_read;
   wire mem_databus_write;
@@ -64060,6 +64044,7 @@ module design_1_microblaze_0_1_MicroBlaze_GTi
   wire [0:31]of_pc;
   wire of_write_imm_reg;
   wire p_127_out;
+  wire p_1_out;
   wire p_45_out;
   wire p_4_out__0;
   wire [8:31]swap_result;
@@ -64069,8 +64054,8 @@ module design_1_microblaze_0_1_MicroBlaze_GTi
   wire wb_Halted;
   wire wb_MSR_Clear_IE;
   wire wb_byte_access;
-  wire [0:15]wb_databus_steered_read_data;
-  wire wb_doublet_access;
+  wire [24:31]wb_databus_steered_read_data;
+  wire [0:31]wb_dlmb_valid_read_data;
   wire wb_gpr_wr_dbg;
   wire wb_pc_valid;
   wire wb_piperun;
@@ -64081,7 +64066,7 @@ module design_1_microblaze_0_1_MicroBlaze_GTi
   design_1_microblaze_0_1_Data_Flow_gti Data_Flow_I
        (.ADDRD(D[117:113]),
         .Clk(Clk),
-        .D({\Operand_Select_I/I0 ,Decode_I_n_296,Decode_I_n_297,Decode_I_n_298,Decode_I_n_299,Decode_I_n_300,Decode_I_n_301,Decode_I_n_302,Decode_I_n_303,Decode_I_n_304,Decode_I_n_305,Decode_I_n_306,Decode_I_n_307,Decode_I_n_308,Decode_I_n_309,Decode_I_n_310,Decode_I_n_311,Decode_I_n_312,Decode_I_n_313,Decode_I_n_314,Decode_I_n_315,Decode_I_n_316,Decode_I_n_317,Decode_I_n_318,Decode_I_n_319,Decode_I_n_320,Decode_I_n_321,Decode_I_n_322,Decode_I_n_323,Decode_I_n_324,Decode_I_n_325,Decode_I_n_326}),
+        .D({\Operand_Select_I/I0 ,Decode_I_n_354,Decode_I_n_355,Decode_I_n_356,Decode_I_n_357,Decode_I_n_358,Decode_I_n_359,Decode_I_n_360,Decode_I_n_361,Decode_I_n_362,Decode_I_n_363,Decode_I_n_364,Decode_I_n_365,Decode_I_n_366,Decode_I_n_367,Decode_I_n_368,Decode_I_n_369,Decode_I_n_370,Decode_I_n_371,Decode_I_n_372,Decode_I_n_373,Decode_I_n_374,Decode_I_n_375,Decode_I_n_376,Decode_I_n_377,Decode_I_n_378,Decode_I_n_379,Decode_I_n_380,Decode_I_n_381,Decode_I_n_382,Decode_I_n_383,Decode_I_n_384}),
         .DI(D[119]),
         .DI_0(\ALU_I/DI ),
         .E(of_write_imm_reg),
@@ -64091,40 +64076,41 @@ module design_1_microblaze_0_1_MicroBlaze_GTi
         .EX_Enable_ALU(EX_Enable_ALU),
         .EX_Fwd(EX_Fwd),
         .\EX_Op1_reg[0] ({Data_Flow_I_n_0,Data_Flow_I_n_1,Data_Flow_I_n_2,Data_Flow_I_n_3,Data_Flow_I_n_4,Data_Flow_I_n_5,Data_Flow_I_n_6,Data_Flow_I_n_7,Data_Flow_I_n_8,Data_Flow_I_n_9,Data_Flow_I_n_10,Data_Flow_I_n_11,Data_Flow_I_n_12,Data_Flow_I_n_13,Data_Flow_I_n_14,Data_Flow_I_n_15,Data_Flow_I_n_16,Data_Flow_I_n_17,Data_Flow_I_n_18,Data_Flow_I_n_19,Data_Flow_I_n_20,Data_Flow_I_n_21,Data_Flow_I_n_22,Data_Flow_I_n_23,Data_Flow_I_n_24,Data_Flow_I_n_25,Data_Flow_I_n_26,Data_Flow_I_n_27,Data_Flow_I_n_28,Data_Flow_I_n_29,Data_Flow_I_n_30,Data_Flow_I_n_31}),
-        .\EX_Op1_reg[10] (Decode_I_n_414),
-        .\EX_Op1_reg[11] (Decode_I_n_412),
-        .\EX_Op1_reg[12] (Decode_I_n_410),
-        .\EX_Op1_reg[13] (Decode_I_n_408),
-        .\EX_Op1_reg[14] (Decode_I_n_418),
-        .\EX_Op1_reg[15] (Decode_I_n_431),
-        .\EX_Op1_reg[16] (Decode_I_n_430),
-        .\EX_Op1_reg[17] (Decode_I_n_429),
-        .\EX_Op1_reg[18] (Decode_I_n_428),
-        .\EX_Op1_reg[19] (Decode_I_n_427),
-        .\EX_Op1_reg[1] (Decode_I_n_415),
-        .\EX_Op1_reg[20] (Decode_I_n_426),
-        .\EX_Op1_reg[21] (Decode_I_n_425),
-        .\EX_Op1_reg[22] (Decode_I_n_424),
-        .\EX_Op1_reg[23] (Decode_I_n_423),
+        .\EX_Op1_reg[10] (Decode_I_n_428),
+        .\EX_Op1_reg[11] (Decode_I_n_425),
+        .\EX_Op1_reg[12] (Decode_I_n_423),
+        .\EX_Op1_reg[13] (Decode_I_n_421),
+        .\EX_Op1_reg[14] (Decode_I_n_433),
+        .\EX_Op1_reg[15] (Decode_I_n_435),
+        .\EX_Op1_reg[16] (Decode_I_n_437),
+        .\EX_Op1_reg[17] (Decode_I_n_412),
+        .\EX_Op1_reg[18] (Decode_I_n_417),
+        .\EX_Op1_reg[19] (Decode_I_n_416),
+        .\EX_Op1_reg[1] (Decode_I_n_430),
+        .\EX_Op1_reg[20] (Decode_I_n_415),
+        .\EX_Op1_reg[21] (Decode_I_n_414),
+        .\EX_Op1_reg[22] (Decode_I_n_413),
+        .\EX_Op1_reg[23] (Decode_I_n_419),
         .\EX_Op1_reg[24] (Data_Flow_I_n_33),
-        .\EX_Op1_reg[24]_0 (Decode_I_n_422),
-        .\EX_Op1_reg[25] (Decode_I_n_261),
-        .\EX_Op1_reg[26] (Decode_I_n_421),
-        .\EX_Op1_reg[27] (Decode_I_n_420),
-        .\EX_Op1_reg[28] (Decode_I_n_260),
-        .\EX_Op1_reg[29] (Data_Flow_I_n_153),
-        .\EX_Op1_reg[29]_0 (Decode_I_n_259),
-        .\EX_Op1_reg[2] (Decode_I_n_413),
-        .\EX_Op1_reg[30] (Decode_I_n_258),
-        .\EX_Op1_reg[31] (Decode_I_n_432),
-        .\EX_Op1_reg[3] (Decode_I_n_411),
-        .\EX_Op1_reg[4] (Decode_I_n_409),
-        .\EX_Op1_reg[5] (Decode_I_n_407),
-        .\EX_Op1_reg[6] (Decode_I_n_417),
-        .\EX_Op1_reg[7] (Decode_I_n_419),
-        .\EX_Op1_reg[8] (Decode_I_n_406),
-        .\EX_Op1_reg[9] (Decode_I_n_416),
-        .\EX_Op2_reg[0] ({\Operand_Select_I/of_op2 [0],\Operand_Select_I/of_op2 [1],\Operand_Select_I/of_op2 [2],\Operand_Select_I/of_op2 [3],\Operand_Select_I/of_op2 [4],\Operand_Select_I/of_op2 [5],\Operand_Select_I/of_op2 [6],\Operand_Select_I/of_op2 [7],\Operand_Select_I/of_op2 [8],\Operand_Select_I/of_op2 [9],\Operand_Select_I/of_op2 [10],\Operand_Select_I/of_op2 [11],\Operand_Select_I/of_op2 [12],\Operand_Select_I/of_op2 [13],\Operand_Select_I/of_op2 [14],\Operand_Select_I/of_op2 [15],\Operand_Select_I/of_op2 [16],\Operand_Select_I/of_op2 [17],\Operand_Select_I/of_op2 [18],\Operand_Select_I/of_op2 [19],\Operand_Select_I/of_op2 [20],\Operand_Select_I/of_op2 [21],\Operand_Select_I/of_op2 [22],\Operand_Select_I/of_op2 [23],\Operand_Select_I/of_op2 [24],\Operand_Select_I/of_op2 [25],\Operand_Select_I/of_op2 [26],\Operand_Select_I/of_op2 [27],\Operand_Select_I/of_op2 [28],\Operand_Select_I/of_op2 [29],\Operand_Select_I/of_op2 [30],\Operand_Select_I/of_op2 [31]}),
+        .\EX_Op1_reg[24]_0 (Decode_I_n_436),
+        .\EX_Op1_reg[25] (Decode_I_n_319),
+        .\EX_Op1_reg[26] (Decode_I_n_429),
+        .\EX_Op1_reg[27] (Decode_I_n_426),
+        .\EX_Op1_reg[28] (Decode_I_n_318),
+        .\EX_Op1_reg[29] (Data_Flow_I_n_197),
+        .\EX_Op1_reg[29]_0 (Decode_I_n_317),
+        .\EX_Op1_reg[2] (Decode_I_n_427),
+        .\EX_Op1_reg[30] (Decode_I_n_316),
+        .\EX_Op1_reg[31] (Decode_I_n_438),
+        .\EX_Op1_reg[3] (Decode_I_n_424),
+        .\EX_Op1_reg[4] (Decode_I_n_422),
+        .\EX_Op1_reg[5] (Decode_I_n_420),
+        .\EX_Op1_reg[6] (Decode_I_n_432),
+        .\EX_Op1_reg[7] (Decode_I_n_434),
+        .\EX_Op1_reg[8] (Decode_I_n_418),
+        .\EX_Op1_reg[9] (Decode_I_n_431),
+        .\EX_Op2_reg[0] ({D[325:294],D[277:270],D[258:255],D[221:186],D[150],D[112:77]}),
+        .\EX_Op2_reg[0]_0 ({\Operand_Select_I/of_op2 [0],\Operand_Select_I/of_op2 [1],\Operand_Select_I/of_op2 [2],\Operand_Select_I/of_op2 [3],\Operand_Select_I/of_op2 [4],\Operand_Select_I/of_op2 [5],\Operand_Select_I/of_op2 [6],\Operand_Select_I/of_op2 [7],\Operand_Select_I/of_op2 [8],\Operand_Select_I/of_op2 [9],\Operand_Select_I/of_op2 [10],\Operand_Select_I/of_op2 [11],\Operand_Select_I/of_op2 [12],\Operand_Select_I/of_op2 [13],\Operand_Select_I/of_op2 [14],\Operand_Select_I/of_op2 [15],\Operand_Select_I/of_op2 [16],\Operand_Select_I/of_op2 [17],\Operand_Select_I/of_op2 [18],\Operand_Select_I/of_op2 [19],\Operand_Select_I/of_op2 [20],\Operand_Select_I/of_op2 [21],\Operand_Select_I/of_op2 [22],\Operand_Select_I/of_op2 [23],\Operand_Select_I/of_op2 [24],\Operand_Select_I/of_op2 [25],\Operand_Select_I/of_op2 [26],\Operand_Select_I/of_op2 [27],\Operand_Select_I/of_op2 [28],\Operand_Select_I/of_op2 [29],\Operand_Select_I/of_op2 [30],\Operand_Select_I/of_op2 [31]}),
         .\EX_Op3_reg[0] ({ex_op3[0],ex_op3[1],ex_op3[2],ex_op3[3],ex_op3[4],ex_op3[5],ex_op3[6],ex_op3[7],ex_op3[8],ex_op3[9],ex_op3[10],ex_op3[11],ex_op3[12],ex_op3[13],ex_op3[14],ex_op3[15],ex_op3[16],ex_op3[17],ex_op3[18],ex_op3[19],ex_op3[20],ex_op3[21],ex_op3[22],ex_op3[23],ex_op3[24],ex_op3[25],ex_op3[26],ex_op3[27],ex_op3[28],ex_op3[29],ex_op3[30],ex_op3[31]}),
         .\EX_Op3_reg[0]_0 ({\Operand_Select_I/of_op3 [0],\Operand_Select_I/of_op3 [1],\Operand_Select_I/of_op3 [2],\Operand_Select_I/of_op3 [3],\Operand_Select_I/of_op3 [4],\Operand_Select_I/of_op3 [5],\Operand_Select_I/of_op3 [6],\Operand_Select_I/of_op3 [7],\Operand_Select_I/of_op3 [8],\Operand_Select_I/of_op3 [9],\Operand_Select_I/of_op3 [10],\Operand_Select_I/of_op3 [11],\Operand_Select_I/of_op3 [12],\Operand_Select_I/of_op3 [13],\Operand_Select_I/of_op3 [14],\Operand_Select_I/of_op3 [15],\Operand_Select_I/of_op3 [16],\Operand_Select_I/of_op3 [17],\Operand_Select_I/of_op3 [18],\Operand_Select_I/of_op3 [19],\Operand_Select_I/of_op3 [20],\Operand_Select_I/of_op3 [21],\Operand_Select_I/of_op3 [22],\Operand_Select_I/of_op3 [23],\Operand_Select_I/of_op3 [24],\Operand_Select_I/of_op3 [25],\Operand_Select_I/of_op3 [26],\Operand_Select_I/of_op3 [27],\Operand_Select_I/of_op3 [28],\Operand_Select_I/of_op3 [29],\Operand_Select_I/of_op3 [30],\Operand_Select_I/of_op3 [31]}),
         .\FPGA_Impl1.D_Handle[0].D_Sel_reg (\Using_Div_Unit.Div_unit_I1/FPGA_Impl1.D_Handle[0].D_Sel_reg ),
@@ -64134,39 +64120,38 @@ module design_1_microblaze_0_1_MicroBlaze_GTi
         .I1(\Operand_Select_I/I1 ),
         .I1_1(\exception_registers_I1/I1 ),
         .LO(ex_alu_carry_32),
+        .\LOCKSTEP_Out_reg[3007] (\Use_DBUS.DAXI_Interface_I1_n_37 ),
+        .\LOCKSTEP_Out_reg[3008] (\Use_DBUS.DAXI_Interface_I1_n_36 ),
+        .\LOCKSTEP_Out_reg[3009] (\Use_DBUS.DAXI_Interface_I1_n_35 ),
+        .\LOCKSTEP_Out_reg[3010] (\Use_DBUS.DAXI_Interface_I1_n_34 ),
+        .\LOCKSTEP_Out_reg[3011] (\Use_DBUS.DAXI_Interface_I1_n_33 ),
+        .\LOCKSTEP_Out_reg[3012] (\Use_DBUS.DAXI_Interface_I1_n_32 ),
+        .\LOCKSTEP_Out_reg[3013] (\Use_DBUS.DAXI_Interface_I1_n_31 ),
+        .\LOCKSTEP_Out_reg[3014] (\Use_DBUS.DAXI_Interface_I1_n_30 ),
+        .\LOCKSTEP_Out_reg[3015] (\Use_DBUS.DAXI_Interface_I1_n_29 ),
         .\LOCKSTEP_Out_reg[3016] (D[76]),
-        .\LOCKSTEP_Out_reg[3023] (\Use_DBUS.DAXI_Interface_I1_n_38 ),
-        .\LOCKSTEP_Out_reg[3024] (\Use_DBUS.DAXI_Interface_I1_n_39 ),
-        .\LOCKSTEP_Out_reg[3025] (\Use_DBUS.DAXI_Interface_I1_n_40 ),
-        .\LOCKSTEP_Out_reg[3026] (\Use_DBUS.DAXI_Interface_I1_n_41 ),
-        .\LOCKSTEP_Out_reg[3027] (\Use_DBUS.DAXI_Interface_I1_n_42 ),
-        .\LOCKSTEP_Out_reg[3028] (\Use_DBUS.DAXI_Interface_I1_n_43 ),
-        .\LOCKSTEP_Out_reg[3029] (\Use_DBUS.DAXI_Interface_I1_n_44 ),
-        .\LOCKSTEP_Out_reg[3030] (\Use_DBUS.DAXI_Interface_I1_n_45 ),
-        .\LOCKSTEP_Out_reg[3031] (\Use_DBUS.DAXI_Interface_I1_n_29 ),
-        .\LOCKSTEP_Out_reg[3031]_0 (\Use_DBUS.DAXI_Interface_I1_n_22 ),
-        .\LOCKSTEP_Out_reg[3032] (\Use_DBUS.DAXI_Interface_I1_n_30 ),
-        .\LOCKSTEP_Out_reg[3032]_0 (\Use_DBUS.DAXI_Interface_I1_n_23 ),
-        .\LOCKSTEP_Out_reg[3033] (\Use_DBUS.DAXI_Interface_I1_n_31 ),
-        .\LOCKSTEP_Out_reg[3033]_0 (\Use_DBUS.DAXI_Interface_I1_n_24 ),
-        .\LOCKSTEP_Out_reg[3034] (\Use_DBUS.DAXI_Interface_I1_n_32 ),
-        .\LOCKSTEP_Out_reg[3034]_0 (\Use_DBUS.DAXI_Interface_I1_n_25 ),
-        .\LOCKSTEP_Out_reg[3035] (\Use_DBUS.DAXI_Interface_I1_n_33 ),
-        .\LOCKSTEP_Out_reg[3035]_0 (\Use_DBUS.DAXI_Interface_I1_n_26 ),
-        .\LOCKSTEP_Out_reg[3036] (\Use_DBUS.DAXI_Interface_I1_n_34 ),
-        .\LOCKSTEP_Out_reg[3036]_0 (\Use_DBUS.DAXI_Interface_I1_n_27 ),
-        .\LOCKSTEP_Out_reg[3037] (\Use_DBUS.DAXI_Interface_I1_n_35 ),
-        .\LOCKSTEP_Out_reg[3037]_0 (\Use_DBUS.DAXI_Interface_I1_n_28 ),
-        .\LOCKSTEP_Out_reg[3038] (\Use_DBUS.DAXI_Interface_I1_n_36 ),
-        .\LOCKSTEP_Out_reg[3038]_0 (\Use_DBUS.DAXI_Interface_I1_n_37 ),
-        .\MEM_DataBus_Write_Data_reg[0] ({D[221:186],D[150],D[112:77]}),
-        .\MEM_DataBus_Write_Data_reg[0]_0 ({Decode_I_n_379,Decode_I_n_380,Decode_I_n_381,Decode_I_n_382,Decode_I_n_383,Decode_I_n_384,Decode_I_n_385,Decode_I_n_386,Decode_I_n_387,Decode_I_n_388,Decode_I_n_389,Decode_I_n_390,Decode_I_n_391,Decode_I_n_392,Decode_I_n_393,Decode_I_n_394,Decode_I_n_395,Decode_I_n_396,Decode_I_n_397,Decode_I_n_398,Decode_I_n_399,Decode_I_n_400,Decode_I_n_401,Decode_I_n_402}),
+        .\LOCKSTEP_Out_reg[3016]_0 (\Use_DBUS.DAXI_Interface_I1_n_28 ),
+        .\LOCKSTEP_Out_reg[3017] (\Use_DBUS.DAXI_Interface_I1_n_27 ),
+        .\LOCKSTEP_Out_reg[3018] (\Use_DBUS.DAXI_Interface_I1_n_26 ),
+        .\LOCKSTEP_Out_reg[3019] (\Use_DBUS.DAXI_Interface_I1_n_25 ),
+        .\LOCKSTEP_Out_reg[3020] (\Use_DBUS.DAXI_Interface_I1_n_24 ),
+        .\LOCKSTEP_Out_reg[3021] (\Use_DBUS.DAXI_Interface_I1_n_23 ),
+        .\LOCKSTEP_Out_reg[3022] (\Use_DBUS.DAXI_Interface_I1_n_22 ),
+        .\LOCKSTEP_Out_reg[3023] (\Use_DBUS.DAXI_Interface_I1_n_14 ),
+        .\LOCKSTEP_Out_reg[3024] (\Use_DBUS.DAXI_Interface_I1_n_15 ),
+        .\LOCKSTEP_Out_reg[3025] (\Use_DBUS.DAXI_Interface_I1_n_16 ),
+        .\LOCKSTEP_Out_reg[3026] (\Use_DBUS.DAXI_Interface_I1_n_17 ),
+        .\LOCKSTEP_Out_reg[3027] (\Use_DBUS.DAXI_Interface_I1_n_18 ),
+        .\LOCKSTEP_Out_reg[3028] (\Use_DBUS.DAXI_Interface_I1_n_19 ),
+        .\LOCKSTEP_Out_reg[3029] (\Use_DBUS.DAXI_Interface_I1_n_20 ),
+        .\LOCKSTEP_Out_reg[3030] (\Use_DBUS.DAXI_Interface_I1_n_21 ),
+        .\MEM_DataBus_Write_Data_reg[0] ({D[293:278],D[269:262]}),
         .MEM_Div_By_Zero_reg(\Using_FPGA.Native ),
         .MEM_Fwd(MEM_Fwd),
         .\No_Long.Reverse_Mem_Accesses.wb_read_lsb_sel_reg[0] ({\Byte_Doublet_Handle_gti_I/wb_read_lsb_sel [0],\Byte_Doublet_Handle_gti_I/wb_read_lsb_sel [1]}),
         .Q({ex_alu_op[0],ex_alu_op[1]}),
         .R(\Data_Flow_Logic_I/R ),
-        .\R_reg[32] (Decode_I_n_254),
+        .\R_reg[32] (Decode_I_n_312),
         .SR(\Using_Div_Unit.Div_unit_I1/reset_Q ),
         .\Using_FPGA.Native ({mem_MSR[28],mem_MSR[29],mem_MSR[30]}),
         .\Using_FPGA.Native_0 (D[120]),
@@ -64194,19 +64179,19 @@ module design_1_microblaze_0_1_MicroBlaze_GTi
         .\Using_FPGA.Native_29 (D[149]),
         .\Using_FPGA.Native_3 (D[123]),
         .\Using_FPGA.Native_30 (mem_div_stall_i_reg),
-        .\Using_FPGA.Native_31 (Decode_I_n_340),
-        .\Using_FPGA.Native_32 (Decode_I_n_339),
-        .\Using_FPGA.Native_33 (Decode_I_n_329),
-        .\Using_FPGA.Native_34 (Decode_I_n_253),
-        .\Using_FPGA.Native_35 (Decode_I_n_252),
-        .\Using_FPGA.Native_36 (Decode_I_n_249),
-        .\Using_FPGA.Native_37 (Decode_I_n_403),
-        .\Using_FPGA.Native_38 (Decode_I_n_404),
+        .\Using_FPGA.Native_31 (Decode_I_n_402),
+        .\Using_FPGA.Native_32 (Decode_I_n_401),
+        .\Using_FPGA.Native_33 (Decode_I_n_388),
+        .\Using_FPGA.Native_34 (Decode_I_n_311),
+        .\Using_FPGA.Native_35 (Decode_I_n_310),
+        .\Using_FPGA.Native_36 (Decode_I_n_306),
+        .\Using_FPGA.Native_37 (Decode_I_n_409),
+        .\Using_FPGA.Native_38 (Decode_I_n_410),
         .\Using_FPGA.Native_39 (D[75]),
         .\Using_FPGA.Native_4 (D[124]),
         .\Using_FPGA.Native_40 ({MEM_PC[0],MEM_PC[1],MEM_PC[2],MEM_PC[3],MEM_PC[4],MEM_PC[5],MEM_PC[6],MEM_PC[7],MEM_PC[8],MEM_PC[9],MEM_PC[10],MEM_PC[11],MEM_PC[12],MEM_PC[13],MEM_PC[14],MEM_PC[15],MEM_PC[16],MEM_PC[17],MEM_PC[18],MEM_PC[19],MEM_PC[20],MEM_PC[21],MEM_PC[22],MEM_PC[23],MEM_PC[24],MEM_PC[25],MEM_PC[26],MEM_PC[27],MEM_PC[28],MEM_PC[29],MEM_PC[30],MEM_PC[31]}),
-        .\Using_FPGA.Native_41 (Decode_I_n_433),
-        .\Using_FPGA.Native_42 (Decode_I_n_248),
+        .\Using_FPGA.Native_41 (Decode_I_n_439),
+        .\Using_FPGA.Native_42 (Decode_I_n_305),
         .\Using_FPGA.Native_5 (D[125]),
         .\Using_FPGA.Native_6 (D[126]),
         .\Using_FPGA.Native_7 (D[127]),
@@ -64215,13 +64200,14 @@ module design_1_microblaze_0_1_MicroBlaze_GTi
         .\Using_FPGA.Native_i_3__34 ({ex_sext_op[0],ex_sext_op[1]}),
         .WB_GPR_Wr(D[118]),
         .\WB_MEM_Result_reg[31] (\Data_Flow_Logic_I/WB_MEM_Result0 ),
+        .WB_Steered_Read_Data1__0(\Byte_Doublet_Handle_gti_I/WB_Steered_Read_Data1__0 ),
         .\data_rd_reg_reg[9] (\Use_Debug_Logic.Master_Core.Debug_Perf_n_40 ),
         .\data_rd_reg_reg[9]_0 (\Use_Debug_Logic.Master_Core.Debug_Perf_n_39 ),
-        .div_busy_reg(Data_Flow_I_n_150),
+        .div_busy_reg(Data_Flow_I_n_194),
         .ex_MSR({ex_MSR[25],ex_MSR[28],ex_MSR[29],ex_MSR[30]}),
         .ex_byte_access(ex_byte_access),
         .ex_cmp_op(ex_cmp_op),
-        .ex_databus_addr(ex_databus_addr),
+        .ex_databus_addr({ex_databus_addr[30],ex_databus_addr[31]}),
         .ex_div_unsigned(ex_div_unsigned),
         .ex_doublet_access(ex_doublet_access),
         .ex_move_to_MSR_instr(ex_move_to_MSR_instr),
@@ -64235,14 +64221,14 @@ module design_1_microblaze_0_1_MicroBlaze_GTi
         .ex_unsigned_op(ex_unsigned_op),
         .ex_use_carry(ex_use_carry),
         .\imm_reg_reg[0] ({\Operand_Select_I/imm_reg [0],\Operand_Select_I/imm_reg [1],\Operand_Select_I/imm_reg [2],\Operand_Select_I/imm_reg [3],\Operand_Select_I/imm_reg [4],\Operand_Select_I/imm_reg [5],\Operand_Select_I/imm_reg [6],\Operand_Select_I/imm_reg [7],\Operand_Select_I/imm_reg [8],\Operand_Select_I/imm_reg [9],\Operand_Select_I/imm_reg [10],\Operand_Select_I/imm_reg [11],\Operand_Select_I/imm_reg [12],\Operand_Select_I/imm_reg [13],\Operand_Select_I/imm_reg [14],\Operand_Select_I/imm_reg [15]}),
-        .in0(Decode_I_n_378),
+        .in0(Decode_I_n_408),
         .lopt(lopt),
         .lopt_1(lopt_1),
         .lopt_2(lopt_2),
         .mem_byte_access(mem_byte_access),
-        .mem_div_stall_i_reg(Data_Flow_I_n_155),
+        .mem_div_stall_i_reg(Data_Flow_I_n_199),
         .mem_doublet_access(mem_doublet_access),
-        .mem_last_cycle_reg(Data_Flow_I_n_151),
+        .mem_last_cycle_reg(Data_Flow_I_n_195),
         .mem_sel_msr(mem_sel_msr),
         .of_MSR({of_MSR[28],of_MSR[30]}),
         .of_gpr_op1_rd_addr(of_gpr_op1_rd_addr),
@@ -64258,15 +64244,17 @@ module design_1_microblaze_0_1_MicroBlaze_GTi
         .\wb_MSR_i_reg[30] (wb_piperun),
         .\wb_MSR_i_reg[30]_0 (\msr_reg_i/wb_MSR_cmb ),
         .wb_byte_access(wb_byte_access),
-        .wb_databus_steered_read_data({wb_databus_steered_read_data[0],wb_databus_steered_read_data[1],wb_databus_steered_read_data[2],wb_databus_steered_read_data[3],wb_databus_steered_read_data[4],wb_databus_steered_read_data[5],wb_databus_steered_read_data[6],wb_databus_steered_read_data[7],wb_databus_steered_read_data[8],wb_databus_steered_read_data[9],wb_databus_steered_read_data[10],wb_databus_steered_read_data[11],wb_databus_steered_read_data[12],wb_databus_steered_read_data[13],wb_databus_steered_read_data[14],wb_databus_steered_read_data[15]}),
+        .wb_databus_steered_read_data({wb_databus_steered_read_data[24],wb_databus_steered_read_data[25],wb_databus_steered_read_data[26],wb_databus_steered_read_data[27],wb_databus_steered_read_data[28],wb_databus_steered_read_data[29],wb_databus_steered_read_data[30],wb_databus_steered_read_data[31]}),
         .wb_gpr_wr_dbg(wb_gpr_wr_dbg),
-        .wb_gpr_write_dbg_reg({Data_Flow_I_n_156,Data_Flow_I_n_157,Data_Flow_I_n_158,Data_Flow_I_n_159,Data_Flow_I_n_160,Data_Flow_I_n_161,Data_Flow_I_n_162,Data_Flow_I_n_163,Data_Flow_I_n_164,Data_Flow_I_n_165,Data_Flow_I_n_166,Data_Flow_I_n_167,Data_Flow_I_n_168,Data_Flow_I_n_169,Data_Flow_I_n_170,Data_Flow_I_n_171,Data_Flow_I_n_172,Data_Flow_I_n_173,Data_Flow_I_n_174,Data_Flow_I_n_175,Data_Flow_I_n_176,Data_Flow_I_n_177,Data_Flow_I_n_178,Data_Flow_I_n_179,Data_Flow_I_n_180,Data_Flow_I_n_181,Data_Flow_I_n_182,Data_Flow_I_n_183,Data_Flow_I_n_184,Data_Flow_I_n_185,Data_Flow_I_n_186,Data_Flow_I_n_187}),
+        .wb_gpr_write_dbg_reg({Data_Flow_I_n_200,Data_Flow_I_n_201,Data_Flow_I_n_202,Data_Flow_I_n_203,Data_Flow_I_n_204,Data_Flow_I_n_205,Data_Flow_I_n_206,Data_Flow_I_n_207,Data_Flow_I_n_208,Data_Flow_I_n_209,Data_Flow_I_n_210,Data_Flow_I_n_211,Data_Flow_I_n_212,Data_Flow_I_n_213,Data_Flow_I_n_214,Data_Flow_I_n_215,Data_Flow_I_n_216,Data_Flow_I_n_217,Data_Flow_I_n_218,Data_Flow_I_n_219,Data_Flow_I_n_220,Data_Flow_I_n_221,Data_Flow_I_n_222,Data_Flow_I_n_223,Data_Flow_I_n_224,Data_Flow_I_n_225,Data_Flow_I_n_226,Data_Flow_I_n_227,Data_Flow_I_n_228,Data_Flow_I_n_229,Data_Flow_I_n_230,Data_Flow_I_n_231}),
         .wb_read_lsb_1_sel(\Byte_Doublet_Handle_gti_I/wb_read_lsb_1_sel ),
         .wb_read_msb_doublet_sel(\Byte_Doublet_Handle_gti_I/wb_read_msb_doublet_sel ));
   design_1_microblaze_0_1_Decode_gti Decode_I
        (.Clk(Clk),
         .D({of_pc[0],of_pc[1],of_pc[2],of_pc[3],of_pc[4],of_pc[5],of_pc[6],of_pc[7],of_pc[8],of_pc[9],of_pc[10],of_pc[11],of_pc[12],of_pc[13],of_pc[14],of_pc[15],of_pc[16],of_pc[17],of_pc[18],of_pc[19],of_pc[20],of_pc[21],of_pc[22],of_pc[23],of_pc[24],of_pc[25],of_pc[26],of_pc[27],of_pc[28],of_pc[29],of_pc[30],of_pc[31]}),
         .DI(\ALU_I/DI ),
+        .DReady(DReady),
+        .DWait(DWait),
         .\D_reg[0] ({Data_Flow_I_n_0,Data_Flow_I_n_1,Data_Flow_I_n_2,Data_Flow_I_n_3,Data_Flow_I_n_4,Data_Flow_I_n_5,Data_Flow_I_n_6,Data_Flow_I_n_7,Data_Flow_I_n_8,Data_Flow_I_n_9,Data_Flow_I_n_10,Data_Flow_I_n_11,Data_Flow_I_n_12,Data_Flow_I_n_13,Data_Flow_I_n_14,Data_Flow_I_n_15,Data_Flow_I_n_16,Data_Flow_I_n_17,Data_Flow_I_n_18,Data_Flow_I_n_19,Data_Flow_I_n_20,Data_Flow_I_n_21,Data_Flow_I_n_22,Data_Flow_I_n_23,Data_Flow_I_n_24,Data_Flow_I_n_25,Data_Flow_I_n_26,Data_Flow_I_n_27,Data_Flow_I_n_28,Data_Flow_I_n_29,Data_Flow_I_n_30,Data_Flow_I_n_31}),
         .E(of_write_imm_reg),
         .\EX_ALU_Op_reg[0]_0 ({ex_alu_op[0],ex_alu_op[1]}),
@@ -64274,7 +64262,6 @@ module design_1_microblaze_0_1_MicroBlaze_GTi
         .EX_Enable_ALU(EX_Enable_ALU),
         .EX_Fwd(EX_Fwd),
         .\EX_Op2[0]_i_2 ({\Operand_Select_I/imm_reg [0],\Operand_Select_I/imm_reg [1],\Operand_Select_I/imm_reg [2],\Operand_Select_I/imm_reg [3],\Operand_Select_I/imm_reg [4],\Operand_Select_I/imm_reg [5],\Operand_Select_I/imm_reg [6],\Operand_Select_I/imm_reg [7],\Operand_Select_I/imm_reg [8],\Operand_Select_I/imm_reg [9],\Operand_Select_I/imm_reg [10],\Operand_Select_I/imm_reg [11],\Operand_Select_I/imm_reg [12],\Operand_Select_I/imm_reg [13],\Operand_Select_I/imm_reg [14],\Operand_Select_I/imm_reg [15]}),
-        .\EX_Op3_reg[0] (D[108:77]),
         .\EX_Sext_Op_reg[0]_0 ({ex_sext_op[0],ex_sext_op[1]}),
         .\FPGA_Impl1.D_Handle[0].D_Sel_reg (\Using_Div_Unit.Div_unit_I1/FPGA_Impl1.D_Handle[0].D_Sel_reg ),
         .GPR_Op1(gpr_op1),
@@ -64285,105 +64272,115 @@ module design_1_microblaze_0_1_MicroBlaze_GTi
         .I139_out(\PreFetch_Buffer_I1/I139_out ),
         .I1_0(\exception_registers_I1/I1 ),
         .IB_Ready(IB_Ready),
+        .IReady(IReady),
         .Interrupt(Interrupt),
         .Interrupt_Ack(Interrupt_Ack),
         .LO(ex_alu_carry_32),
         .LOCKSTEP_Master_Out({LOCKSTEP_Master_Out[40],LOCKSTEP_Master_Out[37],LOCKSTEP_Master_Out[35]}),
+        .\MEM_DataBus_Addr_reg[0]_0 ({D[325:296],D[108:77]}),
+        .MEM_DataBus_Ready(MEM_DataBus_Ready),
         .\MEM_DataBus_Write_Data_reg[0] ({ex_op3[0],ex_op3[1],ex_op3[2],ex_op3[3],ex_op3[4],ex_op3[5],ex_op3[6],ex_op3[7],ex_op3[8],ex_op3[9],ex_op3[10],ex_op3[11],ex_op3[12],ex_op3[13],ex_op3[14],ex_op3[15],ex_op3[16],ex_op3[17],ex_op3[18],ex_op3[19],ex_op3[20],ex_op3[21],ex_op3[22],ex_op3[23],ex_op3[24],ex_op3[25],ex_op3[26],ex_op3[27],ex_op3[28],ex_op3[29],ex_op3[30],ex_op3[31]}),
+        .MEM_DataBus_Write_reg_0(Decode_I_n_392),
+        .MEM_DataBus_Write_reg_1(Decode_I_n_393),
+        .MEM_DataBus_Write_reg_2(Decode_I_n_394),
         .MEM_Fwd(MEM_Fwd),
+        .M_AXI_DP_ARREADY(M_AXI_DP_ARREADY),
+        .M_AXI_DP_AWREADY(M_AXI_DP_AWREADY),
+        .M_AXI_DP_AWVALID_i_reg({D[222],D[185:184]}),
         .M_AXI_DP_BVALID(M_AXI_DP_BVALID),
-        .M_AXI_DP_BVALID_0(Decode_I_n_332),
+        .M_AXI_DP_BVALID_0(Decode_I_n_391),
         .M_AXI_DP_RVALID(M_AXI_DP_RVALID),
+        .M_AXI_DP_WREADY(M_AXI_DP_WREADY),
         .Pause(Pause),
         .Pause_Ack(Pause_Ack),
-        .\Performance_Debug_Control.dbg_freeze_nohalt_reg (Decode_I_n_433),
-        .\Performance_Debug_Control.dbg_state_nohalt_reg ({D[288],D[254:223],D[183:151],D[118:113],D[76:71]}),
+        .\Performance_Debug_Control.dbg_freeze_nohalt_reg (Decode_I_n_439),
+        .\Performance_Debug_Control.dbg_state_nohalt_reg ({D[360:326],D[293:278],D[269:262],D[260:259],D[254:223],D[183:151],D[118:113],D[76:71]}),
         .\Performance_Debug_Control.dbg_stop_instr_fetch_nohalt_reg (\Use_Debug_Logic.Master_Core.Debug_Perf_n_42 ),
         .\Performance_Debug_Control.ex_brki_hit_reg (\Use_Debug_Logic.Master_Core.Debug_Perf_n_55 ),
         .\Performance_Debug_Control.ex_dbg_pc_hit_i_reg (\Use_Debug_Logic.Master_Core.Debug_Perf_n_49 ),
-        .\Performance_Debug_Control.ex_dbg_pc_hit_single_step_reg (Decode_I_n_405),
+        .\Performance_Debug_Control.ex_dbg_pc_hit_single_step_reg (Decode_I_n_411),
         .Q({interrupt_address_d1[0],interrupt_address_d1[1],interrupt_address_d1[2],interrupt_address_d1[3],interrupt_address_d1[4],interrupt_address_d1[5],interrupt_address_d1[6],interrupt_address_d1[7],interrupt_address_d1[8],interrupt_address_d1[9],interrupt_address_d1[10],interrupt_address_d1[11],interrupt_address_d1[12],interrupt_address_d1[13],interrupt_address_d1[14],interrupt_address_d1[15],interrupt_address_d1[16],interrupt_address_d1[17],interrupt_address_d1[18],interrupt_address_d1[19],interrupt_address_d1[20],interrupt_address_d1[21],interrupt_address_d1[22],interrupt_address_d1[23],interrupt_address_d1[24],interrupt_address_d1[25],interrupt_address_d1[26],interrupt_address_d1[27],interrupt_address_d1[28],interrupt_address_d1[29],interrupt_address_d1[30],interrupt_address_d1[31]}),
-        .\Q_reg[32] (Data_Flow_I_n_151),
+        .\Q_reg[32] (Data_Flow_I_n_195),
         .R(\Data_Flow_Logic_I/R ),
-        .\R_reg[32] (Data_Flow_I_n_150),
+        .\R_reg[32] (Data_Flow_I_n_194),
         .Reset_Mode(Reset_Mode),
         .SR(\Using_Div_Unit.Div_unit_I1/reset_Q ),
-        .\Serial_Dbg_Intf.control_reg_reg[8] (Decode_I_n_336),
+        .SRI(SRI),
+        .\Serial_Dbg_Intf.control_reg_reg[8] (Decode_I_n_398),
         .Sleep(Sleep),
         .Sleep_Decode(Sleep_Decode),
         .Sleep_Out(Sleep_Out),
         .Suspend(Suspend),
-        .Trace_WB_Jump_Taken_reg_0(Data_Flow_I_n_155),
+        .Trace_WB_Jump_Taken_reg_0(Data_Flow_I_n_199),
         .\Use_Async_Reset.sync_reset_reg (\Data_Flow_Logic_I/WB_MEM_Result0 ),
         .\Using_FPGA.Native (if_sel_input),
         .\Using_FPGA.Native_0 (\Using_FPGA.Native ),
-        .\Using_FPGA.Native_1 (ib_fetch),
-        .\Using_FPGA.Native_10 (\msr_reg_i/wb_MSR_cmb ),
-        .\Using_FPGA.Native_11 (Decode_I_n_339),
-        .\Using_FPGA.Native_12 (Decode_I_n_340),
-        .\Using_FPGA.Native_13 ({Decode_I_n_379,Decode_I_n_380,Decode_I_n_381,Decode_I_n_382,Decode_I_n_383,Decode_I_n_384,Decode_I_n_385,Decode_I_n_386,Decode_I_n_387,Decode_I_n_388,Decode_I_n_389,Decode_I_n_390,Decode_I_n_391,Decode_I_n_392,Decode_I_n_393,Decode_I_n_394,Decode_I_n_395,Decode_I_n_396,Decode_I_n_397,Decode_I_n_398,Decode_I_n_399,Decode_I_n_400,Decode_I_n_401,Decode_I_n_402}),
-        .\Using_FPGA.Native_14 (Decode_I_n_403),
-        .\Using_FPGA.Native_15 (Decode_I_n_404),
-        .\Using_FPGA.Native_16 (Decode_I_n_406),
-        .\Using_FPGA.Native_17 (Decode_I_n_407),
-        .\Using_FPGA.Native_18 (Decode_I_n_408),
-        .\Using_FPGA.Native_19 (Decode_I_n_409),
-        .\Using_FPGA.Native_2 (Decode_I_n_249),
-        .\Using_FPGA.Native_20 (Decode_I_n_410),
-        .\Using_FPGA.Native_21 (Decode_I_n_411),
-        .\Using_FPGA.Native_22 (Decode_I_n_412),
-        .\Using_FPGA.Native_23 (Decode_I_n_413),
-        .\Using_FPGA.Native_24 (Decode_I_n_414),
-        .\Using_FPGA.Native_25 (Decode_I_n_415),
-        .\Using_FPGA.Native_26 (Decode_I_n_416),
-        .\Using_FPGA.Native_27 (Decode_I_n_417),
-        .\Using_FPGA.Native_28 (Decode_I_n_418),
-        .\Using_FPGA.Native_29 (Decode_I_n_419),
-        .\Using_FPGA.Native_3 (Decode_I_n_252),
-        .\Using_FPGA.Native_30 (Decode_I_n_420),
-        .\Using_FPGA.Native_31 (Decode_I_n_421),
-        .\Using_FPGA.Native_32 (Decode_I_n_422),
-        .\Using_FPGA.Native_33 (Decode_I_n_423),
-        .\Using_FPGA.Native_34 (Decode_I_n_424),
-        .\Using_FPGA.Native_35 (Decode_I_n_425),
-        .\Using_FPGA.Native_36 (Decode_I_n_426),
-        .\Using_FPGA.Native_37 (Decode_I_n_427),
-        .\Using_FPGA.Native_38 (Decode_I_n_428),
-        .\Using_FPGA.Native_39 (Decode_I_n_429),
-        .\Using_FPGA.Native_4 (Decode_I_n_253),
-        .\Using_FPGA.Native_40 (Decode_I_n_430),
-        .\Using_FPGA.Native_41 (Decode_I_n_431),
-        .\Using_FPGA.Native_42 (Decode_I_n_432),
-        .\Using_FPGA.Native_43 (Decode_I_n_434),
-        .\Using_FPGA.Native_44 (\PreFetch_Buffer_I1/p_1_in49_in ),
-        .\Using_FPGA.Native_45 (\Use_Debug_Logic.Master_Core.Debug_Perf_n_50 ),
-        .\Using_FPGA.Native_46 (\Use_Debug_Logic.Master_Core.Debug_Perf_n_53 ),
-        .\Using_FPGA.Native_47 (ex_op1_neg),
-        .\Using_FPGA.Native_48 ({mem_MSR[28],mem_MSR[29],mem_MSR[30]}),
-        .\Using_FPGA.Native_49 (Data_Flow_I_n_153),
-        .\Using_FPGA.Native_5 (Decode_I_n_258),
-        .\Using_FPGA.Native_50 (Data_Flow_I_n_33),
-        .\Using_FPGA.Native_6 (Decode_I_n_259),
-        .\Using_FPGA.Native_7 (Decode_I_n_260),
-        .\Using_FPGA.Native_8 (Decode_I_n_261),
-        .\Using_FPGA.Native_9 (Decode_I_n_329),
+        .\Using_FPGA.Native_1 (Decode_I_n_306),
+        .\Using_FPGA.Native_10 (Decode_I_n_401),
+        .\Using_FPGA.Native_11 (Decode_I_n_402),
+        .\Using_FPGA.Native_12 (Decode_I_n_409),
+        .\Using_FPGA.Native_13 (Decode_I_n_410),
+        .\Using_FPGA.Native_14 (Decode_I_n_412),
+        .\Using_FPGA.Native_15 (Decode_I_n_413),
+        .\Using_FPGA.Native_16 (Decode_I_n_414),
+        .\Using_FPGA.Native_17 (Decode_I_n_415),
+        .\Using_FPGA.Native_18 (Decode_I_n_416),
+        .\Using_FPGA.Native_19 (Decode_I_n_417),
+        .\Using_FPGA.Native_2 (Decode_I_n_310),
+        .\Using_FPGA.Native_20 (Decode_I_n_418),
+        .\Using_FPGA.Native_21 (Decode_I_n_419),
+        .\Using_FPGA.Native_22 (Decode_I_n_420),
+        .\Using_FPGA.Native_23 (Decode_I_n_421),
+        .\Using_FPGA.Native_24 (Decode_I_n_422),
+        .\Using_FPGA.Native_25 (Decode_I_n_423),
+        .\Using_FPGA.Native_26 (Decode_I_n_424),
+        .\Using_FPGA.Native_27 (Decode_I_n_425),
+        .\Using_FPGA.Native_28 (Decode_I_n_426),
+        .\Using_FPGA.Native_29 (Decode_I_n_427),
+        .\Using_FPGA.Native_3 (Decode_I_n_311),
+        .\Using_FPGA.Native_30 (Decode_I_n_428),
+        .\Using_FPGA.Native_31 (Decode_I_n_429),
+        .\Using_FPGA.Native_32 (Decode_I_n_430),
+        .\Using_FPGA.Native_33 (Decode_I_n_431),
+        .\Using_FPGA.Native_34 (Decode_I_n_432),
+        .\Using_FPGA.Native_35 (Decode_I_n_433),
+        .\Using_FPGA.Native_36 (Decode_I_n_434),
+        .\Using_FPGA.Native_37 (Decode_I_n_435),
+        .\Using_FPGA.Native_38 (Decode_I_n_436),
+        .\Using_FPGA.Native_39 (Decode_I_n_437),
+        .\Using_FPGA.Native_4 (Decode_I_n_316),
+        .\Using_FPGA.Native_40 (Decode_I_n_438),
+        .\Using_FPGA.Native_41 (Decode_I_n_440),
+        .\Using_FPGA.Native_42 (\PreFetch_Buffer_I1/p_1_in49_in ),
+        .\Using_FPGA.Native_43 (\Use_Debug_Logic.Master_Core.Debug_Perf_n_50 ),
+        .\Using_FPGA.Native_44 (\Use_Debug_Logic.Master_Core.Debug_Perf_n_53 ),
+        .\Using_FPGA.Native_45 (ex_op1_neg),
+        .\Using_FPGA.Native_46 ({mem_MSR[28],mem_MSR[29],mem_MSR[30]}),
+        .\Using_FPGA.Native_47 (Data_Flow_I_n_197),
+        .\Using_FPGA.Native_48 (Data_Flow_I_n_33),
+        .\Using_FPGA.Native_5 (Decode_I_n_317),
+        .\Using_FPGA.Native_6 (Decode_I_n_318),
+        .\Using_FPGA.Native_7 (Decode_I_n_319),
+        .\Using_FPGA.Native_8 (Decode_I_n_388),
+        .\Using_FPGA.Native_9 (\msr_reg_i/wb_MSR_cmb ),
+        .WB_Steered_Read_Data1__0(\Byte_Doublet_Handle_gti_I/WB_Steered_Read_Data1__0 ),
         .Y(ib_data),
         .active_access(active_access),
         .active_access_d1(active_access_d1),
         .active_access_reg(\Use_Debug_Logic.Master_Core.Debug_Perf_n_38 ),
         .dbg_clean_stop(dbg_clean_stop),
-        .dbg_halt_reset_mode_reg(Decode_I_n_333),
+        .dbg_halt_reset_mode_reg(Decode_I_n_395),
         .dbg_stop_i(dbg_stop_i),
-        .div_busy_reg(Decode_I_n_254),
+        .div_busy_reg(Decode_I_n_312),
         .ex_Exception_Taken(ex_Exception_Taken),
         .ex_Interrupt_Brk_combo_reg_0({LOCKSTEP_Master_Out[39:38],LOCKSTEP_Master_Out[36],LOCKSTEP_Master_Out[32]}),
         .ex_Interrupt_i(ex_Interrupt_i),
         .ex_MSR({ex_MSR[25],ex_MSR[28],ex_MSR[29],ex_MSR[30]}),
         .ex_Take_Intr_or_Exc(ex_Take_Intr_or_Exc),
-        .ex_Take_Intr_or_Exc_reg_0(Decode_I_n_248),
+        .ex_Take_Intr_or_Exc_reg_0(Decode_I_n_305),
         .ex_byte_access(ex_byte_access),
         .ex_cmp_op(ex_cmp_op),
-        .ex_databus_addr(ex_databus_addr),
+        .ex_databus_addr({ex_databus_addr[30],ex_databus_addr[31]}),
         .ex_div_unsigned(ex_div_unsigned),
         .ex_doublet_access(ex_doublet_access),
         .ex_exception_no_load_store__0(ex_exception_no_load_store__0),
@@ -64396,24 +64393,20 @@ module design_1_microblaze_0_1_MicroBlaze_GTi
         .ex_reverse_mem_access(ex_reverse_mem_access),
         .ex_sel_alu_i_reg_0({\Operand_Select_I/of_op2 [0],\Operand_Select_I/of_op2 [1],\Operand_Select_I/of_op2 [2],\Operand_Select_I/of_op2 [3],\Operand_Select_I/of_op2 [4],\Operand_Select_I/of_op2 [5],\Operand_Select_I/of_op2 [6],\Operand_Select_I/of_op2 [7],\Operand_Select_I/of_op2 [8],\Operand_Select_I/of_op2 [9],\Operand_Select_I/of_op2 [10],\Operand_Select_I/of_op2 [11],\Operand_Select_I/of_op2 [12],\Operand_Select_I/of_op2 [13],\Operand_Select_I/of_op2 [14],\Operand_Select_I/of_op2 [15],\Operand_Select_I/of_op2 [16],\Operand_Select_I/of_op2 [17],\Operand_Select_I/of_op2 [18],\Operand_Select_I/of_op2 [19],\Operand_Select_I/of_op2 [20],\Operand_Select_I/of_op2 [21],\Operand_Select_I/of_op2 [22],\Operand_Select_I/of_op2 [23],\Operand_Select_I/of_op2 [24],\Operand_Select_I/of_op2 [25],\Operand_Select_I/of_op2 [26],\Operand_Select_I/of_op2 [27],\Operand_Select_I/of_op2 [28],\Operand_Select_I/of_op2 [29],\Operand_Select_I/of_op2 [30],\Operand_Select_I/of_op2 [31]}),
         .ex_sel_alu_i_reg_1({\Operand_Select_I/of_op3 [0],\Operand_Select_I/of_op3 [1],\Operand_Select_I/of_op3 [2],\Operand_Select_I/of_op3 [3],\Operand_Select_I/of_op3 [4],\Operand_Select_I/of_op3 [5],\Operand_Select_I/of_op3 [6],\Operand_Select_I/of_op3 [7],\Operand_Select_I/of_op3 [8],\Operand_Select_I/of_op3 [9],\Operand_Select_I/of_op3 [10],\Operand_Select_I/of_op3 [11],\Operand_Select_I/of_op3 [12],\Operand_Select_I/of_op3 [13],\Operand_Select_I/of_op3 [14],\Operand_Select_I/of_op3 [15],\Operand_Select_I/of_op3 [16],\Operand_Select_I/of_op3 [17],\Operand_Select_I/of_op3 [18],\Operand_Select_I/of_op3 [19],\Operand_Select_I/of_op3 [20],\Operand_Select_I/of_op3 [21],\Operand_Select_I/of_op3 [22],\Operand_Select_I/of_op3 [23],\Operand_Select_I/of_op3 [24],\Operand_Select_I/of_op3 [25],\Operand_Select_I/of_op3 [26],\Operand_Select_I/of_op3 [27],\Operand_Select_I/of_op3 [28],\Operand_Select_I/of_op3 [29],\Operand_Select_I/of_op3 [30],\Operand_Select_I/of_op3 [31]}),
-        .ex_sel_alu_i_reg_2({\Operand_Select_I/I0 ,Decode_I_n_296,Decode_I_n_297,Decode_I_n_298,Decode_I_n_299,Decode_I_n_300,Decode_I_n_301,Decode_I_n_302,Decode_I_n_303,Decode_I_n_304,Decode_I_n_305,Decode_I_n_306,Decode_I_n_307,Decode_I_n_308,Decode_I_n_309,Decode_I_n_310,Decode_I_n_311,Decode_I_n_312,Decode_I_n_313,Decode_I_n_314,Decode_I_n_315,Decode_I_n_316,Decode_I_n_317,Decode_I_n_318,Decode_I_n_319,Decode_I_n_320,Decode_I_n_321,Decode_I_n_322,Decode_I_n_323,Decode_I_n_324,Decode_I_n_325,Decode_I_n_326}),
+        .ex_sel_alu_i_reg_2({\Operand_Select_I/I0 ,Decode_I_n_354,Decode_I_n_355,Decode_I_n_356,Decode_I_n_357,Decode_I_n_358,Decode_I_n_359,Decode_I_n_360,Decode_I_n_361,Decode_I_n_362,Decode_I_n_363,Decode_I_n_364,Decode_I_n_365,Decode_I_n_366,Decode_I_n_367,Decode_I_n_368,Decode_I_n_369,Decode_I_n_370,Decode_I_n_371,Decode_I_n_372,Decode_I_n_373,Decode_I_n_374,Decode_I_n_375,Decode_I_n_376,Decode_I_n_377,Decode_I_n_378,Decode_I_n_379,Decode_I_n_380,Decode_I_n_381,Decode_I_n_382,Decode_I_n_383,Decode_I_n_384}),
         .ex_start_div(ex_start_div),
         .ex_swap_byte_instr(ex_swap_byte_instr),
         .ex_unsigned_op(ex_unsigned_op),
         .ex_use_carry(ex_use_carry),
-        .ib_addr_strobe(ib_addr_strobe),
-        .iext_data_strobe(iext_data_strobe),
         .if_fetch_in_progress_reg_0(\Use_Debug_Logic.Master_Core.Debug_Perf_n_40 ),
-        .\if_pc_reg[0] ({ib_addr[0],ib_addr[1],ib_addr[2],ib_addr[3],ib_addr[4],ib_addr[5],ib_addr[6],ib_addr[7],ib_addr[8],ib_addr[9],ib_addr[10],ib_addr[11],ib_addr[12],ib_addr[13],ib_addr[14],ib_addr[15],ib_addr[16],ib_addr[17],ib_addr[18],ib_addr[19],ib_addr[20],ib_addr[21],ib_addr[22],ib_addr[23],ib_addr[24],ib_addr[25],ib_addr[26],ib_addr[27],ib_addr[28],ib_addr[29],ib_addr[30],ib_addr[31]}),
         .in(\PreFetch_Buffer_I1/if_predecode ),
-        .in0(Decode_I_n_378),
+        .in0(Decode_I_n_408),
         .lopt(lopt),
         .lopt_1(lopt_1),
         .lopt_2(lopt_2),
         .mb_halted_1_reg(\Use_Debug_Logic.Master_Core.Debug_Perf_n_43 ),
         .mem_Exception_Taken(mem_Exception_Taken),
         .mem_byte_access(mem_byte_access),
-        .mem_databus_Data_Strobe(mem_databus_Data_Strobe),
         .mem_databus_access(mem_databus_access),
         .mem_databus_read(mem_databus_read),
         .mem_databus_write(mem_databus_write),
@@ -64441,63 +64434,262 @@ module design_1_microblaze_0_1_MicroBlaze_GTi
         .wb_MSR_Clear_IE(wb_MSR_Clear_IE),
         .wb_PipeRun_i_reg_0(wb_piperun),
         .wb_byte_access(wb_byte_access),
-        .wb_doublet_access(wb_doublet_access),
         .wb_gpr_wr_dbg(wb_gpr_wr_dbg),
         .wb_pc_valid(wb_pc_valid),
         .wb_read_imm_reg(wb_read_imm_reg),
         .wb_read_imm_reg_1(wb_read_imm_reg_1),
-        .wb_valid_reg_0(Decode_I_n_176));
+        .wb_valid_reg_0(Decode_I_n_235));
   design_1_microblaze_0_1_DAXI_interface \Use_DBUS.DAXI_Interface_I1 
        (.Clk(Clk),
         .D({D[222],D[185:184]}),
+        .DReady(DReady),
         .\LOCKSTEP_Out_reg[3031] ({\Byte_Doublet_Handle_gti_I/wb_read_lsb_sel [0],\Byte_Doublet_Handle_gti_I/wb_read_lsb_sel [1]}),
-        .M_AXI_DP_ARREADY(M_AXI_DP_ARREADY),
-        .M_AXI_DP_AWREADY(M_AXI_DP_AWREADY),
+        .MEM_DataBus_Ready(MEM_DataBus_Ready),
+        .M_AXI_DP_ARVALID_i_reg_0(Decode_I_n_394),
+        .M_AXI_DP_AWVALID_i_reg_0(Decode_I_n_393),
         .M_AXI_DP_BVALID(M_AXI_DP_BVALID),
         .M_AXI_DP_RDATA(M_AXI_DP_RDATA),
         .M_AXI_DP_RVALID(M_AXI_DP_RVALID),
-        .M_AXI_DP_WREADY(M_AXI_DP_WREADY),
-        .WB_DAXI_Data_Strobe_reg_0(\Use_DBUS.DAXI_Interface_I1_n_38 ),
-        .WB_DAXI_Data_Strobe_reg_1(\Use_DBUS.DAXI_Interface_I1_n_39 ),
-        .WB_DAXI_Data_Strobe_reg_2(\Use_DBUS.DAXI_Interface_I1_n_40 ),
-        .WB_DAXI_Data_Strobe_reg_3(\Use_DBUS.DAXI_Interface_I1_n_41 ),
-        .WB_DAXI_Data_Strobe_reg_4(\Use_DBUS.DAXI_Interface_I1_n_42 ),
-        .WB_DAXI_Data_Strobe_reg_5(\Use_DBUS.DAXI_Interface_I1_n_43 ),
-        .WB_DAXI_Data_Strobe_reg_6(\Use_DBUS.DAXI_Interface_I1_n_44 ),
-        .WB_DAXI_Data_Strobe_reg_7(\Use_DBUS.DAXI_Interface_I1_n_45 ),
-        .\WB_DAXI_Read_Data_reg[0]_0 (\Use_DBUS.DAXI_Interface_I1_n_22 ),
-        .\WB_DAXI_Read_Data_reg[16]_0 (\Use_DBUS.DAXI_Interface_I1_n_29 ),
-        .\WB_DAXI_Read_Data_reg[17]_0 (\Use_DBUS.DAXI_Interface_I1_n_30 ),
-        .\WB_DAXI_Read_Data_reg[18]_0 (\Use_DBUS.DAXI_Interface_I1_n_31 ),
-        .\WB_DAXI_Read_Data_reg[19]_0 (\Use_DBUS.DAXI_Interface_I1_n_32 ),
-        .\WB_DAXI_Read_Data_reg[1]_0 (\Use_DBUS.DAXI_Interface_I1_n_23 ),
-        .\WB_DAXI_Read_Data_reg[20]_0 (\Use_DBUS.DAXI_Interface_I1_n_33 ),
-        .\WB_DAXI_Read_Data_reg[21]_0 (\Use_DBUS.DAXI_Interface_I1_n_34 ),
-        .\WB_DAXI_Read_Data_reg[22]_0 (\Use_DBUS.DAXI_Interface_I1_n_35 ),
-        .\WB_DAXI_Read_Data_reg[23]_0 (\Use_DBUS.DAXI_Interface_I1_n_36 ),
-        .\WB_DAXI_Read_Data_reg[2]_0 (\Use_DBUS.DAXI_Interface_I1_n_24 ),
-        .\WB_DAXI_Read_Data_reg[3]_0 (\Use_DBUS.DAXI_Interface_I1_n_25 ),
-        .\WB_DAXI_Read_Data_reg[4]_0 (\Use_DBUS.DAXI_Interface_I1_n_26 ),
-        .\WB_DAXI_Read_Data_reg[5]_0 (\Use_DBUS.DAXI_Interface_I1_n_27 ),
-        .\WB_DAXI_Read_Data_reg[6]_0 (\Use_DBUS.DAXI_Interface_I1_n_28 ),
-        .\WB_DAXI_Read_Data_reg[7]_0 (\Use_DBUS.DAXI_Interface_I1_n_37 ),
+        .M_AXI_DP_WVALID_i_reg_0(Decode_I_n_392),
+        .\No_Long.Reverse_Mem_Accesses.wb_read_msb_doublet_sel_reg (\Use_DBUS.DAXI_Interface_I1_n_14 ),
+        .\No_Long.Reverse_Mem_Accesses.wb_read_msb_doublet_sel_reg_0 (\Use_DBUS.DAXI_Interface_I1_n_15 ),
+        .\No_Long.Reverse_Mem_Accesses.wb_read_msb_doublet_sel_reg_1 (\Use_DBUS.DAXI_Interface_I1_n_16 ),
+        .\No_Long.Reverse_Mem_Accesses.wb_read_msb_doublet_sel_reg_2 (\Use_DBUS.DAXI_Interface_I1_n_17 ),
+        .\No_Long.Reverse_Mem_Accesses.wb_read_msb_doublet_sel_reg_3 (\Use_DBUS.DAXI_Interface_I1_n_18 ),
+        .\No_Long.Reverse_Mem_Accesses.wb_read_msb_doublet_sel_reg_4 (\Use_DBUS.DAXI_Interface_I1_n_19 ),
+        .\No_Long.Reverse_Mem_Accesses.wb_read_msb_doublet_sel_reg_5 (\Use_DBUS.DAXI_Interface_I1_n_20 ),
+        .\No_Long.Reverse_Mem_Accesses.wb_read_msb_doublet_sel_reg_6 (\Use_DBUS.DAXI_Interface_I1_n_21 ),
+        .Q({wb_dlmb_valid_read_data[0],wb_dlmb_valid_read_data[1],wb_dlmb_valid_read_data[2],wb_dlmb_valid_read_data[3],wb_dlmb_valid_read_data[4],wb_dlmb_valid_read_data[5],wb_dlmb_valid_read_data[6],wb_dlmb_valid_read_data[7],wb_dlmb_valid_read_data[8],wb_dlmb_valid_read_data[9],wb_dlmb_valid_read_data[10],wb_dlmb_valid_read_data[11],wb_dlmb_valid_read_data[12],wb_dlmb_valid_read_data[13],wb_dlmb_valid_read_data[14],wb_dlmb_valid_read_data[15],wb_dlmb_valid_read_data[16],wb_dlmb_valid_read_data[17],wb_dlmb_valid_read_data[18],wb_dlmb_valid_read_data[19],wb_dlmb_valid_read_data[20],wb_dlmb_valid_read_data[21],wb_dlmb_valid_read_data[22],wb_dlmb_valid_read_data[23],wb_dlmb_valid_read_data[24],wb_dlmb_valid_read_data[25],wb_dlmb_valid_read_data[26],wb_dlmb_valid_read_data[27],wb_dlmb_valid_read_data[28],wb_dlmb_valid_read_data[29],wb_dlmb_valid_read_data[30],wb_dlmb_valid_read_data[31]}),
+        .\Use_DLMB.wb_dlmb_valid_read_data_reg[16] (\Use_DBUS.DAXI_Interface_I1_n_29 ),
+        .\Use_DLMB.wb_dlmb_valid_read_data_reg[17] (\Use_DBUS.DAXI_Interface_I1_n_28 ),
+        .\Use_DLMB.wb_dlmb_valid_read_data_reg[18] (\Use_DBUS.DAXI_Interface_I1_n_27 ),
+        .\Use_DLMB.wb_dlmb_valid_read_data_reg[19] (\Use_DBUS.DAXI_Interface_I1_n_26 ),
+        .\Use_DLMB.wb_dlmb_valid_read_data_reg[20] (\Use_DBUS.DAXI_Interface_I1_n_25 ),
+        .\Use_DLMB.wb_dlmb_valid_read_data_reg[21] (\Use_DBUS.DAXI_Interface_I1_n_24 ),
+        .\Use_DLMB.wb_dlmb_valid_read_data_reg[22] (\Use_DBUS.DAXI_Interface_I1_n_23 ),
+        .\Use_DLMB.wb_dlmb_valid_read_data_reg[23] (\Use_DBUS.DAXI_Interface_I1_n_22 ),
+        .\Use_DLMB.wb_dlmb_valid_read_data_reg[24] (\Use_DBUS.DAXI_Interface_I1_n_37 ),
+        .\Use_DLMB.wb_dlmb_valid_read_data_reg[25] (\Use_DBUS.DAXI_Interface_I1_n_36 ),
+        .\Use_DLMB.wb_dlmb_valid_read_data_reg[26] (\Use_DBUS.DAXI_Interface_I1_n_35 ),
+        .\Use_DLMB.wb_dlmb_valid_read_data_reg[27] (\Use_DBUS.DAXI_Interface_I1_n_34 ),
+        .\Use_DLMB.wb_dlmb_valid_read_data_reg[28] (\Use_DBUS.DAXI_Interface_I1_n_33 ),
+        .\Use_DLMB.wb_dlmb_valid_read_data_reg[29] (\Use_DBUS.DAXI_Interface_I1_n_32 ),
+        .\Use_DLMB.wb_dlmb_valid_read_data_reg[30] (\Use_DBUS.DAXI_Interface_I1_n_31 ),
+        .\Use_DLMB.wb_dlmb_valid_read_data_reg[31] (\Use_DBUS.DAXI_Interface_I1_n_30 ),
         .active_access(active_access),
         .active_access_d1(active_access_d1),
-        .active_access_reg_0(Decode_I_n_332),
-        .mem_databus_Data_Strobe(mem_databus_Data_Strobe),
-        .mem_databus_access(mem_databus_access),
-        .mem_databus_write(mem_databus_write),
+        .active_access_reg_0(Decode_I_n_391),
         .sync_reset(sync_reset),
-        .wb_byte_access(wb_byte_access),
-        .wb_databus_steered_read_data({wb_databus_steered_read_data[0],wb_databus_steered_read_data[1],wb_databus_steered_read_data[2],wb_databus_steered_read_data[3],wb_databus_steered_read_data[4],wb_databus_steered_read_data[5],wb_databus_steered_read_data[6],wb_databus_steered_read_data[7],wb_databus_steered_read_data[8],wb_databus_steered_read_data[9],wb_databus_steered_read_data[10],wb_databus_steered_read_data[11],wb_databus_steered_read_data[12],wb_databus_steered_read_data[13],wb_databus_steered_read_data[14],wb_databus_steered_read_data[15]}),
-        .wb_doublet_access(wb_doublet_access),
+        .wb_databus_steered_read_data({wb_databus_steered_read_data[24],wb_databus_steered_read_data[25],wb_databus_steered_read_data[26],wb_databus_steered_read_data[27],wb_databus_steered_read_data[28],wb_databus_steered_read_data[29],wb_databus_steered_read_data[30],wb_databus_steered_read_data[31]}),
         .wb_read_lsb_1_sel(\Byte_Doublet_Handle_gti_I/wb_read_lsb_1_sel ),
         .wb_read_msb_doublet_sel(\Byte_Doublet_Handle_gti_I/wb_read_msb_doublet_sel ));
+  design_1_microblaze_0_1_MB_AND2B1L \Use_DLMB.Using_Latch_AS_Logic.AND2B1L_I1 
+       (.D(D[261]),
+        .E(mem_div_stall_i_reg),
+        .SRI(SRI));
+  LUT2 #(
+    .INIT(4'hB)) 
+    \Use_DLMB.wb_dlmb_valid_read_data[0]_i_1 
+       (.I0(sync_reset),
+        .I1(DReady),
+        .O(p_1_out));
+  FDRE \Use_DLMB.wb_dlmb_valid_read_data_reg[0] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Read[0]),
+        .Q(wb_dlmb_valid_read_data[0]),
+        .R(p_1_out));
+  FDRE \Use_DLMB.wb_dlmb_valid_read_data_reg[10] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Read[10]),
+        .Q(wb_dlmb_valid_read_data[10]),
+        .R(p_1_out));
+  FDRE \Use_DLMB.wb_dlmb_valid_read_data_reg[11] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Read[11]),
+        .Q(wb_dlmb_valid_read_data[11]),
+        .R(p_1_out));
+  FDRE \Use_DLMB.wb_dlmb_valid_read_data_reg[12] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Read[12]),
+        .Q(wb_dlmb_valid_read_data[12]),
+        .R(p_1_out));
+  FDRE \Use_DLMB.wb_dlmb_valid_read_data_reg[13] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Read[13]),
+        .Q(wb_dlmb_valid_read_data[13]),
+        .R(p_1_out));
+  FDRE \Use_DLMB.wb_dlmb_valid_read_data_reg[14] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Read[14]),
+        .Q(wb_dlmb_valid_read_data[14]),
+        .R(p_1_out));
+  FDRE \Use_DLMB.wb_dlmb_valid_read_data_reg[15] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Read[15]),
+        .Q(wb_dlmb_valid_read_data[15]),
+        .R(p_1_out));
+  FDRE \Use_DLMB.wb_dlmb_valid_read_data_reg[16] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Read[16]),
+        .Q(wb_dlmb_valid_read_data[16]),
+        .R(p_1_out));
+  FDRE \Use_DLMB.wb_dlmb_valid_read_data_reg[17] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Read[17]),
+        .Q(wb_dlmb_valid_read_data[17]),
+        .R(p_1_out));
+  FDRE \Use_DLMB.wb_dlmb_valid_read_data_reg[18] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Read[18]),
+        .Q(wb_dlmb_valid_read_data[18]),
+        .R(p_1_out));
+  FDRE \Use_DLMB.wb_dlmb_valid_read_data_reg[19] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Read[19]),
+        .Q(wb_dlmb_valid_read_data[19]),
+        .R(p_1_out));
+  FDRE \Use_DLMB.wb_dlmb_valid_read_data_reg[1] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Read[1]),
+        .Q(wb_dlmb_valid_read_data[1]),
+        .R(p_1_out));
+  FDRE \Use_DLMB.wb_dlmb_valid_read_data_reg[20] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Read[20]),
+        .Q(wb_dlmb_valid_read_data[20]),
+        .R(p_1_out));
+  FDRE \Use_DLMB.wb_dlmb_valid_read_data_reg[21] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Read[21]),
+        .Q(wb_dlmb_valid_read_data[21]),
+        .R(p_1_out));
+  FDRE \Use_DLMB.wb_dlmb_valid_read_data_reg[22] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Read[22]),
+        .Q(wb_dlmb_valid_read_data[22]),
+        .R(p_1_out));
+  FDRE \Use_DLMB.wb_dlmb_valid_read_data_reg[23] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Read[23]),
+        .Q(wb_dlmb_valid_read_data[23]),
+        .R(p_1_out));
+  FDRE \Use_DLMB.wb_dlmb_valid_read_data_reg[24] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Read[24]),
+        .Q(wb_dlmb_valid_read_data[24]),
+        .R(p_1_out));
+  FDRE \Use_DLMB.wb_dlmb_valid_read_data_reg[25] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Read[25]),
+        .Q(wb_dlmb_valid_read_data[25]),
+        .R(p_1_out));
+  FDRE \Use_DLMB.wb_dlmb_valid_read_data_reg[26] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Read[26]),
+        .Q(wb_dlmb_valid_read_data[26]),
+        .R(p_1_out));
+  FDRE \Use_DLMB.wb_dlmb_valid_read_data_reg[27] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Read[27]),
+        .Q(wb_dlmb_valid_read_data[27]),
+        .R(p_1_out));
+  FDRE \Use_DLMB.wb_dlmb_valid_read_data_reg[28] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Read[28]),
+        .Q(wb_dlmb_valid_read_data[28]),
+        .R(p_1_out));
+  FDRE \Use_DLMB.wb_dlmb_valid_read_data_reg[29] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Read[29]),
+        .Q(wb_dlmb_valid_read_data[29]),
+        .R(p_1_out));
+  FDRE \Use_DLMB.wb_dlmb_valid_read_data_reg[2] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Read[2]),
+        .Q(wb_dlmb_valid_read_data[2]),
+        .R(p_1_out));
+  FDRE \Use_DLMB.wb_dlmb_valid_read_data_reg[30] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Read[30]),
+        .Q(wb_dlmb_valid_read_data[30]),
+        .R(p_1_out));
+  FDRE \Use_DLMB.wb_dlmb_valid_read_data_reg[31] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Read[31]),
+        .Q(wb_dlmb_valid_read_data[31]),
+        .R(p_1_out));
+  FDRE \Use_DLMB.wb_dlmb_valid_read_data_reg[3] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Read[3]),
+        .Q(wb_dlmb_valid_read_data[3]),
+        .R(p_1_out));
+  FDRE \Use_DLMB.wb_dlmb_valid_read_data_reg[4] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Read[4]),
+        .Q(wb_dlmb_valid_read_data[4]),
+        .R(p_1_out));
+  FDRE \Use_DLMB.wb_dlmb_valid_read_data_reg[5] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Read[5]),
+        .Q(wb_dlmb_valid_read_data[5]),
+        .R(p_1_out));
+  FDRE \Use_DLMB.wb_dlmb_valid_read_data_reg[6] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Read[6]),
+        .Q(wb_dlmb_valid_read_data[6]),
+        .R(p_1_out));
+  FDRE \Use_DLMB.wb_dlmb_valid_read_data_reg[7] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Read[7]),
+        .Q(wb_dlmb_valid_read_data[7]),
+        .R(p_1_out));
+  FDRE \Use_DLMB.wb_dlmb_valid_read_data_reg[8] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Read[8]),
+        .Q(wb_dlmb_valid_read_data[8]),
+        .R(p_1_out));
+  FDRE \Use_DLMB.wb_dlmb_valid_read_data_reg[9] 
+       (.C(Clk),
+        .CE(1'b1),
+        .D(Data_Read[9]),
+        .Q(wb_dlmb_valid_read_data[9]),
+        .R(p_1_out));
   design_1_microblaze_0_1_Debug \Use_Debug_Logic.Master_Core.Debug_Perf 
        (.Address(of_pc),
         .Clk(Clk),
         .Config_Reg_En(Config_Reg_En),
-        .D({D[288],D[76],D[71]}),
+        .D({D[360:359],D[76],D[71]}),
         .Data_Read_Reg_En(Data_Read_Reg_En),
         .Dbg_Capture(Dbg_Capture),
         .Dbg_Clk(Dbg_Clk),
@@ -64512,8 +64704,8 @@ module design_1_microblaze_0_1_MicroBlaze_GTi
         .Dbg_Trig_In(Dbg_Trig_In),
         .Dbg_Trig_Out(Dbg_Trig_Out),
         .Dbg_Update(Dbg_Update),
-        .E(mem_div_stall_i_reg),
         .IB_Ready(IB_Ready),
+        .IReady(IReady),
         .LOCKSTEP_Master_Out({LOCKSTEP_Master_Out[39:38],LOCKSTEP_Master_Out[36],LOCKSTEP_Master_Out[34:0]}),
         .Pause(Pause),
         .\Performance_Debug_Control.dbg_freeze_nohalt_reg_0 (\Use_Debug_Logic.Master_Core.Debug_Perf_n_44 ),
@@ -64521,24 +64713,25 @@ module design_1_microblaze_0_1_MicroBlaze_GTi
         .\Performance_Debug_Control.dbg_stop_if_delay_i_reg_0 (\Use_Debug_Logic.Master_Core.Debug_Perf_n_50 ),
         .\Performance_Debug_Control.dbg_stop_if_delay_i_reg_1 (\Use_Debug_Logic.Master_Core.Debug_Perf_n_53 ),
         .\Performance_Debug_Control.dbg_stop_instr_fetch_nohalt_reg_0 (\Use_Debug_Logic.Master_Core.Debug_Perf_n_40 ),
-        .\Performance_Debug_Control.dbg_stop_instr_fetch_nohalt_reg_1 (Decode_I_n_333),
-        .\Performance_Debug_Control.ex_brki_hit_reg_0 (Decode_I_n_336),
-        .\Performance_Debug_Control.ex_dbg_pc_hit_i_reg_0 (Decode_I_n_405),
+        .\Performance_Debug_Control.dbg_stop_instr_fetch_nohalt_reg_1 (Decode_I_n_395),
+        .\Performance_Debug_Control.ex_brki_hit_reg_0 (Decode_I_n_398),
+        .\Performance_Debug_Control.ex_dbg_pc_hit_i_reg_0 (Decode_I_n_411),
         .\Performance_Debug_Control.ex_dbg_pc_hit_single_step_reg_0 (\Use_Debug_Logic.Master_Core.Debug_Perf_n_49 ),
-        .\Performance_Debug_Control.ex_dbg_pc_hit_single_step_reg_1 (Decode_I_n_434),
+        .\Performance_Debug_Control.ex_dbg_pc_hit_single_step_reg_1 (Decode_I_n_440),
         .\Performance_Debug_Control.m0_dbg_hit_reg[0]_0 (\Using_FPGA.Native ),
+        .\Performance_Debug_Control.wb_dbg_hit_reg[0]_0 (mem_div_stall_i_reg),
         .Q(\Use_Debug_Logic.Master_Core.Debug_Perf_n_55 ),
         .Reset_Mode(Reset_Mode),
         .Scan_En(Scan_En),
         .Scan_Reset(Scan_Reset),
         .Scan_Reset_Sel(Scan_Reset_Sel),
         .\Serial_Dbg_Intf.force_stop_cmd_i_reg_0 (\Use_Debug_Logic.Master_Core.Debug_Perf_n_38 ),
-        .\Serial_Dbg_Intf.status_reg_reg[25]_0 (ib_fetch),
+        .\Serial_Dbg_Intf.status_reg_reg[22]_0 (mem_databus_access),
         .Sleep(Sleep),
         .Sleep_Decode(Sleep_Decode),
         .Sleep_Out(Sleep_Out),
         .Status_Reg_En(Status_Reg_En),
-        .\data_rd_reg_reg[0]_0 ({Data_Flow_I_n_156,Data_Flow_I_n_157,Data_Flow_I_n_158,Data_Flow_I_n_159,Data_Flow_I_n_160,Data_Flow_I_n_161,Data_Flow_I_n_162,Data_Flow_I_n_163,Data_Flow_I_n_164,Data_Flow_I_n_165,Data_Flow_I_n_166,Data_Flow_I_n_167,Data_Flow_I_n_168,Data_Flow_I_n_169,Data_Flow_I_n_170,Data_Flow_I_n_171,Data_Flow_I_n_172,Data_Flow_I_n_173,Data_Flow_I_n_174,Data_Flow_I_n_175,Data_Flow_I_n_176,Data_Flow_I_n_177,Data_Flow_I_n_178,Data_Flow_I_n_179,Data_Flow_I_n_180,Data_Flow_I_n_181,Data_Flow_I_n_182,Data_Flow_I_n_183,Data_Flow_I_n_184,Data_Flow_I_n_185,Data_Flow_I_n_186,Data_Flow_I_n_187}),
+        .\data_rd_reg_reg[0]_0 ({Data_Flow_I_n_200,Data_Flow_I_n_201,Data_Flow_I_n_202,Data_Flow_I_n_203,Data_Flow_I_n_204,Data_Flow_I_n_205,Data_Flow_I_n_206,Data_Flow_I_n_207,Data_Flow_I_n_208,Data_Flow_I_n_209,Data_Flow_I_n_210,Data_Flow_I_n_211,Data_Flow_I_n_212,Data_Flow_I_n_213,Data_Flow_I_n_214,Data_Flow_I_n_215,Data_Flow_I_n_216,Data_Flow_I_n_217,Data_Flow_I_n_218,Data_Flow_I_n_219,Data_Flow_I_n_220,Data_Flow_I_n_221,Data_Flow_I_n_222,Data_Flow_I_n_223,Data_Flow_I_n_224,Data_Flow_I_n_225,Data_Flow_I_n_226,Data_Flow_I_n_227,Data_Flow_I_n_228,Data_Flow_I_n_229,Data_Flow_I_n_230,Data_Flow_I_n_231}),
         .dbg_clean_stop(dbg_clean_stop),
         .dbg_halt_reset_mode_reg_0(\Use_Debug_Logic.Master_Core.Debug_Perf_n_42 ),
         .dbg_stop_i(dbg_stop_i),
@@ -64547,10 +64740,8 @@ module design_1_microblaze_0_1_MicroBlaze_GTi
         .ex_Take_Intr_or_Exc(ex_Take_Intr_or_Exc),
         .ex_exception_no_load_store__0(ex_exception_no_load_store__0),
         .ex_exception_no_load_store_mask(ex_exception_no_load_store_mask),
-        .exception_reg_0(Decode_I_n_176),
-        .iext_data_strobe(iext_data_strobe),
+        .exception_reg_0(Decode_I_n_235),
         .mem_Exception_Taken(mem_Exception_Taken),
-        .mem_databus_access(mem_databus_access),
         .of_pause(of_pause),
         .p_45_out(p_45_out),
         .p_4_out__0(p_4_out__0),
@@ -64563,24 +64754,9 @@ module design_1_microblaze_0_1_MicroBlaze_GTi
         .wb_pc_valid(wb_pc_valid),
         .wb_read_imm_reg(wb_read_imm_reg),
         .wb_read_imm_reg_1(wb_read_imm_reg_1));
-  design_1_microblaze_0_1_IAXI_Interface \Use_IBUS.IAXI_Interface_I1 
-       (.Clk(Clk),
-        .D(D[287:255]),
-        .E(ib_addr_strobe),
-        .IWAIT(IWAIT),
-        .LOCKSTEP_Master_Out(LOCKSTEP_Master_Out[40]),
-        .M_AXI_IP_ARREADY(M_AXI_IP_ARREADY),
-        .M_AXI_IP_RDATA(M_AXI_IP_RDATA),
-        .M_AXI_IP_RVALID(M_AXI_IP_RVALID),
-        .Q({iext_data[0],iext_data[1],iext_data[2],iext_data[3],iext_data[4],iext_data[5],iext_data[6],iext_data[7],iext_data[8],iext_data[9],iext_data[10],iext_data[11],iext_data[12],iext_data[13],iext_data[14],iext_data[15],iext_data[16],iext_data[17],iext_data[18],iext_data[19],iext_data[20],iext_data[21],iext_data[22],iext_data[23],iext_data[24],iext_data[25],iext_data[26],iext_data[27],iext_data[28],iext_data[29],iext_data[30],iext_data[31]}),
-        .iext_data_strobe(iext_data_strobe),
-        .\instr_addr_reg[0]_0 ({ib_addr[0],ib_addr[1],ib_addr[2],ib_addr[3],ib_addr[4],ib_addr[5],ib_addr[6],ib_addr[7],ib_addr[8],ib_addr[9],ib_addr[10],ib_addr[11],ib_addr[12],ib_addr[13],ib_addr[14],ib_addr[15],ib_addr[16],ib_addr[17],ib_addr[18],ib_addr[19],ib_addr[20],ib_addr[21],ib_addr[22],ib_addr[23],ib_addr[24],ib_addr[25],ib_addr[26],ib_addr[27],ib_addr[28],ib_addr[29],ib_addr[30],ib_addr[31]}),
-        .mem_access_completed_reg_0(\Use_Debug_Logic.Master_Core.Debug_Perf_n_38 ),
-        .mem_databus_access(mem_databus_access),
-        .sync_reset(sync_reset));
   design_1_microblaze_0_1_instr_mux instr_mux_I
-       (.A0(iext_data),
-        .I139_out(\PreFetch_Buffer_I1/I139_out ),
+       (.I139_out(\PreFetch_Buffer_I1/I139_out ),
+        .Instr(Instr),
         .LOCKSTEP_Master_Out({LOCKSTEP_Master_Out[38],LOCKSTEP_Master_Out[31:0]}),
         .\Using_FPGA.Native (\PreFetch_Buffer_I1/p_1_in49_in ),
         .\Using_FPGA.Native_0 (if_sel_input),
@@ -65213,8 +65389,8 @@ module design_1_microblaze_0_1_Operand_Select_gti
     S_0,
     \EX_Op2_reg[0]_0 ,
     I0,
-    \EX_Op2_reg[31]_0 ,
     \Using_FPGA.Native ,
+    \Using_FPGA.Native_0 ,
     S,
     EX_Div_Unsigned_reg,
     EX_Div_Unsigned_reg_0,
@@ -65250,13 +65426,12 @@ module design_1_microblaze_0_1_Operand_Select_gti
     in0,
     swap_result,
     swap_result_reg,
-    \EX_Op3_reg[24]_0 ,
     \EX_Op3_reg[0]_0 ,
     \EX_Branch_CMP_Op1_reg[30]_0 ,
     \EX_Branch_CMP_Op1_reg[0]_0 ,
     \EX_Op2_reg[0]_1 ,
     EX_Div_Unsigned_reg_29,
-    \Using_FPGA.Native_0 ,
+    \Using_FPGA.Native_1 ,
     CI,
     \imm_reg_reg[0]_0 ,
     of_op1_sel_spr,
@@ -65319,8 +65494,8 @@ module design_1_microblaze_0_1_Operand_Select_gti
   output S_0;
   output [31:0]\EX_Op2_reg[0]_0 ;
   output I0;
-  output [3:0]\EX_Op2_reg[31]_0 ;
-  output \Using_FPGA.Native ;
+  output [13:0]\Using_FPGA.Native ;
+  output \Using_FPGA.Native_0 ;
   output S;
   output EX_Div_Unsigned_reg;
   output EX_Div_Unsigned_reg_0;
@@ -65356,13 +65531,12 @@ module design_1_microblaze_0_1_Operand_Select_gti
   output in0;
   output [23:0]swap_result;
   output [0:7]swap_result_reg;
-  output [7:0]\EX_Op3_reg[24]_0 ;
   output [31:0]\EX_Op3_reg[0]_0 ;
   output \EX_Branch_CMP_Op1_reg[30]_0 ;
   output [29:0]\EX_Branch_CMP_Op1_reg[0]_0 ;
   output \EX_Op2_reg[0]_1 ;
   output EX_Div_Unsigned_reg_29;
-  output [0:0]\Using_FPGA.Native_0 ;
+  output [0:0]\Using_FPGA.Native_1 ;
   output CI;
   output [15:0]\imm_reg_reg[0]_0 ;
   input of_op1_sel_spr;
@@ -65495,10 +65669,8 @@ module design_1_microblaze_0_1_Operand_Select_gti
   wire [31:0]\EX_Op2_reg[0]_0 ;
   wire \EX_Op2_reg[0]_1 ;
   wire [31:0]\EX_Op2_reg[0]_2 ;
-  wire [3:0]\EX_Op2_reg[31]_0 ;
   wire [31:0]\EX_Op3_reg[0]_0 ;
   wire [31:0]\EX_Op3_reg[0]_1 ;
-  wire [7:0]\EX_Op3_reg[24]_0 ;
   wire \Gen_Bit[31].MUXF7_I1_n_0 ;
   wire I0;
   wire I1;
@@ -65537,8 +65709,9 @@ module design_1_microblaze_0_1_Operand_Select_gti
   wire [31:0]Q;
   wire S;
   wire S_0;
-  wire \Using_FPGA.Native ;
-  wire [0:0]\Using_FPGA.Native_0 ;
+  wire [13:0]\Using_FPGA.Native ;
+  wire \Using_FPGA.Native_0 ;
+  wire [0:0]\Using_FPGA.Native_1 ;
   wire \Using_FPGA.Native_i_2__21 ;
   wire [1:0]\Using_FPGA.Native_i_3__34 ;
   wire [0:0]ex_MSR;
@@ -65561,6 +65734,145 @@ module design_1_microblaze_0_1_Operand_Select_gti
   wire [0:7]swap_result_reg;
   wire sync_reset;
 
+  LUT6 #(
+    .INIT(64'h0000969600FFFFFF)) 
+    \Byte_Enable[0]_INST_0 
+       (.I0(\EX_Op2_reg[0]_0 [0]),
+        .I1(Q[0]),
+        .I2(ex_reverse_mem_access),
+        .I3(ex_doublet_access),
+        .I4(\Using_FPGA.Native_0 ),
+        .I5(ex_byte_access),
+        .O(\Using_FPGA.Native [3]));
+  (* SOFT_HLUTNM = "soft_lutpair1" *) 
+  LUT5 #(
+    .INIT(32'h96696969)) 
+    \Byte_Enable[0]_INST_0_i_1 
+       (.I0(ex_reverse_mem_access),
+        .I1(\EX_Op2_reg[0]_0 [1]),
+        .I2(Q[1]),
+        .I3(Q[0]),
+        .I4(\EX_Op2_reg[0]_0 [0]),
+        .O(\Using_FPGA.Native_0 ));
+  LUT6 #(
+    .INIT(64'h0000696900FFFFFF)) 
+    \Byte_Enable[1]_INST_0 
+       (.I0(\EX_Op2_reg[0]_0 [0]),
+        .I1(Q[0]),
+        .I2(ex_reverse_mem_access),
+        .I3(ex_doublet_access),
+        .I4(\Using_FPGA.Native_0 ),
+        .I5(ex_byte_access),
+        .O(\Using_FPGA.Native [2]));
+  LUT6 #(
+    .INIT(64'h96FF000096FF00FF)) 
+    \Byte_Enable[2]_INST_0 
+       (.I0(\EX_Op2_reg[0]_0 [0]),
+        .I1(Q[0]),
+        .I2(ex_reverse_mem_access),
+        .I3(ex_byte_access),
+        .I4(\Using_FPGA.Native_0 ),
+        .I5(ex_doublet_access),
+        .O(\Using_FPGA.Native [1]));
+  LUT6 #(
+    .INIT(64'h69FF000069FF00FF)) 
+    \Byte_Enable[3]_INST_0 
+       (.I0(\EX_Op2_reg[0]_0 [0]),
+        .I1(Q[0]),
+        .I2(ex_reverse_mem_access),
+        .I3(ex_byte_access),
+        .I4(\Using_FPGA.Native_0 ),
+        .I5(ex_doublet_access),
+        .O(\Using_FPGA.Native [0]));
+  LUT6 #(
+    .INIT(64'hE00E0EE00EE00EE0)) 
+    \Data_Addr[30]_INST_0 
+       (.I0(ex_byte_access),
+        .I1(ex_doublet_access),
+        .I2(\EX_Op2_reg[0]_0 [1]),
+        .I3(Q[1]),
+        .I4(Q[0]),
+        .I5(\EX_Op2_reg[0]_0 [0]),
+        .O(\Using_FPGA.Native [13]));
+  LUT3 #(
+    .INIT(8'h28)) 
+    \Data_Addr[31]_INST_0 
+       (.I0(ex_byte_access),
+        .I1(Q[0]),
+        .I2(\EX_Op2_reg[0]_0 [0]),
+        .O(\Using_FPGA.Native [12]));
+  LUT5 #(
+    .INIT(32'hB8BBB888)) 
+    \Data_Write[16]_INST_0 
+       (.I0(\EX_Op3_reg[0]_0 [7]),
+        .I1(ex_byte_access),
+        .I2(\EX_Op3_reg[0]_0 [23]),
+        .I3(ex_reverse_mem_access),
+        .I4(\EX_Op3_reg[0]_0 [15]),
+        .O(\Using_FPGA.Native [11]));
+  LUT5 #(
+    .INIT(32'hB8BBB888)) 
+    \Data_Write[17]_INST_0 
+       (.I0(\EX_Op3_reg[0]_0 [6]),
+        .I1(ex_byte_access),
+        .I2(\EX_Op3_reg[0]_0 [22]),
+        .I3(ex_reverse_mem_access),
+        .I4(\EX_Op3_reg[0]_0 [14]),
+        .O(\Using_FPGA.Native [10]));
+  LUT5 #(
+    .INIT(32'hB8BBB888)) 
+    \Data_Write[18]_INST_0 
+       (.I0(\EX_Op3_reg[0]_0 [5]),
+        .I1(ex_byte_access),
+        .I2(\EX_Op3_reg[0]_0 [21]),
+        .I3(ex_reverse_mem_access),
+        .I4(\EX_Op3_reg[0]_0 [13]),
+        .O(\Using_FPGA.Native [9]));
+  LUT5 #(
+    .INIT(32'hB8BBB888)) 
+    \Data_Write[19]_INST_0 
+       (.I0(\EX_Op3_reg[0]_0 [4]),
+        .I1(ex_byte_access),
+        .I2(\EX_Op3_reg[0]_0 [20]),
+        .I3(ex_reverse_mem_access),
+        .I4(\EX_Op3_reg[0]_0 [12]),
+        .O(\Using_FPGA.Native [8]));
+  LUT5 #(
+    .INIT(32'hB8BBB888)) 
+    \Data_Write[20]_INST_0 
+       (.I0(\EX_Op3_reg[0]_0 [3]),
+        .I1(ex_byte_access),
+        .I2(\EX_Op3_reg[0]_0 [19]),
+        .I3(ex_reverse_mem_access),
+        .I4(\EX_Op3_reg[0]_0 [11]),
+        .O(\Using_FPGA.Native [7]));
+  LUT5 #(
+    .INIT(32'hB8BBB888)) 
+    \Data_Write[21]_INST_0 
+       (.I0(\EX_Op3_reg[0]_0 [2]),
+        .I1(ex_byte_access),
+        .I2(\EX_Op3_reg[0]_0 [18]),
+        .I3(ex_reverse_mem_access),
+        .I4(\EX_Op3_reg[0]_0 [10]),
+        .O(\Using_FPGA.Native [6]));
+  LUT5 #(
+    .INIT(32'hB8BBB888)) 
+    \Data_Write[22]_INST_0 
+       (.I0(\EX_Op3_reg[0]_0 [1]),
+        .I1(ex_byte_access),
+        .I2(\EX_Op3_reg[0]_0 [17]),
+        .I3(ex_reverse_mem_access),
+        .I4(\EX_Op3_reg[0]_0 [9]),
+        .O(\Using_FPGA.Native [5]));
+  LUT5 #(
+    .INIT(32'hB8BBB888)) 
+    \Data_Write[23]_INST_0 
+       (.I0(\EX_Op3_reg[0]_0 [0]),
+        .I1(ex_byte_access),
+        .I2(\EX_Op3_reg[0]_0 [16]),
+        .I3(ex_reverse_mem_access),
+        .I4(\EX_Op3_reg[0]_0 [8]),
+        .O(\Using_FPGA.Native [4]));
   FDRE \EX_Branch_CMP_Op1_reg[0] 
        (.C(Clk),
         .CE(\EX_Branch_CMP_Op1_reg[31]_0 ),
@@ -66585,118 +66897,6 @@ module design_1_microblaze_0_1_Operand_Select_gti
         .ex_swap_byte_instr(ex_swap_byte_instr),
         .of_op1_sel_spr(of_op1_sel_spr),
         .swap_result(swap_result[22]));
-  LUT6 #(
-    .INIT(64'h0000969600FFFFFF)) 
-    \MEM_DataBus_Byte_Enable[0]_i_1 
-       (.I0(\EX_Op2_reg[0]_0 [0]),
-        .I1(Q[0]),
-        .I2(ex_reverse_mem_access),
-        .I3(ex_doublet_access),
-        .I4(\Using_FPGA.Native ),
-        .I5(ex_byte_access),
-        .O(\EX_Op2_reg[31]_0 [3]));
-  LUT6 #(
-    .INIT(64'h0000696900FFFFFF)) 
-    \MEM_DataBus_Byte_Enable[1]_i_1 
-       (.I0(\EX_Op2_reg[0]_0 [0]),
-        .I1(Q[0]),
-        .I2(ex_reverse_mem_access),
-        .I3(ex_doublet_access),
-        .I4(\Using_FPGA.Native ),
-        .I5(ex_byte_access),
-        .O(\EX_Op2_reg[31]_0 [2]));
-  LUT6 #(
-    .INIT(64'h96FF000096FF00FF)) 
-    \MEM_DataBus_Byte_Enable[2]_i_1 
-       (.I0(\EX_Op2_reg[0]_0 [0]),
-        .I1(Q[0]),
-        .I2(ex_reverse_mem_access),
-        .I3(ex_byte_access),
-        .I4(\Using_FPGA.Native ),
-        .I5(ex_doublet_access),
-        .O(\EX_Op2_reg[31]_0 [1]));
-  LUT6 #(
-    .INIT(64'h69FF000069FF00FF)) 
-    \MEM_DataBus_Byte_Enable[3]_i_1 
-       (.I0(\EX_Op2_reg[0]_0 [0]),
-        .I1(Q[0]),
-        .I2(ex_reverse_mem_access),
-        .I3(ex_byte_access),
-        .I4(\Using_FPGA.Native ),
-        .I5(ex_doublet_access),
-        .O(\EX_Op2_reg[31]_0 [0]));
-  LUT5 #(
-    .INIT(32'hB8BBB888)) 
-    \MEM_DataBus_Write_Data[16]_i_1 
-       (.I0(\EX_Op3_reg[0]_0 [7]),
-        .I1(ex_byte_access),
-        .I2(\EX_Op3_reg[0]_0 [23]),
-        .I3(ex_reverse_mem_access),
-        .I4(\EX_Op3_reg[0]_0 [15]),
-        .O(\EX_Op3_reg[24]_0 [7]));
-  LUT5 #(
-    .INIT(32'hB8BBB888)) 
-    \MEM_DataBus_Write_Data[17]_i_1 
-       (.I0(\EX_Op3_reg[0]_0 [6]),
-        .I1(ex_byte_access),
-        .I2(\EX_Op3_reg[0]_0 [22]),
-        .I3(ex_reverse_mem_access),
-        .I4(\EX_Op3_reg[0]_0 [14]),
-        .O(\EX_Op3_reg[24]_0 [6]));
-  LUT5 #(
-    .INIT(32'hB8BBB888)) 
-    \MEM_DataBus_Write_Data[18]_i_1 
-       (.I0(\EX_Op3_reg[0]_0 [5]),
-        .I1(ex_byte_access),
-        .I2(\EX_Op3_reg[0]_0 [21]),
-        .I3(ex_reverse_mem_access),
-        .I4(\EX_Op3_reg[0]_0 [13]),
-        .O(\EX_Op3_reg[24]_0 [5]));
-  LUT5 #(
-    .INIT(32'hB8BBB888)) 
-    \MEM_DataBus_Write_Data[19]_i_1 
-       (.I0(\EX_Op3_reg[0]_0 [4]),
-        .I1(ex_byte_access),
-        .I2(\EX_Op3_reg[0]_0 [20]),
-        .I3(ex_reverse_mem_access),
-        .I4(\EX_Op3_reg[0]_0 [12]),
-        .O(\EX_Op3_reg[24]_0 [4]));
-  LUT5 #(
-    .INIT(32'hB8BBB888)) 
-    \MEM_DataBus_Write_Data[20]_i_1 
-       (.I0(\EX_Op3_reg[0]_0 [3]),
-        .I1(ex_byte_access),
-        .I2(\EX_Op3_reg[0]_0 [19]),
-        .I3(ex_reverse_mem_access),
-        .I4(\EX_Op3_reg[0]_0 [11]),
-        .O(\EX_Op3_reg[24]_0 [3]));
-  LUT5 #(
-    .INIT(32'hB8BBB888)) 
-    \MEM_DataBus_Write_Data[21]_i_1 
-       (.I0(\EX_Op3_reg[0]_0 [2]),
-        .I1(ex_byte_access),
-        .I2(\EX_Op3_reg[0]_0 [18]),
-        .I3(ex_reverse_mem_access),
-        .I4(\EX_Op3_reg[0]_0 [10]),
-        .O(\EX_Op3_reg[24]_0 [2]));
-  LUT5 #(
-    .INIT(32'hB8BBB888)) 
-    \MEM_DataBus_Write_Data[22]_i_1 
-       (.I0(\EX_Op3_reg[0]_0 [1]),
-        .I1(ex_byte_access),
-        .I2(\EX_Op3_reg[0]_0 [17]),
-        .I3(ex_reverse_mem_access),
-        .I4(\EX_Op3_reg[0]_0 [9]),
-        .O(\EX_Op3_reg[24]_0 [1]));
-  LUT5 #(
-    .INIT(32'hB8BBB888)) 
-    \MEM_DataBus_Write_Data[23]_i_1 
-       (.I0(\EX_Op3_reg[0]_0 [0]),
-        .I1(ex_byte_access),
-        .I2(\EX_Op3_reg[0]_0 [16]),
-        .I3(ex_reverse_mem_access),
-        .I4(\EX_Op3_reg[0]_0 [8]),
-        .O(\EX_Op3_reg[24]_0 [0]));
   LUT3 #(
     .INIT(8'hB4)) 
     \Using_FPGA.Native_I1_i_1 
@@ -66922,13 +67122,13 @@ module design_1_microblaze_0_1_Operand_Select_gti
         .O(CI));
   LUT2 #(
     .INIT(4'h1)) 
-    \Using_FPGA.Native_i_1__102 
+    \Using_FPGA.Native_i_1__103 
        (.I0(ex_branch_cmp_op1[30]),
         .I1(ex_branch_cmp_op1[31]),
         .O(\EX_Branch_CMP_Op1_reg[30]_0 ));
   LUT4 #(
     .INIT(16'h009F)) 
-    \Using_FPGA.Native_i_1__54 
+    \Using_FPGA.Native_i_1__55 
        (.I0(\EX_Op2_reg[0]_0 [31]),
         .I1(Q[31]),
         .I2(ex_cmp_op),
@@ -66937,14 +67137,14 @@ module design_1_microblaze_0_1_Operand_Select_gti
   (* SOFT_HLUTNM = "soft_lutpair2" *) 
   LUT2 #(
     .INIT(4'h2)) 
-    \Using_FPGA.Native_i_1__55 
+    \Using_FPGA.Native_i_1__56 
        (.I0(\EX_Op2_reg[0]_0 [31]),
         .I1(EX_ALU_Sel_Logic),
         .O(I0));
   (* SOFT_HLUTNM = "soft_lutpair2" *) 
   LUT3 #(
     .INIT(8'h9F)) 
-    \Using_FPGA.Native_i_1__59 
+    \Using_FPGA.Native_i_1__60 
        (.I0(\EX_Op2_reg[0]_0 [31]),
         .I1(Q[31]),
         .I2(ex_cmp_op),
@@ -67063,23 +67263,13 @@ module design_1_microblaze_0_1_Operand_Select_gti
         .I4(make_result_neg),
         .O(\EX_Op2_reg[0]_1 ));
   (* SOFT_HLUTNM = "soft_lutpair1" *) 
-  LUT5 #(
-    .INIT(32'h96696969)) 
-    \mem_byte_selects[0]_i_1 
-       (.I0(ex_reverse_mem_access),
-        .I1(\EX_Op2_reg[0]_0 [1]),
-        .I2(Q[1]),
-        .I3(Q[0]),
-        .I4(\EX_Op2_reg[0]_0 [0]),
-        .O(\Using_FPGA.Native ));
-  (* SOFT_HLUTNM = "soft_lutpair1" *) 
   LUT3 #(
     .INIT(8'h69)) 
     \mem_byte_selects[1]_i_1 
        (.I0(ex_reverse_mem_access),
         .I1(Q[0]),
         .I2(\EX_Op2_reg[0]_0 [0]),
-        .O(\Using_FPGA.Native_0 ));
+        .O(\Using_FPGA.Native_1 ));
   LUT5 #(
     .INIT(32'h40FF4000)) 
     negative_operands_i_1
@@ -67565,7 +67755,7 @@ module design_1_microblaze_0_1_PC_Module_gti
         .D(D[21]),
         .I085_out(I085_out),
         .Q(S102_in),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_11 ),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_19 ),
         .\Using_FPGA.Native_1 (\Using_FPGA.Native_31 ),
         .if_sel_input(if_sel_input[0]),
         .of_op1_sel_spr_pc(of_op1_sel_spr_pc),
@@ -67583,7 +67773,7 @@ module design_1_microblaze_0_1_PC_Module_gti
         .D(D[20]),
         .I081_out(I081_out),
         .Q(S97_in),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_9 ),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_16 ),
         .\Using_FPGA.Native_1 (\Using_FPGA.Native_31 ),
         .if_sel_input(if_sel_input[0]),
         .of_op1_sel_spr_pc(of_op1_sel_spr_pc),
@@ -67601,7 +67791,7 @@ module design_1_microblaze_0_1_PC_Module_gti
         .D(D[19]),
         .I077_out(I077_out),
         .Q(S92_in),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_7 ),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_14 ),
         .\Using_FPGA.Native_1 (\Using_FPGA.Native_31 ),
         .if_sel_input(if_sel_input[0]),
         .of_op1_sel_spr_pc(of_op1_sel_spr_pc),
@@ -67619,7 +67809,7 @@ module design_1_microblaze_0_1_PC_Module_gti
         .D(D[18]),
         .I073_out(I073_out),
         .Q(S87_in),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_5 ),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_12 ),
         .\Using_FPGA.Native_1 (\Using_FPGA.Native_31 ),
         .if_sel_input(if_sel_input[0]),
         .of_op1_sel_spr_pc(of_op1_sel_spr_pc),
@@ -67637,7 +67827,7 @@ module design_1_microblaze_0_1_PC_Module_gti
         .D(D[17]),
         .I069_out(I069_out),
         .Q(S82_in),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_15 ),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_24 ),
         .\Using_FPGA.Native_1 (\Using_FPGA.Native_31 ),
         .if_sel_input(if_sel_input[0]),
         .of_op1_sel_spr_pc(of_op1_sel_spr_pc),
@@ -67655,7 +67845,7 @@ module design_1_microblaze_0_1_PC_Module_gti
         .D(D[16]),
         .I065_out(I065_out),
         .Q(S77_in),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_28 ),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_26 ),
         .\Using_FPGA.Native_1 (\Using_FPGA.Native_31 ),
         .if_sel_input(if_sel_input[0]),
         .of_op1_sel_spr_pc(of_op1_sel_spr_pc),
@@ -67673,7 +67863,7 @@ module design_1_microblaze_0_1_PC_Module_gti
         .D(D[15]),
         .I061_out(I061_out),
         .Q(S72_in),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_27 ),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_28 ),
         .\Using_FPGA.Native_1 (\Using_FPGA.Native_31 ),
         .if_sel_input(if_sel_input[0]),
         .of_op1_sel_spr_pc(of_op1_sel_spr_pc),
@@ -67691,7 +67881,7 @@ module design_1_microblaze_0_1_PC_Module_gti
         .D(D[14]),
         .I057_out(I057_out),
         .Q(S67_in),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_26 ),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_3 ),
         .\Using_FPGA.Native_1 (\Using_FPGA.Native_31 ),
         .if_sel_input(if_sel_input[0]),
         .of_op1_sel_spr_pc(of_op1_sel_spr_pc),
@@ -67709,7 +67899,7 @@ module design_1_microblaze_0_1_PC_Module_gti
         .D(D[13]),
         .I053_out(I053_out),
         .Q(S62_in),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_25 ),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_8 ),
         .\Using_FPGA.Native_1 (\Using_FPGA.Native_31 ),
         .if_sel_input(if_sel_input[0]),
         .of_op1_sel_spr_pc(of_op1_sel_spr_pc),
@@ -67727,7 +67917,7 @@ module design_1_microblaze_0_1_PC_Module_gti
         .D(D[12]),
         .I049_out(I049_out),
         .Q(S57_in),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_24 ),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_7 ),
         .\Using_FPGA.Native_1 (\Using_FPGA.Native_31 ),
         .if_sel_input(if_sel_input[0]),
         .of_op1_sel_spr_pc(of_op1_sel_spr_pc),
@@ -67745,7 +67935,7 @@ module design_1_microblaze_0_1_PC_Module_gti
         .D(D[30]),
         .I0121_out(I0121_out),
         .Q(S147_in),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_12 ),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_21 ),
         .\Using_FPGA.Native_1 (\Using_FPGA.Native_31 ),
         .if_sel_input(if_sel_input[0]),
         .of_op1_sel_spr_pc(of_op1_sel_spr_pc),
@@ -67763,7 +67953,7 @@ module design_1_microblaze_0_1_PC_Module_gti
         .D(D[11]),
         .I045_out(I045_out),
         .Q(S52_in),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_23 ),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_6 ),
         .\Using_FPGA.Native_1 (\Using_FPGA.Native_31 ),
         .if_sel_input(if_sel_input[0]),
         .of_op1_sel_spr_pc(of_op1_sel_spr_pc),
@@ -67781,7 +67971,7 @@ module design_1_microblaze_0_1_PC_Module_gti
         .D(D[10]),
         .I041_out(I041_out),
         .Q(S47_in),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_22 ),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_5 ),
         .\Using_FPGA.Native_1 (\Using_FPGA.Native_31 ),
         .if_sel_input(if_sel_input[0]),
         .of_op1_sel_spr_pc(of_op1_sel_spr_pc),
@@ -67799,7 +67989,7 @@ module design_1_microblaze_0_1_PC_Module_gti
         .D(D[9]),
         .I037_out(I037_out),
         .Q(S42_in),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_21 ),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_4 ),
         .\Using_FPGA.Native_1 (\Using_FPGA.Native_31 ),
         .if_sel_input(if_sel_input[0]),
         .of_op1_sel_spr_pc(of_op1_sel_spr_pc),
@@ -67817,7 +68007,7 @@ module design_1_microblaze_0_1_PC_Module_gti
         .D(D[8]),
         .I033_out(I033_out),
         .Q(S37_in),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_20 ),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_10 ),
         .\Using_FPGA.Native_1 (\Using_FPGA.Native_31 ),
         .if_sel_input(if_sel_input[0]),
         .of_op1_sel_spr_pc(of_op1_sel_spr_pc),
@@ -67835,7 +68025,7 @@ module design_1_microblaze_0_1_PC_Module_gti
         .D(D[7]),
         .I029_out(I029_out),
         .Q(S32_in),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_19 ),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_27 ),
         .\Using_FPGA.Native_1 (\Using_FPGA.Native_31 ),
         .if_sel_input(if_sel_input[0]),
         .of_op1_sel_spr_pc(of_op1_sel_spr_pc),
@@ -67872,7 +68062,7 @@ module design_1_microblaze_0_1_PC_Module_gti
         .D(D[5]),
         .I021_out(I021_out),
         .Q(S22_in),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_18 ),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_20 ),
         .\Using_FPGA.Native_1 (\Using_FPGA.Native_31 ),
         .if_sel_input(if_sel_input[0]),
         .of_op1_sel_spr_pc(of_op1_sel_spr_pc),
@@ -67946,7 +68136,7 @@ module design_1_microblaze_0_1_PC_Module_gti
         .D(D[29]),
         .I0117_out(I0117_out),
         .Q(S142_in),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_10 ),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_18 ),
         .\Using_FPGA.Native_1 (\Using_FPGA.Native_31 ),
         .if_sel_input(if_sel_input[0]),
         .of_op1_sel_spr_pc(of_op1_sel_spr_pc),
@@ -68001,7 +68191,7 @@ module design_1_microblaze_0_1_PC_Module_gti
         .D(D[28]),
         .I0113_out(I0113_out),
         .Q(S137_in),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_8 ),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_15 ),
         .\Using_FPGA.Native_1 (\Using_FPGA.Native_31 ),
         .if_sel_input(if_sel_input[0]),
         .of_op1_sel_spr_pc(of_op1_sel_spr_pc),
@@ -68019,7 +68209,7 @@ module design_1_microblaze_0_1_PC_Module_gti
         .D(D[27]),
         .I0109_out(I0109_out),
         .Q(S132_in),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_6 ),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_13 ),
         .\Using_FPGA.Native_1 (\Using_FPGA.Native_31 ),
         .if_sel_input(if_sel_input[0]),
         .of_op1_sel_spr_pc(of_op1_sel_spr_pc),
@@ -68037,7 +68227,7 @@ module design_1_microblaze_0_1_PC_Module_gti
         .D(D[26]),
         .I0105_out(I0105_out),
         .Q(S127_in),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_4 ),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_11 ),
         .\Using_FPGA.Native_1 (\Using_FPGA.Native_31 ),
         .if_sel_input(if_sel_input[0]),
         .of_op1_sel_spr_pc(of_op1_sel_spr_pc),
@@ -68055,7 +68245,7 @@ module design_1_microblaze_0_1_PC_Module_gti
         .D(D[25]),
         .I0101_out(I0101_out),
         .Q(S122_in),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_14 ),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_23 ),
         .\Using_FPGA.Native_1 (\Using_FPGA.Native_31 ),
         .if_sel_input(if_sel_input[0]),
         .of_op1_sel_spr_pc(of_op1_sel_spr_pc),
@@ -68073,7 +68263,7 @@ module design_1_microblaze_0_1_PC_Module_gti
         .D(D[24]),
         .I097_out(I097_out),
         .Q(S117_in),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_16 ),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_25 ),
         .\Using_FPGA.Native_1 (\Using_FPGA.Native_31 ),
         .if_sel_input(if_sel_input[0]),
         .of_op1_sel_spr_pc(of_op1_sel_spr_pc),
@@ -68091,7 +68281,7 @@ module design_1_microblaze_0_1_PC_Module_gti
         .D(D[23]),
         .I093_out(I093_out),
         .Q(S112_in),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_3 ),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_9 ),
         .\Using_FPGA.Native_1 (\Using_FPGA.Native_31 ),
         .if_sel_input(if_sel_input[0]),
         .of_op1_sel_spr_pc(of_op1_sel_spr_pc),
@@ -68109,7 +68299,7 @@ module design_1_microblaze_0_1_PC_Module_gti
         .D(D[22]),
         .I089_out(I089_out),
         .Q(S107_in),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_13 ),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_22 ),
         .\Using_FPGA.Native_1 (\Using_FPGA.Native_31 ),
         .if_sel_input(if_sel_input[0]),
         .of_op1_sel_spr_pc(of_op1_sel_spr_pc),
@@ -69547,7 +69737,7 @@ endmodule
 module design_1_microblaze_0_1_PreFetch_Buffer_gti
    (\Using_FPGA.Native ,
     \Using_FPGA.Native_0 ,
-    mem_access_completed_reg,
+    IReady_0,
     of_valid,
     of_instr,
     D,
@@ -69608,19 +69798,19 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
     \Using_FPGA.Native_17 ,
     \Using_FPGA.Native_18 ,
     \Using_FPGA.Native_19 ,
+    ex_branch_with_delayslot_reg,
     \Using_FPGA.Native_20 ,
     \Using_FPGA.Native_21 ,
     \Using_FPGA.Native_22 ,
     \Using_FPGA.Native_23 ,
-    \Using_FPGA.Native_24 ,
     ex_atomic_Instruction_Pair0,
     Dbg_Clean_Stop0,
     of_Sel_SPR_MSR91_out,
     ex_is_multi_instr20,
     ex_is_multi_or_load_instr0,
     ex_set_bip,
+    \Using_FPGA.Native_24 ,
     \Using_FPGA.Native_25 ,
-    \Using_FPGA.Native_26 ,
     I5,
     sync_reset,
     Clk,
@@ -69711,15 +69901,15 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
     Dbg_Clean_Stop_reg,
     of_read_imm_reg_ii,
     ex_gpr_write_dbg__0,
-    iext_data_strobe,
+    IReady,
+    \Using_FPGA.Native_26 ,
     \Using_FPGA.Native_27 ,
-    \Using_FPGA.Native_28 ,
     if_missed_fetch,
     ex_branch_with_delayslot,
     ex_jump_q);
   output [1:0]\Using_FPGA.Native ;
   output \Using_FPGA.Native_0 ;
-  output mem_access_completed_reg;
+  output IReady_0;
   output of_valid;
   output [5:0]of_instr;
   output [1:0]D;
@@ -69780,19 +69970,19 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
   output \Using_FPGA.Native_17 ;
   output \Using_FPGA.Native_18 ;
   output \Using_FPGA.Native_19 ;
+  output ex_branch_with_delayslot_reg;
   output \Using_FPGA.Native_20 ;
   output \Using_FPGA.Native_21 ;
   output \Using_FPGA.Native_22 ;
   output \Using_FPGA.Native_23 ;
-  output \Using_FPGA.Native_24 ;
   output ex_atomic_Instruction_Pair0;
   output Dbg_Clean_Stop0;
   output of_Sel_SPR_MSR91_out;
   output ex_is_multi_instr20;
   output ex_is_multi_or_load_instr0;
   output ex_set_bip;
-  output [0:0]\Using_FPGA.Native_25 ;
-  input \Using_FPGA.Native_26 ;
+  output [0:0]\Using_FPGA.Native_24 ;
+  input \Using_FPGA.Native_25 ;
   input I5;
   input sync_reset;
   input Clk;
@@ -69883,9 +70073,9 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
   input Dbg_Clean_Stop_reg;
   input of_read_imm_reg_ii;
   input ex_gpr_write_dbg__0;
-  input iext_data_strobe;
-  input \Using_FPGA.Native_27 ;
-  input [0:0]\Using_FPGA.Native_28 ;
+  input IReady;
+  input \Using_FPGA.Native_26 ;
+  input [0:0]\Using_FPGA.Native_27 ;
   input if_missed_fetch;
   input ex_branch_with_delayslot;
   input ex_jump_q;
@@ -70030,6 +70220,8 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
   wire I4_0;
   wire I5;
   wire IB_Ready;
+  wire IReady;
+  wire IReady_0;
   wire \Instruction_Prefetch_Mux[0].Gen_Instr_DFF_n_4 ;
   wire \Instruction_Prefetch_Mux[10].Gen_Instr_DFF_n_1 ;
   wire \Instruction_Prefetch_Mux[10].Gen_Instr_DFF_n_2 ;
@@ -70080,11 +70272,10 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
   wire \Using_FPGA.Native_21 ;
   wire \Using_FPGA.Native_22 ;
   wire \Using_FPGA.Native_23 ;
-  wire \Using_FPGA.Native_24 ;
-  wire [0:0]\Using_FPGA.Native_25 ;
+  wire [0:0]\Using_FPGA.Native_24 ;
+  wire \Using_FPGA.Native_25 ;
   wire \Using_FPGA.Native_26 ;
-  wire \Using_FPGA.Native_27 ;
-  wire [0:0]\Using_FPGA.Native_28 ;
+  wire [0:0]\Using_FPGA.Native_27 ;
   wire \Using_FPGA.Native_3 ;
   wire [20:0]\Using_FPGA.Native_4 ;
   wire [0:0]\Using_FPGA.Native_5 ;
@@ -70099,6 +70290,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
   wire ex_branch_with_delayslot;
   wire ex_branch_with_delayslot_i;
   wire ex_branch_with_delayslot_i_reg_0;
+  wire ex_branch_with_delayslot_reg;
   wire ex_enable_sext_shift_i0;
   wire ex_gpr_write115_out__0;
   wire ex_gpr_write_dbg__0;
@@ -70130,7 +70322,6 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
   wire force12_out;
   wire force_Val10_out;
   wire \ibuffer_reg[3][42]_srl4_n_0 ;
-  wire iext_data_strobe;
   wire if_fetch_for_timing_optimization1;
   wire if_fetch_in_progress;
   wire [0:0]if_fetch_in_progress_reg;
@@ -70143,7 +70334,6 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
   wire [1:2]if_sel_input;
   wire [32:0]in;
   wire in0;
-  wire mem_access_completed_reg;
   wire mem_gpr_write;
   wire mem_is_multi_or_load_instr;
   wire mem_is_multi_or_load_instr_reg;
@@ -70286,8 +70476,8 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
         .sync_reset(sync_reset));
   design_1_microblaze_0_1_MB_LUT6 \Gen_Mux_Select_LUT6[1].Mux_Select_LUT6 
        (.I5(I5),
-        .\Using_FPGA.Native_0 (mem_access_completed_reg),
-        .\Using_FPGA.Native_1 (\Using_FPGA.Native_26 ),
+        .\Using_FPGA.Native_0 (IReady_0),
+        .\Using_FPGA.Native_1 (\Using_FPGA.Native_25 ),
         .addr(\Using_FPGA.Native [1]),
         .if_sel_input(if_sel_input[1]),
         .sel_input_iii_3(sel_input_iii_3));
@@ -70312,8 +70502,8 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
         .sync_reset(sync_reset));
   design_1_microblaze_0_1_MB_LUT6_114 \Gen_Mux_Select_LUT6[2].Mux_Select_LUT6 
        (.I5(I5),
-        .\Using_FPGA.Native_0 (mem_access_completed_reg),
-        .\Using_FPGA.Native_1 (\Using_FPGA.Native_26 ),
+        .\Using_FPGA.Native_0 (IReady_0),
+        .\Using_FPGA.Native_1 (\Using_FPGA.Native_25 ),
         .addr(\Using_FPGA.Native [1]),
         .if_sel_input({if_sel_input[1],if_sel_input[2]}),
         .sel_input_iii_2(sel_input_iii_2));
@@ -70325,8 +70515,8 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
   design_1_microblaze_0_1_MB_LUT6_116 \Gen_Mux_Select_LUT6[3].Mux_Select_LUT6 
        (.I5(I5),
         .\Using_FPGA.Native_0 (\Using_FPGA.Native_0 ),
-        .\Using_FPGA.Native_1 (mem_access_completed_reg),
-        .\Using_FPGA.Native_2 (\Using_FPGA.Native_26 ),
+        .\Using_FPGA.Native_1 (IReady_0),
+        .\Using_FPGA.Native_2 (\Using_FPGA.Native_25 ),
         .if_sel_input({if_sel_input[1],if_sel_input[2]}),
         .sel_input_iii_1(sel_input_iii_1));
   design_1_microblaze_0_1_MB_FDR_117 \Gen_Mux_Select_LUT6[4].Gen_Sel_DFF 
@@ -70382,16 +70572,16 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
        (.I5(I5),
         .\Using_FPGA.Native_0 (\Using_FPGA.Native [0]),
         .\Using_FPGA.Native_1 (\Using_FPGA.Native_0 ),
-        .\Using_FPGA.Native_2 (mem_access_completed_reg),
-        .\Using_FPGA.Native_3 (\Using_FPGA.Native_26 ),
+        .\Using_FPGA.Native_2 (IReady_0),
+        .\Using_FPGA.Native_3 (\Using_FPGA.Native_25 ),
         .if_sel_input(if_sel_input[2]),
         .sel_input_iii_0(sel_input_iii_0));
   design_1_microblaze_0_1_MB_LUT6__parameterized2 \Gen_Mux_Select_LUT6[4].Using_ExtraMUX.Mux_Select_Delayslot_LUT6 
        (.I5(I5),
         .\Using_FPGA.Native_0 (\Using_FPGA.Native [0]),
         .\Using_FPGA.Native_1 (\Using_FPGA.Native_0 ),
-        .\Using_FPGA.Native_2 (mem_access_completed_reg),
-        .\Using_FPGA.Native_3 (\Using_FPGA.Native_26 ),
+        .\Using_FPGA.Native_2 (IReady_0),
+        .\Using_FPGA.Native_3 (\Using_FPGA.Native_25 ),
         .if_sel_input(if_sel_input[2]),
         .sel_input_delayslot(sel_input_delayslot));
   design_1_microblaze_0_1_MB_MUXF7 \Gen_Mux_Select_LUT6[4].Using_ExtraMUX.Sel_Mux_MUXF7 
@@ -70414,7 +70604,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
         .\Using_FPGA.Native_3 (\Using_FPGA.Native_16 ),
         .\Using_FPGA.Native_4 (\Using_FPGA.Native_17 ),
         .\Using_FPGA.Native_5 (\Using_FPGA.Native_19 ),
-        .\Using_FPGA.Native_6 (\Using_FPGA.Native_23 ),
+        .\Using_FPGA.Native_6 (\Using_FPGA.Native_21 ),
         .\Using_FPGA.Native_7 (Dbg_Clean_Stop_reg),
         .\Using_Mul_Instr.ex_not_mul_op_i_reg (of_instr[2]),
         .\Using_Mul_Instr.ex_not_mul_op_i_reg_0 (of_instr[4]),
@@ -70437,7 +70627,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
   design_1_microblaze_0_1_MB_MUXF7_120 \Instruction_Prefetch_Mux[0].Instr_Mux_MUXF7 
        (.I0169_out(I0169_out),
         .I1167_out(I1167_out),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_26 ),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_25 ),
         .of_instr_ii_42(of_instr_ii_42));
   design_1_microblaze_0_1_MB_FDR_121 \Instruction_Prefetch_Mux[10].Gen_Instr_DFF 
        (.Clk(Clk),
@@ -70457,7 +70647,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
   design_1_microblaze_0_1_MB_MUXF7_122 \Instruction_Prefetch_Mux[10].Instr_Mux_MUXF7 
        (.I0129_out(I0129_out),
         .I1127_out(I1127_out),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_26 ),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_25 ),
         .of_instr_ii_32(of_instr_ii_32));
   design_1_microblaze_0_1_MB_FDR_123 \Instruction_Prefetch_Mux[11].Gen_Instr_DFF 
        (.Clk(Clk),
@@ -70470,7 +70660,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
   design_1_microblaze_0_1_MB_MUXF7_124 \Instruction_Prefetch_Mux[11].Instr_Mux_MUXF7 
        (.I0125_out(I0125_out),
         .I1123_out(I1123_out),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_26 ),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_25 ),
         .of_instr_ii_31(of_instr_ii_31));
   design_1_microblaze_0_1_MB_FDR_125 \Instruction_Prefetch_Mux[12].Gen_Instr_DFF 
        (.Clk(Clk),
@@ -70480,7 +70670,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
   design_1_microblaze_0_1_MB_MUXF7_126 \Instruction_Prefetch_Mux[12].Instr_Mux_MUXF7 
        (.I0121_out(I0121_out),
         .I1119_out(I1119_out),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_26 ),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_25 ),
         .of_instr_ii_30(of_instr_ii_30));
   design_1_microblaze_0_1_MB_FDR_127 \Instruction_Prefetch_Mux[13].Gen_Instr_DFF 
        (.Clk(Clk),
@@ -70490,14 +70680,14 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
   design_1_microblaze_0_1_MB_MUXF7_128 \Instruction_Prefetch_Mux[13].Instr_Mux_MUXF7 
        (.I0117_out(I0117_out),
         .I1115_out(I1115_out),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_26 ),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_25 ),
         .of_instr_ii_29(of_instr_ii_29));
   design_1_microblaze_0_1_MB_FDR_129 \Instruction_Prefetch_Mux[14].Gen_Instr_DFF 
        (.Clk(Clk),
         .\Using_FPGA.Native_0 (\Using_FPGA.Native_4 [17]),
         .\Using_FPGA.Native_1 (ex_mbar_decode_cmb),
         .ex_mbar_decode(ex_mbar_decode),
-        .ex_mbar_decode_reg(\Using_FPGA.Native_26 ),
+        .ex_mbar_decode_reg(\Using_FPGA.Native_25 ),
         .ex_mbar_decode_reg_0(ex_is_div_instr_I_reg_0),
         .of_instr_ii_28(of_instr_ii_28),
         .p_1_in29_in(p_1_in29_in),
@@ -70505,7 +70695,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
   design_1_microblaze_0_1_MB_MUXF7_130 \Instruction_Prefetch_Mux[14].Instr_Mux_MUXF7 
        (.I0113_out(I0113_out),
         .I1111_out(I1111_out),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_26 ),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_25 ),
         .of_instr_ii_28(of_instr_ii_28));
   design_1_microblaze_0_1_MB_FDR_131 \Instruction_Prefetch_Mux[15].Gen_Instr_DFF 
        (.Clk(Clk),
@@ -70515,7 +70705,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
   design_1_microblaze_0_1_MB_MUXF7_132 \Instruction_Prefetch_Mux[15].Instr_Mux_MUXF7 
        (.I0109_out(I0109_out),
         .I1107_out(I1107_out),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_26 ),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_25 ),
         .of_instr_ii_27(of_instr_ii_27));
   design_1_microblaze_0_1_MB_FDR_133 \Instruction_Prefetch_Mux[16].Gen_Instr_DFF 
        (.Clk(Clk),
@@ -70537,7 +70727,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
   design_1_microblaze_0_1_MB_MUXF7_134 \Instruction_Prefetch_Mux[16].Instr_Mux_MUXF7 
        (.I0105_out(I0105_out),
         .I1103_out(I1103_out),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_26 ),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_25 ),
         .of_instr_ii_26(of_instr_ii_26));
   design_1_microblaze_0_1_MB_FDR_135 \Instruction_Prefetch_Mux[17].Gen_Instr_DFF 
        (.Clk(Clk),
@@ -70560,7 +70750,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
         .ex_gpr_write_i_2_0(\Instruction_Prefetch_Mux[3].Gen_Instr_DFF_n_11 ),
         .ex_gpr_write_reg(ex_gpr_write_reg),
         .ex_gpr_write_reg_0(ex_gpr_write_reg_0),
-        .ex_gpr_write_reg_1(\Using_FPGA.Native_26 ),
+        .ex_gpr_write_reg_1(\Using_FPGA.Native_25 ),
         .of_Take_Interrupt(of_Take_Interrupt),
         .of_instr_ii_25(of_instr_ii_25),
         .of_op1_sel_spr(of_op1_sel_spr),
@@ -70574,7 +70764,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
   design_1_microblaze_0_1_MB_MUXF7_136 \Instruction_Prefetch_Mux[17].Instr_Mux_MUXF7 
        (.I0101_out(I0101_out),
         .I199_out(I199_out),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_26 ),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_25 ),
         .of_instr_ii_25(of_instr_ii_25));
   design_1_microblaze_0_1_MB_FDR_137 \Instruction_Prefetch_Mux[18].Gen_Instr_DFF 
        (.Clk(Clk),
@@ -70589,7 +70779,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
   design_1_microblaze_0_1_MB_MUXF7_138 \Instruction_Prefetch_Mux[18].Instr_Mux_MUXF7 
        (.I097_out(I097_out),
         .I195_out(I195_out),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_26 ),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_25 ),
         .of_instr_ii_24(of_instr_ii_24));
   design_1_microblaze_0_1_MB_FDR_139 \Instruction_Prefetch_Mux[19].Gen_Instr_DFF 
        (.Clk(Clk),
@@ -70604,7 +70794,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
   design_1_microblaze_0_1_MB_MUXF7_140 \Instruction_Prefetch_Mux[19].Instr_Mux_MUXF7 
        (.I093_out(I093_out),
         .I191_out(I191_out),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_26 ),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_25 ),
         .of_instr_ii_23(of_instr_ii_23));
   design_1_microblaze_0_1_MB_FDR_141 \Instruction_Prefetch_Mux[1].Gen_Instr_DFF 
        (.Clk(Clk),
@@ -70613,10 +70803,10 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
         .\Using_FPGA.Native_0 (of_instr[4]),
         .\Using_FPGA.Native_1 (of_branch_with_delayslot122_out),
         .\Using_FPGA.Native_2 (\Using_FPGA.Native_8 [1]),
-        .\Using_FPGA.Native_3 (\Using_FPGA.Native_24 ),
+        .\Using_FPGA.Native_3 (\Using_FPGA.Native_23 ),
         .ex_branch_with_delayslot_i(ex_branch_with_delayslot_i),
         .ex_branch_with_delayslot_i_reg(\Instruction_Prefetch_Mux[1].Gen_Instr_DFF_n_1 ),
-        .ex_branch_with_delayslot_i_reg_0(\Using_FPGA.Native_26 ),
+        .ex_branch_with_delayslot_i_reg_0(\Using_FPGA.Native_25 ),
         .ex_branch_with_delayslot_i_reg_1(ex_branch_with_delayslot_i_reg_0),
         .ex_branch_with_delayslot_reg(\Instruction_Prefetch_Mux[3].Gen_Instr_DFF_n_12 ),
         .ex_set_bip(ex_set_bip),
@@ -70631,7 +70821,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
   design_1_microblaze_0_1_MB_MUXF7_142 \Instruction_Prefetch_Mux[1].Instr_Mux_MUXF7 
        (.I0165_out(I0165_out),
         .I1163_out(I1163_out),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_26 ),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_25 ),
         .of_instr_ii_41(of_instr_ii_41));
   design_1_microblaze_0_1_MB_FDR_143 \Instruction_Prefetch_Mux[20].Gen_Instr_DFF 
        (.Clk(Clk),
@@ -70648,7 +70838,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
   design_1_microblaze_0_1_MB_MUXF7_144 \Instruction_Prefetch_Mux[20].Instr_Mux_MUXF7 
        (.I089_out(I089_out),
         .I187_out(I187_out),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_26 ),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_25 ),
         .of_instr_ii_22(of_instr_ii_22));
   design_1_microblaze_0_1_MB_FDR_145 \Instruction_Prefetch_Mux[21].Gen_Instr_DFF 
        (.Clk(Clk),
@@ -70663,7 +70853,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
   design_1_microblaze_0_1_MB_MUXF7_146 \Instruction_Prefetch_Mux[21].Instr_Mux_MUXF7 
        (.I085_out(I085_out),
         .I183_out(I183_out),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_26 ),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_25 ),
         .of_instr_ii_21(of_instr_ii_21));
   design_1_microblaze_0_1_MB_FDR_147 \Instruction_Prefetch_Mux[22].Gen_Instr_DFF 
        (.Clk(Clk),
@@ -70680,7 +70870,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
   design_1_microblaze_0_1_MB_MUXF7_148 \Instruction_Prefetch_Mux[22].Instr_Mux_MUXF7 
        (.I081_out(I081_out),
         .I179_out(I179_out),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_26 ),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_25 ),
         .of_instr_ii_20(of_instr_ii_20));
   design_1_microblaze_0_1_MB_FDR_149 \Instruction_Prefetch_Mux[23].Gen_Instr_DFF 
        (.Clk(Clk),
@@ -70695,7 +70885,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
   design_1_microblaze_0_1_MB_MUXF7_150 \Instruction_Prefetch_Mux[23].Instr_Mux_MUXF7 
        (.I077_out(I077_out),
         .I175_out(I175_out),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_26 ),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_25 ),
         .of_instr_ii_19(of_instr_ii_19));
   design_1_microblaze_0_1_MB_FDR_151 \Instruction_Prefetch_Mux[24].Gen_Instr_DFF 
        (.Clk(Clk),
@@ -70714,7 +70904,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
   design_1_microblaze_0_1_MB_MUXF7_152 \Instruction_Prefetch_Mux[24].Instr_Mux_MUXF7 
        (.I073_out(I073_out),
         .I171_out(I171_out),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_26 ),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_25 ),
         .of_instr_ii_18(of_instr_ii_18));
   design_1_microblaze_0_1_MB_FDR_153 \Instruction_Prefetch_Mux[25].Gen_Instr_DFF 
        (.Clk(Clk),
@@ -70729,7 +70919,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
   design_1_microblaze_0_1_MB_MUXF7_154 \Instruction_Prefetch_Mux[25].Instr_Mux_MUXF7 
        (.I069_out(I069_out),
         .I167_out(I167_out),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_26 ),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_25 ),
         .of_instr_ii_17(of_instr_ii_17));
   design_1_microblaze_0_1_MB_FDR_155 \Instruction_Prefetch_Mux[26].Gen_Instr_DFF 
        (.Clk(Clk),
@@ -70746,7 +70936,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
   design_1_microblaze_0_1_MB_MUXF7_156 \Instruction_Prefetch_Mux[26].Instr_Mux_MUXF7 
        (.I065_out(I065_out),
         .I163_out(I163_out),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_26 ),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_25 ),
         .of_instr_ii_16(of_instr_ii_16));
   design_1_microblaze_0_1_MB_FDR_157 \Instruction_Prefetch_Mux[27].Gen_Instr_DFF 
        (.Clk(Clk),
@@ -70760,7 +70950,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
         .\Performance_Debug_Control.ex_dbg_pc_hit_i_i_2_0 (\Instruction_Prefetch_Mux[24].Gen_Instr_DFF_n_2 ),
         .\Performance_Debug_Control.ex_dbg_pc_hit_i_i_2_1 (\Instruction_Prefetch_Mux[20].Gen_Instr_DFF_n_2 ),
         .\Using_FPGA.Native_0 (\Using_FPGA.Native_4 [4]),
-        .\Using_FPGA.Native_1 (\Using_FPGA.Native_21 ),
+        .\Using_FPGA.Native_1 (\Using_FPGA.Native_20 ),
         .ex_set_bip0__1(ex_set_bip0__1),
         .of_Imm180(of_Imm180),
         .of_Take_Interrupt(of_Take_Interrupt),
@@ -70772,7 +70962,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
   design_1_microblaze_0_1_MB_MUXF7_158 \Instruction_Prefetch_Mux[27].Instr_Mux_MUXF7 
        (.I061_out(I061_out),
         .I159_out(I159_out),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_26 ),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_25 ),
         .of_instr_ii_15(of_instr_ii_15));
   design_1_microblaze_0_1_MB_FDR_159 \Instruction_Prefetch_Mux[28].Gen_Instr_DFF 
        (.Clk(Clk),
@@ -70793,7 +70983,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
   design_1_microblaze_0_1_MB_MUXF7_160 \Instruction_Prefetch_Mux[28].Instr_Mux_MUXF7 
        (.I057_out(I057_out),
         .I155_out(I155_out),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_26 ),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_25 ),
         .of_instr_ii_14(of_instr_ii_14));
   design_1_microblaze_0_1_MB_FDR_161 \Instruction_Prefetch_Mux[29].Gen_Instr_DFF 
        (.Clk(Clk),
@@ -70808,7 +70998,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
   design_1_microblaze_0_1_MB_MUXF7_162 \Instruction_Prefetch_Mux[29].Instr_Mux_MUXF7 
        (.I053_out(I053_out),
         .I151_out(I151_out),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_26 ),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_25 ),
         .of_instr_ii_13(of_instr_ii_13));
   design_1_microblaze_0_1_MB_FDR_163 \Instruction_Prefetch_Mux[2].Gen_Instr_DFF 
        (.Clk(Clk),
@@ -70834,7 +71024,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
   design_1_microblaze_0_1_MB_MUXF7_164 \Instruction_Prefetch_Mux[2].Instr_Mux_MUXF7 
        (.I0161_out(I0161_out),
         .I1159_out(I1159_out),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_26 ),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_25 ),
         .of_instr_ii_40(of_instr_ii_40));
   design_1_microblaze_0_1_MB_FDR_165 \Instruction_Prefetch_Mux[30].Gen_Instr_DFF 
        (.Clk(Clk),
@@ -70850,7 +71040,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
   design_1_microblaze_0_1_MB_MUXF7_166 \Instruction_Prefetch_Mux[30].Instr_Mux_MUXF7 
        (.I049_out(I049_out),
         .I147_out(I147_out),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_26 ),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_25 ),
         .of_instr_ii_12(of_instr_ii_12));
   design_1_microblaze_0_1_MB_FDR_167 \Instruction_Prefetch_Mux[31].Gen_Instr_DFF 
        (.Clk(Clk),
@@ -70871,7 +71061,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
   design_1_microblaze_0_1_MB_MUXF7_168 \Instruction_Prefetch_Mux[31].Instr_Mux_MUXF7 
        (.I045_out(I045_out),
         .I143_out(I143_out),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_26 ),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_25 ),
         .of_instr_ii_11(of_instr_ii_11));
   design_1_microblaze_0_1_MB_FDR_169 \Instruction_Prefetch_Mux[32].Gen_Instr_DFF 
        (.Clk(Clk),
@@ -70892,7 +71082,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
   design_1_microblaze_0_1_MB_MUXF7_170 \Instruction_Prefetch_Mux[32].Instr_Mux_MUXF7 
        (.I041_out(I041_out),
         .I139_out(I139_out),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_26 ),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_25 ),
         .of_instr_ii_10(of_instr_ii_10));
   design_1_microblaze_0_1_MB_FDR_171 \Instruction_Prefetch_Mux[33].Gen_Instr_DFF 
        (.Clk(Clk),
@@ -70948,7 +71138,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
   design_1_microblaze_0_1_MB_MUXF7_172 \Instruction_Prefetch_Mux[33].Instr_Mux_MUXF7 
        (.I037_out(I037_out),
         .I135_out(I135_out),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_26 ),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_25 ),
         .of_instr_ii_9(of_instr_ii_9));
   design_1_microblaze_0_1_MB_FDR_173 \Instruction_Prefetch_Mux[34].Gen_Instr_DFF 
        (.Clk(Clk),
@@ -70958,7 +71148,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
   design_1_microblaze_0_1_MB_MUXF7_174 \Instruction_Prefetch_Mux[34].Instr_Mux_MUXF7 
        (.I033_out(I033_out),
         .I131_out(I131_out),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_26 ),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_25 ),
         .of_instr_ii_8(of_instr_ii_8));
   design_1_microblaze_0_1_MB_FDR_175 \Instruction_Prefetch_Mux[35].Gen_Instr_DFF 
        (.Clk(Clk),
@@ -70968,7 +71158,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
   design_1_microblaze_0_1_MB_MUXF7_176 \Instruction_Prefetch_Mux[35].Instr_Mux_MUXF7 
        (.I029_out(I029_out),
         .I127_out(I127_out),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_26 ),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_25 ),
         .of_instr_ii_7(of_instr_ii_7));
   design_1_microblaze_0_1_MB_FDR_177 \Instruction_Prefetch_Mux[36].Gen_Instr_DFF 
        (.Clk(Clk),
@@ -70978,7 +71168,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
   design_1_microblaze_0_1_MB_MUXF7_178 \Instruction_Prefetch_Mux[36].Instr_Mux_MUXF7 
        (.I025_out(I025_out),
         .I123_out(I123_out),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_26 ),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_25 ),
         .of_instr_ii_6(of_instr_ii_6));
   design_1_microblaze_0_1_MB_FDR_179 \Instruction_Prefetch_Mux[37].Gen_Instr_DFF 
        (.Clk(Clk),
@@ -70998,7 +71188,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
   design_1_microblaze_0_1_MB_MUXF7_180 \Instruction_Prefetch_Mux[37].Instr_Mux_MUXF7 
        (.I021_out(I021_out),
         .I119_out(I119_out),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_26 ),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_25 ),
         .of_instr_ii_5(of_instr_ii_5));
   design_1_microblaze_0_1_MB_FDR_181 \Instruction_Prefetch_Mux[38].Gen_Instr_DFF 
        (.Clk(Clk),
@@ -71057,7 +71247,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
   design_1_microblaze_0_1_MB_MUXF7_182 \Instruction_Prefetch_Mux[38].Instr_Mux_MUXF7 
        (.I017_out(I017_out),
         .I115_out(I115_out),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_26 ),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_25 ),
         .of_instr_ii_4(of_instr_ii_4));
   design_1_microblaze_0_1_MB_FDR_183 \Instruction_Prefetch_Mux[39].Gen_Instr_DFF 
        (.Clk(Clk),
@@ -71067,7 +71257,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
   design_1_microblaze_0_1_MB_MUXF7_184 \Instruction_Prefetch_Mux[39].Instr_Mux_MUXF7 
        (.I013_out(I013_out),
         .I111_out(I111_out),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_26 ),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_25 ),
         .of_instr_ii_3(of_instr_ii_3));
   design_1_microblaze_0_1_MB_FDR_185 \Instruction_Prefetch_Mux[3].Gen_Instr_DFF 
        (.Clk(Clk),
@@ -71104,7 +71294,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
   design_1_microblaze_0_1_MB_MUXF7_186 \Instruction_Prefetch_Mux[3].Instr_Mux_MUXF7 
        (.I0157_out(I0157_out),
         .I1155_out(I1155_out),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_26 ),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_25 ),
         .of_instr_ii_39(of_instr_ii_39));
   design_1_microblaze_0_1_MB_FDR_187 \Instruction_Prefetch_Mux[40].Gen_Instr_DFF 
        (.Clk(Clk),
@@ -71114,7 +71304,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
   design_1_microblaze_0_1_MB_MUXF7_188 \Instruction_Prefetch_Mux[40].Instr_Mux_MUXF7 
        (.I09_out(I09_out),
         .I17_out(I17_out),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_26 ),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_25 ),
         .of_instr_ii_2(of_instr_ii_2));
   design_1_microblaze_0_1_MB_FDR_189 \Instruction_Prefetch_Mux[41].Gen_Instr_DFF 
        (.Clk(Clk),
@@ -71124,7 +71314,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
   design_1_microblaze_0_1_MB_MUXF7_190 \Instruction_Prefetch_Mux[41].Instr_Mux_MUXF7 
        (.I05_out(I05_out),
         .I13_out(I13_out),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_26 ),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_25 ),
         .of_instr_ii_1(of_instr_ii_1));
   design_1_microblaze_0_1_MB_FDR_191 \Instruction_Prefetch_Mux[42].Gen_Instr_DFF 
        (.Clk(Clk),
@@ -71144,13 +71334,13 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
   design_1_microblaze_0_1_MB_MUXF7_192 \Instruction_Prefetch_Mux[42].Instr_Mux_MUXF7 
        (.I0_1(I0_1),
         .I1(I1),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_26 ),
+        .IReady(IReady),
+        .IReady_0(IReady_0),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_25 ),
         .\Using_FPGA.Native_1 (ex_branch_with_delayslot_i_reg_0),
-        .\Using_FPGA.Native_2 (\Using_FPGA.Native_27 ),
-        .\Using_FPGA.Native_3 (\Using_FPGA.Native_28 ),
-        .iext_data_strobe(iext_data_strobe),
+        .\Using_FPGA.Native_2 (\Using_FPGA.Native_26 ),
+        .\Using_FPGA.Native_3 (\Using_FPGA.Native_27 ),
         .if_missed_fetch(if_missed_fetch),
-        .mem_access_completed_reg(mem_access_completed_reg),
         .of_instr_ii_0(of_instr_ii_0));
   design_1_microblaze_0_1_MB_FDR_193 \Instruction_Prefetch_Mux[4].Gen_Instr_DFF 
        (.Clk(Clk),
@@ -71184,14 +71374,14 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
         .of_read_imm_reg_ii(of_read_imm_reg_ii),
         .of_read_imm_reg_ii_reg(of_read_imm_reg_ii_reg),
         .of_read_imm_reg_ii_reg_0(of_read_imm_reg_ii_reg_0),
-        .of_read_imm_reg_ii_reg_1(\Using_FPGA.Native_26 ),
+        .of_read_imm_reg_ii_reg_1(\Using_FPGA.Native_25 ),
         .p_0_in34_in(p_0_in34_in),
         .sync_reset(sync_reset),
         .wb_exception(wb_exception));
   design_1_microblaze_0_1_MB_MUXF7_194 \Instruction_Prefetch_Mux[4].Instr_Mux_MUXF7 
        (.I0153_out(I0153_out),
         .I1151_out(I1151_out),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_26 ),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_25 ),
         .of_instr_ii_38(of_instr_ii_38));
   design_1_microblaze_0_1_MB_FDR_195 \Instruction_Prefetch_Mux[5].Gen_Instr_DFF 
        (.Clk(Clk),
@@ -71212,7 +71402,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
         .ex_enable_alu_i_reg(\Using_FPGA.Native_4 [10]),
         .ex_is_div_instr_I_reg(ex_is_div_instr_I_reg),
         .ex_is_div_instr_I_reg_0(ex_is_div_instr_I_reg_0),
-        .ex_is_div_instr_I_reg_1(\Using_FPGA.Native_26 ),
+        .ex_is_div_instr_I_reg_1(\Using_FPGA.Native_25 ),
         .ex_is_multi_instr20(ex_is_multi_instr20),
         .ex_is_multi_or_load_instr0(ex_is_multi_or_load_instr0),
         .ex_is_multi_or_load_instr_reg(of_instr[5]),
@@ -71233,7 +71423,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
   design_1_microblaze_0_1_MB_MUXF7_196 \Instruction_Prefetch_Mux[5].Instr_Mux_MUXF7 
        (.I0149_out(I0149_out),
         .I1147_out(I1147_out),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_26 ),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_25 ),
         .of_instr_ii_37(of_instr_ii_37));
   design_1_microblaze_0_1_MB_FDR_197 \Instruction_Prefetch_Mux[6].Gen_Instr_DFF 
        (.Clk(Clk),
@@ -71289,7 +71479,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
   design_1_microblaze_0_1_MB_MUXF7_198 \Instruction_Prefetch_Mux[6].Instr_Mux_MUXF7 
        (.I0145_out(I0145_out),
         .I1143_out(I1143_out),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_26 ),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_25 ),
         .of_instr_ii_36(of_instr_ii_36));
   design_1_microblaze_0_1_MB_FDR_199 \Instruction_Prefetch_Mux[7].Gen_Instr_DFF 
        (.Clk(Clk),
@@ -71297,20 +71487,20 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
         .\Using_FPGA.Native_1 (ex_mbar_is_sleep_cmb),
         .ex_mbar_is_sleep(ex_mbar_is_sleep),
         .ex_mbar_is_sleep_reg(D[1]),
-        .ex_mbar_is_sleep_reg_0(\Using_FPGA.Native_26 ),
+        .ex_mbar_is_sleep_reg_0(\Using_FPGA.Native_25 ),
         .of_instr_ii_35(of_instr_ii_35),
         .sync_reset(sync_reset));
   design_1_microblaze_0_1_MB_MUXF7_200 \Instruction_Prefetch_Mux[7].Instr_Mux_MUXF7 
        (.I0141_out(I0141_out),
         .I1139_out(I1139_out),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_26 ),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_25 ),
         .of_instr_ii_35(of_instr_ii_35));
   design_1_microblaze_0_1_MB_FDR_201 \Instruction_Prefetch_Mux[8].Gen_Instr_DFF 
        (.Clk(Clk),
         .\Using_FPGA.Native_0 (\Using_FPGA.Native_1 ),
         .\Using_FPGA.Native_1 (\Using_FPGA.Native_6 ),
         .ex_gpr_write115_out__0(ex_gpr_write115_out__0),
-        .ex_gpr_write_reg(\Using_FPGA.Native_26 ),
+        .ex_gpr_write_reg(\Using_FPGA.Native_25 ),
         .ex_gpr_write_reg_0(D[1]),
         .ex_gpr_write_reg_1(D[0]),
         .ex_op1_cmp_eq1(ex_op1_cmp_eq1),
@@ -71321,7 +71511,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
   design_1_microblaze_0_1_MB_MUXF7_202 \Instruction_Prefetch_Mux[8].Instr_Mux_MUXF7 
        (.I0137_out(I0137_out),
         .I1135_out(I1135_out),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_26 ),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_25 ),
         .of_instr_ii_34(of_instr_ii_34));
   design_1_microblaze_0_1_MB_FDR_203 \Instruction_Prefetch_Mux[9].Gen_Instr_DFF 
        (.Clk(Clk),
@@ -71331,7 +71521,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
   design_1_microblaze_0_1_MB_MUXF7_204 \Instruction_Prefetch_Mux[9].Instr_Mux_MUXF7 
        (.I0133_out(I0133_out),
         .I1131_out(I1131_out),
-        .\Using_FPGA.Native_0 (\Using_FPGA.Native_26 ),
+        .\Using_FPGA.Native_0 (\Using_FPGA.Native_25 ),
         .of_instr_ii_33(of_instr_ii_33));
   design_1_microblaze_0_1_MB_FDS Last_Sel_DFF
        (.Clk(Clk),
@@ -71379,7 +71569,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
         .I09_out(I09_out),
         .I0_1(I0_1),
         .\Using_FPGA.Native_0 (\Using_FPGA.Native [0]),
-        .\Using_FPGA.Native_1 (mem_access_completed_reg),
+        .\Using_FPGA.Native_1 (IReady_0),
         .\Using_FPGA.Native_10 (D[0]),
         .\Using_FPGA.Native_11 (D[1]),
         .\Using_FPGA.Native_12 (of_instr[0]),
@@ -71405,25 +71595,25 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
         .I5(I5),
         .\Using_FPGA.Native_0 (\Using_FPGA.Native [0]),
         .\Using_FPGA.Native_1 (\Using_FPGA.Native_0 ),
-        .\Using_FPGA.Native_2 (mem_access_completed_reg),
-        .\Using_FPGA.Native_3 (\Using_FPGA.Native_26 ),
+        .\Using_FPGA.Native_2 (IReady_0),
+        .\Using_FPGA.Native_3 (\Using_FPGA.Native_25 ),
         .sel_input_i_0(sel_input_i_0));
   design_1_microblaze_0_1_MB_LUT6__parameterized6 Mux_Select_OF_Valid_LUT6
        (.I4_0(I4_0),
         .I5(I5),
         .\Using_FPGA.Native_0 (\Using_FPGA.Native [0]),
         .\Using_FPGA.Native_1 (\Using_FPGA.Native_0 ),
-        .\Using_FPGA.Native_2 (mem_access_completed_reg),
-        .\Using_FPGA.Native_3 (\Using_FPGA.Native_26 ),
+        .\Using_FPGA.Native_2 (IReady_0),
+        .\Using_FPGA.Native_3 (\Using_FPGA.Native_25 ),
         .of_Valid_II(of_Valid_II));
   design_1_microblaze_0_1_MB_FDR_205 OF_Valid_DFF
        (.Clk(Clk),
         .EX_Is_Div_Instr(EX_Is_Div_Instr),
         .MEM_Is_Div_Instr(MEM_Is_Div_Instr),
         .\Using_FPGA.Native_0 (of_valid),
-        .\Using_FPGA.Native_1 (\Using_FPGA.Native_20 ),
-        .\Using_FPGA.Native_2 (ex_branch_with_delayslot_i_reg_0),
+        .\Using_FPGA.Native_1 (ex_branch_with_delayslot_i_reg_0),
         .ex_branch_with_delayslot(ex_branch_with_delayslot),
+        .ex_branch_with_delayslot_reg(ex_branch_with_delayslot_reg),
         .ex_jump_q(ex_jump_q),
         .of_Valid_II(of_Valid_II),
         .of_is_div_instr(of_is_div_instr),
@@ -71444,7 +71634,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
         .A1(\Using_FPGA.Native [1]),
         .A2(1'b0),
         .A3(1'b0),
-        .CE(mem_access_completed_reg),
+        .CE(IReady_0),
         .CLK(Clk),
         .D(in[32]),
         .Q(p_1_in209_in));
@@ -71457,7 +71647,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
         .A1(\Using_FPGA.Native [1]),
         .A2(1'b0),
         .A3(1'b0),
-        .CE(mem_access_completed_reg),
+        .CE(IReady_0),
         .CLK(Clk),
         .D(in[22]),
         .Q(p_1_in159_in));
@@ -71470,7 +71660,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
         .A1(\Using_FPGA.Native [1]),
         .A2(1'b0),
         .A3(1'b0),
-        .CE(mem_access_completed_reg),
+        .CE(IReady_0),
         .CLK(Clk),
         .D(in[9]),
         .Q(p_1_in154_in));
@@ -71483,7 +71673,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
         .A1(\Using_FPGA.Native [1]),
         .A2(1'b0),
         .A3(1'b0),
-        .CE(mem_access_completed_reg),
+        .CE(IReady_0),
         .CLK(Clk),
         .D(in[8]),
         .Q(p_1_in149_in));
@@ -71496,7 +71686,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
         .A1(\Using_FPGA.Native [1]),
         .A2(1'b0),
         .A3(1'b0),
-        .CE(mem_access_completed_reg),
+        .CE(IReady_0),
         .CLK(Clk),
         .D(in[7]),
         .Q(p_1_in144_in));
@@ -71509,7 +71699,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
         .A1(\Using_FPGA.Native [1]),
         .A2(1'b0),
         .A3(1'b0),
-        .CE(mem_access_completed_reg),
+        .CE(IReady_0),
         .CLK(Clk),
         .D(in[6]),
         .Q(p_1_in139_in));
@@ -71522,7 +71712,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
         .A1(\Using_FPGA.Native [1]),
         .A2(1'b0),
         .A3(1'b0),
-        .CE(mem_access_completed_reg),
+        .CE(IReady_0),
         .CLK(Clk),
         .D(in[5]),
         .Q(p_1_in134_in));
@@ -71535,7 +71725,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
         .A1(\Using_FPGA.Native [1]),
         .A2(1'b0),
         .A3(1'b0),
-        .CE(mem_access_completed_reg),
+        .CE(IReady_0),
         .CLK(Clk),
         .D(in[4]),
         .Q(p_1_in129_in));
@@ -71548,7 +71738,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
         .A1(\Using_FPGA.Native [1]),
         .A2(1'b0),
         .A3(1'b0),
-        .CE(mem_access_completed_reg),
+        .CE(IReady_0),
         .CLK(Clk),
         .D(in[3]),
         .Q(p_1_in124_in));
@@ -71561,7 +71751,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
         .A1(\Using_FPGA.Native [1]),
         .A2(1'b0),
         .A3(1'b0),
-        .CE(mem_access_completed_reg),
+        .CE(IReady_0),
         .CLK(Clk),
         .D(in[2]),
         .Q(p_1_in119_in));
@@ -71574,7 +71764,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
         .A1(\Using_FPGA.Native [1]),
         .A2(1'b0),
         .A3(1'b0),
-        .CE(mem_access_completed_reg),
+        .CE(IReady_0),
         .CLK(Clk),
         .D(in[1]),
         .Q(p_1_in114_in));
@@ -71587,7 +71777,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
         .A1(\Using_FPGA.Native [1]),
         .A2(1'b0),
         .A3(1'b0),
-        .CE(mem_access_completed_reg),
+        .CE(IReady_0),
         .CLK(Clk),
         .D(in[31]),
         .Q(p_1_in204_in));
@@ -71600,7 +71790,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
         .A1(\Using_FPGA.Native [1]),
         .A2(1'b0),
         .A3(1'b0),
-        .CE(mem_access_completed_reg),
+        .CE(IReady_0),
         .CLK(Clk),
         .D(in[0]),
         .Q(p_1_in109_in));
@@ -71613,7 +71803,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
         .A1(\Using_FPGA.Native [1]),
         .A2(1'b0),
         .A3(1'b0),
-        .CE(mem_access_completed_reg),
+        .CE(IReady_0),
         .CLK(Clk),
         .D(in[21]),
         .Q(p_1_in104_in));
@@ -71626,7 +71816,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
         .A1(\Using_FPGA.Native [1]),
         .A2(1'b0),
         .A3(1'b0),
-        .CE(mem_access_completed_reg),
+        .CE(IReady_0),
         .CLK(Clk),
         .D(in[20]),
         .Q(p_1_in99_in));
@@ -71639,7 +71829,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
         .A1(\Using_FPGA.Native [1]),
         .A2(1'b0),
         .A3(1'b0),
-        .CE(mem_access_completed_reg),
+        .CE(IReady_0),
         .CLK(Clk),
         .D(in[19]),
         .Q(p_1_in94_in));
@@ -71652,7 +71842,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
         .A1(\Using_FPGA.Native [1]),
         .A2(1'b0),
         .A3(1'b0),
-        .CE(mem_access_completed_reg),
+        .CE(IReady_0),
         .CLK(Clk),
         .D(in[18]),
         .Q(p_1_in89_in));
@@ -71665,7 +71855,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
         .A1(\Using_FPGA.Native [1]),
         .A2(1'b0),
         .A3(1'b0),
-        .CE(mem_access_completed_reg),
+        .CE(IReady_0),
         .CLK(Clk),
         .D(in[17]),
         .Q(p_1_in84_in));
@@ -71678,7 +71868,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
         .A1(\Using_FPGA.Native [1]),
         .A2(1'b0),
         .A3(1'b0),
-        .CE(mem_access_completed_reg),
+        .CE(IReady_0),
         .CLK(Clk),
         .D(in[16]),
         .Q(p_1_in79_in));
@@ -71691,7 +71881,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
         .A1(\Using_FPGA.Native [1]),
         .A2(1'b0),
         .A3(1'b0),
-        .CE(mem_access_completed_reg),
+        .CE(IReady_0),
         .CLK(Clk),
         .D(in[15]),
         .Q(p_1_in74_in));
@@ -71704,7 +71894,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
         .A1(\Using_FPGA.Native [1]),
         .A2(1'b0),
         .A3(1'b0),
-        .CE(mem_access_completed_reg),
+        .CE(IReady_0),
         .CLK(Clk),
         .D(in[14]),
         .Q(p_1_in69_in));
@@ -71717,7 +71907,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
         .A1(\Using_FPGA.Native [1]),
         .A2(1'b0),
         .A3(1'b0),
-        .CE(mem_access_completed_reg),
+        .CE(IReady_0),
         .CLK(Clk),
         .D(in[13]),
         .Q(p_1_in64_in));
@@ -71730,7 +71920,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
         .A1(\Using_FPGA.Native [1]),
         .A2(1'b0),
         .A3(1'b0),
-        .CE(mem_access_completed_reg),
+        .CE(IReady_0),
         .CLK(Clk),
         .D(in[30]),
         .Q(p_1_in199_in));
@@ -71743,7 +71933,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
         .A1(\Using_FPGA.Native [1]),
         .A2(1'b0),
         .A3(1'b0),
-        .CE(mem_access_completed_reg),
+        .CE(IReady_0),
         .CLK(Clk),
         .D(in[12]),
         .Q(p_1_in59_in));
@@ -71756,7 +71946,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
         .A1(\Using_FPGA.Native [1]),
         .A2(1'b0),
         .A3(1'b0),
-        .CE(mem_access_completed_reg),
+        .CE(IReady_0),
         .CLK(Clk),
         .D(in[11]),
         .Q(p_1_in54_in));
@@ -71769,10 +71959,10 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
         .A1(\Using_FPGA.Native [1]),
         .A2(1'b0),
         .A3(1'b0),
-        .CE(mem_access_completed_reg),
+        .CE(IReady_0),
         .CLK(Clk),
         .D(in[10]),
-        .Q(\Using_FPGA.Native_25 ));
+        .Q(\Using_FPGA.Native_24 ));
   (* srl_bus_name = "U0/\MicroBlaze_Core_I/Performance.Core/Decode_I/PreFetch_Buffer_I1/ibuffer_reg[3] " *) 
   (* srl_name = "U0/\MicroBlaze_Core_I/Performance.Core/Decode_I/PreFetch_Buffer_I1/ibuffer_reg[3][33]_srl4 " *) 
   SRL16E #(
@@ -71782,7 +71972,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
         .A1(\Using_FPGA.Native [1]),
         .A2(1'b0),
         .A3(1'b0),
-        .CE(mem_access_completed_reg),
+        .CE(IReady_0),
         .CLK(Clk),
         .D(in[9]),
         .Q(p_1_in44_in));
@@ -71795,7 +71985,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
         .A1(\Using_FPGA.Native [1]),
         .A2(1'b0),
         .A3(1'b0),
-        .CE(mem_access_completed_reg),
+        .CE(IReady_0),
         .CLK(Clk),
         .D(in[8]),
         .Q(p_1_in39_in));
@@ -71808,7 +71998,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
         .A1(\Using_FPGA.Native [1]),
         .A2(1'b0),
         .A3(1'b0),
-        .CE(mem_access_completed_reg),
+        .CE(IReady_0),
         .CLK(Clk),
         .D(in[7]),
         .Q(p_1_in34_in));
@@ -71821,7 +72011,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
         .A1(\Using_FPGA.Native [1]),
         .A2(1'b0),
         .A3(1'b0),
-        .CE(mem_access_completed_reg),
+        .CE(IReady_0),
         .CLK(Clk),
         .D(in[6]),
         .Q(p_1_in29_in_2));
@@ -71834,7 +72024,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
         .A1(\Using_FPGA.Native [1]),
         .A2(1'b0),
         .A3(1'b0),
-        .CE(mem_access_completed_reg),
+        .CE(IReady_0),
         .CLK(Clk),
         .D(in[5]),
         .Q(p_1_in24_in));
@@ -71847,7 +72037,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
         .A1(\Using_FPGA.Native [1]),
         .A2(1'b0),
         .A3(1'b0),
-        .CE(mem_access_completed_reg),
+        .CE(IReady_0),
         .CLK(Clk),
         .D(in[4]),
         .Q(p_1_in19_in));
@@ -71860,7 +72050,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
         .A1(\Using_FPGA.Native [1]),
         .A2(1'b0),
         .A3(1'b0),
-        .CE(mem_access_completed_reg),
+        .CE(IReady_0),
         .CLK(Clk),
         .D(in[3]),
         .Q(p_1_in14_in));
@@ -71873,7 +72063,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
         .A1(\Using_FPGA.Native [1]),
         .A2(1'b0),
         .A3(1'b0),
-        .CE(mem_access_completed_reg),
+        .CE(IReady_0),
         .CLK(Clk),
         .D(in[29]),
         .Q(p_1_in194_in));
@@ -71886,7 +72076,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
         .A1(\Using_FPGA.Native [1]),
         .A2(1'b0),
         .A3(1'b0),
-        .CE(mem_access_completed_reg),
+        .CE(IReady_0),
         .CLK(Clk),
         .D(in[2]),
         .Q(p_1_in9_in));
@@ -71899,7 +72089,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
         .A1(\Using_FPGA.Native [1]),
         .A2(1'b0),
         .A3(1'b0),
-        .CE(mem_access_completed_reg),
+        .CE(IReady_0),
         .CLK(Clk),
         .D(in[1]),
         .Q(p_1_in4_in));
@@ -71912,7 +72102,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
         .A1(\Using_FPGA.Native [1]),
         .A2(1'b0),
         .A3(1'b0),
-        .CE(mem_access_completed_reg),
+        .CE(IReady_0),
         .CLK(Clk),
         .D(in[0]),
         .Q(\ibuffer_reg[3][42]_srl4_n_0 ));
@@ -71925,7 +72115,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
         .A1(\Using_FPGA.Native [1]),
         .A2(1'b0),
         .A3(1'b0),
-        .CE(mem_access_completed_reg),
+        .CE(IReady_0),
         .CLK(Clk),
         .D(in[28]),
         .Q(p_1_in189_in));
@@ -71938,7 +72128,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
         .A1(\Using_FPGA.Native [1]),
         .A2(1'b0),
         .A3(1'b0),
-        .CE(mem_access_completed_reg),
+        .CE(IReady_0),
         .CLK(Clk),
         .D(in[27]),
         .Q(p_1_in184_in));
@@ -71951,7 +72141,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
         .A1(\Using_FPGA.Native [1]),
         .A2(1'b0),
         .A3(1'b0),
-        .CE(mem_access_completed_reg),
+        .CE(IReady_0),
         .CLK(Clk),
         .D(in[26]),
         .Q(p_1_in179_in));
@@ -71964,7 +72154,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
         .A1(\Using_FPGA.Native [1]),
         .A2(1'b0),
         .A3(1'b0),
-        .CE(mem_access_completed_reg),
+        .CE(IReady_0),
         .CLK(Clk),
         .D(in[25]),
         .Q(p_1_in174_in));
@@ -71977,7 +72167,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
         .A1(\Using_FPGA.Native [1]),
         .A2(1'b0),
         .A3(1'b0),
-        .CE(mem_access_completed_reg),
+        .CE(IReady_0),
         .CLK(Clk),
         .D(in[24]),
         .Q(p_1_in169_in));
@@ -71990,7 +72180,7 @@ module design_1_microblaze_0_1_PreFetch_Buffer_gti
         .A1(\Using_FPGA.Native [1]),
         .A2(1'b0),
         .A3(1'b0),
-        .CE(mem_access_completed_reg),
+        .CE(IReady_0),
         .CLK(Clk),
         .D(in[23]),
         .Q(p_1_in164_in));
@@ -72770,7 +72960,7 @@ module design_1_microblaze_0_1_carry_and_58
     of_PipeRun_carry_10,
     ex_mbar_sleep,
     ex_mbar_decode,
-    \Using_FPGA.Native_i_1__108 ,
+    \Using_FPGA.Native_i_1__110 ,
     ex_first_cycle,
     ex_mbar_stall_no_sleep_1,
     ex_jump_hold,
@@ -72782,7 +72972,7 @@ module design_1_microblaze_0_1_carry_and_58
   input of_PipeRun_carry_10;
   input ex_mbar_sleep;
   input ex_mbar_decode;
-  input \Using_FPGA.Native_i_1__108 ;
+  input \Using_FPGA.Native_i_1__110 ;
   input ex_first_cycle;
   input ex_mbar_stall_no_sleep_1;
   input ex_jump_hold;
@@ -72791,7 +72981,7 @@ module design_1_microblaze_0_1_carry_and_58
 
   wire EX_MBAR_Stall__2;
   wire \Using_FPGA.Native ;
-  wire \Using_FPGA.Native_i_1__108 ;
+  wire \Using_FPGA.Native_i_1__110 ;
   wire ex_first_cycle;
   wire ex_jump_hold;
   wire ex_mbar_decode;
@@ -72805,7 +72995,7 @@ module design_1_microblaze_0_1_carry_and_58
   design_1_microblaze_0_1_MB_MUXCY_108 MUXCY_I
        (.EX_MBAR_Stall__2(EX_MBAR_Stall__2),
         .\Using_FPGA.Native_0 (\Using_FPGA.Native ),
-        .\Using_FPGA.Native_i_1__108 (\Using_FPGA.Native_i_1__108 ),
+        .\Using_FPGA.Native_i_1__110 (\Using_FPGA.Native_i_1__110 ),
         .ex_first_cycle(ex_first_cycle),
         .ex_jump_hold(ex_jump_hold),
         .ex_mbar_decode(ex_mbar_decode),
@@ -73421,7 +73611,7 @@ endmodule
 (* ORIG_REF_NAME = "carry_or" *) 
 module design_1_microblaze_0_1_carry_or
    (mem_wait_on_ready_N,
-    mem_databus_Data_Strobe,
+    MEM_DataBus_Ready,
     mem_load_store_access,
     mem_Write_DCache,
     mem_valid_instr,
@@ -73435,7 +73625,7 @@ module design_1_microblaze_0_1_carry_or
     lopt_7,
     lopt_8);
   output mem_wait_on_ready_N;
-  input mem_databus_Data_Strobe;
+  input MEM_DataBus_Ready;
   input mem_load_store_access;
   input mem_Write_DCache;
   input mem_valid_instr;
@@ -73449,6 +73639,7 @@ module design_1_microblaze_0_1_carry_or
   input lopt_7;
   input lopt_8;
 
+  wire MEM_DataBus_Ready;
   wire lopt;
   wire lopt_1;
   wire lopt_2;
@@ -73459,13 +73650,13 @@ module design_1_microblaze_0_1_carry_or
   wire lopt_7;
   wire lopt_8;
   wire mem_Write_DCache;
-  wire mem_databus_Data_Strobe;
   wire mem_load_store_access;
   wire mem_valid_instr;
   wire mem_wait_on_ready_N;
 
   design_1_microblaze_0_1_MB_MUXCY_90 MUXCY_I
-       (.lopt(lopt),
+       (.MEM_DataBus_Ready(MEM_DataBus_Ready),
+        .lopt(lopt),
         .lopt_1(lopt_1),
         .lopt_2(lopt_2),
         .lopt_3(lopt_3),
@@ -73475,7 +73666,6 @@ module design_1_microblaze_0_1_carry_or
         .lopt_7(lopt_7),
         .lopt_8(lopt_8),
         .mem_Write_DCache(mem_Write_DCache),
-        .mem_databus_Data_Strobe(mem_databus_Data_Strobe),
         .mem_load_store_access(mem_load_store_access),
         .mem_valid_instr(mem_valid_instr),
         .mem_wait_on_ready_N(mem_wait_on_ready_N));
@@ -73631,31 +73821,32 @@ module design_1_microblaze_0_1_exception_registers_gti
     \data_rd_reg_reg[9] ,
     \data_rd_reg_reg[9]_0 ,
     \LOCKSTEP_Out_reg[3016] ,
-    wb_databus_steered_read_data,
+    WB_Steered_Read_Data1__0,
     \LOCKSTEP_Out_reg[3007] ,
+    \LOCKSTEP_Out_reg[3007]_0 ,
     wb_mul_result,
+    \LOCKSTEP_Out_reg[3008] ,
+    \LOCKSTEP_Out_reg[3009] ,
+    \LOCKSTEP_Out_reg[3010] ,
+    \LOCKSTEP_Out_reg[3011] ,
+    \LOCKSTEP_Out_reg[3012] ,
+    \LOCKSTEP_Out_reg[3013] ,
+    \LOCKSTEP_Out_reg[3014] ,
+    \LOCKSTEP_Out_reg[3015] ,
+    \LOCKSTEP_Out_reg[3016]_0 ,
+    \LOCKSTEP_Out_reg[3017] ,
+    \LOCKSTEP_Out_reg[3018] ,
+    \LOCKSTEP_Out_reg[3019] ,
+    \LOCKSTEP_Out_reg[3020] ,
+    \LOCKSTEP_Out_reg[3021] ,
+    \LOCKSTEP_Out_reg[3022] ,
     wb_byte_access,
     \LOCKSTEP_Out_reg[3023] ,
     \LOCKSTEP_Out_reg[3025] ,
     \LOCKSTEP_Out_reg[3027] ,
     \LOCKSTEP_Out_reg[3029] ,
-    \LOCKSTEP_Out_reg[3031] ,
-    \LOCKSTEP_Out_reg[3031]_0 ,
-    \LOCKSTEP_Out_reg[3033] ,
-    \LOCKSTEP_Out_reg[3033]_0 ,
+    wb_databus_steered_read_data,
     \data_rd_reg_reg[25] ,
-    \LOCKSTEP_Out_reg[3035] ,
-    \LOCKSTEP_Out_reg[3035]_0 ,
-    \LOCKSTEP_Out_reg[3037] ,
-    \LOCKSTEP_Out_reg[3037]_0 ,
-    \LOCKSTEP_Out_reg[3038] ,
-    \LOCKSTEP_Out_reg[3038]_0 ,
-    \LOCKSTEP_Out_reg[3036] ,
-    \LOCKSTEP_Out_reg[3036]_0 ,
-    \LOCKSTEP_Out_reg[3034] ,
-    \LOCKSTEP_Out_reg[3034]_0 ,
-    \LOCKSTEP_Out_reg[3032] ,
-    \LOCKSTEP_Out_reg[3032]_0 ,
     \LOCKSTEP_Out_reg[3030] ,
     \LOCKSTEP_Out_reg[3028] ,
     \LOCKSTEP_Out_reg[3026] ,
@@ -73703,31 +73894,32 @@ module design_1_microblaze_0_1_exception_registers_gti
   input \data_rd_reg_reg[9] ;
   input \data_rd_reg_reg[9]_0 ;
   input \LOCKSTEP_Out_reg[3016] ;
-  input [15:0]wb_databus_steered_read_data;
-  input [31:0]\LOCKSTEP_Out_reg[3007] ;
+  input WB_Steered_Read_Data1__0;
+  input \LOCKSTEP_Out_reg[3007] ;
+  input [31:0]\LOCKSTEP_Out_reg[3007]_0 ;
   input [0:31]wb_mul_result;
+  input \LOCKSTEP_Out_reg[3008] ;
+  input \LOCKSTEP_Out_reg[3009] ;
+  input \LOCKSTEP_Out_reg[3010] ;
+  input \LOCKSTEP_Out_reg[3011] ;
+  input \LOCKSTEP_Out_reg[3012] ;
+  input \LOCKSTEP_Out_reg[3013] ;
+  input \LOCKSTEP_Out_reg[3014] ;
+  input \LOCKSTEP_Out_reg[3015] ;
+  input \LOCKSTEP_Out_reg[3016]_0 ;
+  input \LOCKSTEP_Out_reg[3017] ;
+  input \LOCKSTEP_Out_reg[3018] ;
+  input \LOCKSTEP_Out_reg[3019] ;
+  input \LOCKSTEP_Out_reg[3020] ;
+  input \LOCKSTEP_Out_reg[3021] ;
+  input \LOCKSTEP_Out_reg[3022] ;
   input wb_byte_access;
   input \LOCKSTEP_Out_reg[3023] ;
   input \LOCKSTEP_Out_reg[3025] ;
   input \LOCKSTEP_Out_reg[3027] ;
   input \LOCKSTEP_Out_reg[3029] ;
-  input \LOCKSTEP_Out_reg[3031] ;
-  input \LOCKSTEP_Out_reg[3031]_0 ;
-  input \LOCKSTEP_Out_reg[3033] ;
-  input \LOCKSTEP_Out_reg[3033]_0 ;
+  input [7:0]wb_databus_steered_read_data;
   input [3:0]\data_rd_reg_reg[25] ;
-  input \LOCKSTEP_Out_reg[3035] ;
-  input \LOCKSTEP_Out_reg[3035]_0 ;
-  input \LOCKSTEP_Out_reg[3037] ;
-  input \LOCKSTEP_Out_reg[3037]_0 ;
-  input \LOCKSTEP_Out_reg[3038] ;
-  input \LOCKSTEP_Out_reg[3038]_0 ;
-  input \LOCKSTEP_Out_reg[3036] ;
-  input \LOCKSTEP_Out_reg[3036]_0 ;
-  input \LOCKSTEP_Out_reg[3034] ;
-  input \LOCKSTEP_Out_reg[3034]_0 ;
-  input \LOCKSTEP_Out_reg[3032] ;
-  input \LOCKSTEP_Out_reg[3032]_0 ;
   input \LOCKSTEP_Out_reg[3030] ;
   input \LOCKSTEP_Out_reg[3028] ;
   input \LOCKSTEP_Out_reg[3026] ;
@@ -73736,8 +73928,24 @@ module design_1_microblaze_0_1_exception_registers_gti
   wire Clk;
   wire DI;
   wire I1_1;
-  wire [31:0]\LOCKSTEP_Out_reg[3007] ;
+  wire \LOCKSTEP_Out_reg[3007] ;
+  wire [31:0]\LOCKSTEP_Out_reg[3007]_0 ;
+  wire \LOCKSTEP_Out_reg[3008] ;
+  wire \LOCKSTEP_Out_reg[3009] ;
+  wire \LOCKSTEP_Out_reg[3010] ;
+  wire \LOCKSTEP_Out_reg[3011] ;
+  wire \LOCKSTEP_Out_reg[3012] ;
+  wire \LOCKSTEP_Out_reg[3013] ;
+  wire \LOCKSTEP_Out_reg[3014] ;
+  wire \LOCKSTEP_Out_reg[3015] ;
   wire \LOCKSTEP_Out_reg[3016] ;
+  wire \LOCKSTEP_Out_reg[3016]_0 ;
+  wire \LOCKSTEP_Out_reg[3017] ;
+  wire \LOCKSTEP_Out_reg[3018] ;
+  wire \LOCKSTEP_Out_reg[3019] ;
+  wire \LOCKSTEP_Out_reg[3020] ;
+  wire \LOCKSTEP_Out_reg[3021] ;
+  wire \LOCKSTEP_Out_reg[3022] ;
   wire \LOCKSTEP_Out_reg[3023] ;
   wire \LOCKSTEP_Out_reg[3024] ;
   wire \LOCKSTEP_Out_reg[3025] ;
@@ -73746,22 +73954,6 @@ module design_1_microblaze_0_1_exception_registers_gti
   wire \LOCKSTEP_Out_reg[3028] ;
   wire \LOCKSTEP_Out_reg[3029] ;
   wire \LOCKSTEP_Out_reg[3030] ;
-  wire \LOCKSTEP_Out_reg[3031] ;
-  wire \LOCKSTEP_Out_reg[3031]_0 ;
-  wire \LOCKSTEP_Out_reg[3032] ;
-  wire \LOCKSTEP_Out_reg[3032]_0 ;
-  wire \LOCKSTEP_Out_reg[3033] ;
-  wire \LOCKSTEP_Out_reg[3033]_0 ;
-  wire \LOCKSTEP_Out_reg[3034] ;
-  wire \LOCKSTEP_Out_reg[3034]_0 ;
-  wire \LOCKSTEP_Out_reg[3035] ;
-  wire \LOCKSTEP_Out_reg[3035]_0 ;
-  wire \LOCKSTEP_Out_reg[3036] ;
-  wire \LOCKSTEP_Out_reg[3036]_0 ;
-  wire \LOCKSTEP_Out_reg[3037] ;
-  wire \LOCKSTEP_Out_reg[3037]_0 ;
-  wire \LOCKSTEP_Out_reg[3038] ;
-  wire \LOCKSTEP_Out_reg[3038]_0 ;
   wire O5;
   wire \Using_FPGA.Native ;
   wire \Using_FPGA.Native_0 ;
@@ -73829,6 +74021,7 @@ module design_1_microblaze_0_1_exception_registers_gti
   wire \Using_FPGA_LUT6.Gen_Ret_Addr[7].I_RET_ADDR_WB_n_0 ;
   wire \Using_FPGA_LUT6.Gen_Ret_Addr[8].I_RET_ADDR_WB_n_0 ;
   wire \Using_FPGA_LUT6.Gen_Ret_Addr[9].I_RET_ADDR_WB_n_0 ;
+  wire WB_Steered_Read_Data1__0;
   wire addr_AddSub_0;
   wire addr_AddSub_1;
   wire addr_AddSub_10;
@@ -73945,7 +74138,7 @@ module design_1_microblaze_0_1_exception_registers_gti
   wire lopt_8;
   wire lopt_9;
   wire wb_byte_access;
-  wire [15:0]wb_databus_steered_read_data;
+  wire [7:0]wb_databus_steered_read_data;
   wire wb_gpr_wr_dbg;
   wire [31:0]wb_gpr_write_dbg_reg;
   wire [0:31]wb_mul_result;
@@ -73975,13 +74168,14 @@ module design_1_microblaze_0_1_exception_registers_gti
   design_1_microblaze_0_1_MB_MUXCY_XORCY_312 \Using_FPGA_LUT6.Gen_Ret_Addr[0].MUXCY_XOR_I 
        (.LO(carry_31),
         .\LOCKSTEP_Out_reg[3007] (\LOCKSTEP_Out_reg[3016] ),
-        .\LOCKSTEP_Out_reg[3007]_0 (\LOCKSTEP_Out_reg[3007] [31]),
+        .\LOCKSTEP_Out_reg[3007]_0 (\LOCKSTEP_Out_reg[3007] ),
+        .\LOCKSTEP_Out_reg[3007]_1 (\LOCKSTEP_Out_reg[3007]_0 [31]),
         .\WB_MEM_Result_reg[0] (\Using_FPGA.Native_29 [31]),
+        .WB_Steered_Read_Data1__0(WB_Steered_Read_Data1__0),
         .addr_AddSub_31(addr_AddSub_31),
         .\data_rd_reg_reg[0] (\data_rd_reg_reg[9] ),
         .\data_rd_reg_reg[0]_0 (\Using_FPGA.Native_29 [32]),
         .\data_rd_reg_reg[0]_1 (\data_rd_reg_reg[9]_0 ),
-        .wb_databus_steered_read_data(wb_databus_steered_read_data[15]),
         .wb_gpr_wr_dbg(wb_gpr_wr_dbg),
         .wb_gpr_write_dbg_reg(wb_gpr_write_dbg_reg[31]),
         .wb_mul_result(wb_mul_result[0]));
@@ -74001,15 +74195,16 @@ module design_1_microblaze_0_1_exception_registers_gti
        (.DI(\Using_FPGA.Native_19 ),
         .LO(carry_22),
         .\LOCKSTEP_Out_reg[3017] (\LOCKSTEP_Out_reg[3016] ),
-        .\LOCKSTEP_Out_reg[3017]_0 (\LOCKSTEP_Out_reg[3007] [21]),
-        .\LOCKSTEP_Out_reg[3017]_1 (carry_21),
+        .\LOCKSTEP_Out_reg[3017]_0 (\LOCKSTEP_Out_reg[3017] ),
+        .\LOCKSTEP_Out_reg[3017]_1 (\LOCKSTEP_Out_reg[3007]_0 [21]),
+        .\LOCKSTEP_Out_reg[3017]_2 (carry_21),
         .S(addr_AddSub_21),
         .\WB_MEM_Result_reg[10] (\Using_FPGA.Native_29 [21]),
+        .WB_Steered_Read_Data1__0(WB_Steered_Read_Data1__0),
         .\data_rd_reg_reg[10] (\data_rd_reg_reg[9] ),
         .\data_rd_reg_reg[10]_0 (\data_rd_reg_reg[9]_0 ),
         .lopt(lopt_31),
         .lopt_1(lopt_34),
-        .wb_databus_steered_read_data(wb_databus_steered_read_data[5]),
         .wb_gpr_wr_dbg(wb_gpr_wr_dbg),
         .wb_gpr_write_dbg_reg(wb_gpr_write_dbg_reg[21]),
         .wb_mul_result(wb_mul_result[10]));
@@ -74029,15 +74224,16 @@ module design_1_microblaze_0_1_exception_registers_gti
        (.DI(\Using_FPGA.Native_18 ),
         .LO(carry_21),
         .\LOCKSTEP_Out_reg[3018] (\LOCKSTEP_Out_reg[3016] ),
-        .\LOCKSTEP_Out_reg[3018]_0 (\LOCKSTEP_Out_reg[3007] [20]),
-        .\LOCKSTEP_Out_reg[3018]_1 (carry_20),
+        .\LOCKSTEP_Out_reg[3018]_0 (\LOCKSTEP_Out_reg[3018] ),
+        .\LOCKSTEP_Out_reg[3018]_1 (\LOCKSTEP_Out_reg[3007]_0 [20]),
+        .\LOCKSTEP_Out_reg[3018]_2 (carry_20),
         .S(addr_AddSub_20),
         .\WB_MEM_Result_reg[11] (\Using_FPGA.Native_29 [20]),
+        .WB_Steered_Read_Data1__0(WB_Steered_Read_Data1__0),
         .\data_rd_reg_reg[11] (\data_rd_reg_reg[9] ),
         .\data_rd_reg_reg[11]_0 (\data_rd_reg_reg[9]_0 ),
         .lopt(lopt_30),
         .lopt_1(lopt_33),
-        .wb_databus_steered_read_data(wb_databus_steered_read_data[4]),
         .wb_gpr_wr_dbg(wb_gpr_wr_dbg),
         .wb_gpr_write_dbg_reg(wb_gpr_write_dbg_reg[20]),
         .wb_mul_result(wb_mul_result[11]));
@@ -74057,10 +74253,12 @@ module design_1_microblaze_0_1_exception_registers_gti
        (.DI(\Using_FPGA.Native_17 ),
         .LO(carry_20),
         .\LOCKSTEP_Out_reg[3019] (\LOCKSTEP_Out_reg[3016] ),
-        .\LOCKSTEP_Out_reg[3019]_0 (\LOCKSTEP_Out_reg[3007] [19]),
-        .\LOCKSTEP_Out_reg[3019]_1 (carry_19),
+        .\LOCKSTEP_Out_reg[3019]_0 (\LOCKSTEP_Out_reg[3019] ),
+        .\LOCKSTEP_Out_reg[3019]_1 (\LOCKSTEP_Out_reg[3007]_0 [19]),
+        .\LOCKSTEP_Out_reg[3019]_2 (carry_19),
         .S(addr_AddSub_19),
         .\WB_MEM_Result_reg[12] (\Using_FPGA.Native_29 [19]),
+        .WB_Steered_Read_Data1__0(WB_Steered_Read_Data1__0),
         .\data_rd_reg_reg[12] (\data_rd_reg_reg[9] ),
         .\data_rd_reg_reg[12]_0 (\data_rd_reg_reg[9]_0 ),
         .lopt(lopt_30),
@@ -74075,7 +74273,6 @@ module design_1_microblaze_0_1_exception_registers_gti
         .lopt_7(\Using_FPGA.Native_20 ),
         .lopt_8(addr_AddSub_22),
         .lopt_9(lopt_33),
-        .wb_databus_steered_read_data(wb_databus_steered_read_data[3]),
         .wb_gpr_wr_dbg(wb_gpr_wr_dbg),
         .wb_gpr_write_dbg_reg(wb_gpr_write_dbg_reg[19]),
         .wb_mul_result(wb_mul_result[12]));
@@ -74095,15 +74292,16 @@ module design_1_microblaze_0_1_exception_registers_gti
        (.DI(\Using_FPGA.Native_16 ),
         .LO(carry_19),
         .\LOCKSTEP_Out_reg[3020] (\LOCKSTEP_Out_reg[3016] ),
-        .\LOCKSTEP_Out_reg[3020]_0 (\LOCKSTEP_Out_reg[3007] [18]),
-        .\LOCKSTEP_Out_reg[3020]_1 (carry_18),
+        .\LOCKSTEP_Out_reg[3020]_0 (\LOCKSTEP_Out_reg[3020] ),
+        .\LOCKSTEP_Out_reg[3020]_1 (\LOCKSTEP_Out_reg[3007]_0 [18]),
+        .\LOCKSTEP_Out_reg[3020]_2 (carry_18),
         .S(addr_AddSub_18),
         .\WB_MEM_Result_reg[13] (\Using_FPGA.Native_29 [18]),
+        .WB_Steered_Read_Data1__0(WB_Steered_Read_Data1__0),
         .\data_rd_reg_reg[13] (\data_rd_reg_reg[9] ),
         .\data_rd_reg_reg[13]_0 (\data_rd_reg_reg[9]_0 ),
         .lopt(lopt_26),
         .lopt_1(lopt_29),
-        .wb_databus_steered_read_data(wb_databus_steered_read_data[2]),
         .wb_gpr_wr_dbg(wb_gpr_wr_dbg),
         .wb_gpr_write_dbg_reg(wb_gpr_write_dbg_reg[18]),
         .wb_mul_result(wb_mul_result[13]));
@@ -74123,15 +74321,16 @@ module design_1_microblaze_0_1_exception_registers_gti
        (.DI(\Using_FPGA.Native_15 ),
         .LO(carry_18),
         .\LOCKSTEP_Out_reg[3021] (\LOCKSTEP_Out_reg[3016] ),
-        .\LOCKSTEP_Out_reg[3021]_0 (\LOCKSTEP_Out_reg[3007] [17]),
-        .\LOCKSTEP_Out_reg[3021]_1 (carry_17),
+        .\LOCKSTEP_Out_reg[3021]_0 (\LOCKSTEP_Out_reg[3021] ),
+        .\LOCKSTEP_Out_reg[3021]_1 (\LOCKSTEP_Out_reg[3007]_0 [17]),
+        .\LOCKSTEP_Out_reg[3021]_2 (carry_17),
         .S(addr_AddSub_17),
         .\WB_MEM_Result_reg[14] (\Using_FPGA.Native_29 [17]),
+        .WB_Steered_Read_Data1__0(WB_Steered_Read_Data1__0),
         .\data_rd_reg_reg[14] (\data_rd_reg_reg[9] ),
         .\data_rd_reg_reg[14]_0 (\data_rd_reg_reg[9]_0 ),
         .lopt(lopt_25),
         .lopt_1(lopt_28),
-        .wb_databus_steered_read_data(wb_databus_steered_read_data[1]),
         .wb_gpr_wr_dbg(wb_gpr_wr_dbg),
         .wb_gpr_write_dbg_reg(wb_gpr_write_dbg_reg[17]),
         .wb_mul_result(wb_mul_result[14]));
@@ -74151,15 +74350,16 @@ module design_1_microblaze_0_1_exception_registers_gti
        (.DI(\Using_FPGA.Native_14 ),
         .LO(carry_17),
         .\LOCKSTEP_Out_reg[3022] (\LOCKSTEP_Out_reg[3016] ),
-        .\LOCKSTEP_Out_reg[3022]_0 (\LOCKSTEP_Out_reg[3007] [16]),
-        .\LOCKSTEP_Out_reg[3022]_1 (carry_16),
+        .\LOCKSTEP_Out_reg[3022]_0 (\LOCKSTEP_Out_reg[3022] ),
+        .\LOCKSTEP_Out_reg[3022]_1 (\LOCKSTEP_Out_reg[3007]_0 [16]),
+        .\LOCKSTEP_Out_reg[3022]_2 (carry_16),
         .S(addr_AddSub_16),
         .\WB_MEM_Result_reg[15] (\Using_FPGA.Native_29 [16]),
+        .WB_Steered_Read_Data1__0(WB_Steered_Read_Data1__0),
         .\data_rd_reg_reg[15] (\data_rd_reg_reg[9] ),
         .\data_rd_reg_reg[15]_0 (\data_rd_reg_reg[9]_0 ),
         .lopt(lopt_24),
         .lopt_1(lopt_27),
-        .wb_databus_steered_read_data(wb_databus_steered_read_data[0]),
         .wb_gpr_wr_dbg(wb_gpr_wr_dbg),
         .wb_gpr_write_dbg_reg(wb_gpr_write_dbg_reg[16]),
         .wb_mul_result(wb_mul_result[15]));
@@ -74180,7 +74380,7 @@ module design_1_microblaze_0_1_exception_registers_gti
         .LO(carry_16),
         .\LOCKSTEP_Out_reg[3023] (\LOCKSTEP_Out_reg[3016] ),
         .\LOCKSTEP_Out_reg[3023]_0 (\LOCKSTEP_Out_reg[3023] ),
-        .\LOCKSTEP_Out_reg[3023]_1 (\LOCKSTEP_Out_reg[3007] [15]),
+        .\LOCKSTEP_Out_reg[3023]_1 (\LOCKSTEP_Out_reg[3007]_0 [15]),
         .\LOCKSTEP_Out_reg[3023]_2 (carry_15),
         .S(addr_AddSub_15),
         .WB_Byte_Access_reg(\Using_FPGA.Native_29 [15]),
@@ -74219,7 +74419,7 @@ module design_1_microblaze_0_1_exception_registers_gti
         .LO(carry_15),
         .\LOCKSTEP_Out_reg[3024] (\LOCKSTEP_Out_reg[3016] ),
         .\LOCKSTEP_Out_reg[3024]_0 (\LOCKSTEP_Out_reg[3024] ),
-        .\LOCKSTEP_Out_reg[3024]_1 (\LOCKSTEP_Out_reg[3007] [14]),
+        .\LOCKSTEP_Out_reg[3024]_1 (\LOCKSTEP_Out_reg[3007]_0 [14]),
         .\LOCKSTEP_Out_reg[3024]_2 (carry_14),
         .S(addr_AddSub_14),
         .WB_Byte_Access_reg(\Using_FPGA.Native_29 [14]),
@@ -74248,7 +74448,7 @@ module design_1_microblaze_0_1_exception_registers_gti
         .LO(carry_14),
         .\LOCKSTEP_Out_reg[3025] (\LOCKSTEP_Out_reg[3016] ),
         .\LOCKSTEP_Out_reg[3025]_0 (\LOCKSTEP_Out_reg[3025] ),
-        .\LOCKSTEP_Out_reg[3025]_1 (\LOCKSTEP_Out_reg[3007] [13]),
+        .\LOCKSTEP_Out_reg[3025]_1 (\LOCKSTEP_Out_reg[3007]_0 [13]),
         .\LOCKSTEP_Out_reg[3025]_2 (carry_13),
         .S(addr_AddSub_13),
         .WB_Byte_Access_reg(\Using_FPGA.Native_29 [13]),
@@ -74277,7 +74477,7 @@ module design_1_microblaze_0_1_exception_registers_gti
         .LO(carry_13),
         .\LOCKSTEP_Out_reg[3026] (\LOCKSTEP_Out_reg[3016] ),
         .\LOCKSTEP_Out_reg[3026]_0 (\LOCKSTEP_Out_reg[3026] ),
-        .\LOCKSTEP_Out_reg[3026]_1 (\LOCKSTEP_Out_reg[3007] [12]),
+        .\LOCKSTEP_Out_reg[3026]_1 (\LOCKSTEP_Out_reg[3007]_0 [12]),
         .\LOCKSTEP_Out_reg[3026]_2 (carry_12),
         .S(addr_AddSub_12),
         .WB_Byte_Access_reg(\Using_FPGA.Native_29 [12]),
@@ -74305,15 +74505,16 @@ module design_1_microblaze_0_1_exception_registers_gti
        (.DI(\Using_FPGA.Native_28 ),
         .LO(carry_31),
         .\LOCKSTEP_Out_reg[3008] (\LOCKSTEP_Out_reg[3016] ),
-        .\LOCKSTEP_Out_reg[3008]_0 (\LOCKSTEP_Out_reg[3007] [30]),
-        .\LOCKSTEP_Out_reg[3008]_1 (carry_30),
+        .\LOCKSTEP_Out_reg[3008]_0 (\LOCKSTEP_Out_reg[3008] ),
+        .\LOCKSTEP_Out_reg[3008]_1 (\LOCKSTEP_Out_reg[3007]_0 [30]),
+        .\LOCKSTEP_Out_reg[3008]_2 (carry_30),
         .S(addr_AddSub_30),
         .\WB_MEM_Result_reg[1] (\Using_FPGA.Native_29 [30]),
+        .WB_Steered_Read_Data1__0(WB_Steered_Read_Data1__0),
         .\data_rd_reg_reg[1] (\data_rd_reg_reg[9] ),
         .\data_rd_reg_reg[1]_0 (\data_rd_reg_reg[9]_0 ),
         .lopt(lopt_44),
         .lopt_1(lopt_47),
-        .wb_databus_steered_read_data(wb_databus_steered_read_data[14]),
         .wb_gpr_wr_dbg(wb_gpr_wr_dbg),
         .wb_gpr_write_dbg_reg(wb_gpr_write_dbg_reg[30]),
         .wb_mul_result(wb_mul_result[1]));
@@ -74334,7 +74535,7 @@ module design_1_microblaze_0_1_exception_registers_gti
         .LO(carry_12),
         .\LOCKSTEP_Out_reg[3027] (\LOCKSTEP_Out_reg[3016] ),
         .\LOCKSTEP_Out_reg[3027]_0 (\LOCKSTEP_Out_reg[3027] ),
-        .\LOCKSTEP_Out_reg[3027]_1 (\LOCKSTEP_Out_reg[3007] [11]),
+        .\LOCKSTEP_Out_reg[3027]_1 (\LOCKSTEP_Out_reg[3007]_0 [11]),
         .\LOCKSTEP_Out_reg[3027]_2 (carry_11),
         .S(addr_AddSub_11),
         .WB_Byte_Access_reg(\Using_FPGA.Native_29 [11]),
@@ -74373,7 +74574,7 @@ module design_1_microblaze_0_1_exception_registers_gti
         .LO(carry_11),
         .\LOCKSTEP_Out_reg[3028] (\LOCKSTEP_Out_reg[3016] ),
         .\LOCKSTEP_Out_reg[3028]_0 (\LOCKSTEP_Out_reg[3028] ),
-        .\LOCKSTEP_Out_reg[3028]_1 (\LOCKSTEP_Out_reg[3007] [10]),
+        .\LOCKSTEP_Out_reg[3028]_1 (\LOCKSTEP_Out_reg[3007]_0 [10]),
         .\LOCKSTEP_Out_reg[3028]_2 (carry_10),
         .S(addr_AddSub_10),
         .WB_Byte_Access_reg(\Using_FPGA.Native_29 [10]),
@@ -74402,7 +74603,7 @@ module design_1_microblaze_0_1_exception_registers_gti
         .LO(carry_10),
         .\LOCKSTEP_Out_reg[3029] (\LOCKSTEP_Out_reg[3016] ),
         .\LOCKSTEP_Out_reg[3029]_0 (\LOCKSTEP_Out_reg[3029] ),
-        .\LOCKSTEP_Out_reg[3029]_1 (\LOCKSTEP_Out_reg[3007] [9]),
+        .\LOCKSTEP_Out_reg[3029]_1 (\LOCKSTEP_Out_reg[3007]_0 [9]),
         .\LOCKSTEP_Out_reg[3029]_2 (carry_9),
         .S(addr_AddSub_9),
         .WB_Byte_Access_reg(\Using_FPGA.Native_29 [9]),
@@ -74431,7 +74632,7 @@ module design_1_microblaze_0_1_exception_registers_gti
         .LO(carry_9),
         .\LOCKSTEP_Out_reg[3030] (\LOCKSTEP_Out_reg[3016] ),
         .\LOCKSTEP_Out_reg[3030]_0 (\LOCKSTEP_Out_reg[3030] ),
-        .\LOCKSTEP_Out_reg[3030]_1 (\LOCKSTEP_Out_reg[3007] [8]),
+        .\LOCKSTEP_Out_reg[3030]_1 (\LOCKSTEP_Out_reg[3007]_0 [8]),
         .\LOCKSTEP_Out_reg[3030]_2 (carry_8),
         .S(addr_AddSub_8),
         .WB_Byte_Access_reg(\Using_FPGA.Native_29 [8]),
@@ -74459,10 +74660,8 @@ module design_1_microblaze_0_1_exception_registers_gti
        (.DI(\Using_FPGA.Native_5 ),
         .LO(carry_8),
         .\LOCKSTEP_Out_reg[3031] (\LOCKSTEP_Out_reg[3016] ),
-        .\LOCKSTEP_Out_reg[3031]_0 (\LOCKSTEP_Out_reg[3031] ),
-        .\LOCKSTEP_Out_reg[3031]_1 (\LOCKSTEP_Out_reg[3031]_0 ),
-        .\LOCKSTEP_Out_reg[3031]_2 (\LOCKSTEP_Out_reg[3007] [7]),
-        .\LOCKSTEP_Out_reg[3031]_3 (carry_7),
+        .\LOCKSTEP_Out_reg[3031]_0 (\LOCKSTEP_Out_reg[3007]_0 [7]),
+        .\LOCKSTEP_Out_reg[3031]_1 (carry_7),
         .S(addr_AddSub_7),
         .\WB_MEM_Result_reg[24] (\Using_FPGA.Native_29 [7]),
         .\data_rd_reg_reg[24] (\data_rd_reg_reg[9] ),
@@ -74479,6 +74678,7 @@ module design_1_microblaze_0_1_exception_registers_gti
         .lopt_7(\Using_FPGA.Native_8 ),
         .lopt_8(addr_AddSub_10),
         .lopt_9(lopt_15),
+        .wb_databus_steered_read_data(wb_databus_steered_read_data[7]),
         .wb_gpr_wr_dbg(wb_gpr_wr_dbg),
         .wb_gpr_write_dbg_reg(wb_gpr_write_dbg_reg[7]),
         .wb_mul_result(wb_mul_result[24]));
@@ -74498,10 +74698,8 @@ module design_1_microblaze_0_1_exception_registers_gti
        (.DI(\Using_FPGA.Native_4 ),
         .LO(carry_7),
         .\LOCKSTEP_Out_reg[3032] (\LOCKSTEP_Out_reg[3016] ),
-        .\LOCKSTEP_Out_reg[3032]_0 (\LOCKSTEP_Out_reg[3032] ),
-        .\LOCKSTEP_Out_reg[3032]_1 (\LOCKSTEP_Out_reg[3032]_0 ),
-        .\LOCKSTEP_Out_reg[3032]_2 (\LOCKSTEP_Out_reg[3007] [6]),
-        .\LOCKSTEP_Out_reg[3032]_3 (carry_6),
+        .\LOCKSTEP_Out_reg[3032]_0 (\LOCKSTEP_Out_reg[3007]_0 [6]),
+        .\LOCKSTEP_Out_reg[3032]_1 (carry_6),
         .S(addr_AddSub_6),
         .\WB_MEM_Result_reg[25] (\Using_FPGA.Native_29 [6]),
         .\data_rd_reg_reg[25] (\data_rd_reg_reg[9] ),
@@ -74509,6 +74707,7 @@ module design_1_microblaze_0_1_exception_registers_gti
         .\data_rd_reg_reg[25]_1 (\data_rd_reg_reg[9]_0 ),
         .lopt(lopt_8),
         .lopt_1(lopt_11),
+        .wb_databus_steered_read_data(wb_databus_steered_read_data[6]),
         .wb_gpr_wr_dbg(wb_gpr_wr_dbg),
         .wb_gpr_write_dbg_reg(wb_gpr_write_dbg_reg[6]),
         .wb_mul_result(wb_mul_result[25]));
@@ -74528,16 +74727,15 @@ module design_1_microblaze_0_1_exception_registers_gti
        (.DI(\Using_FPGA.Native_3 ),
         .LO(carry_6),
         .\LOCKSTEP_Out_reg[3033] (\LOCKSTEP_Out_reg[3016] ),
-        .\LOCKSTEP_Out_reg[3033]_0 (\LOCKSTEP_Out_reg[3033] ),
-        .\LOCKSTEP_Out_reg[3033]_1 (\LOCKSTEP_Out_reg[3033]_0 ),
-        .\LOCKSTEP_Out_reg[3033]_2 (\LOCKSTEP_Out_reg[3007] [5]),
-        .\LOCKSTEP_Out_reg[3033]_3 (carry_5),
+        .\LOCKSTEP_Out_reg[3033]_0 (\LOCKSTEP_Out_reg[3007]_0 [5]),
+        .\LOCKSTEP_Out_reg[3033]_1 (carry_5),
         .S(addr_AddSub_5),
         .\WB_MEM_Result_reg[26] (\Using_FPGA.Native_29 [5]),
         .\data_rd_reg_reg[26] (\data_rd_reg_reg[9] ),
         .\data_rd_reg_reg[26]_0 (\data_rd_reg_reg[9]_0 ),
         .lopt(lopt_7),
         .lopt_1(lopt_10),
+        .wb_databus_steered_read_data(wb_databus_steered_read_data[5]),
         .wb_gpr_wr_dbg(wb_gpr_wr_dbg),
         .wb_gpr_write_dbg_reg(wb_gpr_write_dbg_reg[5]),
         .wb_mul_result(wb_mul_result[26]));
@@ -74557,16 +74755,15 @@ module design_1_microblaze_0_1_exception_registers_gti
        (.DI(\Using_FPGA.Native_2 ),
         .LO(carry_5),
         .\LOCKSTEP_Out_reg[3034] (\LOCKSTEP_Out_reg[3016] ),
-        .\LOCKSTEP_Out_reg[3034]_0 (\LOCKSTEP_Out_reg[3034] ),
-        .\LOCKSTEP_Out_reg[3034]_1 (\LOCKSTEP_Out_reg[3034]_0 ),
-        .\LOCKSTEP_Out_reg[3034]_2 (\LOCKSTEP_Out_reg[3007] [4]),
-        .\LOCKSTEP_Out_reg[3034]_3 (carry_4),
+        .\LOCKSTEP_Out_reg[3034]_0 (\LOCKSTEP_Out_reg[3007]_0 [4]),
+        .\LOCKSTEP_Out_reg[3034]_1 (carry_4),
         .S(addr_AddSub_4),
         .\WB_MEM_Result_reg[27] (\Using_FPGA.Native_29 [4]),
         .\data_rd_reg_reg[27] (\data_rd_reg_reg[9] ),
         .\data_rd_reg_reg[27]_0 (\data_rd_reg_reg[9]_0 ),
         .lopt(lopt_6),
         .lopt_1(lopt_9),
+        .wb_databus_steered_read_data(wb_databus_steered_read_data[4]),
         .wb_gpr_wr_dbg(wb_gpr_wr_dbg),
         .wb_gpr_write_dbg_reg(wb_gpr_write_dbg_reg[4]),
         .wb_mul_result(wb_mul_result[27]));
@@ -74586,10 +74783,8 @@ module design_1_microblaze_0_1_exception_registers_gti
        (.DI(\Using_FPGA.Native_1 ),
         .LO(carry_4),
         .\LOCKSTEP_Out_reg[3035] (\LOCKSTEP_Out_reg[3016] ),
-        .\LOCKSTEP_Out_reg[3035]_0 (\LOCKSTEP_Out_reg[3035] ),
-        .\LOCKSTEP_Out_reg[3035]_1 (\LOCKSTEP_Out_reg[3035]_0 ),
-        .\LOCKSTEP_Out_reg[3035]_2 (\LOCKSTEP_Out_reg[3007] [3]),
-        .\LOCKSTEP_Out_reg[3035]_3 (carry_3),
+        .\LOCKSTEP_Out_reg[3035]_0 (\LOCKSTEP_Out_reg[3007]_0 [3]),
+        .\LOCKSTEP_Out_reg[3035]_1 (carry_3),
         .S(addr_AddSub_3),
         .\WB_MEM_Result_reg[28] (\Using_FPGA.Native_29 [3]),
         .\data_rd_reg_reg[28] (\data_rd_reg_reg[9] ),
@@ -74607,6 +74802,7 @@ module design_1_microblaze_0_1_exception_registers_gti
         .lopt_7(\Using_FPGA.Native_4 ),
         .lopt_8(addr_AddSub_6),
         .lopt_9(lopt_9),
+        .wb_databus_steered_read_data(wb_databus_steered_read_data[3]),
         .wb_gpr_wr_dbg(wb_gpr_wr_dbg),
         .wb_gpr_write_dbg_reg(wb_gpr_write_dbg_reg[3]),
         .wb_mul_result(wb_mul_result[28]));
@@ -74627,10 +74823,8 @@ module design_1_microblaze_0_1_exception_registers_gti
        (.DI(\Using_FPGA.Native_0 ),
         .LO(carry_3),
         .\LOCKSTEP_Out_reg[3036] (\LOCKSTEP_Out_reg[3016] ),
-        .\LOCKSTEP_Out_reg[3036]_0 (\LOCKSTEP_Out_reg[3036] ),
-        .\LOCKSTEP_Out_reg[3036]_1 (\LOCKSTEP_Out_reg[3036]_0 ),
-        .\LOCKSTEP_Out_reg[3036]_2 (\LOCKSTEP_Out_reg[3007] [2]),
-        .\LOCKSTEP_Out_reg[3036]_3 (carry_2),
+        .\LOCKSTEP_Out_reg[3036]_0 (\LOCKSTEP_Out_reg[3007]_0 [2]),
+        .\LOCKSTEP_Out_reg[3036]_1 (carry_2),
         .S(addr_AddSub_2),
         .\WB_MEM_Result_reg[29] (\Using_FPGA.Native_29 [2]),
         .\data_rd_reg_reg[29] (\data_rd_reg_reg[9] ),
@@ -74638,6 +74832,7 @@ module design_1_microblaze_0_1_exception_registers_gti
         .\data_rd_reg_reg[29]_1 (\data_rd_reg_reg[9]_0 ),
         .lopt(lopt_2),
         .lopt_1(lopt_5),
+        .wb_databus_steered_read_data(wb_databus_steered_read_data[2]),
         .wb_gpr_wr_dbg(wb_gpr_wr_dbg),
         .wb_gpr_write_dbg_reg(wb_gpr_write_dbg_reg[2]),
         .wb_mul_result(wb_mul_result[29]));
@@ -74657,15 +74852,16 @@ module design_1_microblaze_0_1_exception_registers_gti
        (.DI(\Using_FPGA.Native_27 ),
         .LO(carry_30),
         .\LOCKSTEP_Out_reg[3009] (\LOCKSTEP_Out_reg[3016] ),
-        .\LOCKSTEP_Out_reg[3009]_0 (\LOCKSTEP_Out_reg[3007] [29]),
-        .\LOCKSTEP_Out_reg[3009]_1 (carry_29),
+        .\LOCKSTEP_Out_reg[3009]_0 (\LOCKSTEP_Out_reg[3009] ),
+        .\LOCKSTEP_Out_reg[3009]_1 (\LOCKSTEP_Out_reg[3007]_0 [29]),
+        .\LOCKSTEP_Out_reg[3009]_2 (carry_29),
         .S(addr_AddSub_29),
         .\WB_MEM_Result_reg[2] (\Using_FPGA.Native_29 [29]),
+        .WB_Steered_Read_Data1__0(WB_Steered_Read_Data1__0),
         .\data_rd_reg_reg[2] (\data_rd_reg_reg[9] ),
         .\data_rd_reg_reg[2]_0 (\data_rd_reg_reg[9]_0 ),
         .lopt(lopt_43),
         .lopt_1(lopt_46),
-        .wb_databus_steered_read_data(wb_databus_steered_read_data[13]),
         .wb_gpr_wr_dbg(wb_gpr_wr_dbg),
         .wb_gpr_write_dbg_reg(wb_gpr_write_dbg_reg[29]),
         .wb_mul_result(wb_mul_result[2]));
@@ -74685,10 +74881,8 @@ module design_1_microblaze_0_1_exception_registers_gti
        (.DI(\Using_FPGA.Native ),
         .LO(carry_2),
         .\LOCKSTEP_Out_reg[3037] (\LOCKSTEP_Out_reg[3016] ),
-        .\LOCKSTEP_Out_reg[3037]_0 (\LOCKSTEP_Out_reg[3037] ),
-        .\LOCKSTEP_Out_reg[3037]_1 (\LOCKSTEP_Out_reg[3037]_0 ),
-        .\LOCKSTEP_Out_reg[3037]_2 (\LOCKSTEP_Out_reg[3007] [1]),
-        .\LOCKSTEP_Out_reg[3037]_3 (carry_1),
+        .\LOCKSTEP_Out_reg[3037]_0 (\LOCKSTEP_Out_reg[3007]_0 [1]),
+        .\LOCKSTEP_Out_reg[3037]_1 (carry_1),
         .S(addr_AddSub_1),
         .\WB_MEM_Result_reg[30] (\Using_FPGA.Native_29 [1]),
         .\data_rd_reg_reg[30] (\data_rd_reg_reg[9] ),
@@ -74696,6 +74890,7 @@ module design_1_microblaze_0_1_exception_registers_gti
         .\data_rd_reg_reg[30]_1 (\data_rd_reg_reg[9]_0 ),
         .lopt(lopt_1),
         .lopt_1(lopt_4),
+        .wb_databus_steered_read_data(wb_databus_steered_read_data[1]),
         .wb_gpr_wr_dbg(wb_gpr_wr_dbg),
         .wb_gpr_write_dbg_reg(wb_gpr_write_dbg_reg[1]),
         .wb_mul_result(wb_mul_result[30]));
@@ -74716,15 +74911,14 @@ module design_1_microblaze_0_1_exception_registers_gti
         .DI(DI),
         .LO(carry_1),
         .\LOCKSTEP_Out_reg[3038] (\LOCKSTEP_Out_reg[3016] ),
-        .\LOCKSTEP_Out_reg[3038]_0 (\LOCKSTEP_Out_reg[3038] ),
-        .\LOCKSTEP_Out_reg[3038]_1 (\LOCKSTEP_Out_reg[3038]_0 ),
-        .\LOCKSTEP_Out_reg[3038]_2 (\LOCKSTEP_Out_reg[3007] [0]),
+        .\LOCKSTEP_Out_reg[3038]_0 (\LOCKSTEP_Out_reg[3007]_0 [0]),
         .S(addr_AddSub_0),
         .\WB_MEM_Result_reg[31] (\Using_FPGA.Native_29 [0]),
         .\data_rd_reg_reg[31] (\data_rd_reg_reg[9] ),
         .\data_rd_reg_reg[31]_0 (\data_rd_reg_reg[9]_0 ),
         .lopt(lopt),
         .lopt_1(lopt_3),
+        .wb_databus_steered_read_data(wb_databus_steered_read_data[0]),
         .wb_gpr_wr_dbg(wb_gpr_wr_dbg),
         .wb_gpr_write_dbg_reg(wb_gpr_write_dbg_reg[0]),
         .wb_mul_result(wb_mul_result[31]));
@@ -74744,15 +74938,16 @@ module design_1_microblaze_0_1_exception_registers_gti
        (.DI(\Using_FPGA.Native_26 ),
         .LO(carry_29),
         .\LOCKSTEP_Out_reg[3010] (\LOCKSTEP_Out_reg[3016] ),
-        .\LOCKSTEP_Out_reg[3010]_0 (\LOCKSTEP_Out_reg[3007] [28]),
-        .\LOCKSTEP_Out_reg[3010]_1 (carry_28),
+        .\LOCKSTEP_Out_reg[3010]_0 (\LOCKSTEP_Out_reg[3010] ),
+        .\LOCKSTEP_Out_reg[3010]_1 (\LOCKSTEP_Out_reg[3007]_0 [28]),
+        .\LOCKSTEP_Out_reg[3010]_2 (carry_28),
         .S(addr_AddSub_28),
         .\WB_MEM_Result_reg[3] (\Using_FPGA.Native_29 [28]),
+        .WB_Steered_Read_Data1__0(WB_Steered_Read_Data1__0),
         .\data_rd_reg_reg[3] (\data_rd_reg_reg[9] ),
         .\data_rd_reg_reg[3]_0 (\data_rd_reg_reg[9]_0 ),
         .lopt(lopt_42),
         .lopt_1(lopt_45),
-        .wb_databus_steered_read_data(wb_databus_steered_read_data[12]),
         .wb_gpr_wr_dbg(wb_gpr_wr_dbg),
         .wb_gpr_write_dbg_reg(wb_gpr_write_dbg_reg[28]),
         .wb_mul_result(wb_mul_result[3]));
@@ -74772,10 +74967,12 @@ module design_1_microblaze_0_1_exception_registers_gti
        (.DI(\Using_FPGA.Native_25 ),
         .LO(carry_28),
         .\LOCKSTEP_Out_reg[3011] (\LOCKSTEP_Out_reg[3016] ),
-        .\LOCKSTEP_Out_reg[3011]_0 (\LOCKSTEP_Out_reg[3007] [27]),
-        .\LOCKSTEP_Out_reg[3011]_1 (carry_27),
+        .\LOCKSTEP_Out_reg[3011]_0 (\LOCKSTEP_Out_reg[3011] ),
+        .\LOCKSTEP_Out_reg[3011]_1 (\LOCKSTEP_Out_reg[3007]_0 [27]),
+        .\LOCKSTEP_Out_reg[3011]_2 (carry_27),
         .S(addr_AddSub_27),
         .\WB_MEM_Result_reg[4] (\Using_FPGA.Native_29 [27]),
+        .WB_Steered_Read_Data1__0(WB_Steered_Read_Data1__0),
         .\data_rd_reg_reg[4] (\data_rd_reg_reg[9] ),
         .\data_rd_reg_reg[4]_0 (\data_rd_reg_reg[9]_0 ),
         .lopt(lopt_42),
@@ -74790,7 +74987,6 @@ module design_1_microblaze_0_1_exception_registers_gti
         .lopt_7(\Using_FPGA.Native_28 ),
         .lopt_8(addr_AddSub_30),
         .lopt_9(lopt_45),
-        .wb_databus_steered_read_data(wb_databus_steered_read_data[11]),
         .wb_gpr_wr_dbg(wb_gpr_wr_dbg),
         .wb_gpr_write_dbg_reg(wb_gpr_write_dbg_reg[27]),
         .wb_mul_result(wb_mul_result[4]));
@@ -74810,15 +75006,16 @@ module design_1_microblaze_0_1_exception_registers_gti
        (.DI(\Using_FPGA.Native_24 ),
         .LO(carry_27),
         .\LOCKSTEP_Out_reg[3012] (\LOCKSTEP_Out_reg[3016] ),
-        .\LOCKSTEP_Out_reg[3012]_0 (\LOCKSTEP_Out_reg[3007] [26]),
-        .\LOCKSTEP_Out_reg[3012]_1 (carry_26),
+        .\LOCKSTEP_Out_reg[3012]_0 (\LOCKSTEP_Out_reg[3012] ),
+        .\LOCKSTEP_Out_reg[3012]_1 (\LOCKSTEP_Out_reg[3007]_0 [26]),
+        .\LOCKSTEP_Out_reg[3012]_2 (carry_26),
         .S(addr_AddSub_26),
         .\WB_MEM_Result_reg[5] (\Using_FPGA.Native_29 [26]),
+        .WB_Steered_Read_Data1__0(WB_Steered_Read_Data1__0),
         .\data_rd_reg_reg[5] (\data_rd_reg_reg[9] ),
         .\data_rd_reg_reg[5]_0 (\data_rd_reg_reg[9]_0 ),
         .lopt(lopt_38),
         .lopt_1(lopt_41),
-        .wb_databus_steered_read_data(wb_databus_steered_read_data[10]),
         .wb_gpr_wr_dbg(wb_gpr_wr_dbg),
         .wb_gpr_write_dbg_reg(wb_gpr_write_dbg_reg[26]),
         .wb_mul_result(wb_mul_result[5]));
@@ -74838,15 +75035,16 @@ module design_1_microblaze_0_1_exception_registers_gti
        (.DI(\Using_FPGA.Native_23 ),
         .LO(carry_26),
         .\LOCKSTEP_Out_reg[3013] (\LOCKSTEP_Out_reg[3016] ),
-        .\LOCKSTEP_Out_reg[3013]_0 (\LOCKSTEP_Out_reg[3007] [25]),
-        .\LOCKSTEP_Out_reg[3013]_1 (carry_25),
+        .\LOCKSTEP_Out_reg[3013]_0 (\LOCKSTEP_Out_reg[3013] ),
+        .\LOCKSTEP_Out_reg[3013]_1 (\LOCKSTEP_Out_reg[3007]_0 [25]),
+        .\LOCKSTEP_Out_reg[3013]_2 (carry_25),
         .S(addr_AddSub_25),
         .\WB_MEM_Result_reg[6] (\Using_FPGA.Native_29 [25]),
+        .WB_Steered_Read_Data1__0(WB_Steered_Read_Data1__0),
         .\data_rd_reg_reg[6] (\data_rd_reg_reg[9] ),
         .\data_rd_reg_reg[6]_0 (\data_rd_reg_reg[9]_0 ),
         .lopt(lopt_37),
         .lopt_1(lopt_40),
-        .wb_databus_steered_read_data(wb_databus_steered_read_data[9]),
         .wb_gpr_wr_dbg(wb_gpr_wr_dbg),
         .wb_gpr_write_dbg_reg(wb_gpr_write_dbg_reg[25]),
         .wb_mul_result(wb_mul_result[6]));
@@ -74866,15 +75064,16 @@ module design_1_microblaze_0_1_exception_registers_gti
        (.DI(\Using_FPGA.Native_22 ),
         .LO(carry_25),
         .\LOCKSTEP_Out_reg[3014] (\LOCKSTEP_Out_reg[3016] ),
-        .\LOCKSTEP_Out_reg[3014]_0 (\LOCKSTEP_Out_reg[3007] [24]),
-        .\LOCKSTEP_Out_reg[3014]_1 (carry_24),
+        .\LOCKSTEP_Out_reg[3014]_0 (\LOCKSTEP_Out_reg[3014] ),
+        .\LOCKSTEP_Out_reg[3014]_1 (\LOCKSTEP_Out_reg[3007]_0 [24]),
+        .\LOCKSTEP_Out_reg[3014]_2 (carry_24),
         .S(addr_AddSub_24),
         .\WB_MEM_Result_reg[7] (\Using_FPGA.Native_29 [24]),
+        .WB_Steered_Read_Data1__0(WB_Steered_Read_Data1__0),
         .\data_rd_reg_reg[7] (\data_rd_reg_reg[9] ),
         .\data_rd_reg_reg[7]_0 (\data_rd_reg_reg[9]_0 ),
         .lopt(lopt_36),
         .lopt_1(lopt_39),
-        .wb_databus_steered_read_data(wb_databus_steered_read_data[8]),
         .wb_gpr_wr_dbg(wb_gpr_wr_dbg),
         .wb_gpr_write_dbg_reg(wb_gpr_write_dbg_reg[24]),
         .wb_mul_result(wb_mul_result[7]));
@@ -74894,10 +75093,12 @@ module design_1_microblaze_0_1_exception_registers_gti
        (.DI(\Using_FPGA.Native_21 ),
         .LO(carry_24),
         .\LOCKSTEP_Out_reg[3015] (\LOCKSTEP_Out_reg[3016] ),
-        .\LOCKSTEP_Out_reg[3015]_0 (\LOCKSTEP_Out_reg[3007] [23]),
-        .\LOCKSTEP_Out_reg[3015]_1 (carry_23),
+        .\LOCKSTEP_Out_reg[3015]_0 (\LOCKSTEP_Out_reg[3015] ),
+        .\LOCKSTEP_Out_reg[3015]_1 (\LOCKSTEP_Out_reg[3007]_0 [23]),
+        .\LOCKSTEP_Out_reg[3015]_2 (carry_23),
         .S(addr_AddSub_23),
         .\WB_MEM_Result_reg[8] (\Using_FPGA.Native_29 [23]),
+        .WB_Steered_Read_Data1__0(WB_Steered_Read_Data1__0),
         .\data_rd_reg_reg[8] (\data_rd_reg_reg[9] ),
         .\data_rd_reg_reg[8]_0 (\data_rd_reg_reg[9]_0 ),
         .lopt(lopt_36),
@@ -74912,7 +75113,6 @@ module design_1_microblaze_0_1_exception_registers_gti
         .lopt_7(\Using_FPGA.Native_24 ),
         .lopt_8(addr_AddSub_26),
         .lopt_9(lopt_39),
-        .wb_databus_steered_read_data(wb_databus_steered_read_data[7]),
         .wb_gpr_wr_dbg(wb_gpr_wr_dbg),
         .wb_gpr_write_dbg_reg(wb_gpr_write_dbg_reg[23]),
         .wb_mul_result(wb_mul_result[8]));
@@ -74933,14 +75133,15 @@ module design_1_microblaze_0_1_exception_registers_gti
         .DI(\Using_FPGA.Native_20 ),
         .LO(carry_23),
         .\LOCKSTEP_Out_reg[3016] (\LOCKSTEP_Out_reg[3016] ),
-        .\LOCKSTEP_Out_reg[3016]_0 (\LOCKSTEP_Out_reg[3007] [22]),
+        .\LOCKSTEP_Out_reg[3016]_0 (\LOCKSTEP_Out_reg[3016]_0 ),
+        .\LOCKSTEP_Out_reg[3016]_1 (\LOCKSTEP_Out_reg[3007]_0 [22]),
         .S(addr_AddSub_22),
         .\WB_MEM_Result_reg[9] (\Using_FPGA.Native_29 [22]),
+        .WB_Steered_Read_Data1__0(WB_Steered_Read_Data1__0),
         .\data_rd_reg_reg[9] (\data_rd_reg_reg[9] ),
         .\data_rd_reg_reg[9]_0 (\data_rd_reg_reg[9]_0 ),
         .lopt(lopt_32),
         .lopt_1(lopt_35),
-        .wb_databus_steered_read_data(wb_databus_steered_read_data[6]),
         .wb_gpr_wr_dbg(wb_gpr_wr_dbg),
         .wb_gpr_write_dbg_reg(wb_gpr_write_dbg_reg[22]),
         .wb_mul_result(wb_mul_result[9]));
@@ -74958,27 +75159,27 @@ module design_1_microblaze_0_1_instr_mux
     in,
     \Using_FPGA.Native ,
     \Using_FPGA.Native_0 ,
-    A0,
+    Instr,
     LOCKSTEP_Master_Out);
   output I139_out;
   output [0:31]Y;
   output [0:0]in;
   input [0:0]\Using_FPGA.Native ;
   input [0:0]\Using_FPGA.Native_0 ;
-  input [0:31]A0;
+  input [0:31]Instr;
   input [32:0]LOCKSTEP_Master_Out;
 
-  wire [0:31]A0;
   wire I139_out;
+  wire [0:31]Instr;
   wire [32:0]LOCKSTEP_Master_Out;
   wire [0:0]\Using_FPGA.Native ;
   wire [0:0]\Using_FPGA.Native_0 ;
   wire [0:31]Y;
   wire [0:0]in;
 
-  design_1_microblaze_0_1_mux_bus \Mux_AB.AB_inst 
-       (.A0(A0),
-        .I139_out(I139_out),
+  design_1_microblaze_0_1_mux_bus \Mux_LD.LD_inst 
+       (.I139_out(I139_out),
+        .Instr(Instr),
         .LOCKSTEP_Master_Out(LOCKSTEP_Master_Out),
         .\Using_FPGA.Native (\Using_FPGA.Native ),
         .\Using_FPGA.Native_0 (\Using_FPGA.Native_0 ),
@@ -75003,10 +75204,10 @@ module design_1_microblaze_0_1_jump_logic
     ex_valid_jump_reg,
     ex_valid_reg,
     ex_valid_keep_reg,
-    ex_branch_with_delayslot_reg,
-    ex_op1_zero,
     \Using_FPGA.Native ,
+    ex_op1_zero,
     \Using_FPGA.Native_0 ,
+    \Using_FPGA.Native_1 ,
     sync_reset,
     use_Reg_Neg_S_reg_0,
     ex_op1_cmp_eq_reg_0,
@@ -75018,7 +75219,7 @@ module design_1_microblaze_0_1_jump_logic
     force_Val10_out,
     use_Reg_Neg_S3_out,
     force12_out,
-    \Using_FPGA.Native_1 ,
+    \Using_FPGA.Native_2 ,
     of_Take_Interrupt,
     ex_Take_Intr_or_Exc_reg_0,
     Q,
@@ -75039,6 +75240,7 @@ module design_1_microblaze_0_1_jump_logic
     ex_mbar_sleep,
     ex_databus_addr,
     \if_pc_reg[30] ,
+    \if_pc_reg[0]_0 ,
     O,
     \if_pc_reg[28] ,
     \if_pc_reg[27] ,
@@ -75070,7 +75272,7 @@ module design_1_microblaze_0_1_jump_logic
     \if_pc_reg[1] ,
     O56_out,
     if_missed_fetch,
-    ib_addr_strobe,
+    if_missed_fetch_reg_0,
     IB_Ready,
     LOCKSTEP_Master_Out,
     in0,
@@ -75095,10 +75297,10 @@ module design_1_microblaze_0_1_jump_logic
   output ex_valid_jump_reg;
   output ex_valid_reg;
   output ex_valid_keep_reg;
-  output ex_branch_with_delayslot_reg;
+  output \Using_FPGA.Native ;
   input ex_op1_zero;
-  input \Using_FPGA.Native ;
   input \Using_FPGA.Native_0 ;
+  input \Using_FPGA.Native_1 ;
   input sync_reset;
   input use_Reg_Neg_S_reg_0;
   input ex_op1_cmp_eq_reg_0;
@@ -75110,7 +75312,7 @@ module design_1_microblaze_0_1_jump_logic
   input force_Val10_out;
   input use_Reg_Neg_S3_out;
   input force12_out;
-  input [0:0]\Using_FPGA.Native_1 ;
+  input [0:0]\Using_FPGA.Native_2 ;
   input of_Take_Interrupt;
   input ex_Take_Intr_or_Exc_reg_0;
   input [2:0]Q;
@@ -75129,8 +75331,9 @@ module design_1_microblaze_0_1_jump_logic
   input ex_first_cycle;
   input ex_mbar_decode;
   input ex_mbar_sleep;
-  input [0:31]ex_databus_addr;
+  input [1:0]ex_databus_addr;
   input [1:0]\if_pc_reg[30] ;
+  input [29:0]\if_pc_reg[0]_0 ;
   input O;
   input \if_pc_reg[28] ;
   input \if_pc_reg[27] ;
@@ -75162,7 +75365,7 @@ module design_1_microblaze_0_1_jump_logic
   input \if_pc_reg[1] ;
   input O56_out;
   input if_missed_fetch;
-  input ib_addr_strobe;
+  input [0:0]if_missed_fetch_reg_0;
   input IB_Ready;
   input [0:0]LOCKSTEP_Master_Out;
   input in0;
@@ -75186,12 +75389,12 @@ module design_1_microblaze_0_1_jump_logic
   wire S;
   wire \Using_FPGA.Native ;
   wire \Using_FPGA.Native_0 ;
-  wire [0:0]\Using_FPGA.Native_1 ;
+  wire \Using_FPGA.Native_1 ;
+  wire [0:0]\Using_FPGA.Native_2 ;
   wire ex_Take_Intr_or_Exc_reg;
   wire ex_Take_Intr_or_Exc_reg_0;
   wire ex_branch_with_delayslot;
-  wire ex_branch_with_delayslot_reg;
-  wire [0:31]ex_databus_addr;
+  wire [1:0]ex_databus_addr;
   wire ex_delayslot_Instr0;
   wire ex_first_cycle;
   wire ex_jump;
@@ -75223,10 +75426,11 @@ module design_1_microblaze_0_1_jump_logic
   wire force_Val1_reg_n_0;
   wire force_Val2_N;
   wire force_Val2_N_reg_0;
-  wire ib_addr_strobe;
   wire if_missed_fetch;
   wire if_missed_fetch_reg;
+  wire [0:0]if_missed_fetch_reg_0;
   wire [31:0]\if_pc_reg[0] ;
+  wire [29:0]\if_pc_reg[0]_0 ;
   wire \if_pc_reg[10] ;
   wire \if_pc_reg[11] ;
   wire \if_pc_reg[12] ;
@@ -75303,10 +75507,10 @@ module design_1_microblaze_0_1_jump_logic
         .jump_carry2(jump_carry2),
         .lopt(\^lopt_1 ),
         .lopt_1(\^lopt_2 ),
-        .lopt_2(\Using_FPGA.Native ),
+        .lopt_2(\Using_FPGA.Native_0 ),
         .lopt_3(lopt_3),
         .lopt_4(lopt_4),
-        .lopt_5(\Using_FPGA.Native_0 ),
+        .lopt_5(\Using_FPGA.Native_1 ),
         .lopt_6(lopt_5),
         .lopt_7(lopt_6),
         .lopt_8(lopt_7),
@@ -75314,15 +75518,15 @@ module design_1_microblaze_0_1_jump_logic
   design_1_microblaze_0_1_MB_MUXCY_94 MUXCY_JUMP_CARRY3
        (.EX_MBAR_Stall__2(EX_MBAR_Stall__2),
         .\Using_FPGA.Native_0 (\Using_FPGA.Native ),
+        .\Using_FPGA.Native_1 (\Using_FPGA.Native_0 ),
         .ex_branch_with_delayslot(ex_branch_with_delayslot),
-        .ex_branch_with_delayslot_reg(ex_branch_with_delayslot_reg),
         .ex_jump_wanted(ex_jump_wanted),
         .jump_carry2(jump_carry2),
         .lopt(\^lopt_1 ),
         .lopt_1(\^lopt_2 ),
         .of_valid(of_valid));
   design_1_microblaze_0_1_MB_MUXCY_95 MUXCY_JUMP_CARRY4
-       (.\Using_FPGA.Native_0 (\Using_FPGA.Native_0 ),
+       (.\Using_FPGA.Native_0 (\Using_FPGA.Native_1 ),
         .ex_jump_wanted(ex_jump_wanted),
         .jump_carry4(jump_carry4),
         .lopt(lopt_3),
@@ -75363,10 +75567,11 @@ module design_1_microblaze_0_1_jump_logic
         .ex_valid_keep_reg_0(ex_valid_keep_reg_0),
         .ex_valid_keep_reg_1(ex_valid_keep_reg_1),
         .ex_valid_reg(ex_valid_reg),
-        .ib_addr_strobe(ib_addr_strobe),
         .if_missed_fetch(if_missed_fetch),
         .if_missed_fetch_reg(if_missed_fetch_reg),
+        .if_missed_fetch_reg_0(if_missed_fetch_reg_0),
         .\if_pc_reg[0] (\if_pc_reg[0] ),
+        .\if_pc_reg[0]_0 (\if_pc_reg[0]_0 ),
         .\if_pc_reg[10] (\if_pc_reg[10] ),
         .\if_pc_reg[11] (\if_pc_reg[11] ),
         .\if_pc_reg[12] (\if_pc_reg[12] ),
@@ -75442,7 +75647,7 @@ module design_1_microblaze_0_1_jump_logic
     force_DI1
        (.I0(force_Val1_reg_n_0),
         .I1(use_Reg_Neg_DI_reg_n_0),
-        .I2(\Using_FPGA.Native_1 ),
+        .I2(\Using_FPGA.Native_2 ),
         .O(DI));
   FDRE force_Val1_reg
        (.C(Clk),
@@ -75461,7 +75666,7 @@ module design_1_microblaze_0_1_jump_logic
     force_jump1
        (.I0(force1_reg_n_0),
         .I1(use_Reg_Neg_S_reg_n_0),
-        .I2(\Using_FPGA.Native_1 ),
+        .I2(\Using_FPGA.Native_2 ),
         .O(S));
   FDRE use_Reg_Neg_DI_reg
        (.C(Clk),
@@ -76437,14 +76642,14 @@ module design_1_microblaze_0_1_mb_sync_bit__parameterized4_29
         .I4(p_49_out),
         .I5(dbg_stop_i),
         .O(\Performance_Debug_Control.dbg_stop_i_reg ));
-  (* SOFT_HLUTNM = "soft_lutpair63" *) 
+  (* SOFT_HLUTNM = "soft_lutpair79" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \Performance_Debug_Control.dbg_stop_i_i_2 
        (.I0(trig_out_0_synced),
         .I1(trig_out_0_synced_1),
         .O(p_49_out));
-  (* SOFT_HLUTNM = "soft_lutpair63" *) 
+  (* SOFT_HLUTNM = "soft_lutpair79" *) 
   LUT4 #(
     .INIT(16'h2302)) 
     \Performance_Debug_Control.trig_ack_out_0_i_1 
@@ -76979,18 +77184,18 @@ module design_1_microblaze_0_1_mux_bus
     in,
     \Using_FPGA.Native ,
     \Using_FPGA.Native_0 ,
-    A0,
+    Instr,
     LOCKSTEP_Master_Out);
   output I139_out;
   output [0:31]Y;
   output [0:0]in;
   input [0:0]\Using_FPGA.Native ;
   input [0:0]\Using_FPGA.Native_0 ;
-  input [0:31]A0;
+  input [0:31]Instr;
   input [32:0]LOCKSTEP_Master_Out;
 
-  wire [0:31]A0;
   wire I139_out;
+  wire [0:31]Instr;
   wire [32:0]LOCKSTEP_Master_Out;
   wire [0:0]\Using_FPGA.Native ;
   wire [0:0]\Using_FPGA.Native_0 ;
@@ -76998,8 +77203,8 @@ module design_1_microblaze_0_1_mux_bus
   wire [0:0]in;
 
   design_1_microblaze_0_1_MB_LUT6_2__parameterized3 \Mux_Loop[0].I_MUX_LUT6 
-       (.A0({A0[0],A0[16]}),
-        .I139_out(I139_out),
+       (.I139_out(I139_out),
+        .Instr({Instr[0],Instr[16]}),
         .LOCKSTEP_Master_Out({LOCKSTEP_Master_Out[32:31],LOCKSTEP_Master_Out[15]}),
         .\Using_FPGA.Native_0 (\Using_FPGA.Native ),
         .\Using_FPGA.Native_1 (\Using_FPGA.Native_0 ),
@@ -77007,63 +77212,63 @@ module design_1_microblaze_0_1_mux_bus
         .Y({Y[0],Y[16]}),
         .in(in));
   design_1_microblaze_0_1_MB_LUT6_2__parameterized3_2 \Mux_Loop[10].I_MUX_LUT6 
-       (.A0({A0[10],A0[26]}),
+       (.Instr({Instr[10],Instr[26]}),
         .LOCKSTEP_Master_Out({LOCKSTEP_Master_Out[32],LOCKSTEP_Master_Out[21],LOCKSTEP_Master_Out[5]}),
         .Y({Y[10],Y[26]}));
   design_1_microblaze_0_1_MB_LUT6_2__parameterized3_3 \Mux_Loop[11].I_MUX_LUT6 
-       (.A0({A0[11],A0[27]}),
+       (.Instr({Instr[11],Instr[27]}),
         .LOCKSTEP_Master_Out({LOCKSTEP_Master_Out[32],LOCKSTEP_Master_Out[20],LOCKSTEP_Master_Out[4]}),
         .Y({Y[11],Y[27]}));
   design_1_microblaze_0_1_MB_LUT6_2__parameterized3_4 \Mux_Loop[12].I_MUX_LUT6 
-       (.A0({A0[12],A0[28]}),
+       (.Instr({Instr[12],Instr[28]}),
         .LOCKSTEP_Master_Out({LOCKSTEP_Master_Out[32],LOCKSTEP_Master_Out[19],LOCKSTEP_Master_Out[3]}),
         .Y({Y[12],Y[28]}));
   design_1_microblaze_0_1_MB_LUT6_2__parameterized3_5 \Mux_Loop[13].I_MUX_LUT6 
-       (.A0({A0[13],A0[29]}),
+       (.Instr({Instr[13],Instr[29]}),
         .LOCKSTEP_Master_Out({LOCKSTEP_Master_Out[32],LOCKSTEP_Master_Out[18],LOCKSTEP_Master_Out[2]}),
         .Y({Y[13],Y[29]}));
   design_1_microblaze_0_1_MB_LUT6_2__parameterized3_6 \Mux_Loop[14].I_MUX_LUT6 
-       (.A0({A0[14],A0[30]}),
+       (.Instr({Instr[14],Instr[30]}),
         .LOCKSTEP_Master_Out({LOCKSTEP_Master_Out[32],LOCKSTEP_Master_Out[17],LOCKSTEP_Master_Out[1]}),
         .Y({Y[14],Y[30]}));
   design_1_microblaze_0_1_MB_LUT6_2__parameterized3_7 \Mux_Loop[15].I_MUX_LUT6 
-       (.A0({A0[15],A0[31]}),
+       (.Instr({Instr[15],Instr[31]}),
         .LOCKSTEP_Master_Out({LOCKSTEP_Master_Out[32],LOCKSTEP_Master_Out[16],LOCKSTEP_Master_Out[0]}),
         .Y({Y[15],Y[31]}));
   design_1_microblaze_0_1_MB_LUT6_2__parameterized3_8 \Mux_Loop[1].I_MUX_LUT6 
-       (.A0({A0[1],A0[17]}),
+       (.Instr({Instr[1],Instr[17]}),
         .LOCKSTEP_Master_Out({LOCKSTEP_Master_Out[32],LOCKSTEP_Master_Out[30],LOCKSTEP_Master_Out[14]}),
         .Y({Y[1],Y[17]}));
   design_1_microblaze_0_1_MB_LUT6_2__parameterized3_9 \Mux_Loop[2].I_MUX_LUT6 
-       (.A0({A0[2],A0[18]}),
+       (.Instr({Instr[2],Instr[18]}),
         .LOCKSTEP_Master_Out({LOCKSTEP_Master_Out[32],LOCKSTEP_Master_Out[29],LOCKSTEP_Master_Out[13]}),
         .Y({Y[2],Y[18]}));
   design_1_microblaze_0_1_MB_LUT6_2__parameterized3_10 \Mux_Loop[3].I_MUX_LUT6 
-       (.A0({A0[3],A0[19]}),
+       (.Instr({Instr[3],Instr[19]}),
         .LOCKSTEP_Master_Out({LOCKSTEP_Master_Out[32],LOCKSTEP_Master_Out[28],LOCKSTEP_Master_Out[12]}),
         .Y({Y[3],Y[19]}));
   design_1_microblaze_0_1_MB_LUT6_2__parameterized3_11 \Mux_Loop[4].I_MUX_LUT6 
-       (.A0({A0[4],A0[20]}),
+       (.Instr({Instr[4],Instr[20]}),
         .LOCKSTEP_Master_Out({LOCKSTEP_Master_Out[32],LOCKSTEP_Master_Out[27],LOCKSTEP_Master_Out[11]}),
         .Y({Y[4],Y[20]}));
   design_1_microblaze_0_1_MB_LUT6_2__parameterized3_12 \Mux_Loop[5].I_MUX_LUT6 
-       (.A0({A0[5],A0[21]}),
+       (.Instr({Instr[5],Instr[21]}),
         .LOCKSTEP_Master_Out({LOCKSTEP_Master_Out[32],LOCKSTEP_Master_Out[26],LOCKSTEP_Master_Out[10]}),
         .Y({Y[5],Y[21]}));
   design_1_microblaze_0_1_MB_LUT6_2__parameterized3_13 \Mux_Loop[6].I_MUX_LUT6 
-       (.A0({A0[6],A0[22]}),
+       (.Instr({Instr[6],Instr[22]}),
         .LOCKSTEP_Master_Out({LOCKSTEP_Master_Out[32],LOCKSTEP_Master_Out[25],LOCKSTEP_Master_Out[9]}),
         .Y({Y[6],Y[22]}));
   design_1_microblaze_0_1_MB_LUT6_2__parameterized3_14 \Mux_Loop[7].I_MUX_LUT6 
-       (.A0({A0[7],A0[23]}),
+       (.Instr({Instr[7],Instr[23]}),
         .LOCKSTEP_Master_Out({LOCKSTEP_Master_Out[32],LOCKSTEP_Master_Out[24],LOCKSTEP_Master_Out[8]}),
         .Y({Y[7],Y[23]}));
   design_1_microblaze_0_1_MB_LUT6_2__parameterized3_15 \Mux_Loop[8].I_MUX_LUT6 
-       (.A0({A0[8],A0[24]}),
+       (.Instr({Instr[8],Instr[24]}),
         .LOCKSTEP_Master_Out({LOCKSTEP_Master_Out[32],LOCKSTEP_Master_Out[23],LOCKSTEP_Master_Out[7]}),
         .Y({Y[8],Y[24]}));
   design_1_microblaze_0_1_MB_LUT6_2__parameterized3_16 \Mux_Loop[9].I_MUX_LUT6 
-       (.A0({A0[9],A0[25]}),
+       (.Instr({Instr[9],Instr[25]}),
         .LOCKSTEP_Master_Out({LOCKSTEP_Master_Out[32],LOCKSTEP_Master_Out[22],LOCKSTEP_Master_Out[6]}),
         .Y({Y[9],Y[25]}));
 endmodule

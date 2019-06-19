@@ -1,7 +1,7 @@
 //Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2018.3 (lin64) Build 2405991 Thu Dec  6 23:36:41 MST 2018
-//Date        : Wed Jun 19 23:17:48 2019
+//Date        : Thu Jun 20 01:38:13 2019
 //Host        : oslab-Ubuntu16 running 64-bit Ubuntu 18.04.2 LTS
 //Command     : generate_target design_1.bd
 //Design      : design_1
@@ -9,7 +9,7 @@
 //--------------------------------------------------------------------------------
 `timescale 1 ps / 1 ps
 
-(* CORE_GENERATION_INFO = "design_1,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=design_1,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=35,numReposBlks=23,numNonXlnxBlks=0,numHierBlks=12,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=0,numPkgbdBlks=0,bdsource=USER,da_aeth_cnt=1,da_axi4_cnt=10,da_board_cnt=5,da_clkrst_cnt=2,da_mb_cnt=2,da_ps7_cnt=1,synth_mode=OOC_per_IP}" *) (* HW_HANDOFF = "design_1.hwdef" *) 
+(* CORE_GENERATION_INFO = "design_1,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=design_1,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=36,numReposBlks=24,numNonXlnxBlks=0,numHierBlks=12,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=0,numPkgbdBlks=0,bdsource=USER,da_aeth_cnt=1,da_axi4_cnt=10,da_board_cnt=5,da_clkrst_cnt=2,da_mb_cnt=2,da_ps7_cnt=1,synth_mode=OOC_per_IP}" *) (* HW_HANDOFF = "design_1.hwdef" *) 
 module design_1
    (DDR_addr,
     DDR_ba,
@@ -288,44 +288,44 @@ module design_1
   wire microblaze_0_axi_dp_WREADY;
   wire [3:0]microblaze_0_axi_dp_WSTRB;
   wire microblaze_0_axi_dp_WVALID;
-  wire [31:0]microblaze_0_axi_periph_M02_AXI_ARADDR;
+  (* CONN_BUS_INFO = "microblaze_0_axi_periph_M02_AXI xilinx.com:interface:aximm:1.0 AXI3 ARADDR" *) (* DONT_TOUCH *) wire [31:0]microblaze_0_axi_periph_M02_AXI_ARADDR;
   wire [1:0]microblaze_0_axi_periph_M02_AXI_ARBURST;
-  wire [3:0]microblaze_0_axi_periph_M02_AXI_ARCACHE;
-  wire [2:0]microblaze_0_axi_periph_M02_AXI_ARID;
-  wire [3:0]microblaze_0_axi_periph_M02_AXI_ARLEN;
-  wire [1:0]microblaze_0_axi_periph_M02_AXI_ARLOCK;
-  wire [2:0]microblaze_0_axi_periph_M02_AXI_ARPROT;
-  wire [3:0]microblaze_0_axi_periph_M02_AXI_ARQOS;
-  wire microblaze_0_axi_periph_M02_AXI_ARREADY;
-  wire [2:0]microblaze_0_axi_periph_M02_AXI_ARSIZE;
-  wire microblaze_0_axi_periph_M02_AXI_ARVALID;
-  wire [31:0]microblaze_0_axi_periph_M02_AXI_AWADDR;
+  (* CONN_BUS_INFO = "microblaze_0_axi_periph_M02_AXI xilinx.com:interface:aximm:1.0 AXI3 ARCACHE" *) (* DONT_TOUCH *) wire [3:0]microblaze_0_axi_periph_M02_AXI_ARCACHE;
+  (* CONN_BUS_INFO = "microblaze_0_axi_periph_M02_AXI xilinx.com:interface:aximm:1.0 AXI3 ARID" *) (* DONT_TOUCH *) wire [2:0]microblaze_0_axi_periph_M02_AXI_ARID;
+  (* CONN_BUS_INFO = "microblaze_0_axi_periph_M02_AXI xilinx.com:interface:aximm:1.0 AXI3 ARLEN" *) (* DONT_TOUCH *) wire [3:0]microblaze_0_axi_periph_M02_AXI_ARLEN;
+  (* CONN_BUS_INFO = "microblaze_0_axi_periph_M02_AXI xilinx.com:interface:aximm:1.0 AXI3 ARLOCK" *) (* DONT_TOUCH *) wire [1:0]microblaze_0_axi_periph_M02_AXI_ARLOCK;
+  (* CONN_BUS_INFO = "microblaze_0_axi_periph_M02_AXI xilinx.com:interface:aximm:1.0 AXI3 ARPROT" *) (* DONT_TOUCH *) wire [2:0]microblaze_0_axi_periph_M02_AXI_ARPROT;
+  (* CONN_BUS_INFO = "microblaze_0_axi_periph_M02_AXI xilinx.com:interface:aximm:1.0 AXI3 ARQOS" *) (* DONT_TOUCH *) wire [3:0]microblaze_0_axi_periph_M02_AXI_ARQOS;
+  (* CONN_BUS_INFO = "microblaze_0_axi_periph_M02_AXI xilinx.com:interface:aximm:1.0 AXI3 ARREADY" *) (* DONT_TOUCH *) wire microblaze_0_axi_periph_M02_AXI_ARREADY;
+  (* CONN_BUS_INFO = "microblaze_0_axi_periph_M02_AXI xilinx.com:interface:aximm:1.0 AXI3 ARSIZE" *) (* DONT_TOUCH *) wire [2:0]microblaze_0_axi_periph_M02_AXI_ARSIZE;
+  (* CONN_BUS_INFO = "microblaze_0_axi_periph_M02_AXI xilinx.com:interface:aximm:1.0 AXI3 ARVALID" *) (* DONT_TOUCH *) wire microblaze_0_axi_periph_M02_AXI_ARVALID;
+  (* CONN_BUS_INFO = "microblaze_0_axi_periph_M02_AXI xilinx.com:interface:aximm:1.0 AXI3 AWADDR" *) (* DONT_TOUCH *) wire [31:0]microblaze_0_axi_periph_M02_AXI_AWADDR;
   wire [1:0]microblaze_0_axi_periph_M02_AXI_AWBURST;
-  wire [3:0]microblaze_0_axi_periph_M02_AXI_AWCACHE;
-  wire [2:0]microblaze_0_axi_periph_M02_AXI_AWID;
-  wire [3:0]microblaze_0_axi_periph_M02_AXI_AWLEN;
-  wire [1:0]microblaze_0_axi_periph_M02_AXI_AWLOCK;
-  wire [2:0]microblaze_0_axi_periph_M02_AXI_AWPROT;
-  wire [3:0]microblaze_0_axi_periph_M02_AXI_AWQOS;
-  wire microblaze_0_axi_periph_M02_AXI_AWREADY;
-  wire [2:0]microblaze_0_axi_periph_M02_AXI_AWSIZE;
-  wire microblaze_0_axi_periph_M02_AXI_AWVALID;
-  wire [5:0]microblaze_0_axi_periph_M02_AXI_BID;
-  wire microblaze_0_axi_periph_M02_AXI_BREADY;
-  wire [1:0]microblaze_0_axi_periph_M02_AXI_BRESP;
-  wire microblaze_0_axi_periph_M02_AXI_BVALID;
-  wire [31:0]microblaze_0_axi_periph_M02_AXI_RDATA;
-  wire [5:0]microblaze_0_axi_periph_M02_AXI_RID;
-  wire microblaze_0_axi_periph_M02_AXI_RLAST;
-  wire microblaze_0_axi_periph_M02_AXI_RREADY;
-  wire [1:0]microblaze_0_axi_periph_M02_AXI_RRESP;
-  wire microblaze_0_axi_periph_M02_AXI_RVALID;
-  wire [31:0]microblaze_0_axi_periph_M02_AXI_WDATA;
-  wire [2:0]microblaze_0_axi_periph_M02_AXI_WID;
-  wire microblaze_0_axi_periph_M02_AXI_WLAST;
-  wire microblaze_0_axi_periph_M02_AXI_WREADY;
-  wire [3:0]microblaze_0_axi_periph_M02_AXI_WSTRB;
-  wire microblaze_0_axi_periph_M02_AXI_WVALID;
+  (* CONN_BUS_INFO = "microblaze_0_axi_periph_M02_AXI xilinx.com:interface:aximm:1.0 AXI3 AWCACHE" *) (* DONT_TOUCH *) wire [3:0]microblaze_0_axi_periph_M02_AXI_AWCACHE;
+  (* CONN_BUS_INFO = "microblaze_0_axi_periph_M02_AXI xilinx.com:interface:aximm:1.0 AXI3 AWID" *) (* DONT_TOUCH *) wire [2:0]microblaze_0_axi_periph_M02_AXI_AWID;
+  (* CONN_BUS_INFO = "microblaze_0_axi_periph_M02_AXI xilinx.com:interface:aximm:1.0 AXI3 AWLEN" *) (* DONT_TOUCH *) wire [3:0]microblaze_0_axi_periph_M02_AXI_AWLEN;
+  (* CONN_BUS_INFO = "microblaze_0_axi_periph_M02_AXI xilinx.com:interface:aximm:1.0 AXI3 AWLOCK" *) (* DONT_TOUCH *) wire [1:0]microblaze_0_axi_periph_M02_AXI_AWLOCK;
+  (* CONN_BUS_INFO = "microblaze_0_axi_periph_M02_AXI xilinx.com:interface:aximm:1.0 AXI3 AWPROT" *) (* DONT_TOUCH *) wire [2:0]microblaze_0_axi_periph_M02_AXI_AWPROT;
+  (* CONN_BUS_INFO = "microblaze_0_axi_periph_M02_AXI xilinx.com:interface:aximm:1.0 AXI3 AWQOS" *) (* DONT_TOUCH *) wire [3:0]microblaze_0_axi_periph_M02_AXI_AWQOS;
+  (* CONN_BUS_INFO = "microblaze_0_axi_periph_M02_AXI xilinx.com:interface:aximm:1.0 AXI3 AWREADY" *) (* DONT_TOUCH *) wire microblaze_0_axi_periph_M02_AXI_AWREADY;
+  (* CONN_BUS_INFO = "microblaze_0_axi_periph_M02_AXI xilinx.com:interface:aximm:1.0 AXI3 AWSIZE" *) (* DONT_TOUCH *) wire [2:0]microblaze_0_axi_periph_M02_AXI_AWSIZE;
+  (* CONN_BUS_INFO = "microblaze_0_axi_periph_M02_AXI xilinx.com:interface:aximm:1.0 AXI3 AWVALID" *) (* DONT_TOUCH *) wire microblaze_0_axi_periph_M02_AXI_AWVALID;
+  (* CONN_BUS_INFO = "microblaze_0_axi_periph_M02_AXI xilinx.com:interface:aximm:1.0 AXI3 BID" *) (* DONT_TOUCH *) wire [5:0]microblaze_0_axi_periph_M02_AXI_BID;
+  (* CONN_BUS_INFO = "microblaze_0_axi_periph_M02_AXI xilinx.com:interface:aximm:1.0 AXI3 BREADY" *) (* DONT_TOUCH *) wire microblaze_0_axi_periph_M02_AXI_BREADY;
+  (* CONN_BUS_INFO = "microblaze_0_axi_periph_M02_AXI xilinx.com:interface:aximm:1.0 AXI3 BRESP" *) (* DONT_TOUCH *) wire [1:0]microblaze_0_axi_periph_M02_AXI_BRESP;
+  (* CONN_BUS_INFO = "microblaze_0_axi_periph_M02_AXI xilinx.com:interface:aximm:1.0 AXI3 BVALID" *) (* DONT_TOUCH *) wire microblaze_0_axi_periph_M02_AXI_BVALID;
+  (* CONN_BUS_INFO = "microblaze_0_axi_periph_M02_AXI xilinx.com:interface:aximm:1.0 AXI3 RDATA" *) (* DONT_TOUCH *) wire [31:0]microblaze_0_axi_periph_M02_AXI_RDATA;
+  (* CONN_BUS_INFO = "microblaze_0_axi_periph_M02_AXI xilinx.com:interface:aximm:1.0 AXI3 RID" *) (* DONT_TOUCH *) wire [5:0]microblaze_0_axi_periph_M02_AXI_RID;
+  (* CONN_BUS_INFO = "microblaze_0_axi_periph_M02_AXI xilinx.com:interface:aximm:1.0 AXI3 RLAST" *) (* DONT_TOUCH *) wire microblaze_0_axi_periph_M02_AXI_RLAST;
+  (* CONN_BUS_INFO = "microblaze_0_axi_periph_M02_AXI xilinx.com:interface:aximm:1.0 AXI3 RREADY" *) (* DONT_TOUCH *) wire microblaze_0_axi_periph_M02_AXI_RREADY;
+  (* CONN_BUS_INFO = "microblaze_0_axi_periph_M02_AXI xilinx.com:interface:aximm:1.0 AXI3 RRESP" *) (* DONT_TOUCH *) wire [1:0]microblaze_0_axi_periph_M02_AXI_RRESP;
+  (* CONN_BUS_INFO = "microblaze_0_axi_periph_M02_AXI xilinx.com:interface:aximm:1.0 AXI3 RVALID" *) (* DONT_TOUCH *) wire microblaze_0_axi_periph_M02_AXI_RVALID;
+  (* CONN_BUS_INFO = "microblaze_0_axi_periph_M02_AXI xilinx.com:interface:aximm:1.0 AXI3 WDATA" *) (* DONT_TOUCH *) wire [31:0]microblaze_0_axi_periph_M02_AXI_WDATA;
+  (* CONN_BUS_INFO = "microblaze_0_axi_periph_M02_AXI xilinx.com:interface:aximm:1.0 AXI3 WID" *) (* DONT_TOUCH *) wire [2:0]microblaze_0_axi_periph_M02_AXI_WID;
+  (* CONN_BUS_INFO = "microblaze_0_axi_periph_M02_AXI xilinx.com:interface:aximm:1.0 AXI3 WLAST" *) (* DONT_TOUCH *) wire microblaze_0_axi_periph_M02_AXI_WLAST;
+  (* CONN_BUS_INFO = "microblaze_0_axi_periph_M02_AXI xilinx.com:interface:aximm:1.0 AXI3 WREADY" *) (* DONT_TOUCH *) wire microblaze_0_axi_periph_M02_AXI_WREADY;
+  (* CONN_BUS_INFO = "microblaze_0_axi_periph_M02_AXI xilinx.com:interface:aximm:1.0 AXI3 WSTRB" *) (* DONT_TOUCH *) wire [3:0]microblaze_0_axi_periph_M02_AXI_WSTRB;
+  (* CONN_BUS_INFO = "microblaze_0_axi_periph_M02_AXI xilinx.com:interface:aximm:1.0 AXI3 WVALID" *) (* DONT_TOUCH *) wire microblaze_0_axi_periph_M02_AXI_WVALID;
   wire [17:0]microblaze_0_axi_periph_M03_AXI_ARADDR;
   wire microblaze_0_axi_periph_M03_AXI_ARREADY;
   wire microblaze_0_axi_periph_M03_AXI_ARVALID;
@@ -1207,6 +1207,45 @@ module design_1
         .mb_reset(rst_ps7_0_50M_mb_reset),
         .peripheral_aresetn(rst_ps7_0_50M_peripheral_aresetn),
         .slowest_sync_clk(microblaze_0_Clk));
+  design_1_system_ila_0_0 system_ila_0
+       (.SLOT_0_AXI_araddr(microblaze_0_axi_periph_M02_AXI_ARADDR),
+        .SLOT_0_AXI_arcache(microblaze_0_axi_periph_M02_AXI_ARCACHE),
+        .SLOT_0_AXI_arid(microblaze_0_axi_periph_M02_AXI_ARID),
+        .SLOT_0_AXI_arlen(microblaze_0_axi_periph_M02_AXI_ARLEN),
+        .SLOT_0_AXI_arlock(microblaze_0_axi_periph_M02_AXI_ARLOCK),
+        .SLOT_0_AXI_arprot(microblaze_0_axi_periph_M02_AXI_ARPROT),
+        .SLOT_0_AXI_arqos(microblaze_0_axi_periph_M02_AXI_ARQOS),
+        .SLOT_0_AXI_arready(microblaze_0_axi_periph_M02_AXI_ARREADY),
+        .SLOT_0_AXI_arsize(microblaze_0_axi_periph_M02_AXI_ARSIZE),
+        .SLOT_0_AXI_arvalid(microblaze_0_axi_periph_M02_AXI_ARVALID),
+        .SLOT_0_AXI_awaddr(microblaze_0_axi_periph_M02_AXI_AWADDR),
+        .SLOT_0_AXI_awcache(microblaze_0_axi_periph_M02_AXI_AWCACHE),
+        .SLOT_0_AXI_awid(microblaze_0_axi_periph_M02_AXI_AWID),
+        .SLOT_0_AXI_awlen(microblaze_0_axi_periph_M02_AXI_AWLEN),
+        .SLOT_0_AXI_awlock(microblaze_0_axi_periph_M02_AXI_AWLOCK),
+        .SLOT_0_AXI_awprot(microblaze_0_axi_periph_M02_AXI_AWPROT),
+        .SLOT_0_AXI_awqos(microblaze_0_axi_periph_M02_AXI_AWQOS),
+        .SLOT_0_AXI_awready(microblaze_0_axi_periph_M02_AXI_AWREADY),
+        .SLOT_0_AXI_awsize(microblaze_0_axi_periph_M02_AXI_AWSIZE),
+        .SLOT_0_AXI_awvalid(microblaze_0_axi_periph_M02_AXI_AWVALID),
+        .SLOT_0_AXI_bid(microblaze_0_axi_periph_M02_AXI_BID[2:0]),
+        .SLOT_0_AXI_bready(microblaze_0_axi_periph_M02_AXI_BREADY),
+        .SLOT_0_AXI_bresp(microblaze_0_axi_periph_M02_AXI_BRESP),
+        .SLOT_0_AXI_bvalid(microblaze_0_axi_periph_M02_AXI_BVALID),
+        .SLOT_0_AXI_rdata(microblaze_0_axi_periph_M02_AXI_RDATA),
+        .SLOT_0_AXI_rid(microblaze_0_axi_periph_M02_AXI_RID[2:0]),
+        .SLOT_0_AXI_rlast(microblaze_0_axi_periph_M02_AXI_RLAST),
+        .SLOT_0_AXI_rready(microblaze_0_axi_periph_M02_AXI_RREADY),
+        .SLOT_0_AXI_rresp(microblaze_0_axi_periph_M02_AXI_RRESP),
+        .SLOT_0_AXI_rvalid(microblaze_0_axi_periph_M02_AXI_RVALID),
+        .SLOT_0_AXI_wdata(microblaze_0_axi_periph_M02_AXI_WDATA),
+        .SLOT_0_AXI_wid(microblaze_0_axi_periph_M02_AXI_WID),
+        .SLOT_0_AXI_wlast(microblaze_0_axi_periph_M02_AXI_WLAST),
+        .SLOT_0_AXI_wready(microblaze_0_axi_periph_M02_AXI_WREADY),
+        .SLOT_0_AXI_wstrb(microblaze_0_axi_periph_M02_AXI_WSTRB),
+        .SLOT_0_AXI_wvalid(microblaze_0_axi_periph_M02_AXI_WVALID),
+        .clk(microblaze_0_Clk),
+        .resetn(rst_ps7_0_50M_peripheral_aresetn));
 endmodule
 
 module design_1_microblaze_0_axi_periph_0

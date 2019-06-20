@@ -63,6 +63,7 @@ int main() {
 
   print("Hello World\r\n");
   HAL_Init(1, addrs);
+  int count = 0;
   while (1) {
     int mask = (1 << N_IFACE_ON_BOARD) - 1;
     macaddr_t src_mac;
@@ -74,7 +75,12 @@ int main() {
       xil_printf("loop failed with %d\r\n", res);
       break;
     } else if (res > 0) {
-      xil_printf("Got data from port %d of length %d\r\n", if_index, res);
+      xil_printf("%d: Got data from port %d of length %d\r\n", count++, if_index, res);
+      for (int i = 0; i < res;i++) {
+        xil_printf("%02X", packet[i]);
+      }
+      xil_printf("\r\n");
+      HAL_SendIPPacket(if_index, packet, res, src_mac);
     }
   }
 

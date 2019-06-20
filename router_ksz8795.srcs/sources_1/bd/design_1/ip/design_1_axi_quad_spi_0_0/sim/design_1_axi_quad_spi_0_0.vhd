@@ -288,7 +288,7 @@ BEGIN
       C_TYPE_OF_AXI4_INTERFACE => 0,
       C_XIP_MODE => 0,
       C_UC_FAMILY => 0,
-      C_FIFO_DEPTH => 16,
+      C_FIFO_DEPTH => 0,
       C_SCK_RATIO => 16,
       C_DUAL_QUAD_MODE => 0,
       C_NUM_SS_BITS => 1,

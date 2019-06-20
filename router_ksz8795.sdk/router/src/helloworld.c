@@ -50,120 +50,32 @@
 #include "xaxiethernet.h"
 #include "xil_printf.h"
 #include "xspi.h"
+#include "router_hal.h"
 #include <stdio.h>
 
-XAxiEthernet_Config *axiEthernetConfig;
-XAxiDma_Config *axiDmaConfig;
-XSpi_Config *spiConfig;
+// 10.0.0.1 ~ 10.0.3.1
+in_addr_t addrs[N_IFACE_ON_BOARD] = {0x0100000a, 0x0101000a, 0x0102000a,
+                                    0x0103000a};
 
-XAxiEthernet axiEthernet;
-XAxiDma axiDma;
-XSpi spi;
-
-XAxiDma_BdRing *rxRing;
-XAxiDma_BdRing *txRing;
-
-#define BD_COUNT 16
-
-char rxBdSpace[XAxiDma_BdRingMemCalc(XAXIDMA_BD_MINIMUM_ALIGNMENT, BD_COUNT)]
-    __attribute__((aligned(XAXIDMA_BD_MINIMUM_ALIGNMENT)))
-    __attribute__((section(".physical")));
-char txBdSpace[XAxiDma_BdRingMemCalc(XAXIDMA_BD_MINIMUM_ALIGNMENT, BD_COUNT)]
-    __attribute__((aligned(XAXIDMA_BD_MINIMUM_ALIGNMENT)))
-    __attribute__((section(".physical")));
-
-struct EthernetFrame {
-  u8 dstMAC[6];
-  u8 srcMAC[6];
-  u16 etherType;
-  u8 data[1508];
-} rxBuffers[BD_COUNT] __attribute__((section(".physical")));
-
-void SpiWriteRegister(u8 addr, u8 data) {
-  u8 writeBuffer[3];
-  // write
-  writeBuffer[0] = 0x40 | (addr >> 7);
-  writeBuffer[1] = addr << 1;
-  writeBuffer[2] = data;
-  XSpi_SetSlaveSelect(&spi, 1);
-  int res = XSpi_Transfer(&spi, writeBuffer, NULL, 3);
-  xil_printf("Write SPI %d = %d\r\n", addr, data);
-}
-
+uint8_t packet[2048];
 int main() {
-  XAxiDma_Bd *bd;
   init_platform();
 
-  print("Hello World\n\r");
-
-  axiEthernetConfig = XAxiEthernet_LookupConfig(XPAR_AXI_ETHERNET_0_DEVICE_ID);
-  axiDmaConfig = XAxiDma_LookupConfig(XPAR_AXIDMA_0_DEVICE_ID);
-  spiConfig = XSpi_LookupConfig(XPAR_AXI_QUAD_SPI_0_DEVICE_ID);
-
-  XAxiDma_CfgInitialize(&axiDma, axiDmaConfig);
-  XAxiEthernet_CfgInitialize(&axiEthernet, axiEthernetConfig,
-                             axiEthernetConfig->BaseAddress);
-  XSpi_CfgInitialize(&spi, spiConfig, spiConfig->BaseAddress);
-
-  xil_printf("Init vlan %x\n\r", rxBdSpace);
-  XSpi_SetOptions(&spi, XSP_MASTER_OPTION | XSP_MANUAL_SSELECT_OPTION);
-  XSpi_Start(&spi);
-  XSpi_IntrGlobalDisable(&spi);
-  // P1-P4 Tag Removal
-  SpiWriteRegister(16, 2);
-  SpiWriteRegister(32, 2);
-  SpiWriteRegister(48, 2);
-  SpiWriteRegister(64, 2);
-  // P5 Tag Insertion
-  SpiWriteRegister(80, 4);
-  // P1-P5 PVID
-  SpiWriteRegister(20, 1);
-  SpiWriteRegister(36, 2);
-  SpiWriteRegister(52, 3);
-  SpiWriteRegister(68, 4);
-  SpiWriteRegister(84, 5);
-
-  xil_printf("Init rings @ %x\r\n", rxBdSpace);
-  memset(rxBdSpace, 0, sizeof(rxBdSpace));
-  rxRing = XAxiDma_GetRxRing(&axiDma);
-  txRing = XAxiDma_GetTxRing(&axiDma);
-
-  XAxiDma_BdRingCreate(rxRing, (UINTPTR)rxBdSpace, (UINTPTR)rxBdSpace,
-                       XAXIDMA_BD_MINIMUM_ALIGNMENT, BD_COUNT);
-
-  print("Enable MAC\r\n");
-  XAxiEthernet_SetOptions(&axiEthernet, XAE_RECEIVER_ENABLE_OPTION |
-                                            XAE_TRANSMITTER_ENABLE_OPTION);
-  XAxiEthernet_Start(&axiEthernet);
-
-  print("Add buffer to ring\n\r");
-  for (int i = 0; i < BD_COUNT; i++) {
-    XAxiDma_BdRingAlloc(rxRing, 1, &bd);
-    XAxiDma_BdSetBufAddr(bd, (UINTPTR)&rxBuffers[i]);
-    XAxiDma_BdSetLength(bd, sizeof(struct EthernetFrame),
-                        rxRing->MaxTransferLen);
-    XAxiDma_BdSetCtrl(bd, 0);
-    XAxiDma_BdRingToHw(rxRing, 1, bd);
-  }
-
-  print("Receive start\n\r");
-  XAxiDma_BdRingStart(rxRing);
-  u32 count = 0;
+  print("Hello World\r\n");
+  HAL_Init(1, addrs);
   while (1) {
-    while (XAxiDma_BdRingFromHw(rxRing, 1, &bd) == 0)
-      ;
-
-    // See AXI Ethernet Table 3-15
-    u32 length = XAxiDma_BdRead(bd, XAXIDMA_BD_USR4_OFFSET) & 0xFFFF;
-    xil_printf("%d: Got length %d\n\rData: ", count++, length);
-    u8 *data = (u8 *)XAxiDma_BdGetBufAddr(bd);
-    for (u32 i = 0; i < length; i++) {
-      xil_printf("%02X", data[i]);
+    int mask = (1 << N_IFACE_ON_BOARD) - 1;
+    macaddr_t src_mac;
+    macaddr_t dst_mac;
+    int if_index;
+    int res = HAL_ReceiveIPPacket(mask, packet, sizeof(packet), src_mac,
+                                  dst_mac, 1000, &if_index);
+    if (res < 0) {
+      xil_printf("loop failed with %d\r\n", res);
+      break;
+    } else if (res > 0) {
+      xil_printf("Got data from port %d of length %d\r\n", if_index, res);
     }
-    xil_printf("\n\r");
-
-    // recycle
-    XAxiDma_BdRingToHw(rxRing, 1, bd);
   }
 
   cleanup_platform();

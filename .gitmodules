@@ -1,0 +1,3 @@
+[submodule "router_ksz8795.sdk/router/src/Router-Lab"]
+	path = router_ksz8795.sdk/router/src/Router-Lab
+	url = git@github.com:z4yx/Router-Lab.git

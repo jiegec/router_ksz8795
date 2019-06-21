@@ -1,7 +1,7 @@
 // Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2018.3 (lin64) Build 2405991 Thu Dec  6 23:36:41 MST 2018
-// Date        : Wed Jun 19 22:18:18 2019
+// Date        : Fri Jun 21 11:26:53 2019
 // Host        : oslab-Ubuntu16 running 64-bit Ubuntu 18.04.2 LTS
 // Command     : write_verilog -force -mode funcsim
 //               /home/oslab/router_ksz8795/router_ksz8795.srcs/sources_1/bd/design_1/ip/design_1_axi_ethernet_0_1/bd_0/ip/ip_0/bd_525a_eth_buf_0_sim_netlist.v
@@ -118,9 +118,9 @@ module bd_525a_eth_buf_0
     mdc_temac,
     GTX_CLK);
   (* x_interface_info = "xilinx.com:signal:interrupt:1.0 interrupt INTERRUPT" *) (* x_interface_parameter = "XIL_INTERFACENAME interrupt, SENSITIVITY LEVEL_HIGH, PortWidth 1" *) output INTERRUPT;
-  (* x_interface_info = "xilinx.com:signal:clock:1.0 S_AXI_ACLK CLK" *) (* x_interface_parameter = "XIL_INTERFACENAME S_AXI_ACLK, ASSOCIATED_BUSIF S_AXI:S_AXI_2TEMAC, ASSOCIATED_RESET S_AXI_ARESETN, FREQ_HZ 50000000, PHASE 0.000, CLK_DOMAIN design_1_processing_system7_0_0_FCLK_CLK0, INSERT_VIP 0" *) input S_AXI_ACLK;
+  (* x_interface_info = "xilinx.com:signal:clock:1.0 S_AXI_ACLK CLK" *) (* x_interface_parameter = "XIL_INTERFACENAME S_AXI_ACLK, ASSOCIATED_BUSIF S_AXI:S_AXI_2TEMAC, ASSOCIATED_RESET S_AXI_ARESETN, FREQ_HZ 200000000, PHASE 0.000, CLK_DOMAIN design_1_processing_system7_0_0_FCLK_CLK0, INSERT_VIP 0" *) input S_AXI_ACLK;
   (* x_interface_info = "xilinx.com:signal:reset:1.0 S_AXI_ARESETN RST" *) (* x_interface_parameter = "XIL_INTERFACENAME S_AXI_ARESETN, POLARITY ACTIVE_LOW, INSERT_VIP 0" *) input S_AXI_ARESETN;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI AWADDR" *) (* x_interface_parameter = "XIL_INTERFACENAME S_AXI, FREQ_HZ 50000000, DATA_WIDTH 32, PROTOCOL AXI4LITE, ID_WIDTH 0, ADDR_WIDTH 18, AWUSER_WIDTH 0, ARUSER_WIDTH 0, WUSER_WIDTH 0, RUSER_WIDTH 0, BUSER_WIDTH 0, READ_WRITE_MODE READ_WRITE, HAS_BURST 0, HAS_LOCK 0, HAS_PROT 0, HAS_CACHE 0, HAS_QOS 0, HAS_REGION 0, HAS_WSTRB 1, HAS_BRESP 1, HAS_RRESP 1, SUPPORTS_NARROW_BURST 0, NUM_READ_OUTSTANDING 16, NUM_WRITE_OUTSTANDING 16, MAX_BURST_LENGTH 1, PHASE 0.000, CLK_DOMAIN design_1_processing_system7_0_0_FCLK_CLK0, NUM_READ_THREADS 1, NUM_WRITE_THREADS 1, RUSER_BITS_PER_BYTE 0, WUSER_BITS_PER_BYTE 0, INSERT_VIP 0" *) input [17:0]S_AXI_AWADDR;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI AWADDR" *) (* x_interface_parameter = "XIL_INTERFACENAME S_AXI, FREQ_HZ 200000000, DATA_WIDTH 32, PROTOCOL AXI4LITE, ID_WIDTH 0, ADDR_WIDTH 18, AWUSER_WIDTH 0, ARUSER_WIDTH 0, WUSER_WIDTH 0, RUSER_WIDTH 0, BUSER_WIDTH 0, READ_WRITE_MODE READ_WRITE, HAS_BURST 0, HAS_LOCK 0, HAS_PROT 0, HAS_CACHE 0, HAS_QOS 0, HAS_REGION 0, HAS_WSTRB 1, HAS_BRESP 1, HAS_RRESP 1, SUPPORTS_NARROW_BURST 0, NUM_READ_OUTSTANDING 16, NUM_WRITE_OUTSTANDING 16, MAX_BURST_LENGTH 1, PHASE 0.000, CLK_DOMAIN design_1_processing_system7_0_0_FCLK_CLK0, NUM_READ_THREADS 1, NUM_WRITE_THREADS 1, RUSER_BITS_PER_BYTE 0, WUSER_BITS_PER_BYTE 0, INSERT_VIP 0" *) input [17:0]S_AXI_AWADDR;
   (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI AWVALID" *) input S_AXI_AWVALID;
   (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI AWREADY" *) output S_AXI_AWREADY;
   (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI WDATA" *) input [31:0]S_AXI_WDATA;
@@ -141,37 +141,37 @@ module bd_525a_eth_buf_0
   input EMAC_RESET_DONE_INT;
   input EMAC_RX_DCM_LOCKED_INT;
   input [15:0]PCSPMA_STATUS_VECTOR;
-  (* x_interface_info = "xilinx.com:signal:clock:1.0 AXI_STR_TXD_ACLK CLK" *) (* x_interface_parameter = "XIL_INTERFACENAME AXI_STR_TXD_ACLK, ASSOCIATED_BUSIF AXI_STR_TXD, ASSOCIATED_RESET AXI_STR_TXD_ARESETN, FREQ_HZ 50000000, PHASE 0.000, CLK_DOMAIN design_1_processing_system7_0_0_FCLK_CLK0, INSERT_VIP 0" *) input AXI_STR_TXD_ACLK;
+  (* x_interface_info = "xilinx.com:signal:clock:1.0 AXI_STR_TXD_ACLK CLK" *) (* x_interface_parameter = "XIL_INTERFACENAME AXI_STR_TXD_ACLK, ASSOCIATED_BUSIF AXI_STR_TXD, ASSOCIATED_RESET AXI_STR_TXD_ARESETN, FREQ_HZ 200000000, PHASE 0.000, CLK_DOMAIN design_1_processing_system7_0_0_FCLK_CLK0, INSERT_VIP 0" *) input AXI_STR_TXD_ACLK;
   (* x_interface_info = "xilinx.com:signal:reset:1.0 AXI_STR_TXD_ARESETN RST" *) (* x_interface_parameter = "XIL_INTERFACENAME AXI_STR_TXD_ARESETN, POLARITY ACTIVE_LOW, INSERT_VIP 0" *) input AXI_STR_TXD_ARESETN;
-  (* x_interface_info = "xilinx.com:interface:axis:1.0 AXI_STR_TXD TVALID" *) (* x_interface_parameter = "XIL_INTERFACENAME AXI_STR_TXD, FREQ_HZ 50000000, TDATA_NUM_BYTES 4, TDEST_WIDTH 0, TID_WIDTH 0, TUSER_WIDTH 0, HAS_TREADY 1, HAS_TSTRB 0, HAS_TKEEP 1, HAS_TLAST 1, PHASE 0.000, CLK_DOMAIN design_1_processing_system7_0_0_FCLK_CLK0, LAYERED_METADATA undef, INSERT_VIP 0" *) input AXI_STR_TXD_TVALID;
+  (* x_interface_info = "xilinx.com:interface:axis:1.0 AXI_STR_TXD TVALID" *) (* x_interface_parameter = "XIL_INTERFACENAME AXI_STR_TXD, FREQ_HZ 200000000, TDATA_NUM_BYTES 4, TDEST_WIDTH 0, TID_WIDTH 0, TUSER_WIDTH 0, HAS_TREADY 1, HAS_TSTRB 0, HAS_TKEEP 1, HAS_TLAST 1, PHASE 0.000, CLK_DOMAIN design_1_processing_system7_0_0_FCLK_CLK0, LAYERED_METADATA undef, INSERT_VIP 0" *) input AXI_STR_TXD_TVALID;
   (* x_interface_info = "xilinx.com:interface:axis:1.0 AXI_STR_TXD TREADY" *) output AXI_STR_TXD_TREADY;
   (* x_interface_info = "xilinx.com:interface:axis:1.0 AXI_STR_TXD TLAST" *) input AXI_STR_TXD_TLAST;
   (* x_interface_info = "xilinx.com:interface:axis:1.0 AXI_STR_TXD TKEEP" *) input [3:0]AXI_STR_TXD_TKEEP;
   (* x_interface_info = "xilinx.com:interface:axis:1.0 AXI_STR_TXD TDATA" *) input [31:0]AXI_STR_TXD_TDATA;
-  (* x_interface_info = "xilinx.com:signal:clock:1.0 AXI_STR_TXC_ACLK CLK" *) (* x_interface_parameter = "XIL_INTERFACENAME AXI_STR_TXC_ACLK, ASSOCIATED_BUSIF AXI_STR_TXC, ASSOCIATED_RESET AXI_STR_TXC_ARESETN, FREQ_HZ 50000000, PHASE 0.000, CLK_DOMAIN design_1_processing_system7_0_0_FCLK_CLK0, INSERT_VIP 0" *) input AXI_STR_TXC_ACLK;
+  (* x_interface_info = "xilinx.com:signal:clock:1.0 AXI_STR_TXC_ACLK CLK" *) (* x_interface_parameter = "XIL_INTERFACENAME AXI_STR_TXC_ACLK, ASSOCIATED_BUSIF AXI_STR_TXC, ASSOCIATED_RESET AXI_STR_TXC_ARESETN, FREQ_HZ 200000000, PHASE 0.000, CLK_DOMAIN design_1_processing_system7_0_0_FCLK_CLK0, INSERT_VIP 0" *) input AXI_STR_TXC_ACLK;
   (* x_interface_info = "xilinx.com:signal:reset:1.0 AXI_STR_TXC_ARESETN RST" *) (* x_interface_parameter = "XIL_INTERFACENAME AXI_STR_TXC_ARESETN, POLARITY ACTIVE_LOW, INSERT_VIP 0" *) input AXI_STR_TXC_ARESETN;
-  (* x_interface_info = "xilinx.com:interface:axis:1.0 AXI_STR_TXC TVALID" *) (* x_interface_parameter = "XIL_INTERFACENAME AXI_STR_TXC, FREQ_HZ 50000000, TDATA_NUM_BYTES 4, TDEST_WIDTH 0, TID_WIDTH 0, TUSER_WIDTH 0, HAS_TREADY 1, HAS_TSTRB 0, HAS_TKEEP 1, HAS_TLAST 1, PHASE 0.000, CLK_DOMAIN design_1_processing_system7_0_0_FCLK_CLK0, LAYERED_METADATA undef, INSERT_VIP 0" *) input AXI_STR_TXC_TVALID;
+  (* x_interface_info = "xilinx.com:interface:axis:1.0 AXI_STR_TXC TVALID" *) (* x_interface_parameter = "XIL_INTERFACENAME AXI_STR_TXC, FREQ_HZ 200000000, TDATA_NUM_BYTES 4, TDEST_WIDTH 0, TID_WIDTH 0, TUSER_WIDTH 0, HAS_TREADY 1, HAS_TSTRB 0, HAS_TKEEP 1, HAS_TLAST 1, PHASE 0.000, CLK_DOMAIN design_1_processing_system7_0_0_FCLK_CLK0, LAYERED_METADATA undef, INSERT_VIP 0" *) input AXI_STR_TXC_TVALID;
   (* x_interface_info = "xilinx.com:interface:axis:1.0 AXI_STR_TXC TREADY" *) output AXI_STR_TXC_TREADY;
   (* x_interface_info = "xilinx.com:interface:axis:1.0 AXI_STR_TXC TLAST" *) input AXI_STR_TXC_TLAST;
   (* x_interface_info = "xilinx.com:interface:axis:1.0 AXI_STR_TXC TKEEP" *) input [3:0]AXI_STR_TXC_TKEEP;
   (* x_interface_info = "xilinx.com:interface:axis:1.0 AXI_STR_TXC TDATA" *) input [31:0]AXI_STR_TXC_TDATA;
-  (* x_interface_info = "xilinx.com:signal:clock:1.0 AXI_STR_RXD_ACLK CLK" *) (* x_interface_parameter = "XIL_INTERFACENAME AXI_STR_RXD_ACLK, ASSOCIATED_BUSIF AXI_STR_RXD, ASSOCIATED_RESET AXI_STR_RXD_ARESETN, FREQ_HZ 50000000, PHASE 0.000, CLK_DOMAIN design_1_processing_system7_0_0_FCLK_CLK0, INSERT_VIP 0" *) input AXI_STR_RXD_ACLK;
+  (* x_interface_info = "xilinx.com:signal:clock:1.0 AXI_STR_RXD_ACLK CLK" *) (* x_interface_parameter = "XIL_INTERFACENAME AXI_STR_RXD_ACLK, ASSOCIATED_BUSIF AXI_STR_RXD, ASSOCIATED_RESET AXI_STR_RXD_ARESETN, FREQ_HZ 200000000, PHASE 0.000, CLK_DOMAIN design_1_processing_system7_0_0_FCLK_CLK0, INSERT_VIP 0" *) input AXI_STR_RXD_ACLK;
   (* x_interface_info = "xilinx.com:signal:reset:1.0 AXI_STR_RXD_ARESETN RST" *) (* x_interface_parameter = "XIL_INTERFACENAME AXI_STR_RXD_ARESETN, POLARITY ACTIVE_LOW, INSERT_VIP 0" *) input AXI_STR_RXD_ARESETN;
-  (* x_interface_info = "xilinx.com:interface:axis:1.0 AXI_STR_RXD TVALID" *) (* x_interface_parameter = "XIL_INTERFACENAME AXI_STR_RXD, FREQ_HZ 50000000, TDATA_NUM_BYTES 4, TDEST_WIDTH 0, TID_WIDTH 0, TUSER_WIDTH 0, HAS_TREADY 1, HAS_TSTRB 0, HAS_TKEEP 1, HAS_TLAST 1, PHASE 0.000, CLK_DOMAIN design_1_processing_system7_0_0_FCLK_CLK0, LAYERED_METADATA undef, INSERT_VIP 0" *) output AXI_STR_RXD_VALID;
+  (* x_interface_info = "xilinx.com:interface:axis:1.0 AXI_STR_RXD TVALID" *) (* x_interface_parameter = "XIL_INTERFACENAME AXI_STR_RXD, FREQ_HZ 200000000, TDATA_NUM_BYTES 4, TDEST_WIDTH 0, TID_WIDTH 0, TUSER_WIDTH 0, HAS_TREADY 1, HAS_TSTRB 0, HAS_TKEEP 1, HAS_TLAST 1, PHASE 0.000, CLK_DOMAIN design_1_processing_system7_0_0_FCLK_CLK0, LAYERED_METADATA undef, INSERT_VIP 0" *) output AXI_STR_RXD_VALID;
   (* x_interface_info = "xilinx.com:interface:axis:1.0 AXI_STR_RXD TREADY" *) input AXI_STR_RXD_READY;
   (* x_interface_info = "xilinx.com:interface:axis:1.0 AXI_STR_RXD TLAST" *) output AXI_STR_RXD_LAST;
   (* x_interface_info = "xilinx.com:interface:axis:1.0 AXI_STR_RXD TKEEP" *) output [3:0]AXI_STR_RXD_KEEP;
   (* x_interface_info = "xilinx.com:interface:axis:1.0 AXI_STR_RXD TDATA" *) output [31:0]AXI_STR_RXD_DATA;
-  (* x_interface_info = "xilinx.com:signal:clock:1.0 AXI_STR_RXS_ACLK CLK" *) (* x_interface_parameter = "XIL_INTERFACENAME AXI_STR_RXS_ACLK, ASSOCIATED_BUSIF AXI_STR_RXS, ASSOCIATED_RESET AXI_STR_RXS_ARESETN, FREQ_HZ 50000000, PHASE 0.000, CLK_DOMAIN design_1_processing_system7_0_0_FCLK_CLK0, INSERT_VIP 0" *) input AXI_STR_RXS_ACLK;
+  (* x_interface_info = "xilinx.com:signal:clock:1.0 AXI_STR_RXS_ACLK CLK" *) (* x_interface_parameter = "XIL_INTERFACENAME AXI_STR_RXS_ACLK, ASSOCIATED_BUSIF AXI_STR_RXS, ASSOCIATED_RESET AXI_STR_RXS_ARESETN, FREQ_HZ 200000000, PHASE 0.000, CLK_DOMAIN design_1_processing_system7_0_0_FCLK_CLK0, INSERT_VIP 0" *) input AXI_STR_RXS_ACLK;
   (* x_interface_info = "xilinx.com:signal:reset:1.0 AXI_STR_RXS_ARESETN RST" *) (* x_interface_parameter = "XIL_INTERFACENAME AXI_STR_RXS_ARESETN, POLARITY ACTIVE_LOW, INSERT_VIP 0" *) input AXI_STR_RXS_ARESETN;
-  (* x_interface_info = "xilinx.com:interface:axis:1.0 AXI_STR_RXS TVALID" *) (* x_interface_parameter = "XIL_INTERFACENAME AXI_STR_RXS, FREQ_HZ 50000000, TDATA_NUM_BYTES 4, TDEST_WIDTH 0, TID_WIDTH 0, TUSER_WIDTH 0, HAS_TREADY 1, HAS_TSTRB 0, HAS_TKEEP 1, HAS_TLAST 1, PHASE 0.000, CLK_DOMAIN design_1_processing_system7_0_0_FCLK_CLK0, LAYERED_METADATA undef, INSERT_VIP 0" *) output AXI_STR_RXS_VALID;
+  (* x_interface_info = "xilinx.com:interface:axis:1.0 AXI_STR_RXS TVALID" *) (* x_interface_parameter = "XIL_INTERFACENAME AXI_STR_RXS, FREQ_HZ 200000000, TDATA_NUM_BYTES 4, TDEST_WIDTH 0, TID_WIDTH 0, TUSER_WIDTH 0, HAS_TREADY 1, HAS_TSTRB 0, HAS_TKEEP 1, HAS_TLAST 1, PHASE 0.000, CLK_DOMAIN design_1_processing_system7_0_0_FCLK_CLK0, LAYERED_METADATA undef, INSERT_VIP 0" *) output AXI_STR_RXS_VALID;
   (* x_interface_info = "xilinx.com:interface:axis:1.0 AXI_STR_RXS TREADY" *) input AXI_STR_RXS_READY;
   (* x_interface_info = "xilinx.com:interface:axis:1.0 AXI_STR_RXS TLAST" *) output AXI_STR_RXS_LAST;
   (* x_interface_info = "xilinx.com:interface:axis:1.0 AXI_STR_RXS TKEEP" *) output [3:0]AXI_STR_RXS_KEEP;
   (* x_interface_info = "xilinx.com:interface:axis:1.0 AXI_STR_RXS TDATA" *) output [31:0]AXI_STR_RXS_DATA;
   output pause_req;
   output [16:31]pause_val;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI_2TEMAC AWADDR" *) (* x_interface_parameter = "XIL_INTERFACENAME S_AXI_2TEMAC, FREQ_HZ 50000000, DATA_WIDTH 32, PROTOCOL AXI4LITE, ID_WIDTH 0, ADDR_WIDTH 12, AWUSER_WIDTH 0, ARUSER_WIDTH 0, WUSER_WIDTH 0, RUSER_WIDTH 0, BUSER_WIDTH 0, READ_WRITE_MODE READ_WRITE, HAS_BURST 0, HAS_LOCK 0, HAS_PROT 0, HAS_CACHE 0, HAS_QOS 0, HAS_REGION 0, HAS_WSTRB 0, HAS_BRESP 1, HAS_RRESP 1, SUPPORTS_NARROW_BURST 0, NUM_READ_OUTSTANDING 1, NUM_WRITE_OUTSTANDING 1, MAX_BURST_LENGTH 1, PHASE 0.000, CLK_DOMAIN design_1_processing_system7_0_0_FCLK_CLK0, NUM_READ_THREADS 1, NUM_WRITE_THREADS 1, RUSER_BITS_PER_BYTE 0, WUSER_BITS_PER_BYTE 0, INSERT_VIP 0" *) output [11:0]S_AXI_2TEMAC_AWADDR;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI_2TEMAC AWADDR" *) (* x_interface_parameter = "XIL_INTERFACENAME S_AXI_2TEMAC, FREQ_HZ 200000000, DATA_WIDTH 32, PROTOCOL AXI4LITE, ID_WIDTH 0, ADDR_WIDTH 12, AWUSER_WIDTH 0, ARUSER_WIDTH 0, WUSER_WIDTH 0, RUSER_WIDTH 0, BUSER_WIDTH 0, READ_WRITE_MODE READ_WRITE, HAS_BURST 0, HAS_LOCK 0, HAS_PROT 0, HAS_CACHE 0, HAS_QOS 0, HAS_REGION 0, HAS_WSTRB 0, HAS_BRESP 1, HAS_RRESP 1, SUPPORTS_NARROW_BURST 0, NUM_READ_OUTSTANDING 1, NUM_WRITE_OUTSTANDING 1, MAX_BURST_LENGTH 1, PHASE 0.000, CLK_DOMAIN design_1_processing_system7_0_0_FCLK_CLK0, NUM_READ_THREADS 1, NUM_WRITE_THREADS 1, RUSER_BITS_PER_BYTE 0, WUSER_BITS_PER_BYTE 0, INSERT_VIP 0" *) output [11:0]S_AXI_2TEMAC_AWADDR;
   (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI_2TEMAC AWVALID" *) output S_AXI_2TEMAC_AWVALID;
   (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI_2TEMAC AWREADY" *) input S_AXI_2TEMAC_AWREADY;
   (* x_interface_info = "xilinx.com:interface:aximm:1.0 S_AXI_2TEMAC WDATA" *) output [31:0]S_AXI_2TEMAC_WDATA;
@@ -330,7 +330,7 @@ module bd_525a_eth_buf_0
   (* C_HALFDUP = "0" *) 
   (* C_MCAST_EXTEND = "0" *) 
   (* C_PHYADDR = "1" *) 
-  (* C_PHY_RST_COUNT = "250" *) 
+  (* C_PHY_RST_COUNT = "1000" *) 
   (* C_PHY_TYPE = "3" *) 
   (* C_RXCSUM = "0" *) 
   (* C_RXMEM = "4096" *) 
@@ -5174,7 +5174,7 @@ endmodule
 
 (* C_AVB = "0" *) (* C_ENABLE_1588 = "0" *) (* C_ENABLE_LVDS = "0" *) 
 (* C_FAMILY = "zynq" *) (* C_HALFDUP = "0" *) (* C_MCAST_EXTEND = "0" *) 
-(* C_PHYADDR = "1" *) (* C_PHY_RST_COUNT = "250" *) (* C_PHY_TYPE = "3" *) 
+(* C_PHYADDR = "1" *) (* C_PHY_RST_COUNT = "1000" *) (* C_PHY_TYPE = "3" *) 
 (* C_RXCSUM = "0" *) (* C_RXMEM = "4096" *) (* C_RXVLAN_STRP = "0" *) 
 (* C_RXVLAN_TAG = "0" *) (* C_RXVLAN_TRAN = "0" *) (* C_SIMULATION = "0" *) 
 (* C_STATS = "1" *) (* C_S_AXI_ADDR_WIDTH = "32" *) (* C_S_AXI_DATA_WIDTH = "32" *) 

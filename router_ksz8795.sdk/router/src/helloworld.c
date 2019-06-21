@@ -62,7 +62,8 @@ int main() {
   init_platform();
 
   print("Hello World\r\n");
-  HAL_Init(1, addrs);
+  int debug = 0;
+  HAL_Init(debug, addrs);
   int count = 0;
   while (1) {
     int mask = (1 << N_IFACE_ON_BOARD) - 1;
@@ -70,17 +71,22 @@ int main() {
     macaddr_t dst_mac;
     int if_index;
     int res = HAL_ReceiveIPPacket(mask, packet, sizeof(packet), src_mac,
-                                  dst_mac, 1000, &if_index);
+                                  dst_mac, -1, &if_index);
     if (res < 0) {
       xil_printf("loop failed with %d\r\n", res);
       break;
     } else if (res > 0) {
-      xil_printf("%d: Got data from port %d of length %d\r\n", count++, if_index, res);
-      for (int i = 0; i < res;i++) {
-        xil_printf("%02X", packet[i]);
+      if (debug) {
+        xil_printf("%d: Got data from port %d of length %d\r\n", count++, if_index, res);
+        for (int i = 0; i < res;i++) {
+          xil_printf("%02X", packet[i]);
+        }
+        xil_printf("\r\n");
       }
-      xil_printf("\r\n");
-      HAL_SendIPPacket(if_index, packet, res, src_mac);
+      // static forwarding
+      if (HAL_ArpGetMacAddress(1 - if_index, 0x0200000a + ((1 - if_index) << 16), dst_mac) == 0) {
+        HAL_SendIPPacket(1 - if_index, packet, res, dst_mac);
+      }
     }
   }
 

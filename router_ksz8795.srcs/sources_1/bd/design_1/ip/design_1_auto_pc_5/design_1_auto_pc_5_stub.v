@@ -1,11 +1,11 @@
 // Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2018.3 (lin64) Build 2405991 Thu Dec  6 23:36:41 MST 2018
-// Date        : Wed Jun 19 22:18:16 2019
+// Date        : Fri Jun 21 11:26:06 2019
 // Host        : oslab-Ubuntu16 running 64-bit Ubuntu 18.04.2 LTS
 // Command     : write_verilog -force -mode synth_stub -rename_top design_1_auto_pc_5 -prefix
-//               design_1_auto_pc_5_ design_1_auto_pc_0_stub.v
-// Design      : design_1_auto_pc_0
+//               design_1_auto_pc_5_ design_1_auto_pc_1_stub.v
+// Design      : design_1_auto_pc_1
 // Purpose     : Stub declaration of top-level module interface
 // Device      : xc7z020clg400-1
 // --------------------------------------------------------------------------------

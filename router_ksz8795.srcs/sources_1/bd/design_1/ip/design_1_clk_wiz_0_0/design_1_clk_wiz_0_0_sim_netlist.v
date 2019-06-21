@@ -1,10 +1,10 @@
 // Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2018.3 (lin64) Build 2405991 Thu Dec  6 23:36:41 MST 2018
-// Date        : Fri Jun 21 12:50:53 2019
+// Date        : Fri Jun 21 12:46:48 2019
 // Host        : oslab-Ubuntu16 running 64-bit Ubuntu 18.04.2 LTS
-// Command     : write_verilog -force -mode funcsim
-//               /home/oslab/router_ksz8795/router_ksz8795.srcs/sources_1/bd/design_1/ip/design_1_clk_wiz_0_0/design_1_clk_wiz_0_0_sim_netlist.v
+// Command     : write_verilog -force -mode funcsim -rename_top design_1_clk_wiz_0_0 -prefix
+//               design_1_clk_wiz_0_0_ design_1_clk_wiz_0_0_sim_netlist.v
 // Design      : design_1_clk_wiz_0_0
 // Purpose     : This verilog netlist is a functional simulation representation of the design and should not be modified
 //               or synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -35,7 +35,6 @@ module design_1_clk_wiz_0_0
         .reset(reset));
 endmodule
 
-(* ORIG_REF_NAME = "design_1_clk_wiz_0_0_clk_wiz" *) 
 module design_1_clk_wiz_0_0_design_1_clk_wiz_0_0_clk_wiz
    (clk_out1,
     reset,
@@ -96,7 +95,7 @@ module design_1_clk_wiz_0_0_design_1_clk_wiz_0_0_clk_wiz
     .CLKFBOUT_USE_FINE_PS("FALSE"),
     .CLKIN1_PERIOD(20.000000),
     .CLKIN2_PERIOD(0.000000),
-    .CLKOUT0_DIVIDE_F(4.000000),
+    .CLKOUT0_DIVIDE_F(10.000000),
     .CLKOUT0_DUTY_CYCLE(0.500000),
     .CLKOUT0_PHASE(0.000000),
     .CLKOUT0_USE_FINE_PS("FALSE"),

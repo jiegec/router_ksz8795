@@ -854,10 +854,10 @@
       }
     },
     "interface_nets": {
-      "s_axi_1": {
+      "mac_mdio_internal": {
         "interface_ports": [
-          "s_axi",
-          "eth_buf/S_AXI"
+          "mdio",
+          "mac/mdio_internal"
         ]
       },
       "eth_buf_S_AXI_2TEMAC": {
@@ -866,10 +866,10 @@
           "mac/s_axi"
         ]
       },
-      "mac_mdio_internal": {
+      "s_axi_1": {
         "interface_ports": [
-          "mdio",
-          "mac/mdio_internal"
+          "s_axi",
+          "eth_buf/S_AXI"
         ]
       },
       "s_axis_txd_1": {

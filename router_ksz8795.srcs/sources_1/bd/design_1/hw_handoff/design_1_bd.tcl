@@ -270,9 +270,9 @@ proc create_root_design { parentCell } {
   # Create instance: clk_wiz_0, and set properties
   set clk_wiz_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:clk_wiz:6.0 clk_wiz_0 ]
   set_property -dict [ list \
-   CONFIG.CLKOUT1_JITTER {136.987} \
-   CONFIG.CLKOUT1_REQUESTED_OUT_FREQ {250.000} \
-   CONFIG.MMCM_CLKOUT0_DIVIDE_F {4.000} \
+   CONFIG.CLKOUT1_JITTER {162.035} \
+   CONFIG.CLKOUT1_REQUESTED_OUT_FREQ {100.000} \
+   CONFIG.MMCM_CLKOUT0_DIVIDE_F {10.000} \
    CONFIG.MMCM_DIVCLK_DIVIDE {1} \
  ] $clk_wiz_0
 

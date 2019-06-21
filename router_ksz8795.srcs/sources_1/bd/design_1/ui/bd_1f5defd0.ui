@@ -26,13 +26,13 @@ preplace inst axi_ethernet_0 -pg 1 -lvl 1 -y -310 -defaultsOSRD
 preplace inst axi_quad_spi_0 -pg 1 -lvl 3 -y -430 -defaultsOSRD
 preplace inst axi_ethernet_0_dma -pg 1 -lvl 4 -y -100 -defaultsOSRD
 preplace inst processing_system7_0 -pg 1 -lvl 3 -y 550 -defaultsOSRD
-preplace netloc Conn1 1 1 1 820
 preplace netloc axi_quad_spi_0_SPI_0 1 3 5 NJ -440 NJ -440 NJ -440 NJ -440 NJ
 preplace netloc axi_ethernet_0_dma_M_AXIS_MM2S 1 0 5 70J -570 NJ -570 NJ -570 NJ -570 2390
 preplace netloc processing_system7_0_DDR 1 3 5 1850J 730 N 730 N 730 N 730 3600
+preplace netloc Conn1 1 1 1 820
 preplace netloc axi_ethernet_0_refclk_clk_out1 1 0 2 60 -490 770
-preplace netloc microblaze_0_axi_periph_M04_AXI 1 3 2 1930 -260 2370
 preplace netloc microblaze_0_mdm_axi 1 4 1 2410
+preplace netloc microblaze_0_axi_periph_M04_AXI 1 3 2 1930 -260 2370
 preplace netloc clk_wiz_0_locked 1 5 1 2860
 preplace netloc axi_ethernet_0_refclk_clk_out2 1 0 2 80 -480 760
 preplace netloc axi_ethernet_0_rgmii 1 1 7 800 -320 NJ -320 NJ -320 NJ -320 NJ -320 NJ -320 3590J
@@ -51,15 +51,15 @@ preplace netloc processing_system7_0_FCLK_RESET0_N 1 3 3 1820 800 2430J 380 2890
 preplace netloc axi_ethernet_0_dma_M_AXI_MM2S 1 3 2 1920 -270 2340
 preplace netloc axi_ethernet_0_dma_M_AXIS_CNTRL 1 0 5 20J -580 NJ -580 NJ -580 NJ -580 2430
 preplace netloc axi_ethernet_0_dma_mm2s_cntrl_reset_out_n 1 0 5 10J -560 NJ -560 NJ -560 NJ -560 2420
-preplace netloc microblaze_0_axi_periph_M05_AXI 1 2 3 1310J 760 NJ 760 2340
 preplace netloc microblaze_0_axi_dp 1 1 3 800J 50 N 50 1850
+preplace netloc microblaze_0_axi_periph_M05_AXI 1 2 3 1310J 760 NJ 760 2340
 preplace netloc axi_ethernet_0_mac_irq 1 1 5 N -310 NJ -310 1820J -330 NJ -330 2870J
-preplace netloc axi_ethernet_0_dma_M_AXI_S2MM 1 3 2 1900 -280 2360
 preplace netloc axi_ethernet_0_dma_M_AXI_SG 1 3 2 1910 -290 2350
+preplace netloc axi_ethernet_0_dma_M_AXI_S2MM 1 3 2 1900 -280 2360
 preplace netloc axi_ethernet_0_dma_s2mm_prmry_reset_out_n 1 0 5 30 -540 N -540 NJ -540 NJ -540 2410
-preplace netloc lmb_bram_if_cntlr_1_BRAM_PORT 1 2 1 1280
 preplace netloc lmb_bram_if_cntlr_0_BRAM_PORT 1 2 1 1280
 preplace netloc processing_system7_0_FIXED_IO 1 3 5 1830J 720 2390 690 2890 580 3310 540 N
+preplace netloc lmb_bram_if_cntlr_1_BRAM_PORT 1 2 1 1280
 preplace netloc clk_wiz_0_clk_out1 1 0 7 60 -110 780 380 1280 380 1870 790 2440 700 2850 590 3300
 preplace netloc axi_ethernet_0_dma_mm2s_introut 1 4 2 2410J -30 2820
 preplace netloc rst_ps7_0_50M_peripheral_aresetn 1 0 7 90 -500 N -500 1290 -250 1840 810 2420 720 NJ 720 3290
@@ -68,8 +68,8 @@ preplace netloc mdm_1_Debug_SYS_Rst 1 5 1 2840
 preplace netloc Conn 1 1 1 790
 preplace netloc microblaze_0_axi_periph_M02_AXI 1 2 3 1320J 740 NJ 740 2360
 preplace netloc axi_ethernet_0_dma_s2mm_introut 1 4 2 2430 -20 2810J
-preplace netloc axi_ethernet_0_m_axis_rxs 1 1 3 800 -350 1270J -290 1880J
 preplace netloc microblaze_0_debug 1 0 6 90J 770 NJ 770 NJ 770 NJ 770 NJ 770 2800
+preplace netloc axi_ethernet_0_m_axis_rxs 1 1 3 800 -350 1270J -290 1880J
 preplace netloc rst_ps7_0_50M_bus_struct_reset 1 0 7 50J -120 810J -290 1260 -300 1850 -310 N -310 N -310 3260
 preplace netloc axi_quad_spi_0_ip2intc_irpt 1 3 3 NJ -420 NJ -420 2830
 preplace netloc microblaze_0_DLMB 1 0 2 90 210 760

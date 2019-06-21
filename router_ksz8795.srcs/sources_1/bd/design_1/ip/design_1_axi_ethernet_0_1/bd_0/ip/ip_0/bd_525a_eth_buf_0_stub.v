@@ -1,10 +1,10 @@
 // Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2018.3 (lin64) Build 2405991 Thu Dec  6 23:36:41 MST 2018
-// Date        : Fri Jun 21 11:26:53 2019
+// Date        : Wed Jun 19 22:18:16 2019
 // Host        : oslab-Ubuntu16 running 64-bit Ubuntu 18.04.2 LTS
-// Command     : write_verilog -force -mode synth_stub
-//               /home/oslab/router_ksz8795/router_ksz8795.srcs/sources_1/bd/design_1/ip/design_1_axi_ethernet_0_1/bd_0/ip/ip_0/bd_525a_eth_buf_0_stub.v
+// Command     : write_verilog -force -mode synth_stub -rename_top bd_525a_eth_buf_0 -prefix
+//               bd_525a_eth_buf_0_ bd_525a_eth_buf_0_stub.v
 // Design      : bd_525a_eth_buf_0
 // Purpose     : Stub declaration of top-level module interface
 // Device      : xc7z020clg400-1

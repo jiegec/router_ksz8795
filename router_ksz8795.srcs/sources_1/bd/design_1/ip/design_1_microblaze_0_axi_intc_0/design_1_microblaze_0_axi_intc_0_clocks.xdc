@@ -44,3 +44,7 @@
 #
 # THIS COPYRIGHT NOTICE AND DISCLAIMER MUST BE RETAINED AS
 # PART OF THIS FILE AT ALL TIMES.
+ set clk_domain_a [get_clocks -of_objects [get_ports s_axi_aclk]]
+ set clk_domain_b [get_clocks -of_objects [get_ports processor_clk]]
+ set_false_path -from [all_registers -clock $clk_domain_a] -to [all_registers -clock $clk_domain_b]
+ set_false_path -from [all_registers -clock $clk_domain_b] -to [all_registers -clock $clk_domain_a]

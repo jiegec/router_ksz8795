@@ -1,7 +1,7 @@
 {
   "design": {
     "design_info": {
-      "boundary_crc": "0x274A002ED911EB6A",
+      "boundary_crc": "0x274A002EEEB79D23",
       "design_src": "SBD",
       "device": "xc7z020clg400-1",
       "name": "bd_525a",
@@ -47,7 +47,7 @@
             "value_src": "constant"
           },
           "FREQ_HZ": {
-            "value": "200000000",
+            "value": "50000000",
             "value_src": "user_prop"
           },
           "HAS_BRESP": {
@@ -156,7 +156,7 @@
             "value_src": "ip"
           },
           "FREQ_HZ": {
-            "value": "200000000",
+            "value": "50000000",
             "value_src": "user_prop"
           },
           "HAS_TKEEP": {
@@ -214,7 +214,7 @@
             "value_src": "ip"
           },
           "FREQ_HZ": {
-            "value": "200000000",
+            "value": "50000000",
             "value_src": "user_prop"
           },
           "HAS_TKEEP": {
@@ -272,7 +272,7 @@
             "value_src": "ip"
           },
           "FREQ_HZ": {
-            "value": "200000000",
+            "value": "50000000",
             "value_src": "user_prop"
           },
           "HAS_TKEEP": {
@@ -330,7 +330,7 @@
             "value_src": "ip"
           },
           "FREQ_HZ": {
-            "value": "200000000",
+            "value": "50000000",
             "value_src": "user_prop"
           },
           "HAS_TKEEP": {
@@ -427,7 +427,7 @@
             "value_src": "default_prop"
           },
           "FREQ_HZ": {
-            "value": "200000000",
+            "value": "50000000",
             "value_src": "user_prop"
           },
           "INSERT_VIP": {
@@ -468,7 +468,7 @@
             "value_src": "default_prop"
           },
           "FREQ_HZ": {
-            "value": "200000000",
+            "value": "50000000",
             "value_src": "user_prop"
           },
           "INSERT_VIP": {

@@ -54,5 +54,7 @@
 
 # List of all the clock needed for AXI Intc v4.1 core
 
-create_clock -name s_axi_aclk -period 5.000 [get_ports s_axi_aclk]
+create_clock -name s_axi_aclk -period 20.000 [get_ports s_axi_aclk] 
 set_property -quiet HD.CLK_SRC BUFGCTRL_X0Y0 [get_ports s_axi_aclk]
+create_clock -name processor_clk -period 4.000 [get_ports processor_clk]
+set_property -quiet HD.CLK_SRC BUFGCTRL_X0Y1 [get_ports processor_clk]

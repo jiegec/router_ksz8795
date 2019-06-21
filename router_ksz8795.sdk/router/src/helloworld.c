@@ -71,7 +71,7 @@ int main() {
     macaddr_t dst_mac;
     int if_index;
     int res = HAL_ReceiveIPPacket(mask, packet, sizeof(packet), src_mac,
-                                  dst_mac, -1, &if_index);
+                                  dst_mac, 1000, &if_index);
     if (res < 0) {
       xil_printf("loop failed with %d\r\n", res);
       break;
@@ -87,6 +87,8 @@ int main() {
       if (HAL_ArpGetMacAddress(1 - if_index, 0x0200000a + ((1 - if_index) << 16), dst_mac) == 0) {
         HAL_SendIPPacket(1 - if_index, packet, res, dst_mac);
       }
+    } else {
+      xil_printf("timeout\r\n");
     }
   }
 
